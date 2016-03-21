@@ -30,6 +30,7 @@ Sync models to database:
 ```bash
 $ ./manage.py migrate
 ```
+
 Create a superuser account to access the admin:
 
 ```bash
@@ -51,6 +52,7 @@ $ coverage run manage.py test
 $ coverage html
 $ open htmlcov/index.html
 ```
+
 ### Running tests with py.test
 
 ```bash
@@ -74,14 +76,15 @@ Please note: For Celery's import magic to work, it is important *where* the cele
 
 In development, it is often nice to be able to see emails that are being sent from your application. If you choose to use [`MailHog`](https://github.com/mailhog/MailHog) when generating the project a local SMTP server with a web interface will be available.
 
-To start the service, make sure you have nodejs installed, and then type the following::
+To start the service, make sure you have nodejs installed, and then type the following:
 
 ```bash
 $ npm install
 $ grunt serve
 ```
+
 (After the first run you only need to type `grunt serve`) This will start an email server that listens on `127.0.0.1:1025` in addition to starting your Django project and a watch task for live reload.
 
-To view messages that are sent by your application, open your browser and go to ``http://127.0.0.1:8025``
+To view messages that are sent by your application, open your browser and go to `http://127.0.0.1:8025`
 
 The email server will exit when you exit the Grunt task on the CLI with Ctrl+C.
