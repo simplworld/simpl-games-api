@@ -8,7 +8,10 @@ from serious_games_framework.mixins import AbstractTimeStampedModel
 
 @python_2_unicode_compatible
 class Action(AbstractTimeStampedModel):
-    scenario = models.ForeignKey('Scenario')
+    scenario = models.ForeignKey(
+        'Scenario',
+        related_name='actions'
+    )
     position = models.IntegerField(blank=True, null=True)
     data = JSONField(blank=True, null=True)
 
@@ -25,7 +28,10 @@ class Action(AbstractTimeStampedModel):
 
 class Decision(AbstractTimeStampedModel):
     data = JSONField(blank=True, null=True)
-    action = models.ForeignKey('Action')
+    action = models.ForeignKey(
+        'Action',
+        related_name='decisions'
+    )
 
     class Meta(object):
         verbose_name = _('decision')
@@ -35,9 +41,20 @@ class Decision(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Game(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    admins = models.ManyToManyField('users.User', blank=True, related_name='game_admins')
-    superusers = models.ManyToManyField('users.User', blank=True, related_name='game_superusers')
-    user = models.ForeignKey('users.User')
+    admins = models.ManyToManyField(
+        'users.User',
+        blank=True,
+        related_name='game_admins'
+    )
+    superusers = models.ManyToManyField(
+        'users.User',
+        blank=True,
+        related_name='game_superusers'
+    )
+    user = models.ForeignKey(
+        'users.User',
+        related_name='games'
+    )
 
     class Meta(object):
         verbose_name = _('game')
@@ -50,7 +67,10 @@ class Game(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Phase(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    game = models.ForeignKey('Game')
+    game = models.ForeignKey(
+        'Game',
+        related_name='phases'
+    )
     rounds_count = models.IntegerField(default=0)
     position = models.IntegerField(blank=True, null=True)
 
@@ -64,7 +84,10 @@ class Phase(AbstractTimeStampedModel):
 
 class Result(AbstractTimeStampedModel):
     data = JSONField(blank=True, null=True)
-    action = models.ForeignKey('Action')
+    action = models.ForeignKey(
+        'Action',
+        related_name='results'
+    )
 
     class Meta(object):
         verbose_name = _('result')
@@ -74,7 +97,10 @@ class Result(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Role(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    world = models.ForeignKey('World')
+    world = models.ForeignKey(
+        'World',
+        related_name='roles'
+    )
 
     class Meta(object):
         verbose_name = _('role')
@@ -87,8 +113,14 @@ class Role(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Round(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    world = models.ForeignKey('World')
-    phase = models.ForeignKey('Phase')
+    world = models.ForeignKey(
+        'World',
+        related_name='rounds'
+    )
+    phase = models.ForeignKey(
+        'Phase',
+        related_name='rounds'
+    )
     position = models.IntegerField(blank=True, null=True)
     state = JSONField(blank=True, null=True)
 
@@ -103,7 +135,10 @@ class Round(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Run(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    game = models.ForeignKey('Game')
+    game = models.ForeignKey(
+        'Game',
+        related_name='runs'
+    )
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
 
@@ -118,8 +153,14 @@ class Run(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Scenario(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    user = models.ForeignKey('users.User')
-    round = models.ForeignKey('Round')
+    user = models.ForeignKey(
+        'users.User',
+        related_name='scenarios'
+    )
+    round = models.ForeignKey(
+        'Round',
+        related_name='scenarios'
+    )
 
     class Meta(object):
         verbose_name = _('scenario')
@@ -132,7 +173,10 @@ class Scenario(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Webhook(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    game = models.ForeignKey('Game')
+    game = models.ForeignKey(
+        'Game',
+        related_name='webhooks'
+    )
     url = models.URLField(max_length=1000)
 
     class Meta(object):
@@ -145,7 +189,10 @@ class Webhook(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class WebhookLog(AbstractTimeStampedModel):
-    webhook = models.ForeignKey('Webhook')
+    webhook = models.ForeignKey(
+        'Webhook',
+        related_name='webhooklogs'
+    )
     status = models.IntegerField(blank=True, null=True)
     last_delivery = models.DateTimeField(blank=True, null=True)
 
@@ -163,9 +210,21 @@ class WebhookLog(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class World(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    phase = models.ForeignKey('Phase')
-    run = models.ForeignKey('Run')
-    canvas_ids = ArrayField(ArrayField(models.IntegerField()), blank=True, null=True)
+    phase = models.ForeignKey(
+        'Phase',
+        related_name='worlds'
+    )
+    run = models.ForeignKey(
+        'Run',
+        related_name='worlds'
+    )
+    canvas_ids = ArrayField(
+        ArrayField(
+            models.IntegerField()
+        ),
+        blank=True,
+        null=True
+    )
 
     class Meta(object):
         verbose_name = _('world')
