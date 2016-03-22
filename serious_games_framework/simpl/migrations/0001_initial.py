@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('rounds_count', models.IntegerField(default=0)),
                 ('position', models.IntegerField(blank=True, null=True)),
-                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.Game')),
+                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.Game')),
             ],
             options={
                 'abstract': False,
@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('position', models.IntegerField(blank=True, null=True)),
                 ('state', django.contrib.postgres.fields.jsonb.JSONField()),
-                ('phase', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.Phase')),
+                ('phase', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.Phase')),
             ],
             options={
                 'abstract': False,
@@ -98,7 +98,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('start_date', models.DateTimeField(blank=True, null=True)),
                 ('end_date', models.DateTimeField(blank=True, null=True)),
-                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.Game')),
+                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.Game')),
             ],
             options={
                 'abstract': False,
@@ -111,7 +111,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(blank=True, db_index=True, default=django.utils.timezone.now)),
                 ('updated', models.DateTimeField(blank=True)),
                 ('name', models.CharField(max_length=100)),
-                ('round', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.Round')),
+                ('round', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.Round')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -126,7 +126,7 @@ class Migration(migrations.Migration):
                 ('updated', models.DateTimeField(blank=True)),
                 ('name', models.CharField(max_length=100)),
                 ('url', models.URLField(max_length=1000)),
-                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.Game')),
+                ('game', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.Game')),
             ],
             options={
                 'abstract': False,
@@ -140,7 +140,7 @@ class Migration(migrations.Migration):
                 ('updated', models.DateTimeField(blank=True)),
                 ('status', models.IntegerField(blank=True, null=True)),
                 ('last_delivery', models.DateTimeField(blank=True, null=True)),
-                ('webhook', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.Webhook')),
+                ('webhook', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.Webhook')),
             ],
             options={
                 'abstract': False,
@@ -154,7 +154,7 @@ class Migration(migrations.Migration):
                 ('updated', models.DateTimeField(blank=True)),
                 ('name', models.CharField(max_length=100)),
                 ('canvas_ids', django.contrib.postgres.fields.ArrayField(base_field=django.contrib.postgres.fields.ArrayField(base_field=models.IntegerField(), size=None), size=None)),
-                ('run', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.Run')),
+                ('run', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.Run')),
             ],
             options={
                 'abstract': False,
@@ -163,16 +163,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='round',
             name='world',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.World'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.World'),
         ),
         migrations.AddField(
             model_name='role',
             name='world',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.World'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.World'),
         ),
         migrations.AddField(
             model_name='action',
             name='scenario',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.Scenario'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.Scenario'),
         ),
     ]

@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
-from serious_games_framework.roster.apis.urls import router as api_router
+from serious_games_framework.simpl.apis.urls import router as api_router
 
 
 urlpatterns = [

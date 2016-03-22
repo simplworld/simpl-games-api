@@ -11,7 +11,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('roster', '0004_auto_20160315_1518'),
+        ('simpl', '0004_auto_20160315_1518'),
     ]
 
     operations = [
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(blank=True, db_index=True, default=django.utils.timezone.now)),
                 ('updated', models.DateTimeField(blank=True)),
                 ('data', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
-                ('action', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.Action')),
+                ('action', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.Action')),
             ],
             options={
                 'abstract': False,
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(blank=True, db_index=True, default=django.utils.timezone.now)),
                 ('updated', models.DateTimeField(blank=True)),
                 ('data', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
-                ('action', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roster.Action')),
+                ('action', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='simpl.Action')),
             ],
             options={
                 'abstract': False,

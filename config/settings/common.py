@@ -48,7 +48,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'serious_games_framework.users',  # custom users app
     # Your stuff: custom apps go here
-    'serious_games_framework.roster',
+    'serious_games_framework.simpl',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

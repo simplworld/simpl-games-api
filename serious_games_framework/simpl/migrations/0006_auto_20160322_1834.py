@@ -10,7 +10,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('roster', '0005_decision_result'),
+        ('simpl', '0005_decision_result'),
     ]
 
     operations = [
@@ -25,12 +25,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='action',
             name='scenario',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='actions', to='roster.Scenario'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='actions', to='simpl.Scenario'),
         ),
         migrations.AlterField(
             model_name='decision',
             name='action',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='decisions', to='roster.Action'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='decisions', to='simpl.Action'),
         ),
         migrations.AlterField(
             model_name='game',
@@ -40,37 +40,37 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='phase',
             name='game',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='phases', to='roster.Game'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='phases', to='simpl.Game'),
         ),
         migrations.AlterField(
             model_name='result',
             name='action',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='results', to='roster.Action'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='results', to='simpl.Action'),
         ),
         migrations.AlterField(
             model_name='role',
             name='world',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='roles', to='roster.World'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='roles', to='simpl.World'),
         ),
         migrations.AlterField(
             model_name='round',
             name='phase',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='rounds', to='roster.Phase'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='rounds', to='simpl.Phase'),
         ),
         migrations.AlterField(
             model_name='round',
             name='world',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='rounds', to='roster.World'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='rounds', to='simpl.World'),
         ),
         migrations.AlterField(
             model_name='run',
             name='game',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='runs', to='roster.Game'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='runs', to='simpl.Game'),
         ),
         migrations.AlterField(
             model_name='scenario',
             name='round',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='scenarios', to='roster.Round'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='scenarios', to='simpl.Round'),
         ),
         migrations.AlterField(
             model_name='scenario',
@@ -80,16 +80,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='webhook',
             name='game',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='webhooks', to='roster.Game'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='webhooks', to='simpl.Game'),
         ),
         migrations.AlterField(
             model_name='webhooklog',
             name='webhook',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='webhooklogs', to='roster.Webhook'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='webhooklogs', to='simpl.Webhook'),
         ),
         migrations.AlterField(
             model_name='world',
             name='run',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='worlds', to='roster.Run'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='worlds', to='simpl.Run'),
         ),
     ]

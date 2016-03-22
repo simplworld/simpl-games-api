@@ -9,18 +9,18 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('roster', '0007_phase_world'),
+        ('simpl', '0007_phase_world'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='round',
             name='current_phase',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='current_rounds', to='roster.Phase'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='current_rounds', to='simpl.Phase'),
         ),
         migrations.AddField(
             model_name='world',
             name='current_phase',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='worlds', to='roster.Phase'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='worlds', to='simpl.Phase'),
         ),
     ]
