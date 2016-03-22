@@ -73,7 +73,9 @@ class Phase(AbstractTimeStampedModel):
     )
     world = models.ForeignKey(
         'World',
-        related_name='phases'
+        related_name='phases',
+        blank=True,
+        null=True
     )
     rounds_count = models.IntegerField(default=0)
     position = models.IntegerField(blank=True, null=True)
@@ -125,6 +127,14 @@ class Round(AbstractTimeStampedModel):
         'Phase',
         related_name='rounds'
     )
+    '''
+    current_phase = models.ForeignKey(
+        'Phase',
+        related_name='current_rounds',
+        blank=True,
+        null=True
+    )
+    '''
     position = models.IntegerField(blank=True, null=True)
     state = JSONField(blank=True, null=True)
 
@@ -218,6 +228,14 @@ class World(AbstractTimeStampedModel):
         'Run',
         related_name='worlds'
     )
+    '''
+    current_phase = models.ForeignKey(
+        'Phase',
+        related_name='worlds',
+        blank=True,
+        null=True
+    )
+    '''
     canvas_ids = ArrayField(
         ArrayField(
             models.IntegerField()
