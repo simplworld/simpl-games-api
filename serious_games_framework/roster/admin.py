@@ -64,11 +64,13 @@ class PhaseAdmin(TimeStampedAdmin):
     list_display = (
         'name',
         'game',
+        'world',
         'rounds_count',
         'position',
     )
     raw_id_fields = [
         'game',
+        'world',
     ]
 
 
@@ -100,11 +102,13 @@ class RoundAdmin(TimeStampedAdmin):
         'name',
         'world',
         'phase',
+        'current_phase',
         'position',
     )
     raw_id_fields = [
         'world',
         'phase',
+        'current_phase',
     ]
 
 
@@ -163,7 +167,9 @@ class WorldAdmin(TimeStampedAdmin):
     list_display = (
         'name',
         'run',
+        'current_phase',
     )
     raw_id_fields = [
         'run',
+        'current_phase',
     ]
