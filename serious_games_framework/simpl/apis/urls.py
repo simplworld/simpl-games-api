@@ -6,10 +6,10 @@ from . import views
 router = DefaultRouter()
 
 router.register(r'action', views.ActionViewSet)
-router.register(r'decision', views.DecisionSerializer)
+router.register(r'decision', views.DecisionViewSet)
 router.register(r'game', views.GameViewSet)
 router.register(r'phase', views.PhaseViewSet)
-router.register(r'result', views.ResultSerializer)
+router.register(r'result', views.ResultViewSet)
 router.register(r'role', views.RoleViewSet)
 router.register(r'round', views.RoundViewSet)
 router.register(r'run', views.RunViewSet)

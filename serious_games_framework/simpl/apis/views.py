@@ -78,6 +78,67 @@ class ActionViewSet(CommonViewSet):
         return super(ActionViewSet, self).update(request, pk=pk)
 
 
+class DecisionViewSet(CommonViewSet):
+    """ Decision resource. """
+
+    queryset = models.Decision.objects.all()
+    serializer_class = serializers.DecisionSerializer
+    filter_backends = (
+        filters.DjangoFilterBackend,
+        # filters.SearchFilter,
+    )
+    filter_fields = (
+        # 'name',
+    )
+    ordering_fields = (
+        'created',
+        'modified',
+    )
+
+    def create(self, request):
+        """
+        Add a new Decision
+        """
+        return super(DecisionViewSet, self).create(request)
+
+    def destroy(self, request, pk=None):
+        """
+        Delete an Decision
+        """
+        return super(DecisionViewSet, self).destroy(request, pk=pk)
+
+    def list(self, request):
+        """
+        Returns a list of Decisions
+        ---
+        parameters:
+            - name: name
+              type: string
+              paramType: query
+              required: false
+              description: Filters Decisions per Name via name
+        """
+        return super(DecisionViewSet, self).list(request)
+
+    def partial_update(self, request, pk=None):
+        """
+        Update an existing Decision
+        """
+        return super(DecisionViewSet, self).partial_update(request, pk=pk)
+
+    def retrieve(self, request, pk=None):
+        """
+        Find an Decision by ID
+        """
+        return super(DecisionViewSet, self).retrieve(request, pk=pk)
+
+    def update(self, request, pk=None):
+        """
+        Update an existing Decision
+        """
+        return super(DecisionViewSet, self).update(request, pk=pk)
+
+
 class GameViewSet(CommonViewSet):
     """ Game resource. """
 
@@ -198,6 +259,67 @@ class PhaseViewSet(CommonViewSet):
         Update an existing Phase
         """
         return super(PhaseViewSet, self).update(request, pk=pk)
+
+
+class ResultViewSet(CommonViewSet):
+    """ Result resource. """
+
+    queryset = models.Result.objects.all()
+    serializer_class = serializers.ResultSerializer
+    filter_backends = (
+        filters.DjangoFilterBackend,
+        # filters.SearchFilter,
+    )
+    filter_fields = (
+        # 'name',
+    )
+    ordering_fields = (
+        'created',
+        'modified',
+    )
+
+    def create(self, request):
+        """
+        Add a new Result
+        """
+        return super(ResultViewSet, self).create(request)
+
+    def destroy(self, request, pk=None):
+        """
+        Delete an Result
+        """
+        return super(ResultViewSet, self).destroy(request, pk=pk)
+
+    def list(self, request):
+        """
+        Returns a list of Results
+        ---
+        parameters:
+            - name: name
+              type: string
+              paramType: query
+              required: false
+              description: Filters Results per Name via name
+        """
+        return super(ResultViewSet, self).list(request)
+
+    def partial_update(self, request, pk=None):
+        """
+        Update an existing Result
+        """
+        return super(ResultViewSet, self).partial_update(request, pk=pk)
+
+    def retrieve(self, request, pk=None):
+        """
+        Find an Result by ID
+        """
+        return super(ResultViewSet, self).retrieve(request, pk=pk)
+
+    def update(self, request, pk=None):
+        """
+        Update an existing Result
+        """
+        return super(ResultViewSet, self).update(request, pk=pk)
 
 
 class RoleViewSet(CommonViewSet):
