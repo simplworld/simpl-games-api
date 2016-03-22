@@ -31,6 +31,17 @@ class ActionAdmin(TimeStampedAdmin):
     ]
 
 
+@admin.register(models.Decision)
+class DecisionAdmin(TimeStampedAdmin):
+    list_display = (
+        'action',
+        'created',
+    )
+    raw_id_fields = [
+        'action',
+    ]
+
+
 @admin.register(models.Game)
 class GameAdmin(TimeStampedAdmin):
     filter_horizontal = (
@@ -58,6 +69,17 @@ class PhaseAdmin(TimeStampedAdmin):
     )
     raw_id_fields = [
         'game',
+    ]
+
+
+@admin.register(models.Result)
+class ResultAdmin(TimeStampedAdmin):
+    list_display = (
+        'action',
+        'created',
+    )
+    raw_id_fields = [
+        'action',
     ]
 
 
@@ -140,8 +162,10 @@ class WebhookLogAdmin(TimeStampedAdmin):
 class WorldAdmin(TimeStampedAdmin):
     list_display = (
         'name',
+        'phase',
         'run',
     )
     raw_id_fields = [
+        'phase',
         'run',
     ]

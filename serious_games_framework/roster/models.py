@@ -23,6 +23,15 @@ class Action(AbstractTimeStampedModel):
         )
 
 
+class Decision(AbstractTimeStampedModel):
+    data = JSONField(blank=True, null=True)
+    action = models.ForeignKey('Action')
+
+    class Meta(object):
+        verbose_name = _('decision')
+        verbose_name_plural = _('decisions')
+
+
 @python_2_unicode_compatible
 class Game(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
@@ -51,6 +60,15 @@ class Phase(AbstractTimeStampedModel):
 
     def __str__(self):
         return self.name
+
+
+class Result(AbstractTimeStampedModel):
+    data = JSONField(blank=True, null=True)
+    action = models.ForeignKey('Action')
+
+    class Meta(object):
+        verbose_name = _('result')
+        verbose_name_plural = _('results')
 
 
 @python_2_unicode_compatible
@@ -145,6 +163,7 @@ class WebhookLog(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class World(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
+    phase = models.ForeignKey('Phase')
     run = models.ForeignKey('Run')
     canvas_ids = ArrayField(ArrayField(models.IntegerField()), blank=True, null=True)
 
