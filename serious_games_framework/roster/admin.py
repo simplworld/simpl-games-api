@@ -162,10 +162,8 @@ class WebhookLogAdmin(TimeStampedAdmin):
 class WorldAdmin(TimeStampedAdmin):
     list_display = (
         'name',
-        'phase',
         'run',
     )
     raw_id_fields = [
-        'phase',
         'run',
     ]

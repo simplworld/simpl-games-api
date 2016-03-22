@@ -71,6 +71,10 @@ class Phase(AbstractTimeStampedModel):
         'Game',
         related_name='phases'
     )
+    world = models.ForeignKey(
+        'World',
+        related_name='phases'
+    )
     rounds_count = models.IntegerField(default=0)
     position = models.IntegerField(blank=True, null=True)
 
@@ -210,10 +214,6 @@ class WebhookLog(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class World(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    phase = models.ForeignKey(
-        'Phase',
-        related_name='worlds'
-    )
     run = models.ForeignKey(
         'Run',
         related_name='worlds'
