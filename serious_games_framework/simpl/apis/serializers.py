@@ -13,6 +13,15 @@ class ActionSerializer(ModelSerializer):
         )
 
 
+class DecisionSerializer(ModelSerializer):
+    class Meta:
+        model = models.Decision
+        read_only_fields = (
+            'created',
+            'updated',
+        )
+
+
 class GameSerializer(ModelSerializer):
     class Meta:
         model = models.Game
@@ -25,6 +34,15 @@ class GameSerializer(ModelSerializer):
 class PhaseSerializer(ModelSerializer):
     class Meta:
         model = models.Phase
+        read_only_fields = (
+            'created',
+            'updated',
+        )
+
+
+class ResultSerializer(ModelSerializer):
+    class Meta:
+        model = models.Result
         read_only_fields = (
             'created',
             'updated',
