@@ -130,6 +130,8 @@ class ScenarioAdmin(TimeStampedAdmin):
     raw_id_fields = [
         'creator_user',
         'round',
+        'current_period',
+        'last_period',
     ]
 
 

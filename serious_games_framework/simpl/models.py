@@ -169,6 +169,21 @@ class Scenario(AbstractTimeStampedModel):
         'Round',
         related_name='scenarios'
     )
+    player_periods = models.IntegerField(blank=True, null=True)
+    current_period = models.ForeignKey(
+        'Period',
+        blank=True,
+        null=True,
+        related_name='current_period_scenarios'
+    )
+    last_period = models.ForeignKey(
+        'Period',
+        blank=True,
+        null=True,
+        related_name='last_period_scenarios'
+    )
+    seed_periods = models.IntegerField(blank=True, null=True)
+    total_periods = models.IntegerField(blank=True, null=True)
 
     class Meta(object):
         verbose_name = _('scenario')
