@@ -4,15 +4,6 @@ from rest_framework.serializers import ModelSerializer, Serializer
 from .. import models
 
 
-class ActionSerializer(ModelSerializer):
-    class Meta:
-        model = models.Action
-        read_only_fields = (
-            'created',
-            'updated',
-        )
-
-
 class DecisionSerializer(ModelSerializer):
     class Meta:
         model = models.Decision
@@ -25,6 +16,15 @@ class DecisionSerializer(ModelSerializer):
 class GameSerializer(ModelSerializer):
     class Meta:
         model = models.Game
+        read_only_fields = (
+            'created',
+            'updated',
+        )
+
+
+class PeriodSerializer(ModelSerializer):
+    class Meta:
+        model = models.Period
         read_only_fields = (
             'created',
             'updated',

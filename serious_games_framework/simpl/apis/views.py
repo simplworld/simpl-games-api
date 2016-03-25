@@ -17,67 +17,6 @@ class CommonViewSet(viewsets.ModelViewSet):
 
 # Views
 
-class ActionViewSet(CommonViewSet):
-    """ Action resource. """
-
-    queryset = models.Action.objects.all()
-    serializer_class = serializers.ActionSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        # 'name',
-    )
-    ordering_fields = (
-        'created',
-        'modified',
-    )
-
-    def create(self, request):
-        """
-        Add a new Action
-        """
-        return super(ActionViewSet, self).create(request)
-
-    def destroy(self, request, pk=None):
-        """
-        Delete an Action
-        """
-        return super(ActionViewSet, self).destroy(request, pk=pk)
-
-    def list(self, request):
-        """
-        Returns a list of Actions
-        ---
-        parameters:
-            - name: name
-              type: string
-              paramType: query
-              required: false
-              description: Filters Actions per Name via name
-        """
-        return super(ActionViewSet, self).list(request)
-
-    def partial_update(self, request, pk=None):
-        """
-        Update an existing Action
-        """
-        return super(ActionViewSet, self).partial_update(request, pk=pk)
-
-    def retrieve(self, request, pk=None):
-        """
-        Find an Action by ID
-        """
-        return super(ActionViewSet, self).retrieve(request, pk=pk)
-
-    def update(self, request, pk=None):
-        """
-        Update an existing Action
-        """
-        return super(ActionViewSet, self).update(request, pk=pk)
-
-
 class DecisionViewSet(CommonViewSet):
     """ Decision resource. """
 
@@ -198,6 +137,67 @@ class GameViewSet(CommonViewSet):
         Update an existing Game
         """
         return super(GameViewSet, self).update(request, pk=pk)
+
+
+class PeriodViewSet(CommonViewSet):
+    """ Period resource. """
+
+    queryset = models.Period.objects.all()
+    serializer_class = serializers.PeriodSerializer
+    filter_backends = (
+        filters.DjangoFilterBackend,
+        # filters.SearchFilter,
+    )
+    filter_fields = (
+        # 'name',
+    )
+    ordering_fields = (
+        'created',
+        'modified',
+    )
+
+    def create(self, request):
+        """
+        Add a new Period
+        """
+        return super(PeriodViewSet, self).create(request)
+
+    def destroy(self, request, pk=None):
+        """
+        Delete an Period
+        """
+        return super(PeriodViewSet, self).destroy(request, pk=pk)
+
+    def list(self, request):
+        """
+        Returns a list of Periods
+        ---
+        parameters:
+            - name: name
+              type: string
+              paramType: query
+              required: false
+              description: Filters Periods per Name via name
+        """
+        return super(PeriodViewSet, self).list(request)
+
+    def partial_update(self, request, pk=None):
+        """
+        Update an existing Period
+        """
+        return super(PeriodViewSet, self).partial_update(request, pk=pk)
+
+    def retrieve(self, request, pk=None):
+        """
+        Find an Period by ID
+        """
+        return super(PeriodViewSet, self).retrieve(request, pk=pk)
+
+    def update(self, request, pk=None):
+        """
+        Update an existing Period
+        """
+        return super(PeriodViewSet, self).update(request, pk=pk)
 
 
 class PhaseViewSet(CommonViewSet):

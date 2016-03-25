@@ -19,26 +19,15 @@ class WebhookInline(TimeStampedTabularInline):
 
 # Model Admins
 
-@admin.register(models.Action)
-class ActionAdmin(TimeStampedAdmin):
-    list_display = (
-        'scenario',
-        'position',
-        'created',
-    )
-    raw_id_fields = [
-        'scenario',
-    ]
-
-
 @admin.register(models.Decision)
 class DecisionAdmin(TimeStampedAdmin):
     list_display = (
-        'action',
+        'name',
+        'period',
         'created',
     )
     raw_id_fields = [
-        'action',
+        'period',
     ]
 
 
@@ -56,6 +45,18 @@ class GameAdmin(TimeStampedAdmin):
     )
     raw_id_fields = [
         'user',
+    ]
+
+
+@admin.register(models.Period)
+class PeriodAdmin(TimeStampedAdmin):
+    list_display = (
+        'scenario',
+        'position',
+        'created',
+    )
+    raw_id_fields = [
+        'scenario',
     ]
 
 
@@ -77,11 +78,12 @@ class PhaseAdmin(TimeStampedAdmin):
 @admin.register(models.Result)
 class ResultAdmin(TimeStampedAdmin):
     list_display = (
-        'action',
+        'name',
+        'period',
         'created',
     )
     raw_id_fields = [
-        'action',
+        'period',
     ]
 
 

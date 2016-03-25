@@ -7,35 +7,20 @@ from serious_games_framework.mixins import AbstractTimeStampedModel
 
 
 @python_2_unicode_compatible
-class Action(AbstractTimeStampedModel):
-    scenario = models.ForeignKey(
-        'Scenario',
-        related_name='actions'
-    )
-    position = models.IntegerField(blank=True, null=True)
-    data = JSONField(blank=True, null=True)
-
-    class Meta(object):
-        verbose_name = _('action')
-        verbose_name_plural = _('actions')
-
-    def __str__(self):
-        return '{0}: {1}'.format(
-            self.scenario.name,
-            self.position
-        )
-
-
 class Decision(AbstractTimeStampedModel):
+    name = models.CharField(max_length=100)
     data = JSONField(blank=True, null=True)
-    action = models.ForeignKey(
-        'Action',
+    period = models.ForeignKey(
+        'Period',
         related_name='decisions'
     )
 
     class Meta(object):
         verbose_name = _('decision')
         verbose_name_plural = _('decisions')
+
+    def __str__(self):
+        return self.name
 
 
 @python_2_unicode_compatible
@@ -88,16 +73,41 @@ class Phase(AbstractTimeStampedModel):
         return self.name
 
 
-class Result(AbstractTimeStampedModel):
+@python_2_unicode_compatible
+class Period(AbstractTimeStampedModel):
+    scenario = models.ForeignKey(
+        'Scenario',
+        related_name='periods'
+    )
+    position = models.IntegerField(blank=True, null=True)
     data = JSONField(blank=True, null=True)
-    action = models.ForeignKey(
-        'Action',
+
+    class Meta(object):
+        verbose_name = _('period')
+        verbose_name_plural = _('periods')
+
+    def __str__(self):
+        return '{0}: {1}'.format(
+            self.scenario.name,
+            self.position
+        )
+
+
+@python_2_unicode_compatible
+class Result(AbstractTimeStampedModel):
+    name = models.CharField(max_length=100)
+    data = JSONField(blank=True, null=True)
+    period = models.ForeignKey(
+        'Period',
         related_name='results'
     )
 
     class Meta(object):
         verbose_name = _('result')
         verbose_name_plural = _('results')
+
+    def __str__(self):
+        return self.name
 
 
 @python_2_unicode_compatible
@@ -153,6 +163,7 @@ class Run(AbstractTimeStampedModel):
     )
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
+    data = JSONField(blank=True, null=True)
 
     class Meta(object):
         verbose_name = _('run')
