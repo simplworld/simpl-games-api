@@ -100,14 +100,10 @@ class RoundAdmin(TimeStampedAdmin):
     list_display = (
         'name',
         'world',
-        'phase',
-        'current_phase',
-        'position',
+        'order',
     )
     raw_id_fields = [
         'world',
-        'phase',
-        'current_phase',
     ]
 
 

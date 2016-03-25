@@ -127,17 +127,7 @@ class Round(AbstractTimeStampedModel):
         'World',
         related_name='rounds'
     )
-    phase = models.ForeignKey(
-        'Phase',
-        related_name='rounds'
-    )
-    current_phase = models.ForeignKey(
-        'Phase',
-        related_name='current_rounds',
-        blank=True,
-        null=True
-    )
-    position = models.IntegerField(blank=True, null=True)
+    order = models.IntegerField(blank=True, null=True)
     state = JSONField(blank=True, null=True)
 
     class Meta(object):
