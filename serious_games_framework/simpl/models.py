@@ -8,6 +8,7 @@ from serious_games_framework.mixins import AbstractTimeStampedModel
 
 @python_2_unicode_compatible
 class Decision(AbstractTimeStampedModel):
+    # TODO: Connect to Role...
     name = models.CharField(max_length=100)
     data = JSONField(blank=True, null=True)
     period = models.ForeignKey(
