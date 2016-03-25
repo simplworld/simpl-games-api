@@ -57,14 +57,7 @@ class Phase(AbstractTimeStampedModel):
         'Game',
         related_name='phases'
     )
-    world = models.ForeignKey(
-        'World',
-        related_name='phases',
-        blank=True,
-        null=True
-    )
-    rounds_count = models.IntegerField(default=0)
-    position = models.IntegerField(blank=True, null=True)
+    order = models.IntegerField(blank=True, null=True)
 
     class Meta(object):
         verbose_name = _('phase')
@@ -238,12 +231,7 @@ class World(AbstractTimeStampedModel):
         'Run',
         related_name='worlds'
     )
-    current_phase = models.ForeignKey(
-        'Phase',
-        related_name='worlds',
-        blank=True,
-        null=True
-    )
+    data = JSONField(blank=True, null=True)
     canvas_ids = ArrayField(
         ArrayField(
             models.IntegerField()
