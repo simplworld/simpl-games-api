@@ -111,6 +111,7 @@ class Role(AbstractTimeStampedModel):
         'World',
         related_name='roles'
     )
+    data = JSONField(blank=True, null=True)
 
     class Meta(object):
         verbose_name = _('role')
