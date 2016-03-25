@@ -161,7 +161,7 @@ class Run(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Scenario(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    user = models.ForeignKey(
+    creator_user = models.ForeignKey(
         'users.User',
         related_name='scenarios'
     )
