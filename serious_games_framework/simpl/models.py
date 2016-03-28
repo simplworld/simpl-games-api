@@ -38,23 +38,6 @@ class Game(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
-class Phase(AbstractTimeStampedModel):
-    name = models.CharField(max_length=100)
-    game = models.ForeignKey(
-        'Game',
-        related_name='phases'
-    )
-    order = models.IntegerField(blank=True, null=True)
-
-    class Meta(object):
-        verbose_name = _('phase')
-        verbose_name_plural = _('phases')
-
-    def __str__(self):
-        return self.name
-
-
-@python_2_unicode_compatible
 class Period(AbstractTimeStampedModel):
     scenario = models.ForeignKey(
         'Scenario',
@@ -72,6 +55,23 @@ class Period(AbstractTimeStampedModel):
             self.scenario.name,
             self.order
         )
+
+
+@python_2_unicode_compatible
+class Phase(AbstractTimeStampedModel):
+    name = models.CharField(max_length=100)
+    game = models.ForeignKey(
+        'Game',
+        related_name='phases'
+    )
+    order = models.IntegerField(blank=True, null=True)
+
+    class Meta(object):
+        verbose_name = _('phase')
+        verbose_name_plural = _('phases')
+
+    def __str__(self):
+        return self.name
 
 
 @python_2_unicode_compatible
