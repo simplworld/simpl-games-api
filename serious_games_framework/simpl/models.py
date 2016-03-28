@@ -115,7 +115,7 @@ class Round(AbstractTimeStampedModel):
         related_name='rounds'
     )
     order = models.IntegerField(blank=True, null=True)
-    state = JSONField(blank=True, null=True)
+    data = JSONField(blank=True, null=True)
 
     class Meta(object):
         verbose_name = _('round')
@@ -134,7 +134,7 @@ class Run(AbstractTimeStampedModel):
     )
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
-    state = JSONField(blank=True, null=True)
+    data = JSONField(blank=True, null=True)
 
     class Meta(object):
         verbose_name = _('run')
