@@ -33,19 +33,12 @@ class DecisionAdmin(TimeStampedAdmin):
 
 @admin.register(models.Game)
 class GameAdmin(TimeStampedAdmin):
-    filter_horizontal = (
-        'admins',
-        'superusers',
-    )
     inlines = [
         WebhookInline,
     ]
     list_display = (
         'name',
     )
-    raw_id_fields = [
-        'user',
-    ]
 
 
 @admin.register(models.Period)

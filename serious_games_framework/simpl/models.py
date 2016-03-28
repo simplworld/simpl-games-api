@@ -27,20 +27,6 @@ class Decision(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Game(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    admins = models.ManyToManyField(
-        'users.User',
-        blank=True,
-        related_name='game_admins'
-    )
-    superusers = models.ManyToManyField(
-        'users.User',
-        blank=True,
-        related_name='game_superusers'
-    )
-    user = models.ForeignKey(
-        'users.User',
-        related_name='games'
-    )
 
     class Meta(object):
         verbose_name = _('game')
@@ -148,7 +134,7 @@ class Run(AbstractTimeStampedModel):
     )
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
-    data = JSONField(blank=True, null=True)
+    state = JSONField(blank=True, null=True)
 
     class Meta(object):
         verbose_name = _('run')
