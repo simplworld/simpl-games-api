@@ -10,8 +10,8 @@ from .. import models
 # Mixins
 
 class CommonViewSet(viewsets.ModelViewSet):
-    # authentication_classes = (SessionAuthentication, BasicAuthentication)
-    # permission_classes = (IsAuthenticated,)
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
     pass
 
 
