@@ -60,7 +60,7 @@ class Period(AbstractTimeStampedModel):
         'Scenario',
         related_name='periods'
     )
-    position = models.IntegerField(blank=True, null=True)
+    order = models.IntegerField(blank=True, null=True)
     data = JSONField(blank=True, null=True)
 
     class Meta(object):
@@ -70,7 +70,7 @@ class Period(AbstractTimeStampedModel):
     def __str__(self):
         return '{0}: {1}'.format(
             self.scenario.name,
-            self.position
+            self.order
         )
 
 
