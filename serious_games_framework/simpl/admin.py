@@ -46,6 +46,7 @@ class GameAdmin(TimeStampedAdmin):
 class PeriodAdmin(TimeStampedAdmin):
     list_display = (
         'scenario',
+        'number',
         'order',
         'created',
     )
