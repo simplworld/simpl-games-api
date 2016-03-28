@@ -27,6 +27,7 @@ class Decision(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Game(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
+    active = models.BooleanField(default=True)
 
     class Meta(object):
         verbose_name = _('game')
@@ -128,6 +129,7 @@ class Round(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Run(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
+    active = models.BooleanField(default=True)
     game = models.ForeignKey(
         'Game',
         related_name='runs'

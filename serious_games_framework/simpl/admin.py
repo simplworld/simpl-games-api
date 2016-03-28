@@ -38,6 +38,7 @@ class GameAdmin(TimeStampedAdmin):
     ]
     list_display = (
         'name',
+        'active',
     )
 
 
@@ -104,6 +105,7 @@ class RoundAdmin(TimeStampedAdmin):
 class RunAdmin(TimeStampedAdmin):
     list_display = (
         'name',
+        'active',
         'game',
         'start_date',
         'end_date',
