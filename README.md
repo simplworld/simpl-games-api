@@ -13,16 +13,10 @@ Create a database (defaults to Postgres):
 $ createdb serious_games_framework
 ```
 
-Install requirements. For production, use:
+Install requirements:
 
 ```bash
 $ pip install -r requirements.txt
-```
-
-For local development and testing, use:
-
-```bash
-$ pip install -r requirements/local.txt
 ```
 
 Setup your `DJANGO_SETTINGS_MODULE` to use:
