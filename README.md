@@ -13,10 +13,16 @@ Create a database (defaults to Postgres):
 $ createdb serious_games_framework
 ```
 
-Install requirements:
+Install requirements. For production, use:
 
 ```bash
 $ pip install -r requirements.txt
+```
+
+For local development and testing, use:
+
+```bash
+$ pip install -r requirements/local.txt
 ```
 
 Setup your `DJANGO_SETTINGS_MODULE` to use:
@@ -43,34 +49,11 @@ Start the web server:
 $ ./manage.py runserver
 ```
 
-## Test coverage
-
-To run the tests, check your test coverage, and generate an HTML coverage report:
-
-```bash
-$ coverage run manage.py test
-$ coverage html
-$ open htmlcov/index.html
-```
-
 ### Running tests with py.test
 
 ```bash
 $ py.test
 ```
-
-## Celery
-
-This app comes with Celery.
-
-To run a celery worker:
-
-```bash
-cd serious_games_framework
-celery -A serious_games_framework.taskapp worker -l info
-```
-
-Please note: For Celery's import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
 
 ## Email Server
 
