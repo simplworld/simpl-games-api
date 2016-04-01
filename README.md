@@ -4,8 +4,14 @@ Serious Games Framework
 
 ## Getting Started
 
-Make sure you are using a virtual environment of some sort (e.g. `virtualenv` or
-`pyenv`).
+Make sure you are working in a virtual environment of some sort (e.g. 'virtualenv').
+
+
+If you are working in Vagrant using virtualenv, add serious-games-framework to the code path:
+
+```bash
+$ add2virtualenv /vagrant/html/serious-games-framework
+```
 
 Create a database (defaults to Postgres):
 
@@ -40,6 +46,7 @@ $ ./manage.py createsuperuser
 Start the web server:
 
 ```bash
+$ ./manage.py collectstatic
 $ ./manage.py runserver
 ```
 
