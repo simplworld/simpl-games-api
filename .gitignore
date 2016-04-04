@@ -63,3 +63,6 @@ tests/.hitch
 
 # MailHog binary
 mailhog
+
+# Django
+staticfiles/
