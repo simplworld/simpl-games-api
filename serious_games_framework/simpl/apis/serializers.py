@@ -76,6 +76,15 @@ class RunSerializer(ModelSerializer):
         )
 
 
+class RunUserSerializer(ModelSerializer):
+    class Meta:
+        model = models.RunUser
+        read_only_fields = (
+            'created',
+            'updated',
+        )
+
+
 class ScenarioSerializer(ModelSerializer):
     class Meta:
         model = models.Scenario

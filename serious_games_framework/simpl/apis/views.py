@@ -505,6 +505,67 @@ class RunViewSet(CommonViewSet):
         return super(RunViewSet, self).update(request, pk=pk)
 
 
+class RunUserViewSet(CommonViewSet):
+    """ RunUser resource. """
+
+    queryset = models.RunUser.objects.all()
+    serializer_class = serializers.RunUserSerializer
+    filter_backends = (
+        filters.DjangoFilterBackend,
+        # filters.SearchFilter,
+    )
+    filter_fields = (
+        # 'name',
+    )
+    ordering_fields = (
+        'created',
+        'modified',
+    )
+
+    def create(self, request):
+        """
+        Add a new RunUser
+        """
+        return super(RunUserViewSet, self).create(request)
+
+    def destroy(self, request, pk=None):
+        """
+        Delete a RunUser
+        """
+        return super(RunUserViewSet, self).destroy(request, pk=pk)
+
+    def list(self, request):
+        """
+        Returns a list of RunUsers
+        ---
+        parameters:
+            - name: name
+              type: string
+              paramType: query
+              required: false
+              description: Filters RunUsers per Name via name
+        """
+        return super(RunUserViewSet, self).list(request)
+
+    def partial_update(self, request, pk=None):
+        """
+        Update an existing RunUser
+        """
+        return super(RunUserViewSet, self).partial_update(request, pk=pk)
+
+    def retrieve(self, request, pk=None):
+        """
+        Find an RunUser by ID
+        """
+        return super(RunUserViewSet, self).retrieve(request, pk=pk)
+
+    def update(self, request, pk=None):
+        """
+        Update an existing RunUser
+        """
+        return super(RunUserViewSet, self).update(request, pk=pk)
+
+
 class ScenarioViewSet(CommonViewSet):
     """ Scenario resource. """
 
