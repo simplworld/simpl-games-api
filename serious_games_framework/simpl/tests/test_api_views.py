@@ -584,6 +584,101 @@ class RunTestCase(BaseAPITestCase):
             self.assertEqual(response.status_code, 200)
 
 
+class RunUserTestCase(BaseAPITestCase):
+
+    def setUp(self):
+        super(RunUserTestCase, self).setUp()
+
+        self.runuser = factory.make('simpl.RunUser')
+
+    def test_create(self):
+        url = reverse('api:runuser-list')
+
+        obj = factory.make('simpl.RunUser')
+        payload = serializers.RunUserSerializer(obj).data
+
+        # Does this api work without auth?
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, 403)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.client.post(url, payload, format='json')
+            self.assertEqual(response.status_code, 201)
+            self.assertNotEqual(len(response.data), 0)
+
+    def test_delete(self):
+        url = reverse('api:runuser-detail', kwargs={'pk': self.runuser.pk})
+
+        # Does this api work without auth?
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, 403)
+
+        # Does this api work with auth?
+        self.login(self.user)
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, 204)
+
+        # Verify that the object is gone?
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, 404)
+
+    def test_detail(self):
+        url = reverse('api:runuser-detail', kwargs={'pk': self.runuser.pk})
+
+        # Does this api work without auth?
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, 403)
+
+        # Does this api work with auth?
+        self.login(self.user)
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertNotEqual(len(response.data), 0)
+
+    def test_list(self):
+        url = reverse('api:runuser-list')
+
+        # Does this api work without auth?
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, 403)
+
+        # Does this api work with auth?
+        self.login(self.user)
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertNotEqual(len(response.data), 0)
+
+    def test_update(self):
+        obj = self.runuser
+        url = reverse('api:runuser-detail', kwargs={'pk': obj.pk})
+
+        old_facilitator = obj.facilitator
+        payload = serializers.RunUserSerializer(obj).data
+
+        # Does this api work without auth?
+        response = self.client.put(url, payload, format='json')
+        self.assertEqual(response.status_code, 403)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            obj.facilitator = True
+            payload = serializers.RunUserSerializer(obj).data
+
+            response = self.client.put(url, payload, format='json')
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(response.data['facilitator'] != old_facilitator)
+
+            obj.name = self.faker.name()
+            payload = serializers.RunUserSerializer(obj).data
+
+            # Test Updating Reversions
+            obj.facilitator = old_facilitator
+            payload = serializers.RunUserSerializer(obj).data
+            response = self.client.put(url, payload, format='json')
+            self.assertEqual(response.status_code, 200)
+
+
 class ScenarioTestCase(BaseAPITestCase):
 
     def setUp(self):
