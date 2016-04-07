@@ -537,13 +537,6 @@ class RunUserViewSet(CommonViewSet):
     def list(self, request):
         """
         Returns a list of RunUsers
-        ---
-        parameters:
-            - name: name
-              type: string
-              paramType: query
-              required: false
-              description: Filters RunUsers per Name via name
         """
         return super(RunUserViewSet, self).list(request)
 
