@@ -116,6 +116,21 @@ class RunAdmin(TimeStampedAdmin):
     ]
 
 
+@admin.register(models.RunUser)
+class RunUserAdmin(TimeStampedAdmin):
+    list_display = (
+        'user',
+        'active',
+        'facilitator',
+    )
+    raw_id_fields = [
+        'user',
+        'run',
+        'world',
+        'role',
+    ]
+
+
 @admin.register(models.Scenario)
 class ScenarioAdmin(TimeStampedAdmin):
     list_display = (

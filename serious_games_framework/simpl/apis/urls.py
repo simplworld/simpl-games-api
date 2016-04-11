@@ -13,6 +13,7 @@ router.register(r'result', views.ResultViewSet)
 router.register(r'role', views.RoleViewSet)
 router.register(r'round', views.RoundViewSet)
 router.register(r'run', views.RunViewSet)
+router.register(r'runuser', views.RunUserViewSet)
 router.register(r'scenario', views.ScenarioViewSet)
 router.register(r'world', views.WorldViewSet)
 

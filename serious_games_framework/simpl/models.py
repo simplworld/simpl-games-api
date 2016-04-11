@@ -148,6 +148,40 @@ class Run(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
+class RunUser(AbstractTimeStampedModel):
+    user = models.ForeignKey(
+        'users.User',
+        related_name='run_users'
+    )
+    run = models.ForeignKey(
+        'Run',
+        related_name='run_users'
+    )
+    world = models.ForeignKey(
+        'World',
+        blank=True,
+        null=True,
+        related_name='run_users'
+    )
+    role = models.ForeignKey(
+        'Role',
+        blank=True,
+        null=True,
+        related_name='run_users'
+    )
+    facilitator = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
+    data = JSONField(blank=True, null=True)
+
+    class Meta(object):
+        verbose_name = _('run user')
+        verbose_name_plural = _('run users')
+
+    def __str__(self):
+        return self.user.__str__()
+
+
+@python_2_unicode_compatible
 class Scenario(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
     creator_user = models.ForeignKey(
