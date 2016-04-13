@@ -1,0 +1,13 @@
+{% extends "simpl/base.html" %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>SIMPL Home</h1>
+  </header>
+
+  <p><a class="btn btn-primary" href={% url "courses:course_create" %}>Create New Course</a></p>
+
+  <p><a class="btn btn-primary" href={% url "simpl:game_create" %}>Create New Game</a></p>
+</div>
+{% endblock inner_content %}

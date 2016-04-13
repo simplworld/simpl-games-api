@@ -44,6 +44,10 @@ redis>=2.10.0
 # Celery support
 celery==3.1.21
 
+# Wharton styles
+git+https://github.com/wharton/django-base-theme/@1c36ea3  # Pinned to the latest
+django-bootstrap3==4.11.0  # Pinned to latest
+
 # Your custom requirements go here
 django-filter==0.13.0
 django-rest-swagger==0.3.4  # 0.3.5 is busted... skip that version

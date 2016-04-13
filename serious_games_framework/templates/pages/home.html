@@ -1,1 +1,50 @@
-{% extends "base.html" %}
+{% extends "main_base.html" %}
+
+{% comment %}
+  See wharton base theme for details on these blocks
+{% endcomment %}
+
+{% block site_title %}Intermap{% endblock site_title %}
+
+{% block main_nav %}
+  <li><a href="{% url 'home' %}">Project List</a></li>
+  <li><a href="{# url 'logout' #}">Logout</a></li>
+{% endblock %}
+
+{% block breadcrumb_wrapper %}{% endblock %}
+
+{% block extra_footer_js %}
+{# Grab CSRF protection cookie and automatically add it to all jQuery calls to simplify ajax work #}
+<script>
+  // get csrf token from cookie
+  function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie != '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = jQuery.trim(cookies[i]);
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  var csrftoken = getCookie('csrftoken');
+
+  // Add csrf token to all HTTP methods that need it
+  function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+      }
+  });
+</script>
+{% endblock extra_footer_js %}

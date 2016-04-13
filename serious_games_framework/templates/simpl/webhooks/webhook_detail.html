@@ -1,0 +1,17 @@
+{% extends "simpl/webhooks/base.html" %}
+
+{% block title %}
+  {{ webhook }}
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>Webhook Detail <small>{{ webhook }}</small></h1>
+  </header>
+  <p>
+    <a class="btn btn-default" href="{% url "simpl:webhook_update" webhook.pk %}">Update</a>
+    <a class="btn btn-danger" href="{% url "simpl:webhook_delete" webhook.pk %}">Delete</a>
+  </p>
+</div>
+{% endblock inner_content %}

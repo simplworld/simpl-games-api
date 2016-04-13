@@ -1,0 +1,22 @@
+{% extends "simpl/rounds/base.html" %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+  Update Round
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>Update Round <small>{{ round }}</small></h1>
+  </header>
+
+  <form class="form" action="" method="post">{% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-primary" type="submit">Update</button>
+    <a class="btn btn-default" href={% url "simpl:round_list" %}>Cancel</a>
+    <a class="btn btn-danger" href={% url "simpl:round_delete" round.pk %}>Delete</a>
+  </form>
+</div>
+{% endblock inner_content %}

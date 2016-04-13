@@ -1,0 +1,17 @@
+{% extends "simpl/rounds/base.html" %}
+
+{% block title %}
+  {{ round }}
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>Round Detail <small>{{ round }}</small></h1>
+  </header>
+  <p>
+    <a class="btn btn-default" href="{% url "simpl:round_update" round.pk %}">Update</a>
+    <a class="btn btn-danger" href="{% url "simpl:round_delete" round.pk %}">Delete</a>
+  </p>
+</div>
+{% endblock inner_content %}

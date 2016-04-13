@@ -1,0 +1,17 @@
+{% extends "simpl/worlds/base.html" %}
+
+{% block title %}
+  {{ world }}
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>World Detail <small>{{ world }}</small></h1>
+  </header>
+  <p>
+    <a class="btn btn-default" href="{% url "simpl:world_update" world.pk %}">Update</a>
+    <a class="btn btn-danger" href="{% url "simpl:world_delete" world.pk %}">Delete</a>
+  </p>
+</div>
+{% endblock inner_content %}

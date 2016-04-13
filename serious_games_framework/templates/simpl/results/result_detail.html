@@ -1,0 +1,17 @@
+{% extends "simpl/results/base.html" %}
+
+{% block title %}
+  {{ result }}
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>Result Detail <small>{{ result }}</small></h1>
+  </header>
+  <p>
+    <a class="btn btn-default" href="{% url "simpl:result_update" result.pk %}">Update</a>
+    <a class="btn btn-danger" href="{% url "simpl:result_delete" result.pk %}">Delete</a>
+  </p>
+</div>
+{% endblock inner_content %}

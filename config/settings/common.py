@@ -35,10 +35,15 @@ DJANGO_APPS = (
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
+    'base_theme',  # Wharton theme (THIS STAYS AT THE TOP)
+
     'crispy_forms',  # Form layouts
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+
+    'bootstrap3',
+    'fontawesome',
 
     'rest_framework',
     'rest_framework_swagger',
@@ -49,6 +54,7 @@ LOCAL_APPS = (
     'serious_games_framework.users',  # custom users app
     # Your stuff: custom apps go here
     'serious_games_framework.simpl',
+    'courses',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -248,7 +254,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'serious_games_framework.pagination.LinkHeaderPagination',
+    'DEFAULT_PAGINATION_CLASS': 'serious_games_framework.core.pagination.LinkHeaderPagination',
     'PAGE_SIZE': 100,
 }
 
