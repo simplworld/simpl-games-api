@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+from serious_games_framework.core import managers
 from serious_games_framework.core.mixins import AbstractTimeStampedModel
 
 
@@ -28,6 +29,8 @@ class Decision(AbstractTimeStampedModel):
 class Game(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
     active = models.BooleanField(default=True)
+
+    objects = managers.ActiveQuerySet.as_manager()
 
     class Meta(object):
         verbose_name = _('game')
@@ -141,6 +144,8 @@ class Run(AbstractTimeStampedModel):
     end_date = models.DateTimeField(blank=True, null=True)
     data = JSONField(blank=True, null=True)
 
+    objects = managers.ActiveQuerySet.as_manager()
+
     class Meta(object):
         verbose_name = _('run')
         verbose_name_plural = _('runs')
@@ -174,6 +179,8 @@ class RunUser(AbstractTimeStampedModel):
     facilitator = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     data = JSONField(blank=True, null=True)
+
+    objects = managers.ActiveQuerySet.as_manager()
 
     class Meta(object):
         verbose_name = _('run user')
