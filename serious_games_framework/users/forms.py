@@ -10,7 +10,6 @@ class UserForm(forms.ModelForm):
         fields = [
             'canvas_id',
             'username',
-            'name',
             'first_name',
             'last_name',
             'password',
