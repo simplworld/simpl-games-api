@@ -95,10 +95,12 @@ class Result(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Role(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
-    world = models.ForeignKey(
-        'World',
-        related_name='roles'
+    '''
+    game = models.ForeignKey(
+        'Game',
+        related_name='phases'
     )
+    '''
     data = JSONField(blank=True, null=True)
 
     class Meta(object):

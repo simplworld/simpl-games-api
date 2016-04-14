@@ -64,7 +64,7 @@ class RoleForm(forms.ModelForm):
         model = models.Role
         fields = [
             'name',
-            'world',
+            # 'game',
             'data',
         ]
 
