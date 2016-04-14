@@ -64,7 +64,7 @@ class RoleForm(forms.ModelForm):
         model = models.Role
         fields = [
             'name',
-            # 'game',
+            'game',
             'data',
         ]
 
@@ -143,4 +143,3 @@ class WorldForm(forms.ModelForm):
             'data',
             'canvas_ids',
         ]
-

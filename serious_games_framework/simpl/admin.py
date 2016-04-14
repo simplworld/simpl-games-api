@@ -83,10 +83,10 @@ class ResultAdmin(TimeStampedAdmin):
 class RoleAdmin(TimeStampedAdmin):
     list_display = (
         'name',
-        # 'game',
+        'game',
     )
     raw_id_fields = [
-        # 'game',
+        'game',
     ]
 
 
