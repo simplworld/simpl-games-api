@@ -1,0 +1,7 @@
+{% load bootstrap3 %}
+
+{% if obj.active %}
+  <div class="green">{% bootstrap_icon "ok" %}</div>
+{% else %}
+  <div class="red">{% bootstrap_icon "remove" %}</div>
+{% endif %}

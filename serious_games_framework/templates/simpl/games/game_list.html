@@ -16,6 +16,7 @@
     <thead>
       <tr>
         <th>Name</th>
+        <th>Active</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -26,14 +27,15 @@
           <a href="{% url 'simpl:game_detail' game.pk %}">{{ game }}</a>
         </td>
         <td>
+          {% include "includes/active_status_field.html" with obj=game %}
+        </td>
+        <td>
           <a class="btn btn-default" href="{% url 'simpl:run_list' %}">Runs</a>
-          <a class="btn btn-default" href="{% url 'simpl:game_update' game.pk %}">Update</a>
-          <a class="btn btn-danger" href="{% url 'simpl:game_delete' game.pk %}">Delete</a>
         </td>
       </tr>
     {% empty %}
       <tr>
-        <td colspan="2">No Games yet.</td>
+        <td colspan="3">No Games yet.</td>
       </tr>
     {% endfor %}
     </tbody>

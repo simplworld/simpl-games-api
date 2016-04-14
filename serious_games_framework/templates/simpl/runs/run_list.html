@@ -16,6 +16,7 @@
     <thead>
       <tr>
         <th>Name</th>
+        <th>Active</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -26,13 +27,16 @@
           <a href="{% url 'simpl:run_detail' run.pk %}">{{ run }}</a>
         </td>
         <td>
+          {% include "includes/active_status_field.html" with obj=run %}
+        </td>
+        <td>
           <a class="btn btn-default" href="{% url 'simpl:run_update' run.pk %}">Update</a>
           <a class="btn btn-danger" href="{% url 'simpl:run_delete' run.pk %}">Delete</a>
         </td>
       </tr>
     {% empty %}
       <tr>
-        <td colspan="2">No Runs yet.</td>
+        <td colspan="3">No Runs yet.</td>
       </tr>
     {% endfor %}
     </tbody>
