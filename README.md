@@ -56,6 +56,13 @@ $ ./manage.py runserver
 $ py.test
 ```
 
+## What's where?
+
+- [API Docs](http://localhost/docs/)
+- The [SIMPL api](http://localhost/apis/)
+- [SIMPL Frontend Admin](http://localhost/simpl/)
+- [Django Admin](http://localhost/admin/) but only if you need it!
+
 ## Email Server
 
 In development, it is often nice to be able to see emails that are being sent from your application. If you choose to use [`MailHog`](https://github.com/mailhog/MailHog) when generating the project a local SMTP server with a web interface will be available.
