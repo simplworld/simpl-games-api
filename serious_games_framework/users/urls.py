@@ -33,4 +33,18 @@ urlpatterns = [
         view=views.UserUpdateView.as_view(),
         name='update'
     ),
+
+    # URL pattern for the UserDeleteView
+    url(
+        regex=r'^(?P<pk>\d+)/delete/$',
+        view=views.UserDeleteView.as_view(),
+        name='delete'
+    ),
+
+    # URL pattern for the ManageUserUpdateView
+    url(
+        regex=r'^(?P<pk>\d+)/update/$',
+        view=views.ManageUserUpdateView.as_view(),
+        name='user_update'
+    ),
 ]

@@ -13,7 +13,7 @@
   <form action="" method="post">{% csrf_token %}
     <p>Are you sure you want to delete {{ user }}?</p>
     <button class="btn btn-primary" type="submit">Confirm</button>
-    <a class="btn btn-default" href={% url "users:user_detail" user.pk %}>Cancel</a>
+    <a class="btn btn-default" href={% url "users:detail" user.pk %}>Cancel</a>
   </form>
 </div>
 {% endblock inner_content %}

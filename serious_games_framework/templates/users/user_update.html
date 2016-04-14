@@ -15,8 +15,8 @@
   <form class="form" action="" method="post">{% csrf_token %}
     {% bootstrap_form form %}
     <button class="btn btn-primary" type="submit">Update</button>
-    <a class="btn btn-default" href={% url "users:user_list" %}>Cancel</a>
-    <a class="btn btn-danger" href={% url "users:user_delete" user.pk %}>Delete</a>
+    <a class="btn btn-default" href={% url "users:list" %}>Cancel</a>
+    <a class="btn btn-danger" href={% url "users:delete" user.pk %}>Delete</a>
   </form>
 </div>
 {% endblock inner_content %}
