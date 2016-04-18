@@ -1,0 +1,47 @@
+{% extends "simpl/webhooks/base.html" %}
+
+{% block title %}
+  Webhook List
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>Webhook List <small>{% if paginator %}({{ paginator.count }} total){% endif %}</small></h1>
+  </header>
+
+  <p><a class="btn btn-primary" href={% url "simpl:webhook_create" %}>Create New Webhook</a></p>
+
+  <table class="table table-bordered table-striped table-responsive">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for webhook in webhook_list %}
+      <tr>
+        <td>
+          <a href="{% url 'simpl:webhook_detail' webhook.pk %}">{{ webhook }}</a>
+        </td>
+        <td>
+          <a class="btn btn-default" href="{% url 'simpl:webhook_update' webhook.pk %}">Update</a>
+          <a class="btn btn-danger" href="{% url 'simpl:webhook_delete' webhook.pk %}">Delete</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="2">No Webhooks yet.</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% comment %}
+  PAGINATION
+  {% endcomment %}
+
+  {% include "includes/pagination.html" %}
+</div>
+{% endblock inner_content %}

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from . import models
-from serious_games_framework.admin import TimeStampedAdmin, TimeStampedTabularInline
+from serious_games_framework.core.admin import TimeStampedAdmin, TimeStampedTabularInline
 
 
 # Inlines
@@ -83,10 +83,10 @@ class ResultAdmin(TimeStampedAdmin):
 class RoleAdmin(TimeStampedAdmin):
     list_display = (
         'name',
-        'world',
+        'game',
     )
     raw_id_fields = [
-        'world',
+        'game',
     ]
 
 

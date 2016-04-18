@@ -1,0 +1,21 @@
+{% extends "users/base.html" %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+  Create User
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>Create User</h1>
+  </header>
+
+  <form class="form" action="" method="post">{% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-primary" type="submit">Create</button>
+    <a class="btn btn-default" href={% url "users:list" %}>Cancel</a>
+  </form>
+</div>
+{% endblock inner_content %}

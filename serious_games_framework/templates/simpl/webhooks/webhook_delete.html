@@ -1,0 +1,19 @@
+{% extends "simpl/webhooks/base.html" %}
+
+{% block title %}
+  Delete Webhook {{ webhook }}
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>Delete Webhook <small>{{ webhook }}</small></h1>
+  </header>
+
+  <form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete {{ webhook }}?</p>
+    <button class="btn btn-primary" type="submit">Confirm</button>
+    <a class="btn btn-default" href={% url "simpl:webhook_detail" webhook.pk %}>Cancel</a>
+  </form>
+</div>
+{% endblock inner_content %}

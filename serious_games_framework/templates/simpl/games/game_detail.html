@@ -1,0 +1,25 @@
+{% extends "simpl/games/base.html" %}
+
+{% block title %}
+  {{ game }}
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>Game Detail <small>{{ game }}</small></h1>
+  </header>
+
+  <dl>
+    <dt>Name</dt>
+    <dd>{{ game.name }}</dd>
+    <dt>Active</dt>
+    <dd>{{ game.active }}</dd>
+  </dl>
+
+  <p>
+    <a class="btn btn-default" href="{% url "simpl:game_update" game.pk %}">Update</a>
+    <a class="btn btn-danger" href="{% url "simpl:game_delete" game.pk %}">Delete</a>
+  </p>
+</div>
+{% endblock inner_content %}

@@ -12,14 +12,17 @@ from serious_games_framework.simpl.apis.urls import router as api_router
 
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
+    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
+
+    url(r'^simpl/', include('serious_games_framework.simpl.urls', namespace='simpl')),
+    url(r'^courses/', include('courses.urls', namespace='courses')),
 
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, include(admin.site.urls)),
 
     # User management
-    url(r'^users/', include("serious_games_framework.users.urls", namespace="users")),
+    url(r'^users/', include('serious_games_framework.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
@@ -31,8 +34,8 @@ if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.
     urlpatterns += [
-        url(r'^400/$', default_views.bad_request, kwargs={'exception': Exception("Bad Request!")}),
-        url(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception("Permission Denied")}),
-        url(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
+        url(r'^400/$', default_views.bad_request, kwargs={'exception': Exception('Bad Request!')}),
+        url(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception('Permission Denied')}),
+        url(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception('Page not Found')}),
         url(r'^500/$', default_views.server_error),
     ]
