@@ -1,6 +1,6 @@
-# serious-games-framework
+# SIMPL
 
-Serious Games Framework
+SIMPL Games Framework
 
 ## Getting Started
 
