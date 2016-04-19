@@ -16,7 +16,7 @@ $ add2virtualenv /vagrant/html/serious-games-framework
 Create a database (defaults to Postgres):
 
 ```bash
-$ createdb serious_games_framework
+$ createdb simpl
 ```
 
 Install requirements:
