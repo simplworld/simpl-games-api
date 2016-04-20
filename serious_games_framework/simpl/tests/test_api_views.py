@@ -178,7 +178,7 @@ class PeriodTestCase(BaseAPITestCase):
         obj = self.period
         url = reverse('api:period-detail', kwargs={'pk': obj.pk})
 
-        old_number = obj.number
+        old_order = obj.order
         payload = serializers.PeriodSerializer(obj).data
 
         # Does this api work without auth?
@@ -187,18 +187,18 @@ class PeriodTestCase(BaseAPITestCase):
 
         # Does this api work with auth?
         with self.login(self.user):
-            obj.number = obj.number if obj.number else 1
+            obj.order = obj.order if obj.order else 1
             payload = serializers.PeriodSerializer(obj).data
 
             response = self.client.put(url, payload, format='json')
             self.assertEqual(response.status_code, 200)
-            self.assertTrue(response.data['number'] != old_number)
+            self.assertTrue(response.data['order'] != old_order)
 
             obj.name = self.faker.name()
             payload = serializers.PeriodSerializer(obj).data
 
             # Test Updating Reversions
-            obj.number = old_number
+            obj.order = old_order
             payload = serializers.PeriodSerializer(obj).data
             response = self.client.put(url, payload, format='json')
             self.assertEqual(response.status_code, 200)
