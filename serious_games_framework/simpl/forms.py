@@ -30,7 +30,6 @@ class PeriodForm(forms.ModelForm):
         model = models.Period
         fields = [
             'scenario',
-            'number',
             'order',
             'data',
         ]

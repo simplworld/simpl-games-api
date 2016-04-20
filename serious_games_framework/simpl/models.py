@@ -47,7 +47,6 @@ class Period(AbstractTimeStampedModel):
         'Scenario',
         related_name='periods'
     )
-    number = models.IntegerField(blank=True, null=True)
     order = models.IntegerField(blank=True, null=True)
     data = JSONField(blank=True, null=True)
 
