@@ -51,7 +51,7 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'serious_games_framework.users',  # custom users app
+    'simpl_users',  # custom users app
     # Your stuff: custom apps go here
     'serious_games_framework.simpl',
     'courses',
@@ -223,12 +223,12 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
-ACCOUNT_ADAPTER = 'serious_games_framework.users.adapters.AccountAdapter'
-SOCIALACCOUNT_ADAPTER = 'serious_games_framework.users.adapters.SocialAccountAdapter'
+ACCOUNT_ADAPTER = 'simpl_users.adapters.AccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'simpl_users.adapters.SocialAccountAdapter'
 
 # Custom user app defaults
 # Select the correct user model
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'simpl_users.User'
 LOGIN_REDIRECT_URL = 'users:redirect'
 LOGIN_URL = 'account_login'
 

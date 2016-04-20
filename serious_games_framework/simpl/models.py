@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.postgres.fields import ArrayField, JSONField
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -157,7 +158,7 @@ class Run(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class RunUser(AbstractTimeStampedModel):
     user = models.ForeignKey(
-        'users.User',
+        settings.AUTH_USER_MODEL,
         related_name='run_users'
     )
     run = models.ForeignKey(
@@ -194,7 +195,7 @@ class RunUser(AbstractTimeStampedModel):
 class Scenario(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
     creator_user = models.ForeignKey(
-        'users.User',
+        settings.AUTH_USER_MODEL,
         related_name='scenarios'
     )
     round = models.ForeignKey(
