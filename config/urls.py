@@ -11,24 +11,34 @@ from django.views import defaults as default_views
 from serious_games_framework.simpl.apis.urls import router as api_router
 
 
+# Homepage
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
+]
 
-    url(r'^simpl/', include('serious_games_framework.simpl.urls', namespace='simpl')),
-    url(r'^courses/', include('courses.urls', namespace='courses')),
-
-    # Django Admin, use {% url 'admin:index' %}
+# Django Admin, use {% url 'admin:index' %}
+urlpatterns += [
     url(settings.ADMIN_URL, include(admin.site.urls)),
+]
 
-    # User management
-    url(r'^users/', include('simpl_users.urls', namespace='users')),
+# User management
+urlpatterns += [
     url(r'^accounts/', include('allauth.urls')),
+]
 
-    # Your stuff: custom urls includes go here
+# Our application urls
+urlpatterns += [
+    url(r'^courses/', include('courses.urls', namespace='courses')),
+    url(r'^simpl/', include('serious_games_framework.simpl.urls', namespace='simpl')),
+    url(r'^users/', include('simpl_users.urls', namespace='users')),
     url(r'^apis/', include(api_router.urls, namespace='simpl_api')),
     url(r'^docs/', include('rest_framework_swagger.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+# Static Media and User Uploads
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
