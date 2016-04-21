@@ -89,6 +89,7 @@ class GameViewSet(CommonViewSet):
     )
     filter_fields = (
         'name',
+        'slug',
     )
     ordering_fields = (
         'created',

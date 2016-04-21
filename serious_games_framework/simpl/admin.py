@@ -38,8 +38,10 @@ class GameAdmin(TimeStampedAdmin):
     ]
     list_display = (
         'name',
+        'slug',
         'active',
     )
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(models.Period)

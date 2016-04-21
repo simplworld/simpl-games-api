@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField, JSONField
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
@@ -29,6 +30,7 @@ class Decision(AbstractTimeStampedModel):
 @python_2_unicode_compatible
 class Game(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=250, blank=True)
     active = models.BooleanField(default=True)
 
     objects = managers.ActiveQuerySet.as_manager()
@@ -36,6 +38,11 @@ class Game(AbstractTimeStampedModel):
     class Meta(object):
         verbose_name = _('game')
         verbose_name_plural = _('games')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
