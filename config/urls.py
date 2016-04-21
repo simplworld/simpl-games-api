@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
-    url(r'^apis/', include(api_router.urls, namespace='api')),
+    url(r'^apis/', include(api_router.urls, namespace='simpl_api')),
     url(r'^docs/', include('rest_framework_swagger.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
