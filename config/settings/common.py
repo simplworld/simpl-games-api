@@ -53,7 +53,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'simpl_users',  # custom users app
     # Your stuff: custom apps go here
-    'serious_games_framework.simpl',
+    'serious_games_framework.games',
     'courses',
 )
 

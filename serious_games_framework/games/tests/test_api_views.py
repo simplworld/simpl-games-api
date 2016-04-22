@@ -4,7 +4,7 @@ from faker import Faker
 from rest_framework.test import APITestCase
 from test_plus.test import TestCase
 
-from serious_games_framework.simpl.apis import serializers
+from serious_games_framework.games.apis import serializers
 
 
 class BaseAPITestCase(APITestCase, TestCase):
@@ -19,12 +19,12 @@ class GameTestCase(BaseAPITestCase):
     def setUp(self):
         super(GameTestCase, self).setUp()
 
-        self.game = factory.make('simpl.Game')
+        self.game = factory.make('games.Game')
 
     def test_create(self):
         url = reverse('simpl_api:game-list')
 
-        obj = factory.make('simpl.Game')
+        obj = factory.make('games.Game')
         payload = serializers.GameSerializer(obj).data
 
         # Does this api work without auth?
@@ -114,12 +114,12 @@ class PeriodTestCase(BaseAPITestCase):
     def setUp(self):
         super(PeriodTestCase, self).setUp()
 
-        self.period = factory.make('simpl.Period')
+        self.period = factory.make('games.Period')
 
     def test_create(self):
         url = reverse('simpl_api:period-list')
 
-        obj = factory.make('simpl.Period')
+        obj = factory.make('games.Period')
         payload = serializers.PeriodSerializer(obj).data
 
         # Does this api work without auth?
@@ -209,12 +209,12 @@ class PhaseTestCase(BaseAPITestCase):
     def setUp(self):
         super(PhaseTestCase, self).setUp()
 
-        self.phase = factory.make('simpl.Phase')
+        self.phase = factory.make('games.Phase')
 
     def test_create(self):
         url = reverse('simpl_api:phase-list')
 
-        obj = factory.make('simpl.Phase')
+        obj = factory.make('games.Phase')
         payload = serializers.PhaseSerializer(obj).data
 
         # Does this api work without auth?
@@ -304,12 +304,12 @@ class RoleTestCase(BaseAPITestCase):
     def setUp(self):
         super(RoleTestCase, self).setUp()
 
-        self.role = factory.make('simpl.Role')
+        self.role = factory.make('games.Role')
 
     def test_create(self):
         url = reverse('simpl_api:role-list')
 
-        obj = factory.make('simpl.Role')
+        obj = factory.make('games.Role')
         payload = serializers.RoleSerializer(obj).data
 
         # Does this api work without auth?
@@ -399,12 +399,12 @@ class RoundTestCase(BaseAPITestCase):
     def setUp(self):
         super(RoundTestCase, self).setUp()
 
-        self.round = factory.make('simpl.Round')
+        self.round = factory.make('games.Round')
 
     def test_create(self):
         url = reverse('simpl_api:round-list')
 
-        obj = factory.make('simpl.Round')
+        obj = factory.make('games.Round')
         payload = serializers.RoundSerializer(obj).data
 
         # Does this api work without auth?
@@ -494,12 +494,12 @@ class RunTestCase(BaseAPITestCase):
     def setUp(self):
         super(RunTestCase, self).setUp()
 
-        self.run = factory.make('simpl.Run')
+        self.run = factory.make('games.Run')
 
     def test_create(self):
         url = reverse('simpl_api:run-list')
 
-        obj = factory.make('simpl.Run')
+        obj = factory.make('games.Run')
         payload = serializers.RunSerializer(obj).data
 
         # Does this api work without auth?
@@ -589,12 +589,12 @@ class RunUserTestCase(BaseAPITestCase):
     def setUp(self):
         super(RunUserTestCase, self).setUp()
 
-        self.runuser = factory.make('simpl.RunUser')
+        self.runuser = factory.make('games.RunUser')
 
     def test_create(self):
         url = reverse('simpl_api:runuser-list')
 
-        obj = factory.make('simpl.RunUser')
+        obj = factory.make('games.RunUser')
         payload = serializers.RunUserSerializer(obj).data
 
         # Does this api work without auth?
@@ -684,12 +684,12 @@ class ScenarioTestCase(BaseAPITestCase):
     def setUp(self):
         super(ScenarioTestCase, self).setUp()
 
-        self.scenario = factory.make('simpl.Scenario')
+        self.scenario = factory.make('games.Scenario')
 
     def test_create(self):
         url = reverse('simpl_api:scenario-list')
 
-        obj = factory.make('simpl.Scenario')
+        obj = factory.make('games.Scenario')
         payload = serializers.ScenarioSerializer(obj).data
 
         # Does this api work without auth?
@@ -779,12 +779,12 @@ class WorldTestCase(BaseAPITestCase):
     def setUp(self):
         super(WorldTestCase, self).setUp()
 
-        self.world = factory.make('simpl.World')
+        self.world = factory.make('games.World')
 
     def test_create(self):
         url = reverse('simpl_api:world-list')
 
-        obj = factory.make('simpl.World')
+        obj = factory.make('games.World')
         payload = serializers.WorldSerializer(obj).data
 
         # Does this api work without auth?
