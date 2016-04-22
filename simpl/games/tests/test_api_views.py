@@ -4,7 +4,7 @@ from faker import Faker
 from rest_framework.test import APITestCase
 from test_plus.test import TestCase
 
-from serious_games_framework.games.apis import serializers
+from simpl.games.apis import serializers
 
 
 class BaseAPITestCase(APITestCase, TestCase):

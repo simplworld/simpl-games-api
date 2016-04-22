@@ -8,7 +8,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
-from serious_games_framework.games.apis.urls import router as api_router
+from simpl.games.apis.urls import router as api_router
 
 
 # Homepage
@@ -30,7 +30,7 @@ urlpatterns += [
 # Our application urls
 urlpatterns += [
     url(r'^courses/', include('courses.urls', namespace='courses')),
-    url(r'^simpl/', include('serious_games_framework.games.urls', namespace='simpl')),
+    url(r'^simpl/', include('simpl.games.urls', namespace='simpl')),
     url(r'^users/', include('simpl_users.urls', namespace='users')),
     url(r'^apis/', include(api_router.urls, namespace='simpl_api')),
     url(r'^docs/', include('rest_framework_swagger.urls')),

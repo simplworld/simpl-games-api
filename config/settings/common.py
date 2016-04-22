@@ -13,7 +13,7 @@ from __future__ import absolute_import, unicode_literals
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
-APPS_DIR = ROOT_DIR.path('serious_games_framework')
+APPS_DIR = ROOT_DIR.path('simpl')
 
 env = environ.Env()
 
@@ -53,7 +53,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'simpl_users',  # custom users app
     # Your stuff: custom apps go here
-    'serious_games_framework.games',
+    'simpl.games',
     'courses',
 )
 
@@ -75,7 +75,7 @@ MIDDLEWARE_CLASSES = (
 # MIGRATIONS CONFIGURATION
 # ------------------------------------------------------------------------------
 MIGRATION_MODULES = {
-    'sites': 'serious_games_framework.contrib.sites.migrations'
+    'sites': 'simpl.contrib.sites.migrations'
 }
 
 # DEBUG
@@ -236,7 +236,7 @@ LOGIN_URL = 'account_login'
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 # CELERY CONFIGURATION
-INSTALLED_APPS += ('serious_games_framework.taskapp.celery.CeleryConfig',)
+INSTALLED_APPS += ('simpl.taskapp.celery.CeleryConfig',)
 # if you are not using the django database broker (e.g. rabbitmq, redis, memcached), you can remove the next line.
 INSTALLED_APPS += ('kombu.transport.django',)
 BROKER_URL = env("CELERY_BROKER_URL", default='django://')
@@ -254,7 +254,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'serious_games_framework.core.pagination.LinkHeaderPagination',
+    'DEFAULT_PAGINATION_CLASS': 'simpl.core.pagination.LinkHeaderPagination',
     'PAGE_SIZE': 100,
 }
 

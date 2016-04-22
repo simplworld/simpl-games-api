@@ -5,8 +5,8 @@ from django.template.defaultfilters import slugify
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from serious_games_framework.core import managers
-from serious_games_framework.core.mixins import AbstractTimeStampedModel
+from simpl.core import managers
+from simpl.core.mixins import AbstractTimeStampedModel
 
 
 @python_2_unicode_compatible

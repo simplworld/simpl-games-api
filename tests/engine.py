@@ -1,5 +1,3 @@
-from subprocess import call
-from os import path
 import hitchpostgres
 import hitchselenium
 import hitchpython
@@ -7,6 +5,9 @@ import hitchserve
 import hitchredis
 import hitchtest
 import hitchsmtp
+
+from subprocess import call
+from os import path
 
 
 # Get directory above this file
@@ -40,12 +41,12 @@ class ExecutionEngine(hitchtest.ExecutionEngine):
             shutdown_timeout=float(self.settings["shutdown_timeout"]),
         )
 
-        postgres_user = hitchpostgres.PostgresUser("serious_games_framework", "password")
+        postgres_user = hitchpostgres.PostgresUser("simpl", "password")
 
         self.services['Postgres'] = hitchpostgres.PostgresService(
             postgres_package=postgres_package,
             users=[postgres_user, ],
-            databases=[hitchpostgres.PostgresDatabase("serious_games_framework", postgres_user), ]
+            databases=[hitchpostgres.PostgresDatabase("simpl", postgres_user), ]
         )
 
         self.services['HitchSMTP'] = hitchsmtp.HitchSMTPService(port=1025)
@@ -65,7 +66,7 @@ class ExecutionEngine(hitchtest.ExecutionEngine):
 
         self.services['Celery'] = hitchpython.CeleryService(
             python=python_package.python,
-            app="serious_games_framework.taskapp", loglevel="INFO",
+            app="simpl.taskapp", loglevel="INFO",
             needs=[
                 self.services['Redis'], self.services['Django'],
             ],

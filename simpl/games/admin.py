@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from . import models
-from serious_games_framework.core.admin import TimeStampedAdmin, TimeStampedTabularInline
+from simpl.core.admin import TimeStampedAdmin, TimeStampedTabularInline
 
 
 # Inlines
