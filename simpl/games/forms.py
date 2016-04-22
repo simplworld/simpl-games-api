@@ -11,6 +11,7 @@ class DecisionForm(forms.ModelForm):
             'name',
             'data',
             'period',
+            'role',
         ]
 
 
@@ -54,6 +55,7 @@ class ResultForm(forms.ModelForm):
             'name',
             'data',
             'period',
+            'role',
         ]
 
 

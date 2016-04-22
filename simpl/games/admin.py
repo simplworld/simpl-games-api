@@ -28,6 +28,7 @@ class DecisionAdmin(TimeStampedAdmin):
     )
     raw_id_fields = [
         'period',
+        'role',
     ]
 
 
@@ -77,6 +78,7 @@ class ResultAdmin(TimeStampedAdmin):
     )
     raw_id_fields = [
         'period',
+        'role',
     ]
 
 

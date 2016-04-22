@@ -11,11 +11,16 @@ from simpl.core.mixins import AbstractTimeStampedModel
 
 @python_2_unicode_compatible
 class Decision(AbstractTimeStampedModel):
-    # TODO: Connect to Role...
     name = models.CharField(max_length=100)
     data = JSONField(blank=True, null=True)
     period = models.ForeignKey(
         'Period',
+        related_name='decisions'
+    )
+    role = models.ForeignKey(
+        'Role',
+        blank=True,
+        null=True,
         related_name='decisions'
     )
 
@@ -91,6 +96,12 @@ class Result(AbstractTimeStampedModel):
     data = JSONField(blank=True, null=True)
     period = models.ForeignKey(
         'Period',
+        related_name='results'
+    )
+    role = models.ForeignKey(
+        'Role',
+        blank=True,
+        null=True,
         related_name='results'
     )
 
