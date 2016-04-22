@@ -1,4 +1,4 @@
-# SIMPL
+mv # SIMPL
 
 SIMPL Games Framework
 
@@ -62,6 +62,10 @@ $ py.test
 - The [SIMPL api](http://localhost/apis/)
 - [SIMPL Frontend Admin](http://localhost/simpl/)
 - [Django Admin](http://localhost/admin/) but only if you need it!
+
+## Model Schema
+
+![](docs/models.png)
 
 ## Email Server
 
