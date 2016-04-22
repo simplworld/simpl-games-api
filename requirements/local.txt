@@ -25,5 +25,5 @@ pytest-sugar==0.5.1
 pydocstyle==1.0.0
 
 # Custom Wharton apps
-git+ssh://git@stash.wharton.upenn.edu:7999/wcit/django_courses.git
-git+ssh://git@stash.wharton.upenn.edu:7999/ll/simpl-users.git
+git+ssh://git@stash.wharton.upenn.edu:7999/wcit/django_courses.git@package-refactor
+git+ssh://git@stash.wharton.upenn.edu:7999/ll/simpl-users.git@develop
