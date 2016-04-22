@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Django settings for serious-games-framework project.
+Django settings for simpl project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/dev/topics/settings/
@@ -34,17 +34,15 @@ DJANGO_APPS = (
     # Admin
     'django.contrib.admin',
 )
-THIRD_PARTY_APPS = (
-    'base_theme',  # Wharton theme (THIS STAYS AT THE TOP)
 
-    'crispy_forms',  # Form layouts
+THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-
+    'base_theme',  # Wharton theme (THIS STAYS AT THE TOP)
     'bootstrap3',
+    'crispy_forms',  # Form layouts
     'fontawesome',
-
     'rest_framework',
     'rest_framework_swagger',
 )
@@ -52,9 +50,8 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'simpl_users',  # custom users app
-    # Your stuff: custom apps go here
-    'simpl.games',
     'courses',
+    'simpl.games',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
