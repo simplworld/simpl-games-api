@@ -1,5 +1,17 @@
 {% extends "left_sidebar.html" %}
 
+{% comment %}
+  TODO: Figure out wehre this goes...
+
+  <div class="col-md-9">
+    {% if messages %}
+      {% for message in messages %}
+          <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endcomment %}
+
 {% block main_nav %}
 <li class="dropdown-list" class="{% block menu_courses %}{% endblock menu_courses %}">
   <div class="dropdown">
@@ -31,9 +43,6 @@
     <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-      <li class="{% block menu_simpl_decision %}{% endblock menu_simpl_decision %}" role="presentation">
-        <a href="{% url 'simpl:decision_list' %}">Decisions</a>
-      </li>
       <li class="{% block menu_simpl_game %}{% endblock menu_simpl_game %}" role="presentation">
         <a href="{% url 'simpl:game_list' %}">Games</a>
       </li>
@@ -76,10 +85,6 @@
     <nav id="sidebar-nav">
       <ul>
 
-        <li class="{% block menu_decision%}{% endblock %}" role="presentation">
-          <a href="{% url 'simpl:decision_list' %}">Decisions</a>
-        </li>
-
         <li class="{% block menu_game%}{% endblock %}" role="presentation">
           <a href="{% url 'simpl:game_list' %}">Games</a>
         </li>
@@ -117,6 +122,10 @@
         </li>
 
         {% comment %}
+        <li class="{% block menu_decision%}{% endblock %}" role="presentation">
+          <a href="{% url 'simpl:decision_list' %}">Decisions</a>
+        </li>
+
         <li class="{% block menu_result%}{% endblock %}" role="presentation">
           <a href="{% url 'simpl:result_list' %}">results</a>
         </li>
