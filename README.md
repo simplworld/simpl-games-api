@@ -7,10 +7,10 @@ SIMPL Games Framework
 Make sure you are working in a virtual environment of some sort (e.g. 'virtualenv').
 
 
-If you are working in Vagrant using virtualenv, add serious-games-framework to the code path:
+If you are working in Vagrant using virtualenv, add simpl to the code path:
 
 ```bash
-$ add2virtualenv /vagrant/html/serious-games-framework
+$ add2virtualenv /vagrant/html/simpl
 ```
 
 Create a database (defaults to Postgres):
