@@ -1,4 +1,4 @@
-mv # SIMPL
+# SIMPL
 
 SIMPL Games Framework
 
