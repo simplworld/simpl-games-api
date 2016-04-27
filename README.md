@@ -6,29 +6,21 @@ SIMPL Games Framework
 
 Make sure you are working in a virtual environment of some sort (e.g. 'virtualenv').
 
-
 If you are working in Vagrant using virtualenv, add simpl to the code path:
 
 ```bash
 $ add2virtualenv /vagrant/html/simpl
+```
+If you are working in Vagrant:
+
+```bash
+$ cd /vagrant/html/simpl
 ```
 
 Create a database (defaults to Postgres):
 
 ```bash
 $ createdb simpl
-```
-
-Change into the `simpl` directory:
-
-```bash
-$ cd simpl
-```
-
-If you are working in Vagrant, this will be something like:
-
-```bash
-$ cd /vagrant/html/simpl/simpl
 ```
 
 Install requirements:
@@ -63,6 +55,18 @@ $ ./manage.py runserver
 ```
 
 ### Running tests with py.test
+
+Change into the `simpl` directory:
+
+```bash
+$ cd simpl
+```
+
+If you are working in Vagrant, this will be something like:
+
+```bash
+$ cd /vagrant/html/simpl/simpl
+```
 
 ```bash
 $ py.test
