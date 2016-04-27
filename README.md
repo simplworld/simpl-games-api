@@ -19,6 +19,18 @@ Create a database (defaults to Postgres):
 $ createdb simpl
 ```
 
+Change into the `simpl` directory:
+
+```bash
+$ cd simpl
+```
+
+If you are working in Vagrant, this will be something like:
+
+```bash
+$ cd /vagrant/html/simpl/simpl
+```
+
 Install requirements:
 
 ```bash
