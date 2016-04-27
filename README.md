@@ -1,22 +1,22 @@
-# serious-games-framework
+# SIMPL
 
-Serious Games Framework
+SIMPL Games Framework
 
 ## Getting Started
 
 Make sure you are working in a virtual environment of some sort (e.g. 'virtualenv').
 
 
-If you are working in Vagrant using virtualenv, add serious-games-framework to the code path:
+If you are working in Vagrant using virtualenv, add simpl to the code path:
 
 ```bash
-$ add2virtualenv /vagrant/html/serious-games-framework
+$ add2virtualenv /vagrant/html/simpl
 ```
 
 Create a database (defaults to Postgres):
 
 ```bash
-$ createdb serious_games_framework
+$ createdb simpl
 ```
 
 Install requirements:
@@ -62,6 +62,10 @@ $ py.test
 - The [SIMPL api](http://localhost/apis/)
 - [SIMPL Frontend Admin](http://localhost/simpl/)
 - [Django Admin](http://localhost/admin/) but only if you need it!
+
+## Model Schema
+
+![](docs/models.png)
 
 ## Email Server
 

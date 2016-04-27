@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Django settings for serious-games-framework project.
+Django settings for simpl project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/dev/topics/settings/
@@ -13,7 +13,7 @@ from __future__ import absolute_import, unicode_literals
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
-APPS_DIR = ROOT_DIR.path('serious_games_framework')
+APPS_DIR = ROOT_DIR.path('simpl')
 
 env = environ.Env()
 
@@ -34,27 +34,24 @@ DJANGO_APPS = (
     # Admin
     'django.contrib.admin',
 )
+
 THIRD_PARTY_APPS = (
     'base_theme',  # Wharton theme (THIS STAYS AT THE TOP)
-
-    'crispy_forms',  # Form layouts
-    'allauth',  # registration
+    'allauth',  # registration (also has a base.html which messes stuff up)
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-
     'bootstrap3',
+    'crispy_forms',  # Form layouts
     'fontawesome',
-
     'rest_framework',
     'rest_framework_swagger',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    'serious_games_framework.users',  # custom users app
-    # Your stuff: custom apps go here
-    'serious_games_framework.simpl',
+    'simpl_users',  # custom users app
     'courses',
+    'simpl.games',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -75,7 +72,7 @@ MIDDLEWARE_CLASSES = (
 # MIGRATIONS CONFIGURATION
 # ------------------------------------------------------------------------------
 MIGRATION_MODULES = {
-    'sites': 'serious_games_framework.contrib.sites.migrations'
+    'sites': 'simpl.contrib.sites.migrations'
 }
 
 # DEBUG
@@ -109,7 +106,7 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    'default': env.db("DATABASE_URL", default="postgres:///serious_games_framework"),
+    'default': env.db("DATABASE_URL", default="postgres:///simpl"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
@@ -223,12 +220,12 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
-ACCOUNT_ADAPTER = 'serious_games_framework.users.adapters.AccountAdapter'
-SOCIALACCOUNT_ADAPTER = 'serious_games_framework.users.adapters.SocialAccountAdapter'
+ACCOUNT_ADAPTER = 'simpl_users.adapters.AccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'simpl_users.adapters.SocialAccountAdapter'
 
 # Custom user app defaults
 # Select the correct user model
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'simpl_users.User'
 LOGIN_REDIRECT_URL = 'users:redirect'
 LOGIN_URL = 'account_login'
 
@@ -236,7 +233,7 @@ LOGIN_URL = 'account_login'
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 # CELERY CONFIGURATION
-INSTALLED_APPS += ('serious_games_framework.taskapp.celery.CeleryConfig',)
+INSTALLED_APPS += ('simpl.taskapp.celery.CeleryConfig',)
 # if you are not using the django database broker (e.g. rabbitmq, redis, memcached), you can remove the next line.
 INSTALLED_APPS += ('kombu.transport.django',)
 BROKER_URL = env("CELERY_BROKER_URL", default='django://')
@@ -254,7 +251,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'serious_games_framework.core.pagination.LinkHeaderPagination',
+    'DEFAULT_PAGINATION_CLASS': 'simpl.core.pagination.LinkHeaderPagination',
     'PAGE_SIZE': 100,
 }
 
