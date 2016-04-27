@@ -45,8 +45,8 @@ redis>=2.10.0
 celery==3.1.21
 
 # Wharton styles
-git+https://github.com/wharton/django-base-theme/@1c36ea3  # Pinned to the latest
-git+https://github.com/dyve/django-bootstrap3@1ad2686 # Pin to 7.0.1 once released (currently at 6.2.2)
+git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to the latest
+git+https://github.com/dyve/django-bootstrap3.git@1ad2686  # Pin to 7.0.1 once released (currently at 6.2.2)
 
 # Your custom requirements go here
 django-filter==0.13.0
