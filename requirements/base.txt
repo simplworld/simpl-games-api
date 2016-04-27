@@ -46,7 +46,7 @@ celery==3.1.21
 
 # Wharton styles
 git+https://github.com/wharton/django-base-theme/@1c36ea3  # Pinned to the latest
-django-bootstrap3==4.11.0  # Pinned to latest
+git+https://github.com/dyve/django-bootstrap3@1ad2686 # Pin to 7.0.1 once released (currently at 6.2.2)
 
 # Your custom requirements go here
 django-filter==0.13.0
