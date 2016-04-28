@@ -1,20 +1,20 @@
-# SIMPL
+# SIMPL-GAMES-API
 
-SIMPL Games Framework
+SIMPL Games Framework API
 
 ## Getting Started
 
 Make sure you are working in a virtual environment of some sort (e.g. 'virtualenv').
 
-If you are working in Vagrant using virtualenv, add simpl to the code path:
+If you are working in Vagrant you are working in Vagrant using virtualenv, add simpl-games-api to the code path:
 
 ```bash
-$ add2virtualenv /vagrant/html/simpl
+$ add2virtualenv /vagrant/html/simpl-games-api
 ```
 If you are working in Vagrant:
 
 ```bash
-$ cd /vagrant/html/simpl
+$ cd /vagrant/html/simpl-games-api
 ```
 
 Create a database (defaults to Postgres):
@@ -56,7 +56,7 @@ $ ./manage.py runserver 0.0.0.0:8000
 
 ### Running tests with py.test
 
-Change into the `simpl` directory:
+Change into the `simpl` subdirectory:
 
 ```bash
 $ cd simpl
@@ -65,7 +65,7 @@ $ cd simpl
 If you are working in Vagrant, this will be something like:
 
 ```bash
-$ cd /vagrant/html/simpl/simpl
+$ cd /vagrant/html/simpl-games-api/simpl
 ```
 
 ```bash
