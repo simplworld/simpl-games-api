@@ -51,7 +51,7 @@ Start the web server:
 
 ```bash
 $ ./manage.py collectstatic
-$ ./manage.py runserver
+$ ./manage.py runserver 0.0.0.0:8000
 ```
 
 ### Running tests with py.test
@@ -74,10 +74,10 @@ $ py.test
 
 ## What's where?
 
-- [API Docs](http://localhost/docs/)
-- The [SIMPL api](http://localhost/apis/)
-- [SIMPL Frontend Admin](http://localhost/simpl/)
-- [Django Admin](http://localhost/admin/) but only if you need it!
+- [API Docs](http://localhost:8000/docs/)
+- The [SIMPL api](http://localhost:8000/apis/)
+- [SIMPL Frontend Admin](http://localhost:8000/simpl/)
+- [Django Admin](http://localhost:8000/admin/) but only if you need it!
 
 ## Model Schema
 
