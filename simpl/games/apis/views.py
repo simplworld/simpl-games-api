@@ -91,6 +91,7 @@ class GameViewSet(CommonViewSet):
         'name',
         'slug',
     )
+    lookup_field = 'slug'
     ordering_fields = (
         'created',
         'modified',
@@ -102,11 +103,11 @@ class GameViewSet(CommonViewSet):
         """
         return super(GameViewSet, self).create(request)
 
-    def destroy(self, request, pk=None):
+    def destroy(self, request, slug=None):
         """
         Delete an Game
         """
-        return super(GameViewSet, self).destroy(request, pk=pk)
+        return super(GameViewSet, self).destroy(request, slug=slug)
 
     def list(self, request):
         """
@@ -121,23 +122,23 @@ class GameViewSet(CommonViewSet):
         """
         return super(GameViewSet, self).list(request)
 
-    def partial_update(self, request, pk=None):
+    def partial_update(self, request, slug=None):
         """
         Update an existing Game
         """
-        return super(GameViewSet, self).partial_update(request, pk=pk)
+        return super(GameViewSet, self).partial_update(request, slug=slug)
 
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, slug=None):
         """
         Find an Game by ID
         """
-        return super(GameViewSet, self).retrieve(request, pk=pk)
+        return super(GameViewSet, self).retrieve(request, slug=slug)
 
-    def update(self, request, pk=None):
+    def update(self, request, slug=None):
         """
         Update an existing Game
         """
-        return super(GameViewSet, self).update(request, pk=pk)
+        return super(GameViewSet, self).update(request, slug=slug)
 
 
 class PeriodViewSet(CommonViewSet):

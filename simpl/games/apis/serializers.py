@@ -14,6 +14,7 @@ class DecisionSerializer(ModelSerializer):
 
 class GameSerializer(ModelSerializer):
     class Meta:
+        lookup_field = 'slug'
         model = models.Game
         read_only_fields = (
             'created',

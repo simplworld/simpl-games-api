@@ -38,7 +38,7 @@ class GameTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:game-detail', kwargs={'pk': self.game.pk})
+        url = reverse('simpl_api:game-detail', kwargs={'slug': self.game.slug})
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
@@ -54,7 +54,7 @@ class GameTestCase(BaseAPITestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_detail(self):
-        url = reverse('simpl_api:game-detail', kwargs={'pk': self.game.pk})
+        url = reverse('simpl_api:game-detail', kwargs={'slug': self.game.slug})
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
@@ -81,7 +81,7 @@ class GameTestCase(BaseAPITestCase):
 
     def test_update(self):
         obj = self.game
-        url = reverse('simpl_api:game-detail', kwargs={'pk': obj.pk})
+        url = reverse('simpl_api:game-detail', kwargs={'slug': obj.slug})
 
         old_name = obj.name
         payload = serializers.GameSerializer(obj).data
