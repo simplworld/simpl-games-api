@@ -27,7 +27,8 @@ class DecisionViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'period',
+        'role',
     )
     ordering_fields = (
         'created',
@@ -88,6 +89,7 @@ class GameViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
+        'active',
         'name',
         'slug',
     )
@@ -151,7 +153,7 @@ class PeriodViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'scenario',
     )
     ordering_fields = (
         'created',
@@ -212,7 +214,7 @@ class PhaseViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'game',
     )
     ordering_fields = (
         'created',
@@ -273,7 +275,8 @@ class ResultViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'period',
+        'role',
     )
     ordering_fields = (
         'created',
@@ -334,7 +337,7 @@ class RoleViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'game',
     )
     ordering_fields = (
         'created',
@@ -395,7 +398,7 @@ class RoundViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'world',
     )
     ordering_fields = (
         'created',
@@ -456,7 +459,7 @@ class RunViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'game',
     )
     ordering_fields = (
         'created',
@@ -517,7 +520,12 @@ class RunUserViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'active',
+        'facilitator',
+        'role',
+        'run',
+        'user',
+        'world',
     )
     ordering_fields = (
         'created',
@@ -571,7 +579,10 @@ class ScenarioViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'creator_user',
+        'current_period',
+        'last_period',
+        'round',
     )
     ordering_fields = (
         'created',
@@ -632,7 +643,7 @@ class WebhookViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'game',
     )
     ordering_fields = (
         'created',
@@ -693,7 +704,7 @@ class WebhookLogViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'webhook',
     )
     ordering_fields = (
         'created',
@@ -754,7 +765,7 @@ class WorldViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        # 'name',
+        'run',
     )
     ordering_fields = (
         'created',
