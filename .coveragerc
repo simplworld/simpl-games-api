@@ -1,5 +1,5 @@
 [run]
-include = serious_games_framework/*
+include = simpl/*
 omit = *migrations*, *tests*
 plugins =
     django_coverage_plugin

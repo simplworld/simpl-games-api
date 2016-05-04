@@ -56,7 +56,7 @@ node_modules/
 .env
 
 # User-uploaded media
-serious_games_framework/media/
+simpl/media/
 
 # Hitch directory
 tests/.hitch

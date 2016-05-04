@@ -14,7 +14,7 @@ indent_size = 4
 
 [*.py]
 line_length=120
-known_first_party=serious_games_framework
+known_first_party=simpl
 multi_line_output=3
 default_section=THIRDPARTY
 

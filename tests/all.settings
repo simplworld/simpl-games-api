@@ -7,7 +7,7 @@ pause_on_failure: false
 startup_timeout: 45
 shutdown_timeout: 5
 environment_variables:
-  DATABASE_URL: postgres://serious_games_framework:password@127.0.0.1:15432/serious_games_framework
+  DATABASE_URL: postgres://simpl:password@127.0.0.1:15432/simpl
   SECRET_KEY: cj5^uos4tfCdfghjkf5hq$9$(@-79^e9&x$3vyf#igvsfm4d=+
   CELERY_BROKER_URL: redis://localhost:16379
   DJANGO_EMAIL_BACKEND: django.core.mail.backends.smtp.EmailBackend
