@@ -213,6 +213,8 @@ class Scenario(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
     creator_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
         related_name='scenarios'
     )
     round = models.ForeignKey(
