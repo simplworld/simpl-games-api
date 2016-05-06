@@ -11,6 +11,8 @@ from simpl.core.mixins import AbstractTimeStampedModel
 
 @python_2_unicode_compatible
 class Decision(AbstractTimeStampedModel):
+    """Decision model"""
+
     name = models.CharField(max_length=100)
     data = JSONField(blank=True, null=True)
     period = models.ForeignKey(
@@ -34,6 +36,8 @@ class Decision(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class Game(AbstractTimeStampedModel):
+    """Game model"""
+
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=250, blank=True)
     active = models.BooleanField(default=True)
@@ -45,6 +49,10 @@ class Game(AbstractTimeStampedModel):
         verbose_name_plural = _('games')
 
     def save(self, *args, **kwargs):
+        """
+        Overrides a Game's default save method to populate the slug
+        field if `Game.name` is blank.
+        """
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
@@ -55,6 +63,8 @@ class Game(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class Period(AbstractTimeStampedModel):
+    """Period model"""
+
     scenario = models.ForeignKey(
         'Scenario',
         related_name='periods'
@@ -75,6 +85,8 @@ class Period(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class Phase(AbstractTimeStampedModel):
+    """Phase model"""
+
     name = models.CharField(max_length=100)
     game = models.ForeignKey(
         'Game',
@@ -92,6 +104,8 @@ class Phase(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class Result(AbstractTimeStampedModel):
+    """Result model"""
+
     name = models.CharField(max_length=100)
     data = JSONField(blank=True, null=True)
     period = models.ForeignKey(
@@ -115,6 +129,8 @@ class Result(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class Role(AbstractTimeStampedModel):
+    """Role model"""
+
     name = models.CharField(max_length=100)
     game = models.ForeignKey(
         'Game',
@@ -134,6 +150,8 @@ class Role(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class Round(AbstractTimeStampedModel):
+    """Round model"""
+
     name = models.CharField(max_length=100)
     world = models.ForeignKey(
         'World',
@@ -152,6 +170,8 @@ class Round(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class Run(AbstractTimeStampedModel):
+    """Run model"""
+
     name = models.CharField(max_length=100)
     active = models.BooleanField(default=True)
     game = models.ForeignKey(
@@ -174,6 +194,8 @@ class Run(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class RunUser(AbstractTimeStampedModel):
+    """Run User model"""
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='run_users'
@@ -210,6 +232,8 @@ class RunUser(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class Scenario(AbstractTimeStampedModel):
+    """Scenario model"""
+
     name = models.CharField(max_length=100)
     creator_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -247,6 +271,8 @@ class Scenario(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class Webhook(AbstractTimeStampedModel):
+    """Webhook model"""
+
     name = models.CharField(max_length=100)
     game = models.ForeignKey(
         'Game',
@@ -264,6 +290,8 @@ class Webhook(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class WebhookLog(AbstractTimeStampedModel):
+    """Webhook Log model"""
+
     webhook = models.ForeignKey(
         'Webhook',
         related_name='webhooklogs'
@@ -284,6 +312,8 @@ class WebhookLog(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 class World(AbstractTimeStampedModel):
+    """World model"""
+
     name = models.CharField(max_length=100)
     run = models.ForeignKey(
         'Run',
