@@ -57,6 +57,16 @@ class DecisionViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Decisions per Name via name
+            - name: period
+              type: string
+              paramType: query
+              required: false
+              description: Filters Decisions per Period via period
+            - name: role
+              type: string
+              paramType: query
+              required: false
+              description: Filters Decisions per Role via role
         """
         return super(DecisionViewSet, self).list(request)
 
@@ -116,11 +126,21 @@ class GameViewSet(CommonViewSet):
         Returns a list of Games
         ---
         parameters:
+            - name: active
+              type: boolean
+              paramType: query
+              required: false
+              description: Filters Games per Active via active
             - name: name
               type: string
               paramType: query
               required: false
               description: Filters Games per Name via name
+            - name: slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Games per Slug via slug
         """
         return super(GameViewSet, self).list(request)
 
@@ -182,6 +202,11 @@ class PeriodViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Periods per Name via name
+            - name: scenario
+              type: string
+              paramType: query
+              required: false
+              description: Filters Periods per Scenario via scenario
         """
         return super(PeriodViewSet, self).list(request)
 
@@ -238,6 +263,11 @@ class PhaseViewSet(CommonViewSet):
         Returns a list of Phases
         ---
         parameters:
+            - name: game
+              type: string
+              paramType: query
+              required: false
+              description: Filters Phases per Game via game
             - name: name
               type: string
               paramType: query
@@ -305,6 +335,16 @@ class ResultViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Results per Name via name
+            - name: period
+              type: string
+              paramType: query
+              required: false
+              description: Filters Results per Period via period
+            - name: role
+              type: string
+              paramType: query
+              required: false
+              description: Filters Results per Role via role
         """
         return super(ResultViewSet, self).list(request)
 
@@ -361,6 +401,11 @@ class RoleViewSet(CommonViewSet):
         Returns a list of Roles
         ---
         parameters:
+            - name: game
+              type: string
+              paramType: query
+              required: false
+              description: Filters Roles per Game via game
             - name: name
               type: string
               paramType: query
@@ -427,6 +472,11 @@ class RoundViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Rounds per Name via name
+            - name: world
+              type: string
+              paramType: query
+              required: false
+              description: Filters Rounds per World via world
         """
         return super(RoundViewSet, self).list(request)
 
@@ -483,6 +533,11 @@ class RunViewSet(CommonViewSet):
         Returns a list of Runs
         ---
         parameters:
+            - name: game
+              type: string
+              paramType: query
+              required: false
+              description: Filters Runs per Game via game
             - name: name
               type: string
               paramType: query
@@ -547,6 +602,38 @@ class RunUserViewSet(CommonViewSet):
     def list(self, request):
         """
         Returns a list of RunUsers
+        ---
+        parameters:
+            - name: active
+              type: boolean
+              paramType: query
+              required: false
+              description: Filters Run Users per Active via active
+            - name: facilitator
+              type: string
+              paramType: query
+              required: false
+              description: Filters Run Users per Facilitator via facilitator
+            - name: role
+              type: string
+              paramType: query
+              required: false
+              description: Filters Run Users per Role via role
+            - name: run
+              type: string
+              paramType: query
+              required: false
+              description: Filters Run Users per Run via run
+            - name: user
+              type: string
+              paramType: query
+              required: false
+              description: Filters Run Users per User via user
+            - name: world
+              type: string
+              paramType: query
+              required: false
+              description: Filters Run Users per World via world
         """
         return super(RunUserViewSet, self).list(request)
 
@@ -611,6 +698,26 @@ class ScenarioViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Scenarioes per Name via name
+            - name: creator_user
+              type: string
+              paramType: query
+              required: false
+              description: Filters Scenarioes per Creator User via creator_user
+            - name: current_period
+              type: string
+              paramType: query
+              required: false
+              description: Filters Scenarioes per Current Period via current_period
+            - name: last_period
+              type: string
+              paramType: query
+              required: false
+              description: Filters Scenarioes per Last Period via last_period
+            - name: round
+              type: string
+              paramType: query
+              required: false
+              description: Filters Scenarioes per Round via round
         """
         return super(ScenarioViewSet, self).list(request)
 
@@ -667,6 +774,11 @@ class WebhookViewSet(CommonViewSet):
         Returns a list of Webhooks
         ---
         parameters:
+            - name: game
+              type: string
+              paramType: query
+              required: false
+              description: Filters Webhooks per Game via game
             - name: name
               type: string
               paramType: query
@@ -733,6 +845,11 @@ class WebhookLogViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Webhook Logs per Name via name
+            - name: webhook
+              type: string
+              paramType: query
+              required: false
+              description: Filters Webhook Logs per Webhook via webhook
         """
         return super(WebhookLogViewSet, self).list(request)
 
@@ -794,6 +911,11 @@ class WorldViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Worlds per Name via name
+            - name: run
+              type: string
+              paramType: query
+              required: false
+              description: Filters Worlds per Run via run
         """
         return super(WorldViewSet, self).list(request)
 
