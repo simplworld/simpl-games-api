@@ -58,12 +58,12 @@ class DecisionViewSet(CommonViewSet):
               required: false
               description: Filters Decisions per Name via name
             - name: period
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Decisions per Period via period
             - name: role
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Decisions per Role via role
@@ -203,7 +203,7 @@ class PeriodViewSet(CommonViewSet):
               required: false
               description: Filters Periods per Name via name
             - name: scenario
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Periods per Scenario via scenario
@@ -264,7 +264,7 @@ class PhaseViewSet(CommonViewSet):
         ---
         parameters:
             - name: game
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Phases per Game via game
@@ -336,12 +336,12 @@ class ResultViewSet(CommonViewSet):
               required: false
               description: Filters Results per Name via name
             - name: period
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Results per Period via period
             - name: role
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Results per Role via role
@@ -402,7 +402,7 @@ class RoleViewSet(CommonViewSet):
         ---
         parameters:
             - name: game
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Roles per Game via game
@@ -473,7 +473,7 @@ class RoundViewSet(CommonViewSet):
               required: false
               description: Filters Rounds per Name via name
             - name: world
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Rounds per World via world
@@ -534,7 +534,7 @@ class RunViewSet(CommonViewSet):
         ---
         parameters:
             - name: game
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Runs per Game via game
@@ -610,27 +610,27 @@ class RunUserViewSet(CommonViewSet):
               required: false
               description: Filters Run Users per Active via active
             - name: facilitator
-              type: string
+              type: boolean
               paramType: query
               required: false
               description: Filters Run Users per Facilitator via facilitator
             - name: role
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Run Users per Role via role
             - name: run
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Run Users per Run via run
             - name: user
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Run Users per User via user
             - name: world
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Run Users per World via world
@@ -699,22 +699,22 @@ class ScenarioViewSet(CommonViewSet):
               required: false
               description: Filters Scenarioes per Name via name
             - name: creator_user
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Scenarioes per Creator User via creator_user
             - name: current_period
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Scenarioes per Current Period via current_period
             - name: last_period
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Scenarioes per Last Period via last_period
             - name: round
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Scenarioes per Round via round
@@ -775,7 +775,7 @@ class WebhookViewSet(CommonViewSet):
         ---
         parameters:
             - name: game
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Webhooks per Game via game
@@ -846,7 +846,7 @@ class WebhookLogViewSet(CommonViewSet):
               required: false
               description: Filters Webhook Logs per Name via name
             - name: webhook
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Webhook Logs per Webhook via webhook
@@ -912,7 +912,7 @@ class WorldViewSet(CommonViewSet):
               required: false
               description: Filters Worlds per Name via name
             - name: run
-              type: string
+              type: integer
               paramType: query
               required: false
               description: Filters Worlds per Run via run
