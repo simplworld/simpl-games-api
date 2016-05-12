@@ -1,33 +1,37 @@
-# SIMPL-GAMES-API
+# SIMPL Games Framework API Project
 
-SIMPL Games Framework API
+This project uses Python 3.5.x and Django 1.9.x
 
 ## Getting Started
 
-Make sure you are working in a virtual environment of some sort (e.g. 'virtualenv').
-
-If you are working in Vagrant you are working in Vagrant using virtualenv, add simpl-games-api to the code path:
+### To setup python-dev Vagrant box with PostgreSQL
 
 ```bash
+$ git clone ssh://git@stash.wharton.upenn.edu:7999/vagrant/python-dev-centos7.git
+$ cd python-dev-centos7
+$ vagrant up
+$ vagrant ssh
+$ cd /vagrant/examples/
+$ sudo ./install_postgres.sh
+```
+
+### Setup simpl-games-api (assumes working in python-dev-centos7 vagrant)
+
+```bash
+clone simpl-games-api inside python-dev-centos7/html directory
+
+$ mkvirtualenv simpl-games-api
 $ add2virtualenv /vagrant/html/simpl-games-api
 ```
-If you are working in Vagrant:
+
+### Python Setup (assumes working in python-dev-centos7 vagrant)
 
 ```bash
 $ cd /vagrant/html/simpl-games-api
-```
-
-Create a database (defaults to Postgres):
-
-```bash
-$ createdb simpl
-```
-
-Install requirements:
-
-```bash
 $ pip install -r requirements.txt
 ```
+
+### Settings setup
 
 Setup your `DJANGO_SETTINGS_MODULE` to use:
 
@@ -35,11 +39,23 @@ Setup your `DJANGO_SETTINGS_MODULE` to use:
 $ export DJANGO_SETTINGS_MODULE=config.settings.local
 ```
 
+### Create PostgreSQL database
+
+Create a database (defaults to Postgres):
+
+```bash
+$ createdb simpl
+```
+
+### Database Setup
+
 Sync models to database:
 
 ```bash
 $ ./manage.py migrate
 ```
+
+### Create a superuser for testing
 
 Create a superuser account to access the admin:
 
@@ -47,30 +63,19 @@ Create a superuser account to access the admin:
 $ ./manage.py createsuperuser
 ```
 
-Start the web server:
+### Start the web server
 
 ```bash
-$ ./manage.py collectstatic
 $ ./manage.py runserver 0.0.0.0:8000
 ```
 
-### Running tests with py.test
-
-Change into the `simpl` subdirectory:
-
-```bash
-$ cd simpl
-```
-
-If you are working in Vagrant, this will be something like:
-
-```bash
-$ cd /vagrant/html/simpl-games-api/simpl
-```
+### Running tests
 
 ```bash
 $ py.test
 ```
+
+Do not commit code if tests are failing.
 
 ## What's where?
 
