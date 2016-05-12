@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
 from simpl.games.apis.urls import router as api_router
+from simpl_users.apis.urls import router as simpl_users_api_router
 
 
 # Homepage
@@ -33,6 +34,7 @@ urlpatterns += [
     url(r'^simpl/', include('simpl.games.urls', namespace='simpl')),
     url(r'^users/', include('simpl_users.urls', namespace='users')),
     url(r'^apis/', include(api_router.urls, namespace='simpl_api')),
+    url(r'^apis/', include(simpl_users_api_router.urls, namespace='simpl_users_api')),
     url(r'^docs/', include('rest_framework_swagger.urls')),
 ]
 
