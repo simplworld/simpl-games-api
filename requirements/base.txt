@@ -48,7 +48,12 @@ celery==3.1.21
 git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to the latest
 git+https://github.com/dyve/django-bootstrap3.git@1ad2686  # Pin to 7.0.1 once released (currently at 6.2.2)
 
-# Your custom requirements go here
+# Your custom requirements go below here...
+
 django-filter==0.13.0
 django-rest-swagger==0.3.7
 djangorestframework==3.3.3
+
+# Nicer CLI Interface
+click==6.6
+django-click==1.2.0
