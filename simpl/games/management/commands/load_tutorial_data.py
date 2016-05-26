@@ -6,35 +6,45 @@ from simpl_users.models import User
 
 @click.command()
 def command():
+    """Sets up a default game."""
 
     # Create a Game
-    game, _ = models.Game.objects.get_or_create(
+    game, created = models.Game.objects.get_or_create(
         name='zero-sum',
     )
     click.echo(
-        click.style('creating game: ', fg='green') +
+        click.style(
+            '{0} game: '.format('creating' if created else 'updating'),
+            fg='green'
+        ) +
         '{0}'.format(game.name)
     )
 
     # Create a Run
-    run, _ = models.Run.objects.get_or_create(
+    run, created = models.Run.objects.get_or_create(
         name='First Run',
         game=game,
     )
     click.echo(
-        click.style('creating run: ', fg='green') +
+        click.style(
+            '{0} run: '.format('creating' if created else 'updating'),
+            fg='green'
+        ) +
         '{0}'.format(run.name)
     )
 
     # Create a Superuser
-    superuser, _ = User.objects.update_or_create(
+    superuser, created = User.objects.update_or_create(
         username='system',
         password='System!1',
         is_superuser=True,
         is_staff=True,
     )
     click.echo(
-        click.style('creating superuser: "', fg='green') +
+        click.style(
+            '{0} superuser: '.format('creating' if created else 'updating'),
+            fg='green'
+        ) +
         '{0}'.format(superuser.username) +
         click.style('" with password "', fg='green') +
         '{0}'.format(superuser.password) +
@@ -42,13 +52,16 @@ def command():
     )
 
     # Create a User (Alice)
-    user_alice, _ = User.objects.update_or_create(
+    user_alice, created = User.objects.update_or_create(
         username='alice',
         password='Alice123',
         is_staff=True,
     )
     click.echo(
-        click.style('creating user: "', fg='green') +
+        click.style(
+            '{0} user: '.format('creating' if created else 'updating'),
+            fg='green'
+        ) +
         '{0}'.format(user_alice.username) +
         click.style('" with password "', fg='green') +
         '{0}'.format(user_alice.password) +
@@ -56,13 +69,16 @@ def command():
     )
 
     # Create a User (Bob)
-    user_bob, _ = User.objects.update_or_create(
+    user_bob, created = User.objects.update_or_create(
         username='bob',
         password='Bob123',
         is_staff=True,
     )
     click.echo(
-        click.style('creating user: "', fg='green') +
+        click.style(
+            '{0} user: '.format('creating' if created else 'updating'),
+            fg='green'
+        ) +
         '{0}'.format(user_bob.username) +
         click.style('" with password "', fg='green') +
         '{0}'.format(user_bob.password) +
@@ -70,43 +86,55 @@ def command():
     )
 
     # Create a Role
-    role_player_1, _ = models.Role.objects.get_or_create(
+    role_player_1, created = models.Role.objects.get_or_create(
         name='Player 1',
         game=game,
     )
     click.echo(
-        click.style('creating role: ', fg='green') +
+        click.style(
+            '{0} role: '.format('creating' if created else 'updating'),
+            fg='green'
+        ) +
         '{0}'.format(role_player_1.name)
     )
 
     # Create a Role
-    role_player_2, _ = models.Role.objects.get_or_create(
+    role_player_2, created = models.Role.objects.get_or_create(
         name='Player 2',
         game=game,
     )
     click.echo(
-        click.style('creating role: ', fg='green') +
+        click.style(
+            '{0} role: '.format('creating' if created else 'updating'),
+            fg='green'
+        ) +
         '{0}'.format(role_player_2.name)
     )
 
     # Create a Run User for Alice
-    runuser_for_alice, _ = models.RunUser.objects.get_or_create(
+    runuser_for_alice, created = models.RunUser.objects.get_or_create(
         user=user_alice,
         run=run,
         role=role_player_1,
     )
     click.echo(
-        click.style('creating runuser for: ', fg='green') +
+        click.style(
+            '{0} runuser: '.format('creating' if created else 'updating'),
+            fg='green'
+        ) +
         '{0}'.format(runuser_for_alice)
     )
 
     # Create a Run User for Bob
-    runuser_for_bob, _ = models.RunUser.objects.get_or_create(
+    runuser_for_bob, created = models.RunUser.objects.get_or_create(
         user=user_bob,
         run=run,
         role=role_player_2,
     )
     click.echo(
-        click.style('creating runuser for: ', fg='green') +
+        click.style(
+            '{0} runuser: '.format('creating' if created else 'updating'),
+            fg='green'
+        ) +
         '{0}'.format(runuser_for_bob)
     )
