@@ -35,6 +35,7 @@ urlpatterns += [
     url(r'^users/', include('simpl_users.urls', namespace='users')),
     url(r'^apis/', include(api_router.urls, namespace='simpl_api')),
     url(r'^apis/', include(simpl_users_api_router.urls, namespace='simpl_users_api')),
+    url(r"^apis/hooks/", include("thorn.django.rest_framework.urls", namespace="webhook")),
     url(r'^docs/', include('rest_framework_swagger.urls')),
 ]
 
