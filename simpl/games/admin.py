@@ -26,6 +26,7 @@ class GameAdmin(TimeStampedAdmin):
         'active',
     )
     prepopulated_fields = {'slug': ('name',)}
+    raw_id_fields = ('user',)
 
 
 @admin.register(models.Period)

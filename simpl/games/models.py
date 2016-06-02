@@ -5,11 +5,20 @@ from django.template.defaultfilters import slugify
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+from thorn import ModelEvent, model_reverser, webhook_model
+
+from . import events
+
 from simpl.core import managers
 from simpl.core.mixins import AbstractTimeStampedModel
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_create=events.on_decision_created,
+    reverse=model_reverser('article.detail', pk='pk'),
+    sender_field='game.user'
+)
 class Decision(AbstractTimeStampedModel):
     """Decision model"""
 
@@ -33,6 +42,10 @@ class Decision(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    @property
+    def game(self):
+        return self.period.game
+
 
 @python_2_unicode_compatible
 class Game(AbstractTimeStampedModel):
@@ -41,6 +54,11 @@ class Game(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=250, blank=True)
     active = models.BooleanField(default=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        related_name='games'
+    )
 
     objects = managers.ActiveQuerySet.as_manager()
 
@@ -81,6 +99,10 @@ class Period(AbstractTimeStampedModel):
             self.scenario.name,
             self.order
         )
+
+    @property
+    def game(self):
+        return self.scenario.game
 
 
 @python_2_unicode_compatible
@@ -166,6 +188,14 @@ class Round(AbstractTimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    @property
+    def game(self):
+        return self.world.game
+
+    @property
+    def game(self):
+        return self.period.game
 
 
 @python_2_unicode_compatible
@@ -268,6 +298,9 @@ class Scenario(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    @property
+    def game(self):
+        return self.round.game
 
 
 @python_2_unicode_compatible
@@ -294,3 +327,7 @@ class World(AbstractTimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    @property
+    def game(self):
+        return self.run.game
