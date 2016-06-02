@@ -94,24 +94,6 @@ class ScenarioSerializer(ModelSerializer):
         )
 
 
-class WebhookSerializer(ModelSerializer):
-    class Meta:
-        model = models.Webhook
-        read_only_fields = (
-            'created',
-            'updated',
-        )
-
-
-class WebhookLogSerializer(ModelSerializer):
-    class Meta:
-        model = models.WebhookLog
-        read_only_fields = (
-            'created',
-            'updated',
-        )
-
-
 class WorldSerializer(ModelSerializer):
     class Meta:
         model = models.World

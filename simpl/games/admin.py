@@ -3,20 +3,6 @@ from django.contrib import admin
 from . import models
 from simpl.core.admin import TimeStampedAdmin, TimeStampedTabularInline
 
-
-# Inlines
-
-class WebhookInline(TimeStampedTabularInline):
-    model = models.Webhook
-    list_display = (
-        'name',
-        'game',
-    )
-    raw_id_fields = [
-        'game',
-    ]
-
-
 # Model Admins
 
 @admin.register(models.Decision)
@@ -34,9 +20,6 @@ class DecisionAdmin(TimeStampedAdmin):
 
 @admin.register(models.Game)
 class GameAdmin(TimeStampedAdmin):
-    inlines = [
-        WebhookInline,
-    ]
     list_display = (
         'name',
         'slug',
@@ -146,30 +129,6 @@ class ScenarioAdmin(TimeStampedAdmin):
         'round',
         'current_period',
         'last_period',
-    ]
-
-
-@admin.register(models.Webhook)
-class WebhookAdmin(TimeStampedAdmin):
-    list_display = (
-        'name',
-        'game',
-    )
-    raw_id_fields = [
-        'game',
-    ]
-
-
-@admin.register(models.WebhookLog)
-class WebhookLogAdmin(TimeStampedAdmin):
-    list_display = (
-        'webhook',
-        'status',
-        'last_delivery',
-        'created',
-    )
-    raw_id_fields = [
-        'webhook',
     ]
 
 

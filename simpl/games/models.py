@@ -269,46 +269,6 @@ class Scenario(AbstractTimeStampedModel):
         return self.name
 
 
-@python_2_unicode_compatible
-class Webhook(AbstractTimeStampedModel):
-    """Webhook model"""
-
-    name = models.CharField(max_length=100)
-    game = models.ForeignKey(
-        'Game',
-        related_name='webhooks'
-    )
-    url = models.URLField(max_length=1000)
-
-    class Meta(object):
-        verbose_name = _('webhook')
-        verbose_name_plural = _('webhooks')
-
-    def __str__(self):
-        return self.name
-
-
-@python_2_unicode_compatible
-class WebhookLog(AbstractTimeStampedModel):
-    """Webhook Log model"""
-
-    webhook = models.ForeignKey(
-        'Webhook',
-        related_name='webhooklogs'
-    )
-    status = models.IntegerField(blank=True, null=True)
-    last_delivery = models.DateTimeField(blank=True, null=True)
-
-    class Meta(object):
-        verbose_name = _('webhook log')
-        verbose_name_plural = _('webhook logs')
-
-    def __str__(self):
-        return '{0}: {1}'.format(
-            self.status,
-            self.webhook.name,
-        )
-
 
 @python_2_unicode_compatible
 class World(AbstractTimeStampedModel):
