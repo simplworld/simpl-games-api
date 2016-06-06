@@ -193,9 +193,6 @@ class Round(AbstractTimeStampedModel):
     def game(self):
         return self.world.game
 
-    @property
-    def game(self):
-        return self.period.game
 
 
 @python_2_unicode_compatible
