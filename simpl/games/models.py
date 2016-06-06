@@ -95,6 +95,11 @@ class Game(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_create=events.on_period_created,
+    reverse=model_reverser('simpl_api:period-detail', pk='pk'),
+    sender_field='game.user'
+)
 class Period(AbstractTimeStampedModel):
     """Period model"""
 
@@ -126,6 +131,11 @@ class Period(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_create=events.on_phase_created,
+    reverse=model_reverser('simpl_api:phase-detail', pk='pk'),
+    sender_field='game.user'
+)
 class Phase(AbstractTimeStampedModel):
     """Phase model"""
 
@@ -150,6 +160,11 @@ class Phase(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_create=events.on_result_created,
+    reverse=model_reverser('simpl_api:result-detail', pk='pk'),
+    # sender_field='game.user'
+)
 class Result(AbstractTimeStampedModel):
     """Result model"""
 
@@ -201,6 +216,11 @@ class Role(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_create=events.on_round_created,
+    reverse=model_reverser('simpl_api:round-detail', pk='pk'),
+    sender_field='game.user'
+)
 class Round(AbstractTimeStampedModel):
     """Round model"""
 
@@ -230,6 +250,11 @@ class Round(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_create=events.on_run_created,
+    reverse=model_reverser('simpl_api:run-detail', pk='pk'),
+    sender_field='game.user'
+)
 class Run(AbstractTimeStampedModel):
     """Run model"""
 
@@ -259,6 +284,11 @@ class Run(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_create=events.on_runuser_created,
+    reverse=model_reverser('simpl_api:runuser-detail', pk='pk'),
+    sender_field='user'
+)
 class RunUser(AbstractTimeStampedModel):
     """Run User model"""
 
@@ -302,6 +332,11 @@ class RunUser(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_create=events.on_scenario_created,
+    reverse=model_reverser('simpl_api:scenario-detail', pk='pk'),
+    sender_field='game.user'
+)
 class Scenario(AbstractTimeStampedModel):
     """Scenario model"""
 
@@ -350,6 +385,11 @@ class Scenario(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_create=events.on_world_created,
+    reverse=model_reverser('simpl_api:world-detail', pk='pk'),
+    sender_field='game.user'
+)
 class World(AbstractTimeStampedModel):
     """World model"""
 
