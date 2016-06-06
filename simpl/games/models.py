@@ -16,7 +16,7 @@ from simpl.core.mixins import AbstractTimeStampedModel
 @python_2_unicode_compatible
 @webhook_model(
     on_create=events.on_decision_created,
-    reverse=model_reverser('article.detail', pk='pk'),
+    reverse=model_reverser('simpl_api:decision-detail', pk='pk'),
     sender_field='game.user'
 )
 class Decision(AbstractTimeStampedModel):
@@ -47,12 +47,17 @@ class Decision(AbstractTimeStampedModel):
         return self.period.game
 
     def webhook_payload(self):
-        from .serializers import DecisionSerializer
+        from .apis.serializers import DecisionSerializer
 
         return DecisionSerializer(self).data
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_create=events.on_game_created,
+    reverse=model_reverser('simpl_api:game-detail', slug='slug'),
+    sender_field='user'
+)
 class Game(AbstractTimeStampedModel):
     """Game model"""
 
@@ -84,7 +89,7 @@ class Game(AbstractTimeStampedModel):
         return self.name
 
     def webhook_payload(self):
-        from .serializers import GameSerializer
+        from .apis.serializers import GameSerializer
 
         return GameSerializer(self).data
 
@@ -115,7 +120,7 @@ class Period(AbstractTimeStampedModel):
         return self.scenario.game
 
     def webhook_payload(self):
-        from .serializers import PeriodSerializer
+        from .apis.serializers import PeriodSerializer
 
         return PeriodSerializer(self).data
 
@@ -139,7 +144,7 @@ class Phase(AbstractTimeStampedModel):
         return self.name
 
     def webhook_payload(self):
-        from .serializers import PhaseSerializer
+        from .apis.serializers import PhaseSerializer
 
         return PhaseSerializer(self).data
 
@@ -169,7 +174,7 @@ class Result(AbstractTimeStampedModel):
         return self.name
 
     def webhook_payload(self):
-        from .serializers import ResultSerializer
+        from .apis.serializers import ResultSerializer
 
         return ResultSerializer(self).data
 
@@ -219,7 +224,7 @@ class Round(AbstractTimeStampedModel):
         return self.world.game
 
     def webhook_payload(self):
-        from .serializers import RoundSerializer
+        from .apis.serializers import RoundSerializer
 
         return RoundSerializer(self).data
 
@@ -248,7 +253,7 @@ class Run(AbstractTimeStampedModel):
         return self.name
 
     def webhook_payload(self):
-        from .serializers import RunSerializer
+        from .apis.serializers import RunSerializer
 
         return RunSerializer(self).data
 
@@ -291,7 +296,7 @@ class RunUser(AbstractTimeStampedModel):
         return self.user.__str__()
 
     def webhook_payload(self):
-        from .serializers import RunUserSerializer
+        from .apis.serializers import RunUserSerializer
 
         return RunUserSerializer(self).data
 
@@ -339,7 +344,7 @@ class Scenario(AbstractTimeStampedModel):
         return self.round.game
 
     def webhook_payload(self):
-        from .serializers import ScenarioSerializer
+        from .apis.serializers import ScenarioSerializer
 
         return ScenarioSerializer(self).data
 
@@ -374,6 +379,6 @@ class World(AbstractTimeStampedModel):
         return self.run.game
 
     def webhook_payload(self):
-        from .serializers import WorldSerializer
+        from .apis.serializers import WorldSerializer
 
         return WorldSerializer(self).data
