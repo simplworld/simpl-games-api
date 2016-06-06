@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from thorn import ModelEvent, model_reverser, webhook_model
+from thorn import model_reverser, webhook_model
 
 from . import events
 
@@ -46,6 +46,11 @@ class Decision(AbstractTimeStampedModel):
     def game(self):
         return self.period.game
 
+    def webhook_payload(self):
+        from .serializers import DecisionSerializer
+
+        return DecisionSerializer(self).data
+
 
 @python_2_unicode_compatible
 class Game(AbstractTimeStampedModel):
@@ -78,6 +83,11 @@ class Game(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    def webhook_payload(self):
+        from .serializers import GameSerializer
+
+        return GameSerializer(self).data
+
 
 @python_2_unicode_compatible
 class Period(AbstractTimeStampedModel):
@@ -104,6 +114,11 @@ class Period(AbstractTimeStampedModel):
     def game(self):
         return self.scenario.game
 
+    def webhook_payload(self):
+        from .serializers import PeriodSerializer
+
+        return PeriodSerializer(self).data
+
 
 @python_2_unicode_compatible
 class Phase(AbstractTimeStampedModel):
@@ -122,6 +137,11 @@ class Phase(AbstractTimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    def webhook_payload(self):
+        from .serializers import PhaseSerializer
+
+        return PhaseSerializer(self).data
 
 
 @python_2_unicode_compatible
@@ -147,6 +167,11 @@ class Result(AbstractTimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    def webhook_payload(self):
+        from .serializers import ResultSerializer
+
+        return ResultSerializer(self).data
 
 
 @python_2_unicode_compatible
@@ -193,6 +218,10 @@ class Round(AbstractTimeStampedModel):
     def game(self):
         return self.world.game
 
+    def webhook_payload(self):
+        from .serializers import RoundSerializer
+
+        return RoundSerializer(self).data
 
 
 @python_2_unicode_compatible
@@ -217,6 +246,11 @@ class Run(AbstractTimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    def webhook_payload(self):
+        from .serializers import RunSerializer
+
+        return RunSerializer(self).data
 
 
 @python_2_unicode_compatible
@@ -255,6 +289,11 @@ class RunUser(AbstractTimeStampedModel):
 
     def __str__(self):
         return self.user.__str__()
+
+    def webhook_payload(self):
+        from .serializers import RunUserSerializer
+
+        return RunUserSerializer(self).data
 
 
 @python_2_unicode_compatible
@@ -299,6 +338,11 @@ class Scenario(AbstractTimeStampedModel):
     def game(self):
         return self.round.game
 
+    def webhook_payload(self):
+        from .serializers import ScenarioSerializer
+
+        return ScenarioSerializer(self).data
+
 
 @python_2_unicode_compatible
 class World(AbstractTimeStampedModel):
@@ -328,3 +372,8 @@ class World(AbstractTimeStampedModel):
     @property
     def game(self):
         return self.run.game
+
+    def webhook_payload(self):
+        from .serializers import WorldSerializer
+
+        return WorldSerializer(self).data
