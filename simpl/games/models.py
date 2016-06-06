@@ -15,7 +15,9 @@ from simpl.core.mixins import AbstractTimeStampedModel
 
 @python_2_unicode_compatible
 @webhook_model(
+    on_change=events.on_decision_changed,
     on_create=events.on_decision_created,
+    on_delete=events.on_decision_deleted,
     reverse=model_reverser('simpl_api:decision-detail', pk='pk'),
     sender_field='game.user'
 )
@@ -54,7 +56,9 @@ class Decision(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 @webhook_model(
+    on_change=events.on_game_changed,
     on_create=events.on_game_created,
+    on_delete=events.on_game_deleted,
     reverse=model_reverser('simpl_api:game-detail', slug='slug'),
     sender_field='user'
 )
@@ -96,7 +100,9 @@ class Game(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 @webhook_model(
+    on_change=events.on_period_changed,
     on_create=events.on_period_created,
+    on_delete=events.on_period_deleted,
     reverse=model_reverser('simpl_api:period-detail', pk='pk'),
     sender_field='game.user'
 )
@@ -132,7 +138,9 @@ class Period(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 @webhook_model(
+    on_change=events.on_phase_changed,
     on_create=events.on_phase_created,
+    on_delete=events.on_phase_deleted,
     reverse=model_reverser('simpl_api:phase-detail', pk='pk'),
     sender_field='game.user'
 )
@@ -161,7 +169,9 @@ class Phase(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 @webhook_model(
+    on_change=events.on_result_changed,
     on_create=events.on_result_created,
+    on_delete=events.on_result_deleted,
     reverse=model_reverser('simpl_api:result-detail', pk='pk'),
     # sender_field='game.user'
 )
@@ -217,7 +227,9 @@ class Role(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 @webhook_model(
+    on_change=events.on_round_changed,
     on_create=events.on_round_created,
+    on_delete=events.on_round_deleted,
     reverse=model_reverser('simpl_api:round-detail', pk='pk'),
     sender_field='game.user'
 )
@@ -251,7 +263,9 @@ class Round(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 @webhook_model(
+    on_change=events.on_run_changed,
     on_create=events.on_run_created,
+    on_delete=events.on_run_deleted,
     reverse=model_reverser('simpl_api:run-detail', pk='pk'),
     sender_field='game.user'
 )
@@ -285,7 +299,9 @@ class Run(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 @webhook_model(
+    on_change=events.on_runuser_changed,
     on_create=events.on_runuser_created,
+    on_delete=events.on_runuser_deleted,
     reverse=model_reverser('simpl_api:runuser-detail', pk='pk'),
     sender_field='user'
 )
@@ -333,7 +349,9 @@ class RunUser(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 @webhook_model(
+    on_change=events.on_scenario_changed,
     on_create=events.on_scenario_created,
+    on_delete=events.on_scenario_deleted,
     reverse=model_reverser('simpl_api:scenario-detail', pk='pk'),
     sender_field='game.user'
 )
@@ -386,7 +404,9 @@ class Scenario(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 @webhook_model(
+    on_change=events.on_world_changed,
     on_create=events.on_world_created,
+    on_delete=events.on_world_deleted,
     reverse=model_reverser('simpl_api:world-detail', pk='pk'),
     sender_field='game.user'
 )
