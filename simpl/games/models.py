@@ -10,6 +10,7 @@ from thorn import model_reverser, webhook_model
 from . import events
 
 from simpl.core import managers
+from simpl.core.decorators import cached_method
 from simpl.core.mixins import AbstractTimeStampedModel
 
 
@@ -45,6 +46,7 @@ class Decision(AbstractTimeStampedModel):
         return self.name
 
     @property
+    @cached_method("decisions:{.pk}:game")
     def game(self):
         return self.period.game
 
@@ -127,6 +129,7 @@ class Period(AbstractTimeStampedModel):
         )
 
     @property
+    @cached_method("periods:{.pk}:game")
     def game(self):
         return self.scenario.game
 
@@ -198,6 +201,11 @@ class Result(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    @property
+    @cached_method("results:{.pk}:game")
+    def game(self):
+        return self.period.game
+
     def webhook_payload(self):
         from .apis.serializers import ResultSerializer
 
@@ -252,6 +260,7 @@ class Round(AbstractTimeStampedModel):
         return self.name
 
     @property
+    @cached_method("rounds:{.pk}:game")
     def game(self):
         return self.world.game
 
@@ -341,6 +350,11 @@ class RunUser(AbstractTimeStampedModel):
     def __str__(self):
         return self.user.__str__()
 
+    @property
+    @cached_method("runusers:{.pk}:game")
+    def game(self):
+        return self.run.game
+
     def webhook_payload(self):
         from .apis.serializers import RunUserSerializer
 
@@ -393,6 +407,7 @@ class Scenario(AbstractTimeStampedModel):
         return self.name
 
     @property
+    @cached_method("scenarios:{.pk}:game")
     def game(self):
         return self.round.game
 
@@ -435,6 +450,7 @@ class World(AbstractTimeStampedModel):
         return self.name
 
     @property
+    @cached_method("worlds:{.pk}:game")
     def game(self):
         return self.run.game
 
