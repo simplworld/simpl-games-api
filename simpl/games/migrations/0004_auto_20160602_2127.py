@@ -23,11 +23,6 @@ class Migration(migrations.Migration):
             model_name='webhooklog',
             name='webhook',
         ),
-        migrations.AddField(
-            model_name='game',
-            name='user',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='games', to=settings.AUTH_USER_MODEL),
-        ),
         migrations.DeleteModel(
             name='Webhook',
         ),

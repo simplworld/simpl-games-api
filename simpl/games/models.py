@@ -20,7 +20,6 @@ from simpl.core.mixins import AbstractTimeStampedModel
     on_create=events.on_decision_created,
     on_delete=events.on_decision_deleted,
     reverse=model_reverser('simpl_api:decision-detail', pk='pk'),
-    sender_field='game.user'
 )
 class Decision(AbstractTimeStampedModel):
     """Decision model"""
@@ -62,7 +61,6 @@ class Decision(AbstractTimeStampedModel):
     on_create=events.on_game_created,
     on_delete=events.on_game_deleted,
     reverse=model_reverser('simpl_api:game-detail', slug='slug'),
-    sender_field='user'
 )
 class Game(AbstractTimeStampedModel):
     """Game model"""
@@ -70,11 +68,6 @@ class Game(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=250, blank=True)
     active = models.BooleanField(default=True)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        related_name='games'
-    )
 
     objects = managers.ActiveQuerySet.as_manager()
 
@@ -106,7 +99,6 @@ class Game(AbstractTimeStampedModel):
     on_create=events.on_period_created,
     on_delete=events.on_period_deleted,
     reverse=model_reverser('simpl_api:period-detail', pk='pk'),
-    sender_field='game.user'
 )
 class Period(AbstractTimeStampedModel):
     """Period model"""
@@ -145,7 +137,6 @@ class Period(AbstractTimeStampedModel):
     on_create=events.on_phase_created,
     on_delete=events.on_phase_deleted,
     reverse=model_reverser('simpl_api:phase-detail', pk='pk'),
-    sender_field='game.user'
 )
 class Phase(AbstractTimeStampedModel):
     """Phase model"""
@@ -239,7 +230,6 @@ class Role(AbstractTimeStampedModel):
     on_create=events.on_round_created,
     on_delete=events.on_round_deleted,
     reverse=model_reverser('simpl_api:round-detail', pk='pk'),
-    sender_field='game.user'
 )
 class Round(AbstractTimeStampedModel):
     """Round model"""
@@ -276,7 +266,6 @@ class Round(AbstractTimeStampedModel):
     on_create=events.on_run_created,
     on_delete=events.on_run_deleted,
     reverse=model_reverser('simpl_api:run-detail', pk='pk'),
-    sender_field='game.user'
 )
 class Run(AbstractTimeStampedModel):
     """Run model"""
@@ -312,7 +301,6 @@ class Run(AbstractTimeStampedModel):
     on_create=events.on_runuser_created,
     on_delete=events.on_runuser_deleted,
     reverse=model_reverser('simpl_api:runuser-detail', pk='pk'),
-    sender_field='user'
 )
 class RunUser(AbstractTimeStampedModel):
     """Run User model"""
@@ -367,7 +355,6 @@ class RunUser(AbstractTimeStampedModel):
     on_create=events.on_scenario_created,
     on_delete=events.on_scenario_deleted,
     reverse=model_reverser('simpl_api:scenario-detail', pk='pk'),
-    sender_field='game.user'
 )
 class Scenario(AbstractTimeStampedModel):
     """Scenario model"""
@@ -423,7 +410,6 @@ class Scenario(AbstractTimeStampedModel):
     on_create=events.on_world_created,
     on_delete=events.on_world_deleted,
     reverse=model_reverser('simpl_api:world-detail', pk='pk'),
-    sender_field='game.user'
 )
 class World(AbstractTimeStampedModel):
     """World model"""
