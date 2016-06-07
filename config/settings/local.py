@@ -9,6 +9,8 @@ Local settings
 '''
 
 from .common import *  # noqa
+from thorn import validators as thorn_validators
+
 
 # DEBUG
 # ------------------------------------------------------------------------------
@@ -64,3 +66,7 @@ CELERY_ALWAYS_EAGER = True
 ########## END CELERY
 
 # Your local stuff: Below this line define 3rd party library settings
+THORN_RECIPIENT_VALIDATORS = [
+    thorn_validators.ensure_protocol('http', 'https'),
+    thorn_validators.ensure_port(80, 443, 8080),
+]
