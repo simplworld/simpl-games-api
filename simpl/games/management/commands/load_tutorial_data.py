@@ -36,52 +36,61 @@ def command():
     # Create a Superuser
     superuser, created = User.objects.update_or_create(
         username='system',
-        password='System!1',
         is_superuser=True,
         is_staff=True,
     )
+
+    password = 'System!1'
+    superuser.set_password(password)
+
     click.echo(
         click.style(
             '{0} superuser: '.format('creating' if created else 'updating'),
             fg='green'
         ) +
         '{0}'.format(superuser.username) +
-        click.style('" with password "', fg='green') +
-        '{0}'.format(superuser.password) +
+        click.style(' with password "', fg='green') +
+        '{0}'.format(password) +
         click.style('"', fg='green')
     )
 
     # Create a User (Alice)
     user_alice, created = User.objects.update_or_create(
         username='alice',
-        password='Alice123',
         is_staff=True,
     )
+
+    password = 'Alice123'
+    superuser.set_password(password)
+
     click.echo(
         click.style(
             '{0} user: '.format('creating' if created else 'updating'),
             fg='green'
         ) +
         '{0}'.format(user_alice.username) +
-        click.style('" with password "', fg='green') +
-        '{0}'.format(user_alice.password) +
+        click.style(' with password "', fg='green') +
+        '{0}'.format(password) +
         click.style('"', fg='green')
     )
 
     # Create a User (Bob)
     user_bob, created = User.objects.update_or_create(
         username='bob',
-        password='Bob123',
         is_staff=True,
     )
+
+    password = 'Bob123'
+    superuser.set_password(password)
+
     click.echo(
         click.style(
             '{0} user: '.format('creating' if created else 'updating'),
             fg='green'
         ) +
         '{0}'.format(user_bob.username) +
-        click.style('" with password "', fg='green') +
-        '{0}'.format(user_bob.password) +
+        click.style(' with password "', fg='green') +
+        '{0}'.format(password) +
         click.style('"', fg='green')
     )
 
