@@ -5,11 +5,22 @@ from django.template.defaultfilters import slugify
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+from thorn import model_reverser, webhook_model
+
+from . import events
+
 from simpl.core import managers
+from simpl.core.decorators import cached_method
 from simpl.core.mixins import AbstractTimeStampedModel
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_change=events.on_decision_changed,
+    on_create=events.on_decision_created,
+    on_delete=events.on_decision_deleted,
+    reverse=model_reverser('simpl_api:decision-detail', pk='pk'),
+)
 class Decision(AbstractTimeStampedModel):
     """Decision model"""
 
@@ -33,8 +44,24 @@ class Decision(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    @property
+    @cached_method("decisions:{.pk}:game")
+    def game(self):
+        return self.period.game
+
+    def webhook_payload(self):
+        from .apis.serializers import DecisionSerializer
+
+        return DecisionSerializer(self).data
+
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_change=events.on_game_changed,
+    on_create=events.on_game_created,
+    on_delete=events.on_game_deleted,
+    reverse=model_reverser('simpl_api:game-detail', slug='slug'),
+)
 class Game(AbstractTimeStampedModel):
     """Game model"""
 
@@ -60,8 +87,19 @@ class Game(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    def webhook_payload(self):
+        from .apis.serializers import GameSerializer
+
+        return GameSerializer(self).data
+
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_change=events.on_period_changed,
+    on_create=events.on_period_created,
+    on_delete=events.on_period_deleted,
+    reverse=model_reverser('simpl_api:period-detail', pk='pk'),
+)
 class Period(AbstractTimeStampedModel):
     """Period model"""
 
@@ -82,8 +120,24 @@ class Period(AbstractTimeStampedModel):
             self.order
         )
 
+    @property
+    @cached_method("periods:{.pk}:game")
+    def game(self):
+        return self.scenario.game
+
+    def webhook_payload(self):
+        from .apis.serializers import PeriodSerializer
+
+        return PeriodSerializer(self).data
+
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_change=events.on_phase_changed,
+    on_create=events.on_phase_created,
+    on_delete=events.on_phase_deleted,
+    reverse=model_reverser('simpl_api:phase-detail', pk='pk'),
+)
 class Phase(AbstractTimeStampedModel):
     """Phase model"""
 
@@ -101,8 +155,20 @@ class Phase(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    def webhook_payload(self):
+        from .apis.serializers import PhaseSerializer
+
+        return PhaseSerializer(self).data
+
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_change=events.on_result_changed,
+    on_create=events.on_result_created,
+    on_delete=events.on_result_deleted,
+    reverse=model_reverser('simpl_api:result-detail', pk='pk'),
+    # sender_field='game.user'
+)
 class Result(AbstractTimeStampedModel):
     """Result model"""
 
@@ -125,6 +191,16 @@ class Result(AbstractTimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    @property
+    @cached_method("results:{.pk}:game")
+    def game(self):
+        return self.period.game
+
+    def webhook_payload(self):
+        from .apis.serializers import ResultSerializer
+
+        return ResultSerializer(self).data
 
 
 @python_2_unicode_compatible
@@ -149,6 +225,12 @@ class Role(AbstractTimeStampedModel):
 
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_change=events.on_round_changed,
+    on_create=events.on_round_created,
+    on_delete=events.on_round_deleted,
+    reverse=model_reverser('simpl_api:round-detail', pk='pk'),
+)
 class Round(AbstractTimeStampedModel):
     """Round model"""
 
@@ -167,8 +249,24 @@ class Round(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    @property
+    @cached_method("rounds:{.pk}:game")
+    def game(self):
+        return self.world.game
+
+    def webhook_payload(self):
+        from .apis.serializers import RoundSerializer
+
+        return RoundSerializer(self).data
+
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_change=events.on_run_changed,
+    on_create=events.on_run_created,
+    on_delete=events.on_run_deleted,
+    reverse=model_reverser('simpl_api:run-detail', pk='pk'),
+)
 class Run(AbstractTimeStampedModel):
     """Run model"""
 
@@ -191,8 +289,19 @@ class Run(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    def webhook_payload(self):
+        from .apis.serializers import RunSerializer
+
+        return RunSerializer(self).data
+
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_change=events.on_runuser_changed,
+    on_create=events.on_runuser_created,
+    on_delete=events.on_runuser_deleted,
+    reverse=model_reverser('simpl_api:runuser-detail', pk='pk'),
+)
 class RunUser(AbstractTimeStampedModel):
     """Run User model"""
 
@@ -229,8 +338,24 @@ class RunUser(AbstractTimeStampedModel):
     def __str__(self):
         return self.user.__str__()
 
+    @property
+    @cached_method("runusers:{.pk}:game")
+    def game(self):
+        return self.run.game
+
+    def webhook_payload(self):
+        from .apis.serializers import RunUserSerializer
+
+        return RunUserSerializer(self).data
+
 
 @python_2_unicode_compatible
+@webhook_model(
+    on_change=events.on_scenario_changed,
+    on_create=events.on_scenario_created,
+    on_delete=events.on_scenario_deleted,
+    reverse=model_reverser('simpl_api:scenario-detail', pk='pk'),
+)
 class Scenario(AbstractTimeStampedModel):
     """Scenario model"""
 
@@ -268,49 +393,24 @@ class Scenario(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    @property
+    @cached_method("scenarios:{.pk}:game")
+    def game(self):
+        return self.round.game
 
-@python_2_unicode_compatible
-class Webhook(AbstractTimeStampedModel):
-    """Webhook model"""
+    def webhook_payload(self):
+        from .apis.serializers import ScenarioSerializer
 
-    name = models.CharField(max_length=100)
-    game = models.ForeignKey(
-        'Game',
-        related_name='webhooks'
-    )
-    url = models.URLField(max_length=1000)
-
-    class Meta(object):
-        verbose_name = _('webhook')
-        verbose_name_plural = _('webhooks')
-
-    def __str__(self):
-        return self.name
+        return ScenarioSerializer(self).data
 
 
 @python_2_unicode_compatible
-class WebhookLog(AbstractTimeStampedModel):
-    """Webhook Log model"""
-
-    webhook = models.ForeignKey(
-        'Webhook',
-        related_name='webhooklogs'
-    )
-    status = models.IntegerField(blank=True, null=True)
-    last_delivery = models.DateTimeField(blank=True, null=True)
-
-    class Meta(object):
-        verbose_name = _('webhook log')
-        verbose_name_plural = _('webhook logs')
-
-    def __str__(self):
-        return '{0}: {1}'.format(
-            self.status,
-            self.webhook.name,
-        )
-
-
-@python_2_unicode_compatible
+@webhook_model(
+    on_change=events.on_world_changed,
+    on_create=events.on_world_created,
+    on_delete=events.on_world_deleted,
+    reverse=model_reverser('simpl_api:world-detail', pk='pk'),
+)
 class World(AbstractTimeStampedModel):
     """World model"""
 
@@ -334,3 +434,13 @@ class World(AbstractTimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    @property
+    @cached_method("worlds:{.pk}:game")
+    def game(self):
+        return self.run.game
+
+    def webhook_payload(self):
+        from .apis.serializers import WorldSerializer
+
+        return WorldSerializer(self).data

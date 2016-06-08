@@ -112,28 +112,6 @@ class ScenarioForm(forms.ModelForm):
         ]
 
 
-class WebhookForm(forms.ModelForm):
-
-    class Meta:
-        model = models.Webhook
-        fields = [
-            'name',
-            'game',
-            'url'
-        ]
-
-
-class WebhookLogForm(forms.ModelForm):
-
-    class Meta:
-        model = models.WebhookLog
-        fields = [
-            'webhook',
-            'status',
-            'last_delivery',
-        ]
-
-
 class WorldForm(forms.ModelForm):
 
     class Meta:

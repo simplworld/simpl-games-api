@@ -14,7 +14,5 @@ urlpatterns = [
     url(r'^rounds/', include('simpl.games.urls.round_urls')),
     url(r'^runs/', include('simpl.games.urls.run_urls')),
     url(r'^scenarios/', include('simpl.games.urls.scenario_urls')),
-    url(r'^webhook_logs/', include('simpl.games.urls.webhook_log_urls')),
-    url(r'^webhooks/', include('simpl.games.urls.webhook_urls')),
     url(r'^worlds/', include('simpl.games.urls.world_urls')),
 ]

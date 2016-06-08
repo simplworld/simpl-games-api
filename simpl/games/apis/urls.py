@@ -17,7 +17,4 @@ router.register(r'runusers', views.RunUserViewSet)
 router.register(r'scenarios', views.ScenarioViewSet)
 router.register(r'worlds', views.WorldViewSet)
 
-router.register(r'webhooks', views.WebhookViewSet)
-router.register(r'webhooklogs', views.WebhookLogViewSet)
-
 urlpatterns = router.urls

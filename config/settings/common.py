@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = (
     'fontawesome',
     'rest_framework',
     'rest_framework_swagger',
+    'thorn.django',
 )
 
 # Apps specific for this project go here.
