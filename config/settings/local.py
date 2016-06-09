@@ -68,5 +68,5 @@ CELERY_ALWAYS_EAGER = True
 # Your local stuff: Below this line define 3rd party library settings
 THORN_RECIPIENT_VALIDATORS = [
     thorn_validators.ensure_protocol('http', 'https'),
-    thorn_validators.ensure_port(80, 443, 8080),
+    thorn_validators.ensure_port(80, 443, 8080, 8000),
 ]
