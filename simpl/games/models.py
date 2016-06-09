@@ -7,11 +7,11 @@ from django.utils.translation import ugettext_lazy as _
 
 from thorn import model_reverser, webhook_model
 
-from . import events
-
 from simpl.core import managers
 from simpl.core.decorators import cached_method
 from simpl.core.mixins import AbstractTimeStampedModel
+
+from . import events
 
 
 @python_2_unicode_compatible

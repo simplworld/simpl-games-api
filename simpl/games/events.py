@@ -55,3 +55,8 @@ on_scenario_deleted = ModelEvent('{.game.slug}.scenario.deleted')
 on_world_changed = ModelEvent('{.game.slug}.world.changed')
 on_world_created = ModelEvent('{.game.slug}.world.created')
 on_world_deleted = ModelEvent('{.game.slug}.world.deleted')
+
+# User events
+on_user_changed = ModelEvent('user.changed')
+on_user_created = ModelEvent('user.created')
+on_user_deleted = ModelEvent('user.deleted')
