@@ -345,8 +345,10 @@ class RunUser(AbstractTimeStampedModel):
 
     def webhook_payload(self):
         from .apis.serializers import RunUserSerializer
-
-        return RunUserSerializer(self).data
+        payload = RunUserSerializer(self).data
+        payload['username'] = self.user.username
+        payload['game_slug'] = self.game.slug
+        return payload
 
 
 @python_2_unicode_compatible
