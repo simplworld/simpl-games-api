@@ -1,7 +1,6 @@
-from rest_framework import filters, status, viewsets
+from rest_framework import filters, viewsets
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 
 from . import serializers
 from .. import models
@@ -12,10 +11,9 @@ from .. import models
 class CommonViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
-    pass
 
 
-# Views
+# ViewSets
 
 class DecisionViewSet(CommonViewSet):
     """ Decision resource. """
@@ -608,32 +606,32 @@ class RunUserViewSet(CommonViewSet):
               type: boolean
               paramType: query
               required: false
-              description: Filters Run Users per Active via active
+              description: Filters RunUsers per Active via active
             - name: facilitator
               type: boolean
               paramType: query
               required: false
-              description: Filters Run Users per Facilitator via facilitator
+              description: Filters RunUsers per Facilitator via facilitator
             - name: role
               type: integer
               paramType: query
               required: false
-              description: Filters Run Users per Role via role
+              description: Filters RunUsers per Role via role
             - name: run
               type: integer
               paramType: query
               required: false
-              description: Filters Run Users per Run via run
+              description: Filters RunUsers per Run via run
             - name: user
               type: integer
               paramType: query
               required: false
-              description: Filters Run Users per User via user
+              description: Filters RunUsers per User via user
             - name: world
               type: integer
               paramType: query
               required: false
-              description: Filters Run Users per World via world
+              description: Filters RunUsers per World via world
         """
         return super(RunUserViewSet, self).list(request)
 
