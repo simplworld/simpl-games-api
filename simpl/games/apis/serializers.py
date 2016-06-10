@@ -1,9 +1,9 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
 from .. import models
 
 
-class DecisionSerializer(ModelSerializer):
+class DecisionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Decision
         read_only_fields = (
@@ -12,7 +12,7 @@ class DecisionSerializer(ModelSerializer):
         )
 
 
-class GameSerializer(ModelSerializer):
+class GameSerializer(serializers.ModelSerializer):
     class Meta:
         lookup_field = 'slug'
         model = models.Game
@@ -22,7 +22,7 @@ class GameSerializer(ModelSerializer):
         )
 
 
-class PeriodSerializer(ModelSerializer):
+class PeriodSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Period
         read_only_fields = (
@@ -31,7 +31,7 @@ class PeriodSerializer(ModelSerializer):
         )
 
 
-class PhaseSerializer(ModelSerializer):
+class PhaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Phase
         read_only_fields = (
@@ -40,7 +40,7 @@ class PhaseSerializer(ModelSerializer):
         )
 
 
-class ResultSerializer(ModelSerializer):
+class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Result
         read_only_fields = (
@@ -49,7 +49,7 @@ class ResultSerializer(ModelSerializer):
         )
 
 
-class RoleSerializer(ModelSerializer):
+class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Role
         read_only_fields = (
@@ -58,7 +58,7 @@ class RoleSerializer(ModelSerializer):
         )
 
 
-class RoundSerializer(ModelSerializer):
+class RoundSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Round
         read_only_fields = (
@@ -67,7 +67,7 @@ class RoundSerializer(ModelSerializer):
         )
 
 
-class RunSerializer(ModelSerializer):
+class RunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Run
         read_only_fields = (
@@ -76,16 +76,21 @@ class RunSerializer(ModelSerializer):
         )
 
 
-class RunUserSerializer(ModelSerializer):
+class RunUserSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username')
+    game_slug = serializers.CharField(source='game.slug')
+
     class Meta:
         model = models.RunUser
         read_only_fields = (
             'created',
             'updated',
+            'username',
+            'game_slug',
         )
 
 
-class ScenarioSerializer(ModelSerializer):
+class ScenarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Scenario
         read_only_fields = (
@@ -94,7 +99,7 @@ class ScenarioSerializer(ModelSerializer):
         )
 
 
-class WorldSerializer(ModelSerializer):
+class WorldSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.World
         read_only_fields = (
