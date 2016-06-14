@@ -460,6 +460,118 @@ class PhaseTestCase(BaseTestCase):
             self.assertEqual(updated_phase.name, old_name)
 
 
+class ResultTestCase(BaseTestCase):
+
+    def setUp(self):
+        super(ResultTestCase, self).setUp()
+
+        self.result = factory.make('games.Result')
+        self.period = factory.make('games.Period')
+
+    def test_create(self):
+        url = reverse('simpl:result_create')
+
+        data = {
+            'name': self.faker.name(),
+            'period': self.period.id,
+        }
+
+        results_count = models.Result.objects.count()
+
+        # Does this api work without auth?
+        response = self.get(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.post(url, data=data)
+            self.response_302(response)
+            self.assertTrue(response.url.startswith('/simpl/results/'))
+
+        self.assertEqual(models.Result.objects.count(), results_count + 1)
+
+    def test_delete(self):
+        url = reverse('simpl:result_delete', kwargs={'pk': self.result.pk})
+        results_count = models.Result.objects.count()
+
+        # Does this api work without auth?
+        response = self.client.post(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.client.post(url)
+            self.response_302(response)
+            self.assertEqual(response.url, '/simpl/results/')
+
+            # Verify that the object is gone?
+            response = self.client.post(url)
+            self.response_404(response)
+
+            self.assertEqual(models.Result.objects.count(), results_count - 1)
+
+    def test_detail(self):
+        url = reverse('simpl:result_detail', kwargs={'pk': self.result.pk})
+
+        # Does this api work without auth?
+        response = self.get(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.get(url)
+            self.response_200(response)
+            self.assertEqual(response.context['object'].name, self.result.name)
+
+    def test_list(self):
+        url = reverse('simpl:result_list')
+
+        results_count = models.Result.objects.count()
+
+        # Does this api work without auth?
+        response = self.get(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.get(url)
+            self.response_200(response)
+            self.assertEqual(len(response.context['result_list']), results_count)
+
+    def test_update(self):
+        obj = self.result
+        url = reverse('simpl:result_update', kwargs={'pk': obj.pk})
+
+        old_name = obj.name
+
+        # Does this api work without auth?
+        data = model_to_dict(obj)
+
+        response = self.client.post(url, data)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            data['name'] = self.faker.name()
+            data['data'] = {}
+            data['role'] = ''
+
+            response = self.client.post(url, data)
+            self.response_302(response)
+            self.assertTrue(response.url.startswith('/simpl/results/'))
+
+            updated_result = models.Result.objects.get(pk=obj.pk)
+            self.assertEqual(updated_result.name, data['name'])
+
+            # Test Updating Reversions
+            data['name'] = old_name
+            response = self.client.post(url, data)
+            self.response_302(response)
+
+            updated_result = models.Result.objects.get(pk=obj.pk)
+            self.assertEqual(updated_result.name, old_name)
+
+
 class RoleTestCase(BaseTestCase):
 
     def setUp(self):
@@ -685,6 +797,123 @@ class RoundTestCase(BaseTestCase):
 
             updated_round = models.Round.objects.get(pk=obj.pk)
             self.assertEqual(updated_round.name, old_name)
+
+
+class RunTestCase(BaseTestCase):
+
+    def setUp(self):
+        super(RunTestCase, self).setUp()
+
+        self.run = factory.make('games.Run')
+        self.game = factory.make('games.Game')
+
+    def test_create(self):
+        url = reverse('simpl:run_create')
+
+        data = {
+            'name': self.faker.name(),
+            'game': self.game.pk,
+            'active': True,
+            'data': {},
+        }
+
+        runs_count = models.Run.objects.count()
+
+        # Does this api work without auth?
+        response = self.get(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.post(url, data=data)
+            self.response_302(response)
+            self.assertTrue(response.url.startswith('/simpl/runs/'))
+
+        self.assertEqual(models.Run.objects.count(), runs_count + 1)
+
+    def test_delete(self):
+        url = reverse('simpl:run_delete', kwargs={'pk': self.run.pk})
+        runs_count = models.Run.objects.count()
+
+        # Does this api work without auth?
+        response = self.client.post(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.client.post(url)
+            self.response_302(response)
+            self.assertEqual(response.url, '/simpl/runs/')
+
+            # Verify that the object is gone?
+            response = self.client.post(url)
+            self.response_404(response)
+
+            self.assertEqual(models.Run.objects.count(), runs_count - 1)
+
+    def test_detail(self):
+        url = reverse('simpl:run_detail', kwargs={'pk': self.run.pk})
+
+        # Does this api work without auth?
+        response = self.get(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.get(url)
+            self.response_200(response)
+            self.assertEqual(response.context['object'].name, self.run.name)
+
+    def test_list(self):
+        url = reverse('simpl:run_list')
+
+        runs_count = models.Run.objects.count()
+
+        # Does this api work without auth?
+        response = self.get(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.get(url)
+            self.response_200(response)
+            self.assertEqual(len(response.context['run_list']), runs_count)
+
+    def test_update(self):
+        obj = self.run
+        url = reverse('simpl:run_update', kwargs={'pk': obj.pk})
+
+        old_name = obj.name
+
+        # Does this api work without auth?
+        data = model_to_dict(obj)
+
+        response = self.client.post(url, data)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            data['name'] = self.faker.name()
+            data['game'] = self.game.id
+            data['active'] = True
+            data['data'] = {}
+            data['start_date'] = ''
+            data['end_date'] = ''
+
+            response = self.client.post(url, data)
+            self.response_302(response)
+            self.assertTrue(response.url.startswith('/simpl/runs/'))
+
+            updated_run = models.Run.objects.get(pk=obj.pk)
+            self.assertEqual(updated_run.name, data['name'])
+
+            # Test Updating Reversions
+            data['name'] = old_name
+            response = self.client.post(url, data)
+            self.response_302(response)
+
+            updated_run = models.Run.objects.get(pk=obj.pk)
+            self.assertEqual(updated_run.name, old_name)
 
 
 class WorldTestCase(BaseTestCase):
