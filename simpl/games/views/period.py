@@ -14,7 +14,7 @@ class PeriodCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Period
     form_class = PeriodForm
     template_name = 'simpl/periods/period_create.html'
-    success_message = '%(name)s was created successfully'
+    success_message = 'Period was created successfully'
 
     def get_success_url(self):
         return reverse('simpl:period_detail', args=(self.object.pk,))
@@ -50,7 +50,7 @@ class PeriodUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     form_class = PeriodForm
     template_name = 'simpl/periods/period_update.html'
     context_object_name = 'period'
-    success_message = '%(name)s was updated successfully'
+    success_message = 'Period was updated successfully'
 
     def get_success_url(self):
         return reverse('simpl:period_detail', args=(self.object.pk,))
