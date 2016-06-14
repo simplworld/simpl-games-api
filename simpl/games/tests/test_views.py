@@ -916,6 +916,123 @@ class RunTestCase(BaseTestCase):
             self.assertEqual(updated_run.name, old_name)
 
 
+class ScenarioTestCase(BaseTestCase):
+
+    def setUp(self):
+        super(ScenarioTestCase, self).setUp()
+
+        self.scenario = factory.make('games.Scenario')
+        self.round = factory.make('games.Round')
+
+    def test_create(self):
+        url = reverse('simpl:scenario_create')
+
+        data = {
+            'name': self.faker.name(),
+            'round': self.round.id,
+        }
+
+        scenarios_count = models.Scenario.objects.count()
+
+        # Does this api work without auth?
+        response = self.get(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.post(url, data=data)
+            self.response_302(response)
+            self.assertTrue(response.url.startswith('/simpl/scenarios/'))
+
+        self.assertEqual(models.Scenario.objects.count(), scenarios_count + 1)
+
+    def test_delete(self):
+        url = reverse('simpl:scenario_delete', kwargs={'pk': self.scenario.pk})
+        scenarios_count = models.Scenario.objects.count()
+
+        # Does this api work without auth?
+        response = self.client.post(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.client.post(url)
+            self.response_302(response)
+            self.assertEqual(response.url, '/simpl/scenarios/')
+
+            # Verify that the object is gone?
+            response = self.client.post(url)
+            self.response_404(response)
+
+            self.assertEqual(models.Scenario.objects.count(), scenarios_count - 1)
+
+    def test_detail(self):
+        url = reverse('simpl:scenario_detail', kwargs={'pk': self.scenario.pk})
+
+        # Does this api work without auth?
+        response = self.get(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.get(url)
+            self.response_200(response)
+            self.assertEqual(response.context['object'].name, self.scenario.name)
+
+    def test_list(self):
+        url = reverse('simpl:scenario_list')
+
+        scenarios_count = models.Scenario.objects.count()
+
+        # Does this api work without auth?
+        response = self.get(url)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.get(url)
+            self.response_200(response)
+            self.assertEqual(len(response.context['scenario_list']), scenarios_count)
+
+    def test_update(self):
+        obj = self.scenario
+        url = reverse('simpl:scenario_update', kwargs={'pk': obj.pk})
+
+        old_name = obj.name
+
+        # Does this api work without auth?
+        data = model_to_dict(obj)
+
+        response = self.client.post(url, data)
+        self.response_302(response)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            data['name'] = self.faker.name()
+            data['round'] = self.round.id
+            data['creator_user'] = ''
+            data['player_periods'] = ''
+            data['current_period'] = ''
+            data['last_period'] = ''
+            data['seed_periods'] = ''
+            data['total_periods'] = ''
+
+            response = self.client.post(url, data)
+            self.response_302(response)
+            self.assertTrue(response.url.startswith('/simpl/scenarios/'))
+
+            updated_scenario = models.Scenario.objects.get(pk=obj.pk)
+            self.assertEqual(updated_scenario.name, data['name'])
+
+            # Test Updating Reversions
+            data['name'] = old_name
+            response = self.client.post(url, data)
+            self.response_302(response)
+
+            updated_scenario = models.Scenario.objects.get(pk=obj.pk)
+            self.assertEqual(updated_scenario.name, old_name)
+
+
 class WorldTestCase(BaseTestCase):
 
     def setUp(self):
