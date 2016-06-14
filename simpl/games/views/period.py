@@ -1,8 +1,7 @@
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -11,7 +10,7 @@ from ..forms import PeriodForm
 from ..models import Period
 
 
-class PeriodCreateView(SuccessMessageMixin, CreateView):
+class PeriodCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Period
     form_class = PeriodForm
     template_name = 'simpl/periods/period_create.html'
@@ -21,7 +20,7 @@ class PeriodCreateView(SuccessMessageMixin, CreateView):
         return reverse('simpl:period_detail', args=(self.object.pk,))
 
 
-class PeriodDeleteView(DeleteView):
+class PeriodDeleteView(LoginRequiredMixin, DeleteView):
     model = Period
     template_name = 'simpl/periods/period_delete.html'
     context_object_name = 'period'
@@ -32,13 +31,13 @@ class PeriodDeleteView(DeleteView):
         return reverse('simpl:period_list')
 
 
-class PeriodDetailView(DetailView):
+class PeriodDetailView(LoginRequiredMixin, DetailView):
     model = Period
     template_name = 'simpl/periods/period_detail.html'
     context_object_name = 'period'
 
 
-class PeriodListView(ListView):
+class PeriodListView(LoginRequiredMixin, ListView):
     model = Period
     template_name = 'simpl/periods/period_list.html'
     paginate_by = 20
@@ -46,7 +45,7 @@ class PeriodListView(ListView):
     allow_empty = True
 
 
-class PeriodUpdateView(UpdateView):
+class PeriodUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Period
     form_class = PeriodForm
     template_name = 'simpl/periods/period_update.html'

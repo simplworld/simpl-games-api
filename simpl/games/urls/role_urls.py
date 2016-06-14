@@ -1,5 +1,4 @@
 from django.conf.urls import url
-from django.contrib.auth.decorators import login_required
 
 from ..views.role import (
     RoleCreateView,
@@ -12,15 +11,15 @@ from ..views.role import (
 
 urlpatterns = [
     url(r'^create/$',
-        login_required(RoleCreateView.as_view()),
+        RoleCreateView.as_view(),
         name='role_create'),
 
     url(r'^(?P<pk>\d+)/update/$',
-        login_required(RoleUpdateView.as_view()),
+        RoleUpdateView.as_view(),
         name='role_update'),
 
     url(r'^(?P<pk>\d+)/delete/$',
-        login_required(RoleDeleteView.as_view()),
+        RoleDeleteView.as_view(),
         name='role_delete'),
 
     url(r'^(?P<pk>\d+)/$',

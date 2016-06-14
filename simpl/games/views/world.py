@@ -1,8 +1,7 @@
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -11,7 +10,7 @@ from ..forms import WorldForm
 from ..models import World
 
 
-class WorldCreateView(SuccessMessageMixin, CreateView):
+class WorldCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = World
     form_class = WorldForm
     template_name = 'simpl/worlds/world_create.html'
@@ -21,7 +20,7 @@ class WorldCreateView(SuccessMessageMixin, CreateView):
         return reverse('simpl:world_detail', args=(self.object.pk,))
 
 
-class WorldDeleteView(DeleteView):
+class WorldDeleteView(LoginRequiredMixin, DeleteView):
     model = World
     template_name = 'simpl/worlds/world_delete.html'
     context_object_name = 'world'
@@ -32,13 +31,13 @@ class WorldDeleteView(DeleteView):
         return reverse('simpl:world_list')
 
 
-class WorldDetailView(DetailView):
+class WorldDetailView(LoginRequiredMixin, DetailView):
     model = World
     template_name = 'simpl/worlds/world_detail.html'
     context_object_name = 'world'
 
 
-class WorldListView(ListView):
+class WorldListView(LoginRequiredMixin, ListView):
     model = World
     template_name = 'simpl/worlds/world_list.html'
     paginate_by = 20
@@ -46,7 +45,7 @@ class WorldListView(ListView):
     allow_empty = True
 
 
-class WorldUpdateView(UpdateView):
+class WorldUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = World
     form_class = WorldForm
     template_name = 'simpl/worlds/world_update.html'
