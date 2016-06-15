@@ -1,8 +1,7 @@
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -11,7 +10,7 @@ from ..forms import RunForm
 from ..models import Run
 
 
-class RunCreateView(SuccessMessageMixin, CreateView):
+class RunCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Run
     form_class = RunForm
     template_name = 'simpl/runs/run_create.html'
@@ -21,7 +20,7 @@ class RunCreateView(SuccessMessageMixin, CreateView):
         return reverse('simpl:run_detail', args=(self.object.pk,))
 
 
-class RunDeleteView(DeleteView):
+class RunDeleteView(LoginRequiredMixin, DeleteView):
     model = Run
     template_name = 'simpl/runs/run_delete.html'
     context_object_name = 'run'
@@ -32,13 +31,13 @@ class RunDeleteView(DeleteView):
         return reverse('simpl:run_list')
 
 
-class RunDetailView(DetailView):
+class RunDetailView(LoginRequiredMixin, DetailView):
     model = Run
     template_name = 'simpl/runs/run_detail.html'
     context_object_name = 'run'
 
 
-class RunListView(ListView):
+class RunListView(LoginRequiredMixin, ListView):
     model = Run
     template_name = 'simpl/runs/run_list.html'
     paginate_by = 20
@@ -46,7 +45,7 @@ class RunListView(ListView):
     allow_empty = True
 
 
-class RunUpdateView(UpdateView):
+class RunUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Run
     form_class = RunForm
     template_name = 'simpl/runs/run_update.html'

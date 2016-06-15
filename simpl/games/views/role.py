@@ -1,8 +1,7 @@
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -11,7 +10,7 @@ from ..forms import RoleForm
 from ..models import Role
 
 
-class RoleCreateView(SuccessMessageMixin, CreateView):
+class RoleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Role
     form_class = RoleForm
     template_name = 'simpl/roles/role_create.html'
@@ -21,7 +20,7 @@ class RoleCreateView(SuccessMessageMixin, CreateView):
         return reverse('simpl:role_detail', args=(self.object.pk,))
 
 
-class RoleDeleteView(DeleteView):
+class RoleDeleteView(LoginRequiredMixin, DeleteView):
     model = Role
     template_name = 'simpl/roles/role_delete.html'
     context_object_name = 'role'
@@ -32,13 +31,13 @@ class RoleDeleteView(DeleteView):
         return reverse('simpl:role_list')
 
 
-class RoleDetailView(DetailView):
+class RoleDetailView(LoginRequiredMixin, DetailView):
     model = Role
     template_name = 'simpl/roles/role_detail.html'
     context_object_name = 'role'
 
 
-class RoleListView(ListView):
+class RoleListView(LoginRequiredMixin, ListView):
     model = Role
     template_name = 'simpl/roles/role_list.html'
     paginate_by = 20
@@ -46,7 +45,7 @@ class RoleListView(ListView):
     allow_empty = True
 
 
-class RoleUpdateView(UpdateView):
+class RoleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Role
     form_class = RoleForm
     template_name = 'simpl/roles/role_update.html'

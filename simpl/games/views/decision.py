@@ -1,8 +1,7 @@
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -11,7 +10,7 @@ from ..forms import DecisionForm
 from ..models import Decision
 
 
-class DecisionCreateView(SuccessMessageMixin, CreateView):
+class DecisionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Decision
     form_class = DecisionForm
     template_name = 'simpl/decisions/decision_create.html'
@@ -21,7 +20,7 @@ class DecisionCreateView(SuccessMessageMixin, CreateView):
         return reverse('simpl:decision_detail', args=(self.object.pk,))
 
 
-class DecisionDeleteView(DeleteView):
+class DecisionDeleteView(LoginRequiredMixin, DeleteView):
     model = Decision
     template_name = 'simpl/decisions/decision_delete.html'
     context_object_name = 'decision'
@@ -32,13 +31,13 @@ class DecisionDeleteView(DeleteView):
         return reverse('simpl:decision_list')
 
 
-class DecisionDetailView(DetailView):
+class DecisionDetailView(LoginRequiredMixin, DetailView):
     model = Decision
     template_name = 'simpl/decisions/decision_detail.html'
     context_object_name = 'decision'
 
 
-class DecisionListView(ListView):
+class DecisionListView(LoginRequiredMixin, ListView):
     model = Decision
     template_name = 'simpl/decisions/decision_list.html'
     paginate_by = 20
@@ -46,7 +45,7 @@ class DecisionListView(ListView):
     allow_empty = True
 
 
-class DecisionUpdateView(UpdateView):
+class DecisionUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Decision
     form_class = DecisionForm
     template_name = 'simpl/decisions/decision_update.html'

@@ -1,5 +1,4 @@
 from django.conf.urls import url
-from django.contrib.auth.decorators import login_required
 
 from ..views.period import (
     PeriodCreateView,
@@ -12,15 +11,15 @@ from ..views.period import (
 
 urlpatterns = [
     url(r'^create/$',
-        login_required(PeriodCreateView.as_view()),
+        PeriodCreateView.as_view(),
         name='period_create'),
 
     url(r'^(?P<pk>\d+)/update/$',
-        login_required(PeriodUpdateView.as_view()),
+        PeriodUpdateView.as_view(),
         name='period_update'),
 
     url(r'^(?P<pk>\d+)/delete/$',
-        login_required(PeriodDeleteView.as_view()),
+        PeriodDeleteView.as_view(),
         name='period_delete'),
 
     url(r'^(?P<pk>\d+)/$',

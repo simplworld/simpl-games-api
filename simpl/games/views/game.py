@@ -1,5 +1,6 @@
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -9,7 +10,7 @@ from ..forms import GameForm
 from ..models import Game
 
 
-class GameCreateView(SuccessMessageMixin, CreateView):
+class GameCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Game
     form_class = GameForm
     template_name = 'simpl/games/game_create.html'
@@ -19,7 +20,7 @@ class GameCreateView(SuccessMessageMixin, CreateView):
         return reverse('simpl:game_list')
 
 
-class GameDeleteView(DeleteView):
+class GameDeleteView(LoginRequiredMixin, DeleteView):
     model = Game
     template_name = 'simpl/games/game_delete.html'
     context_object_name = 'game'
@@ -30,13 +31,13 @@ class GameDeleteView(DeleteView):
         return reverse('simpl:game_list')
 
 
-class GameDetailView(DetailView):
+class GameDetailView(LoginRequiredMixin, DetailView):
     model = Game
     template_name = 'simpl/games/game_detail.html'
     context_object_name = 'game'
 
 
-class GameListView(ListView):
+class GameListView(LoginRequiredMixin, ListView):
     model = Game
     template_name = 'simpl/games/game_list.html'
     paginate_by = 20
@@ -44,7 +45,7 @@ class GameListView(ListView):
     allow_empty = True
 
 
-class GameUpdateView(SuccessMessageMixin, UpdateView):
+class GameUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Game
     form_class = GameForm
     template_name = 'simpl/games/game_update.html'

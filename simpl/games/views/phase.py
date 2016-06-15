@@ -1,8 +1,7 @@
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
-from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -11,7 +10,7 @@ from ..forms import PhaseForm
 from ..models import Phase
 
 
-class PhaseCreateView(SuccessMessageMixin, CreateView):
+class PhaseCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Phase
     form_class = PhaseForm
     template_name = 'simpl/phases/phase_create.html'
@@ -21,7 +20,7 @@ class PhaseCreateView(SuccessMessageMixin, CreateView):
         return reverse('simpl:phase_detail', args=(self.object.pk,))
 
 
-class PhaseDeleteView(DeleteView):
+class PhaseDeleteView(LoginRequiredMixin, DeleteView):
     model = Phase
     template_name = 'simpl/phases/phase_delete.html'
     context_object_name = 'phase'
@@ -32,13 +31,13 @@ class PhaseDeleteView(DeleteView):
         return reverse('simpl:phase_list')
 
 
-class PhaseDetailView(DetailView):
+class PhaseDetailView(LoginRequiredMixin, DetailView):
     model = Phase
     template_name = 'simpl/phases/phase_detail.html'
     context_object_name = 'phase'
 
 
-class PhaseListView(ListView):
+class PhaseListView(LoginRequiredMixin, ListView):
     model = Phase
     template_name = 'simpl/phases/phase_list.html'
     paginate_by = 20
@@ -46,7 +45,7 @@ class PhaseListView(ListView):
     allow_empty = True
 
 
-class PhaseUpdateView(UpdateView):
+class PhaseUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Phase
     form_class = PhaseForm
     template_name = 'simpl/phases/phase_update.html'

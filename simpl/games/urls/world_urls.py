@@ -1,5 +1,4 @@
 from django.conf.urls import url
-from django.contrib.auth.decorators import login_required
 
 from ..views.world import (
     WorldCreateView,
@@ -12,15 +11,15 @@ from ..views.world import (
 
 urlpatterns = [
     url(r'^create/$',
-        login_required(WorldCreateView.as_view()),
+        WorldCreateView.as_view(),
         name='world_create'),
 
     url(r'^(?P<pk>\d+)/update/$',
-        login_required(WorldUpdateView.as_view()),
+        WorldUpdateView.as_view(),
         name='world_update'),
 
     url(r'^(?P<pk>\d+)/delete/$',
-        login_required(WorldDeleteView.as_view()),
+        WorldDeleteView.as_view(),
         name='world_delete'),
 
     url(r'^(?P<pk>\d+)/$',
