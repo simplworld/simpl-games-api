@@ -1,4 +1,4 @@
-from simpl.core.events import ModelEvent
+from thorn import ModelEvent
 
 
 # Decision events
