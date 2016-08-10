@@ -61,7 +61,7 @@ def command():
     )
 
     password = 'Alice123'
-    superuser.set_password(password)
+    user_alice.set_password(password)
 
     click.echo(
         click.style(
@@ -81,7 +81,7 @@ def command():
     )
 
     password = 'Bob123'
-    superuser.set_password(password)
+    user_bob.set_password(password)
 
     click.echo(
         click.style(
