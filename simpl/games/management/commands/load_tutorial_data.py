@@ -42,6 +42,7 @@ def command():
 
     password = 'System!1'
     superuser.set_password(password)
+    superuser.save()
 
     click.echo(
         click.style(
@@ -62,6 +63,7 @@ def command():
 
     password = 'Alice123'
     user_alice.set_password(password)
+    user_alice.save()
 
     click.echo(
         click.style(
@@ -82,6 +84,7 @@ def command():
 
     password = 'Bob123'
     user_bob.set_password(password)
+    user_bob.save()
 
     click.echo(
         click.style(
