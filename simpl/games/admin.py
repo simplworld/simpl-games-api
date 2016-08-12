@@ -5,6 +5,7 @@ from simpl.core.admin import TimeStampedAdmin, TimeStampedTabularInline
 
 # Model Admins
 
+
 @admin.register(models.Decision)
 class DecisionAdmin(TimeStampedAdmin):
     list_display = (
@@ -106,6 +107,7 @@ class RunAdmin(TimeStampedAdmin):
 class RunUserAdmin(TimeStampedAdmin):
     list_display = (
         'user',
+        'world',
         'active',
         'facilitator',
     )
