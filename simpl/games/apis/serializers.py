@@ -77,8 +77,8 @@ class RunSerializer(serializers.ModelSerializer):
 
 
 class RunUserSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(source='user.username')
-    game_slug = serializers.CharField(source='game.slug')
+    username = serializers.CharField(source='user.username', required=False)
+    game_slug = serializers.CharField(source='game.slug', required=False)
 
     class Meta:
         model = models.RunUser
