@@ -72,6 +72,7 @@ $ ./manage.py runserver 0.0.0.0:8000
 ### Running tests
 
 ```bash
+$ export DJANGO_SETTINGS_MODULE=config.settings.test
 $ py.test
 ```
 
