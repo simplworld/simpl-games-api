@@ -66,7 +66,7 @@ $ ./manage.py createsuperuser
 ### Start the web server
 
 ```bash
-$ ./manage.py runserver 0.0.0.0:8000
+$ ./manage.py runserver 0.0.0.0:8100
 ```
 
 ### Running tests
@@ -79,10 +79,10 @@ Do not commit code if tests are failing.
 
 ## What's where?
 
-- [API Docs](http://localhost:8000/docs/)
-- The [SIMPL api](http://localhost:8000/apis/)
-- [SIMPL Frontend Admin](http://localhost:8000/simpl/)
-- [Django Admin](http://localhost:8000/admin/) but only if you need it!
+- [API Docs](http://localhost:8100/docs/)
+- The [SIMPL api](http://localhost:8100/apis/)
+- [SIMPL Frontend Admin](http://localhost:8100/simpl/)
+- [Django Admin](http://localhost:8100/admin/) but only if you need it!
 
 ## Model Schema
 
