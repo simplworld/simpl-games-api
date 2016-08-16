@@ -71,6 +71,14 @@ $ ./manage.py runserver 0.0.0.0:8100
 
 ### Running tests
 
+Install the test requirements in your virtualenv:
+
+```bash
+$ pip install -r requirements/test.txt
+```
+
+Then run `py.test`:
+
 ```bash
 $ py.test
 ```
