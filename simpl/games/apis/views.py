@@ -238,6 +238,7 @@ class PhaseViewSet(CommonViewSet):
     )
     filter_fields = (
         'game',
+        'name',
     )
     ordering_fields = (
         'created',
