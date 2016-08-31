@@ -279,6 +279,12 @@ class Run(AbstractTimeStampedModel):
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
     data = JSONField(blank=True, null=True)
+    phase = models.ForeignKey(
+        'Phase',
+        blank=True,
+        null=True,
+        related_name='+'
+    )
 
     objects = managers.ActiveQuerySet.as_manager()
 
