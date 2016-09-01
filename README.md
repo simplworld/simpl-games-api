@@ -31,20 +31,20 @@ $ cd /vagrant/html/simpl-games-api
 $ pip install -r requirements.txt
 ```
 
-### Settings setup
-
-Setup your `DJANGO_SETTINGS_MODULE` to use:
-
-```bash
-$ export DJANGO_SETTINGS_MODULE=config.settings.local
-```
-
 ### Create PostgreSQL database
 
 Create a database (defaults to Postgres):
 
 ```bash
 $ createdb simpl
+```
+
+### Settings setup
+
+Setup your `DJANGO_SETTINGS_MODULE` to use:
+
+```bash
+$ export DJANGO_SETTINGS_MODULE=config.settings.local
 ```
 
 ### Database Setup
