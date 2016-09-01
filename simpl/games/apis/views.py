@@ -586,6 +586,7 @@ class RunUserViewSet(CommonViewSet):
         'run',
         'user',
         'world',
+        'phase',
     )
     ordering_fields = (
         'created',
