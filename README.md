@@ -80,6 +80,7 @@ $ pip install -r requirements/test.txt
 Then run `py.test`:
 
 ```bash
+$ export DJANGO_SETTINGS_MODULE=config.settings.test
 $ py.test
 ```
 

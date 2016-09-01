@@ -38,6 +38,7 @@ class Decision(AbstractTimeStampedModel):
     )
 
     class Meta(object):
+        unique_together = ('name', 'period', 'role')
         verbose_name = _('decision')
         verbose_name_plural = _('decisions')
 
@@ -65,8 +66,9 @@ class Decision(AbstractTimeStampedModel):
 class Game(AbstractTimeStampedModel):
     """Game model"""
 
+    # name = models.CharField(max_length=100, unique=True)  #TODO fix 30 unit tests and enable
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=250, blank=True)
+    slug = models.SlugField(max_length=250, blank=True) # shouldn't this be unique and default to name?
     active = models.BooleanField(default=True)
 
     objects = managers.ActiveQuerySet.as_manager()
@@ -107,7 +109,7 @@ class Period(AbstractTimeStampedModel):
         'Scenario',
         related_name='periods'
     )
-    order = models.IntegerField(default=0)
+    order = models.IntegerField(default=0)  # shouldn't this be unique wrt scenario?
     data = JSONField(blank=True, null=True)
 
     class Meta(object):
@@ -149,6 +151,7 @@ class Phase(AbstractTimeStampedModel):
     order = models.IntegerField(blank=True, null=True)
 
     class Meta(object):
+        # unique_together = ('name', 'game')  #TODO fix create unit test and enable
         verbose_name = _('phase')
         verbose_name_plural = _('phases')
 
@@ -186,6 +189,7 @@ class Result(AbstractTimeStampedModel):
     )
 
     class Meta(object):
+        unique_together = ('name', 'period', 'role')
         verbose_name = _('result')
         verbose_name_plural = _('results')
 
@@ -217,6 +221,7 @@ class Role(AbstractTimeStampedModel):
     data = JSONField(blank=True, null=True)
 
     class Meta(object):
+        unique_together = ('name', 'game')
         verbose_name = _('role')
         verbose_name_plural = _('roles')
 
@@ -243,6 +248,7 @@ class Round(AbstractTimeStampedModel):
     data = JSONField(blank=True, null=True)
 
     class Meta(object):
+        # unique_together = ('name', 'world')  #TODO fix create unit test and enable
         verbose_name = _('round')
         verbose_name_plural = _('rounds')
 
@@ -289,6 +295,7 @@ class Run(AbstractTimeStampedModel):
     objects = managers.ActiveQuerySet.as_manager()
 
     class Meta(object):
+        # unique_together = ('name', 'game')  #TODO fix create unit test and enable
         verbose_name = _('run')
         verbose_name_plural = _('runs')
 
@@ -338,6 +345,7 @@ class RunUser(AbstractTimeStampedModel):
     objects = managers.ActiveQuerySet.as_manager()
 
     class Meta(object):
+        # unique_together = ('user', 'run')  #TODO fix create unit test and enable
         verbose_name = _('run user')
         verbose_name_plural = _('run users')
 
@@ -393,6 +401,7 @@ class Scenario(AbstractTimeStampedModel):
     total_periods = models.IntegerField(blank=True, null=True)
 
     class Meta(object):
+        # unique_together = ('name', 'round')  #TODO fix create unit test and enable
         verbose_name = _('scenario')
         verbose_name_plural = _('scenarios')
 
@@ -435,6 +444,7 @@ class World(AbstractTimeStampedModel):
     )
 
     class Meta(object):
+        # unique_together = ('name', 'run')  #TODO fix create unit test and enable
         verbose_name = _('world')
         verbose_name_plural = _('worlds')
 

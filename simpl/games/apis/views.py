@@ -27,6 +27,7 @@ class DecisionViewSet(CommonViewSet):
     filter_fields = (
         'period',
         'role',
+        'name',
     )
     ordering_fields = (
         'created',
@@ -172,6 +173,7 @@ class PeriodViewSet(CommonViewSet):
     )
     filter_fields = (
         'scenario',
+        # 'order',
     )
     ordering_fields = (
         'created',
@@ -306,6 +308,7 @@ class ResultViewSet(CommonViewSet):
     filter_fields = (
         'period',
         'role',
+        'name',
     )
     ordering_fields = (
         'created',
@@ -444,6 +447,7 @@ class RoundViewSet(CommonViewSet):
     )
     filter_fields = (
         'world',
+        'name',
     )
     ordering_fields = (
         'created',
@@ -510,6 +514,7 @@ class RunViewSet(CommonViewSet):
     )
     filter_fields = (
         'game',
+        'name',
     )
     ordering_fields = (
         'created',
@@ -670,6 +675,7 @@ class ScenarioViewSet(CommonViewSet):
         'current_period',
         'last_period',
         'round',
+        'name',
     )
     ordering_fields = (
         'created',
@@ -751,6 +757,7 @@ class WorldViewSet(CommonViewSet):
     )
     filter_fields = (
         'run',
+        'name',
     )
     ordering_fields = (
         'created',
