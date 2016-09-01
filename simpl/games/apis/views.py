@@ -515,6 +515,7 @@ class RunViewSet(CommonViewSet):
     filter_fields = (
         'game',
         'name',
+        'phase',
     )
     ordering_fields = (
         'created',
@@ -586,7 +587,6 @@ class RunUserViewSet(CommonViewSet):
         'run',
         'user',
         'world',
-        'phase',
     )
     ordering_fields = (
         'created',
