@@ -38,7 +38,7 @@ class Decision(AbstractTimeStampedModel):
     )
 
     class Meta(object):
-        unique_together = ('name', 'period', 'role')
+        # unique_together = ('name', 'period', 'role')  -- except instructor decisions are not associated with a role
         verbose_name = _('decision')
         verbose_name_plural = _('decisions')
 
