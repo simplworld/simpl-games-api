@@ -66,9 +66,8 @@ class Decision(AbstractTimeStampedModel):
 class Game(AbstractTimeStampedModel):
     """Game model"""
 
-    # name = models.CharField(max_length=100, unique=True)  #TODO fix 30 unit tests and enable
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=250, blank=True) # shouldn't this be unique and default to name?
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=250, blank=True, unique=True)
     active = models.BooleanField(default=True)
 
     objects = managers.ActiveQuerySet.as_manager()

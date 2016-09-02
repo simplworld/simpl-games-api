@@ -2,11 +2,16 @@ import pytest
 
 from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
-from django_fakery import factory
 from faker import Faker
 from test_plus.test import TestCase
 
 from simpl.games import models
+
+from simpl.games.factories import (
+    GameFactory, PeriodFactory, RoundFactory, RunFactory, ScenarioFactory,
+    WorldFactory, PhaseFactory, RoleFactory, RunUserFactory, DecisionFactory,
+    ResultFactory
+)
 
 
 class BaseTestCase(TestCase):
@@ -21,8 +26,8 @@ class DecisionTestCase(BaseTestCase):
     def setUp(self):
         super(DecisionTestCase, self).setUp()
 
-        self.decision = factory.make('games.Decision')
-        self.period = factory.make('games.Period')
+        self.decision = DecisionFactory()
+        self.period = PeriodFactory()
 
     def test_create(self):
         url = reverse('simpl:decision_create')
@@ -133,7 +138,7 @@ class GameTestCase(BaseTestCase):
     def setUp(self):
         super(GameTestCase, self).setUp()
 
-        self.game = factory.make('games.Game')
+        self.game = GameFactory()
 
     def test_create(self):
         url = reverse('simpl:game_create')
@@ -242,8 +247,8 @@ class PeriodTestCase(BaseTestCase):
     def setUp(self):
         super(PeriodTestCase, self).setUp()
 
-        self.period = factory.make('games.Period')
-        self.scenario = factory.make('games.Scenario')
+        self.period = PeriodFactory()
+        self.scenario = ScenarioFactory()
 
     def test_create(self):
         url = reverse('simpl:period_create')
@@ -354,8 +359,8 @@ class PhaseTestCase(BaseTestCase):
     def setUp(self):
         super(PhaseTestCase, self).setUp()
 
-        self.phase = factory.make('games.Phase')
-        self.game = factory.make('games.game')
+        self.phase = PhaseFactory()
+        self.game = GameFactory()
 
     def test_create(self):
         url = reverse('simpl:phase_create')
@@ -465,8 +470,8 @@ class ResultTestCase(BaseTestCase):
     def setUp(self):
         super(ResultTestCase, self).setUp()
 
-        self.result = factory.make('games.Result')
-        self.period = factory.make('games.Period')
+        self.result = ResultFactory()
+        self.period = PeriodFactory()
 
     def test_create(self):
         url = reverse('simpl:result_create')
@@ -577,8 +582,8 @@ class RoleTestCase(BaseTestCase):
     def setUp(self):
         super(RoleTestCase, self).setUp()
 
-        self.role = factory.make('games.Role')
-        self.game = factory.make('games.Game')
+        self.role = RoleFactory()
+        self.game = GameFactory()
 
     def test_create(self):
         url = reverse('simpl:role_create')
@@ -690,8 +695,8 @@ class RoundTestCase(BaseTestCase):
     def setUp(self):
         super(RoundTestCase, self).setUp()
 
-        self.round = factory.make('games.Round')
-        self.world = factory.make('games.World')
+        self.round = RoundFactory()
+        self.world = WorldFactory()
 
     def test_create(self):
         url = reverse('simpl:round_create')
@@ -804,8 +809,8 @@ class RunTestCase(BaseTestCase):
     def setUp(self):
         super(RunTestCase, self).setUp()
 
-        self.run = factory.make('games.Run')
-        self.game = factory.make('games.Game')
+        self.run = RunFactory()
+        self.game = GameFactory()
 
     def test_create(self):
         url = reverse('simpl:run_create')
@@ -921,8 +926,8 @@ class ScenarioTestCase(BaseTestCase):
     def setUp(self):
         super(ScenarioTestCase, self).setUp()
 
-        self.scenario = factory.make('games.Scenario')
-        self.round = factory.make('games.Round')
+        self.scenario = ScenarioFactory()
+        self.round = RoundFactory()
 
     def test_create(self):
         url = reverse('simpl:scenario_create')
@@ -1038,8 +1043,8 @@ class WorldTestCase(BaseTestCase):
     def setUp(self):
         super(WorldTestCase, self).setUp()
 
-        self.world = factory.make('games.World')
-        self.run = factory.make('games.Run')
+        self.world = WorldFactory()
+        self.run = RunFactory()
 
     def test_create(self):
         url = reverse('simpl:world_create')
