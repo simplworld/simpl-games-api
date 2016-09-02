@@ -150,7 +150,7 @@ class Phase(AbstractTimeStampedModel):
     order = models.IntegerField(blank=True, null=True)
 
     class Meta(object):
-        # unique_together = ('name', 'game')  #TODO fix create unit test and enable
+        unique_together = ('name', 'game')
         verbose_name = _('phase')
         verbose_name_plural = _('phases')
 
@@ -247,7 +247,7 @@ class Round(AbstractTimeStampedModel):
     data = JSONField(blank=True, null=True)
 
     class Meta(object):
-        # unique_together = ('name', 'world')  #TODO fix create unit test and enable
+        unique_together = ('name', 'world')
         verbose_name = _('round')
         verbose_name_plural = _('rounds')
 
@@ -294,7 +294,7 @@ class Run(AbstractTimeStampedModel):
     objects = managers.ActiveQuerySet.as_manager()
 
     class Meta(object):
-        # unique_together = ('name', 'game')  #TODO fix create unit test and enable
+        unique_together = ('name', 'game')
         verbose_name = _('run')
         verbose_name_plural = _('runs')
 
@@ -344,7 +344,7 @@ class RunUser(AbstractTimeStampedModel):
     objects = managers.ActiveQuerySet.as_manager()
 
     class Meta(object):
-        # unique_together = ('user', 'run')  #TODO fix create unit test and enable
+        unique_together = ('user', 'run')
         verbose_name = _('run user')
         verbose_name_plural = _('run users')
 
@@ -400,7 +400,7 @@ class Scenario(AbstractTimeStampedModel):
     total_periods = models.IntegerField(blank=True, null=True)
 
     class Meta(object):
-        # unique_together = ('name', 'round')  #TODO fix create unit test and enable
+        unique_together = ('name', 'round')
         verbose_name = _('scenario')
         verbose_name_plural = _('scenarios')
 
@@ -443,7 +443,7 @@ class World(AbstractTimeStampedModel):
     )
 
     class Meta(object):
-        # unique_together = ('name', 'run')  #TODO fix create unit test and enable
+        unique_together = ('name', 'run')
         verbose_name = _('world')
         verbose_name_plural = _('worlds')
 
