@@ -173,7 +173,7 @@ class PeriodViewSet(CommonViewSet):
     )
     filter_fields = (
         'scenario',
-        # 'order',
+        'order',
     )
     ordering_fields = (
         'created',

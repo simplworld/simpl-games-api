@@ -112,6 +112,7 @@ class Period(AbstractTimeStampedModel):
     data = JSONField(blank=True, null=True)
 
     class Meta(object):
+        unique_together = ('scenario', 'order')
         verbose_name = _('period')
         verbose_name_plural = _('periods')
 
