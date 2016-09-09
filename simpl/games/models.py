@@ -400,6 +400,8 @@ class Scenario(AbstractTimeStampedModel):
     seed_periods = models.IntegerField(blank=True, null=True)
     total_periods = models.IntegerField(blank=True, null=True)
 
+    data = JSONField(blank=True, null=True)
+
     class Meta(object):
         unique_together = ('name', 'round')
         verbose_name = _('scenario')
