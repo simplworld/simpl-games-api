@@ -39,14 +39,6 @@ Create a database (defaults to Postgres):
 $ createdb simpl
 ```
 
-### Settings setup
-
-Setup your `DJANGO_SETTINGS_MODULE` to use:
-
-```bash
-$ export DJANGO_SETTINGS_MODULE=config.settings.local
-```
-
 ### Database Setup
 
 Sync models to database:
@@ -61,6 +53,15 @@ Create a superuser account to access the admin:
 
 ```bash
 $ ./manage.py createsuperuser
+```
+
+
+### Settings setup
+
+Setup the `DJANGO_SETTINGS_MODULE` to use:
+
+```bash
+$ export DJANGO_SETTINGS_MODULE=config.settings.local
 ```
 
 ### Start the web server
