@@ -55,7 +55,6 @@ Create a superuser account to access the admin:
 $ ./manage.py createsuperuser
 ```
 
-
 ### Settings setup
 
 Setup the `DJANGO_SETTINGS_MODULE` to use:
