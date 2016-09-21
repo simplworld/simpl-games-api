@@ -574,7 +574,7 @@ class RunViewSet(CommonViewSet):
 class RunUserViewSet(CommonViewSet):
     """ RunUser resource. """
 
-    queryset = models.RunUser.objects.select_related('user', 'run__game')
+    queryset = models.RunUser.objects.select_related('user', 'run__game', 'role')
     serializer_class = serializers.RunUserSerializer
     filter_backends = (
         filters.DjangoFilterBackend,
