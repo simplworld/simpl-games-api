@@ -60,3 +60,6 @@ thorn==1.4.2
 # Nicer CLI Interface
 click==6.6
 django-click==1.2.0
+
+# for courses
+unicodecsv==0.14.1
