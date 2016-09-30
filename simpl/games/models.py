@@ -115,6 +115,7 @@ class Period(AbstractTimeStampedModel):
         unique_together = ('scenario', 'order')
         verbose_name = _('period')
         verbose_name_plural = _('periods')
+        ordering = ('order',)
 
     def __str__(self):
         return '{0}: {1}'.format(
@@ -449,6 +450,7 @@ class World(AbstractTimeStampedModel):
         unique_together = ('name', 'run')
         verbose_name = _('world')
         verbose_name_plural = _('worlds')
+        ordering = ('created',)
 
     def __str__(self):
         return self.name
