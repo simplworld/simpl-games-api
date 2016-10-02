@@ -450,7 +450,7 @@ class World(AbstractTimeStampedModel):
         unique_together = ('name', 'run')
         verbose_name = _('world')
         verbose_name_plural = _('worlds')
-        ordering = ('created',)
+        ordering = ('pk',)
 
     def __str__(self):
         return self.name
