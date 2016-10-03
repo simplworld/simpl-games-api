@@ -83,7 +83,6 @@ class RunUserSerializer(serializers.ModelSerializer):
     email = serializers.CharField(source='user.email', required=False, read_only=True)
     game_slug = serializers.CharField(source='game.slug', required=False, read_only=True)
     role_name = serializers.CharField(source='role.name', required=False, read_only=True)
-    facilitate_game = serializers.CharField(source='facilitate_game.slug', required=False, read_only=True)
 
     class Meta:
         model = models.RunUser
