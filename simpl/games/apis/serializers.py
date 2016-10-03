@@ -105,9 +105,12 @@ class ScenarioSerializer(serializers.ModelSerializer):
 
 
 class WorldSerializer(serializers.ModelSerializer):
+    game_slug = serializers.CharField(source='run.game.slug', required=False, read_only=True)
+
     class Meta:
         model = models.World
         read_only_fields = (
+            'game_slug'
             'created',
             'updated',
         )

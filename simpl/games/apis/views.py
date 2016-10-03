@@ -3,6 +3,9 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 
 from . import serializers
+
+from .filters import WorldFilterSet
+
 from .. import models
 
 
@@ -750,16 +753,14 @@ class ScenarioViewSet(CommonViewSet):
 class WorldViewSet(CommonViewSet):
     """ World resource. """
 
-    queryset = models.World.objects.all()
+    queryset = models.World.objects.select_related('run', 'run__game')
     serializer_class = serializers.WorldSerializer
     filter_backends = (
         filters.DjangoFilterBackend,
         # filters.SearchFilter,
     )
-    filter_fields = (
-        'run',
-        'name',
-    )
+    filter_class = WorldFilterSet
+
     ordering_fields = (
         'created',
         'modified',
@@ -782,6 +783,11 @@ class WorldViewSet(CommonViewSet):
         Returns a list of Worlds
         ---
         parameters:
+            - name: game_slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Worlds per Game slug
             - name: name
               type: string
               paramType: query
