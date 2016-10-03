@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField, JSONField
+from django.core.exceptions import ValidationError
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.encoding import python_2_unicode_compatible
@@ -340,6 +342,7 @@ class RunUser(AbstractTimeStampedModel):
         related_name='run_users'
     )
     facilitator = models.BooleanField(default=False)
+    facilitate_game = models.ForeignKey(Game, null=True, help_text='Applies only to facilators')
     active = models.BooleanField(default=True)
     data = JSONField(blank=True, null=True)
 
@@ -352,6 +355,16 @@ class RunUser(AbstractTimeStampedModel):
 
     def __str__(self):
         return self.user.__str__()
+
+    def clean(self):
+        if self.facilitator:
+            # facilitators must have a `facilitate_game`
+            if self.facilitate_game is None:
+                raise ValidationError("Facilitators must have a `facilitate_game`.")
+        else:
+            # non-facilitators cannot have a `facilitate_game`
+            if self.facilitate_game is not None:
+                raise ValidationError("Non-facilitators cannot have a `facilitate_game`.")
 
     @property
     @cached_method("runusers:{.pk}:game")

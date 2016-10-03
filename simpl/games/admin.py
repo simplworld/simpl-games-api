@@ -110,9 +110,11 @@ class RunUserAdmin(TimeStampedAdmin):
         'world',
         'active',
         'facilitator',
+        'facilitate_game',
     )
     raw_id_fields = [
         'user',
+        'facilitate_game',
         'run',
         'world',
         'role',
