@@ -55,7 +55,9 @@ git+ssh://git@stash.wharton.upenn.edu:7999/ll/simpl-users.git@develop
 django-filter==0.13.0
 django-rest-swagger==0.3.7
 djangorestframework==3.3.3
-thorn==1.4.2
+
+# Thorn 1.5.0rc1 contains fixes that are not yet released on PyPI
+https://github.com/robinhood/thorn/archive/master.zip
 
 # Nicer CLI Interface
 click==6.6
