@@ -25,7 +25,7 @@ class Decision(AbstractTimeStampedModel):
     """Decision model"""
 
     name = models.CharField(max_length=100)
-    data = JSONField(blank=True, null=True)
+    data = JSONField(default={})
     period = models.ForeignKey(
         'Period',
         related_name='decisions'
@@ -109,7 +109,7 @@ class Period(AbstractTimeStampedModel):
         related_name='periods'
     )
     order = models.IntegerField(default=0)  # shouldn't this be unique wrt scenario?
-    data = JSONField(blank=True, null=True)
+    data = JSONField(default={})
 
     class Meta(object):
         unique_together = ('scenario', 'order')
@@ -177,7 +177,7 @@ class Result(AbstractTimeStampedModel):
     """Result model"""
 
     name = models.CharField(max_length=100)
-    data = JSONField(blank=True, null=True)
+    data = JSONField(default={})
     period = models.ForeignKey(
         'Period',
         related_name='results'
@@ -219,7 +219,7 @@ class Role(AbstractTimeStampedModel):
         blank=True,
         null=True,
     )
-    data = JSONField(blank=True, null=True)
+    data = JSONField(default={})
 
     class Meta(object):
         unique_together = ('name', 'game')
@@ -246,7 +246,7 @@ class Round(AbstractTimeStampedModel):
         related_name='rounds'
     )
     order = models.IntegerField(blank=True, null=True)
-    data = JSONField(blank=True, null=True)
+    data = JSONField(default={})
 
     class Meta(object):
         unique_together = ('name', 'world')
@@ -285,7 +285,7 @@ class Run(AbstractTimeStampedModel):
     )
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
-    data = JSONField(blank=True, null=True)
+    data = JSONField(default={})
     phase = models.ForeignKey(
         'Phase',
         blank=True,
@@ -341,7 +341,7 @@ class RunUser(AbstractTimeStampedModel):
     )
     facilitator = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
-    data = JSONField(blank=True, null=True)
+    data = JSONField(default={})
 
     objects = managers.ActiveQuerySet.as_manager()
 
@@ -401,7 +401,7 @@ class Scenario(AbstractTimeStampedModel):
     seed_periods = models.IntegerField(blank=True, null=True)
     total_periods = models.IntegerField(blank=True, null=True)
 
-    data = JSONField(blank=True, null=True)
+    data = JSONField(default={})
 
     class Meta(object):
         unique_together = ('name', 'round')
@@ -437,7 +437,7 @@ class World(AbstractTimeStampedModel):
         'Run',
         related_name='worlds'
     )
-    data = JSONField(blank=True, null=True)
+    data = JSONField(default={})
     canvas_ids = ArrayField(
         ArrayField(
             models.IntegerField()
