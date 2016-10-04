@@ -149,9 +149,10 @@ class Phase(AbstractTimeStampedModel):
         'Game',
         related_name='phases'
     )
-    order = models.IntegerField(blank=True, null=True)
+    order = models.IntegerField(blank=True, null=True, db_index=True)
 
     class Meta(object):
+        ordering = ('game', 'order')
         unique_together = ('name', 'game')
         verbose_name = _('phase')
         verbose_name_plural = _('phases')
