@@ -408,6 +408,7 @@ class Scenario(AbstractTimeStampedModel):
         unique_together = ('name', 'round')
         verbose_name = _('scenario')
         verbose_name_plural = _('scenarios')
+        ordering = ('created',)
 
     def __str__(self):
         return self.name
@@ -451,7 +452,7 @@ class World(AbstractTimeStampedModel):
         unique_together = ('name', 'run')
         verbose_name = _('world')
         verbose_name_plural = _('worlds')
-        ordering = ('pk',)
+        ordering = ('created',)
 
     def __str__(self):
         return self.name
