@@ -55,6 +55,9 @@ Create a superuser account to access the admin:
 $ ./manage.py createsuperuser
 ```
 
+For local development, call the superuser vagrant.
+This ensures test users can be assigned passwords in scripts.
+
 ### Settings setup
 
 Setup the `DJANGO_SETTINGS_MODULE` to use:
