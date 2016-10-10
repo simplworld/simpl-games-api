@@ -12,6 +12,8 @@ Production Configurations
 from .common import *  # noqa
 from .env import e
 
+DEBUG=True
+
 # SECRET CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
