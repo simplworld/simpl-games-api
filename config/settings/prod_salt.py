@@ -59,7 +59,6 @@ INSTALLED_APPS += (
 
 # Static Assets
 # ------------------------
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 TEMPLATES[0]['OPTIONS']['loaders'] = [

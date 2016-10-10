@@ -77,7 +77,6 @@ AWS_EXPIRY = 60 * 60 * 24 * 7
 
 # Static Assets
 # ------------------------
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # TEMPLATE CONFIGURATION
 # ------------------------------------------------------------------------------
