@@ -12,14 +12,7 @@ from simpl.games.apis.urls import router as api_router
 from simpl_users.apis.urls import router as simpl_users_api_router
 
 
-# Homepage
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
-]
-
-# Django Admin, use {% url 'admin:index' %}
-urlpatterns += [
     url(settings.ADMIN_URL, include(admin.site.urls)),
 ]
 
@@ -30,7 +23,6 @@ urlpatterns += [
 
 # Our application urls
 urlpatterns += [
-    url(r'^courses/', include('courses.urls', namespace='courses')),
     url(r'^simpl/', include('simpl.games.urls', namespace='simpl')),
     url(r'^users/', include('simpl_users.urls', namespace='users')),
     url(r'^apis/', include(api_router.urls, namespace='simpl_api')),

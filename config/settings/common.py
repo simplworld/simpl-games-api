@@ -36,7 +36,6 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-    'base_theme',  # Wharton theme (THIS STAYS AT THE TOP)
     'allauth',  # registration (also has a base.html which messes stuff up)
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
