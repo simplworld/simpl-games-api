@@ -64,3 +64,4 @@ django-click==1.2.0
 
 # for courses
 unicodecsv==0.14.1
+django-fontawesome==0.2.2
