@@ -41,7 +41,6 @@ THIRD_PARTY_APPS = (
     'allauth.socialaccount',  # registration
     'bootstrap3',
     'crispy_forms',  # Form layouts
-    'fontawesome',
     'rest_framework',
     'rest_framework_swagger',
     'thorn.django',
@@ -94,9 +93,7 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.c
 # MANAGER CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = (
-    ("""Jeff Triplett""", 'jeff@revsys.com'),
-)
+ADMINS = ()
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
