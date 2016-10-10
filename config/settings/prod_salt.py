@@ -75,7 +75,7 @@ TEMPLATES = [
         'DIRS': [
             '/home/simpl_api/app/simpl/templates',
         ],
-        APP_DIRS: True,
+        'APP_DIRS': True,
         'OPTIONS': {
             # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
             'debug': DEBUG,
