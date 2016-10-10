@@ -49,8 +49,8 @@ git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to t
 git+https://github.com/dyve/django-bootstrap3.git@1ad2686  # Pin to 7.0.1 once released (currently at 6.2.2)
 
 # Custom Wharton apps
-git+https://git@stash.wharton.upenn.edu:7999/wcit/django_courses.git@package-refactor
-git+https://git@stash.wharton.upenn.edu:7999/ll/simpl-users.git@develop
+git+https://stash.wharton.upenn.edu:7999/wcit/django_courses.git@package-refactor
+git+https://stash.wharton.upenn.edu:7999/ll/simpl-users.git@develop
 
 django-filter==0.13.0
 django-rest-swagger==0.3.7
