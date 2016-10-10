@@ -31,7 +31,6 @@ django-allauth==0.24.1
 psycopg2==2.6.1
 
 # Unicode slugification
-git+https://gitlab.com/revsys/unicode-slugify  # abandoned project. vendored to apply some bug fixes that were breaking deployment
 django-autoslug==1.9.3
 
 # Time zones support
