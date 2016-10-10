@@ -65,7 +65,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
     ('django.template.loaders.cached.Loader', [
         'django.template.loaders.filesystem.Loader', 'django.template.loaders.app_directories.Loader', ]),
 ]
-TEMPLATES[0]['DIRS']['/home/simpl_api/app/templates']
+TEMPLATES[0]['DIRS'][0]['/home/simpl_api/app/templates']
 
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
