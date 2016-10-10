@@ -9,6 +9,7 @@
 
 gevent==1.1rc5
 gunicorn==19.4.5
+flower==0.9.1
 
 # Static and Media Storage
 # ------------------------------------------------
