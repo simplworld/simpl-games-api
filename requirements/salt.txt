@@ -1,0 +1,4 @@
+-r base.txt
+
+git+https://git@stash.wharton.upenn.edu/scm/wcit/django_courses.git@package-refactor
+git+https://git@stash.wharton.upenn.edu/scm/ll/simpl-users.git@develop
