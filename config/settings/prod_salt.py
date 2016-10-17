@@ -174,3 +174,8 @@ LOGGING = {
     }
 }
 
+THORN_RECIPIENT_VALIDATORS = [
+    thorn_validators.block_internal_ips(),
+    thorn_validators.ensure_protocol('http', 'https'),
+    thorn_validators.ensure_port(80, 443, 8080, 49152),
+]
