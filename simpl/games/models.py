@@ -38,7 +38,7 @@ class Decision(AbstractTimeStampedModel):
     )
 
     class Meta(object):
-        # Instructor decisions are not associated with a role, so can't
+        # Instructor decisions are not associated with a role, so cannot:
         # unique_together = ('name', 'period', 'role')
         verbose_name = _('decision')
         verbose_name_plural = _('decisions')
@@ -406,8 +406,8 @@ class Scenario(AbstractTimeStampedModel):
     data = JSONField(default={}, blank=True)
 
     class Meta(object):
+        # Allow users to create test scenarios with the same name, so cannot:
         # unique_together = ('name', 'round')
-        # Do not prevent users from creating test scenarios with the same name.
         verbose_name = _('scenario')
         verbose_name_plural = _('scenarios')
         ordering = ('created',)
