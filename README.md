@@ -72,7 +72,7 @@ $ export DJANGO_SETTINGS_MODULE=config.settings.local
 $ ./manage.py runserver 0.0.0.0:8100
 ```
 
-### Running tests
+### Run tests
 
 Install the test requirements in your virtualenv:
 
@@ -89,12 +89,18 @@ $ py.test
 
 Do not commit code if tests are failing.
 
+## Generate updated ERD of Models
+
+```bash
+$ ./manage.py graph_models games -o models.png
+```
+
 ## What's where?
 
 - [API Docs](http://localhost:8100/docs/)
 - The [SIMPL api](http://localhost:8100/apis/)
-- [SIMPL Frontend Admin](http://localhost:8100/simpl/)
-- [Django Admin](http://localhost:8100/admin/) but only if you need it!
+- [Django Admin](http://localhost:8100/admin/) 
+- [SIMPL Frontend Admin](http://localhost:8100/simpl/) but only if you need it!
 
 ## Model Schema
 
