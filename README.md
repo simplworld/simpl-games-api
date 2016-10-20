@@ -92,7 +92,7 @@ Do not commit code if tests are failing.
 ## Generate updated ERD of Models
 
 ```bash
-$ ./manage.py graph_models games -o models.png
+$ ./manage.py graph_models games -o docs/models.png 
 ```
 
 ## What's where?
