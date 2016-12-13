@@ -48,17 +48,16 @@ git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to t
 git+https://github.com/dyve/django-bootstrap3.git@1ad2686  # Pin to 7.0.1 once released (currently at 6.2.2)
 
 # Custom Wharton apps
-# since the salt states need these repos to use the protocol prefix, `git+https` 
-# and the devs need `git+ssh`, `django_courses` and `simpl-users` repositories 
-# have been moved from base.txt to requirements/local.txt and 
+# since the salt states need these repos to use the protocol prefix, `git+https`
+# and the devs need `git+ssh`, `django_courses` and `simpl-users` repositories
+# have been moved from base.txt to requirements/local.txt and
 # requirements/salt.txt respectively
 
 django-filter==0.13.0
 django-rest-swagger==0.3.7
 djangorestframework==3.3.3
 
-# Thorn 1.5.0rc1 contains fixes that are not yet released on PyPI
-https://github.com/robinhood/thorn/archive/master.zip
+thorn==1.5.0
 
 # Nicer CLI Interface
 click==6.6
@@ -67,3 +66,6 @@ django-click==1.2.0
 # for courses
 unicodecsv==0.14.1
 django-fontawesome==0.2.2
+
+django-debug-toolbar==1.5
+django-extensions==1.7.3
