@@ -1,0 +1,5 @@
+-r base.txt
+
+git+ssh://git@gitlab.com/lldev-team/django-courses.git
+git+ssh://git@gitlab.com/lldev-team/simpl-users.git@develop
+
