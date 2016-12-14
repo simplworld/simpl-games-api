@@ -1,37 +1,48 @@
-image: python:3.5
+image: docker:latest
 
 services:
-  - postgres:latest
+  - docker:dind
 
 variables:
   POSTGRES_DB: simpl
   POSTGRES_USER: simpl
   POSTGRES_PASSWORD: ""
 
-  CONTAINER_TEST_IMAGE: registry.gitlab.org/lldev-team/simpl-games-api:$CI_BUILD_REF_NAME
-  CONTAINER_RELEASE_IMAGE: registry.gitlab.org/lldev-team/simpl-games-api:latest
+  CONTAINER_TEST_IMAGE: registry.gitlab.com/lldev-team/simpl-games-api:$CI_BUILD_REF_NAME
+  CONTAINER_RELEASE_IMAGE: registry.gitlab.com/lldev-team/simpl-games-api:latest
+
+stages:
+  - build
+  - test
+  - release
 
 before_script:
-  # Install ssh-agent if not already installed, it is required by Docker.
-  # (change apt-get to yum if you use a CentOS-based image)
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
-  # Run ssh-agent (inside the build environment)
-  - eval $(ssh-agent -s)
-
-  # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-  - ssh-add <(echo "$SSH_PRIVATE_KEY")
-
-  # For Docker builds disable host key checking. Be aware that by adding that
-  # you are suspectible to man-in-the-middle attacks.
-  # WARNING: Use this only with the Docker executor, if you use it with shell
-  # you will overwrite your user's SSH config.
-  - mkdir -p ~/.ssh
-  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  - pip install -r requirements/gitlab.txt
-  - pip install -r requirements/test.txt
+build:
+  tags:
+    - dind
+  stage: build
+  script:
+    - docker build -t $CONTAINER_TEST_IMAGE .
+    - docker push $CONTAINER_TEST_IMAGE
 
 test:
+  tags:
+    - dind
   stage: test
   script:
-    - PYTHONPATH=. DATABASE_URL="postgres://simpl@postgres/simpl" py.test
+    - apk update && apk add py-pip
+    - pip install docker-compose
+    - docker-compose run simpl-games-api /code/tests.sh
+
+release-image:
+  tags:
+    - dind
+  stage: release
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
+  only:
+    - develop
