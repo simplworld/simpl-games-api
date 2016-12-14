@@ -9,7 +9,7 @@ services:
       SIMPL_GAMES_API_PORT: ${SIMPL_GAMES_API_PORT}
     build: .
     ports:
-      - "${SIMPL_GAMES_API_PORT}:${SIMPL_GAMES_API_PORT}"
+      - "${SIMPL_GAMES_API_PORT}"
     depends_on:
       - db
     links:
