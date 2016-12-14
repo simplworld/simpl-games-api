@@ -1,6 +1,6 @@
 FROM python:3.5
 
-LABEL Description="Image for simpl-games-api" Vendor="Wharton" Version="1.0"
+LABEL Description="Image for simpl-games-api" Vendor="Wharton" Version="1.0.0"
 
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SECRET_KEY u_%!79f@6su%xr9a!w_5#yib##i6!yzbo6%@n1rrrfz)*_5avf
