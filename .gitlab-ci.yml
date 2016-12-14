@@ -4,10 +4,6 @@ services:
   - docker:dind
 
 variables:
-  POSTGRES_DB: simpl
-  POSTGRES_USER: simpl
-  POSTGRES_PASSWORD: ""
-
   CONTAINER_TEST_IMAGE: registry.gitlab.com/lldev-team/simpl-games-api:$CI_BUILD_REF_NAME
   CONTAINER_RELEASE_IMAGE: registry.gitlab.com/lldev-team/simpl-games-api:latest
 
