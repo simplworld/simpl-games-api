@@ -3,8 +3,6 @@ FROM python:3.5
 LABEL Description="Image for simpl-games-api" Vendor="Wharton" Version="1.0.0"
 
 ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SECRET_KEY u_%!79f@6su%xr9a!w_5#yib##i6!yzbo6%@n1rrrfz)*_5avf
-ENV DATABASE_URL postgres://simpl@postgres/simpl
 ENV DOCKERIZE_VERSION v0.2.0
 
 RUN mkdir -p /root/.ssh \
@@ -20,6 +18,9 @@ RUN apt-get update && apt-get install -y wget \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 RUN pip install --upgrade pip
+
+ENV DJANGO_SECRET_KEY u_%!79f@6su%xr9a!w_5#yib##i6!yzbo6%@n1rrrfz)*_5avf
+ENV DATABASE_URL postgres://simpl@postgres/simpl
 
 RUN mkdir /code
 ADD . /code/
