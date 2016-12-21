@@ -1,8 +1,5 @@
 image: docker:latest
 
-services:
-  - docker:dind
-
 variables:
   CONTAINER_TEST_IMAGE: registry.gitlab.com/lldev-team/simpl-games-api:$CI_BUILD_REF_NAME
   CONTAINER_RELEASE_IMAGE: registry.gitlab.com/lldev-team/simpl-games-api:latest
@@ -17,7 +14,7 @@ before_script:
 
 build:
   tags:
-    - dind
+    - docker
   stage: build
   script:
     - docker build -t $CONTAINER_TEST_IMAGE .
@@ -25,16 +22,19 @@ build:
 
 test:
   tags:
-    - dind
+    - docker
   stage: test
+  services:
+    - postgres:latest
+  variables:
+    DJANGO_SETTINGS_MODULE: 'config.settings.test'
+    SIMPL_GAMES_API_PORT: "8100"
   script:
-    - apk update && apk add py-pip
-    - pip install docker-compose
-    - docker-compose run simpl-games-api /code/tests.sh
+    - docker run --link postgres -e "DATABASE_URL=postgres://postgres@postgres/postgres" ${CONTAINER_TEST_IMAGE} /code/tests.sh
 
 release-image:
   tags:
-    - dind
+    - docker
   stage: release
   script:
     - docker pull $CONTAINER_TEST_IMAGE
