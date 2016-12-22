@@ -5,13 +5,6 @@ LABEL Description="Image for simpl-games-api" Vendor="Wharton" Version="1.0.0"
 ENV PYTHONUNBUFFERED 1
 ENV DOCKERIZE_VERSION v0.2.0
 
-RUN mkdir -p /root/.ssh \
-    && chmod 700 /root/.ssh \
-    && echo "Host *\n\tStrictHostKeyChecking no\n\n" > /root/.ssh/config
-
-ADD keys/wharton_ll /root/.ssh/
-RUN chmod 600 /root/.ssh/wharton_ll
-
 RUN apt-get update && apt-get install -y wget \
     && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
@@ -27,9 +20,7 @@ ADD . /code/
 WORKDIR /code
 ENV PYTHONPATH /code:$PYTHONPATH
 
-RUN eval "$(ssh-agent -s)" \
-    && ssh-add /root/.ssh/wharton_ll \
-    && pip install -r /code/requirements/gitlab.txt \
+RUN pip install -r /code/requirements/gitlab.txt \
     && pip install -r /code/requirements/production.txt
 
 EXPOSE 8100
