@@ -23,5 +23,5 @@ ENV PYTHONPATH /code:$PYTHONPATH
 RUN pip install -r /code/requirements/gitlab.txt \
     && pip install -r /code/requirements/production.txt
 
-EXPOSE 8100
-CMD gunicorn config.wsgi -b 0.0.0.0:8100
+EXPOSE 80
+CMD gunicorn config.wsgi -b 0.0.0.0:80
