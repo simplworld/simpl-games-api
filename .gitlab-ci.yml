@@ -30,7 +30,7 @@ test:
     DJANGO_SETTINGS_MODULE: 'config.settings.test'
     SIMPL_GAMES_API_PORT: "8100"
   script:
-    - docker run --link postgres -e "DATABASE_URL=postgres://postgres@postgres/postgres" ${CONTAINER_TEST_IMAGE} /code/tests.sh
+    - docker run --link $HOSTNAME-postgres:postgres -e "DATABASE_URL=postgres://postgres@postgres/postgres" ${CONTAINER_TEST_IMAGE} /code/tests.sh
 
 release-image:
   tags:
