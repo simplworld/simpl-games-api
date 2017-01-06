@@ -20,7 +20,7 @@ ADD . /code/
 WORKDIR /code
 ENV PYTHONPATH /code:$PYTHONPATH
 
-RUN pip install -r /code/requirements/gitlab.txt \
+RUN pip install -r /code/requirements.txt \
     && pip install -r /code/requirements/production.txt
 
 EXPOSE 80
