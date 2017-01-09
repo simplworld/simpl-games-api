@@ -18,7 +18,9 @@ $ sudo ./install_postgres.sh
 ### Setup simpl-games-api (assumes working in python-dev-centos7 vagrant)
 
 ```bash
-clone simpl-games-api inside python-dev-centos7/html directory
+vagrant ssh
+cd /vagrant/html
+git clone git@gitlab.com:lldev-team/simpl-games-api.git
 
 $ mkvirtualenv simpl-games-api
 $ add2virtualenv /vagrant/html/simpl-games-api
