@@ -91,6 +91,22 @@ $ py.test
 
 Do not commit code if tests are failing.
 
+## Release
+
+To release a new version of the docker image, tag a new version with `bumpversion`:
+
+```
+$ pip install bumpversion
+$ bumpversion patch
+```
+
+Then push to the repo:
+
+```
+$ git push && git push --tags
+```
+
+
 ## Generate updated ERD of Models
 
 ```bash
