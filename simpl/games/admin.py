@@ -107,6 +107,7 @@ class RunAdmin(TimeStampedAdmin):
 class RunUserAdmin(TimeStampedAdmin):
     list_display = (
         'user',
+        'run',
         'world',
         'active',
         'facilitator',
