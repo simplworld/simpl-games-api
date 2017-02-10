@@ -388,6 +388,8 @@ class Scenario(AbstractTimeStampedModel):
     )
     round = models.ForeignKey(
         'Round',
+        blank=True,
+        null=True,
         related_name='scenarios'
     )
     player_periods = models.IntegerField(blank=True, null=True)
@@ -409,8 +411,6 @@ class Scenario(AbstractTimeStampedModel):
     data = JSONField(default={}, blank=True)
 
     class Meta(object):
-        # Allow users to create test scenarios with the same name, so cannot:
-        # unique_together = ('name', 'round')
         verbose_name = _('scenario')
         verbose_name_plural = _('scenarios')
         ordering = ('created',)
