@@ -49,7 +49,6 @@ class RoundFactory(factory.django.DjangoModelFactory):
 
 class ScenarioFactory(factory.django.DjangoModelFactory):
     name = factory.Sequence(lambda n: 'Scenario #{}'.format(n))
-    creator_user = factory.SubFactory(UserFactory)
     round = factory.SubFactory(RoundFactory)
 
     class Meta:
