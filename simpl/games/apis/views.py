@@ -709,7 +709,7 @@ class ScenarioViewSet(CommonViewSet):
               type: integer
               paramType: query
               required: false
-              description: Filters Scenarioes per Creator User via creator_user
+              description: Filters Scenarioes per Creator RunUser via creator_user
             - name: current_period
               type: integer
               paramType: query

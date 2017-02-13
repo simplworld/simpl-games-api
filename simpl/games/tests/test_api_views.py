@@ -704,7 +704,6 @@ class ScenarioTestCase(BaseAPITestCase):
         url = reverse('simpl_api:scenario-list')
 
         obj = ScenarioFactory.build(
-            creator_user=UserFactory(),
             round=RoundFactory(),
         )
         payload = serializers.ScenarioSerializer(obj).data

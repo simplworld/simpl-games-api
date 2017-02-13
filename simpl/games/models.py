@@ -109,7 +109,8 @@ class Period(AbstractTimeStampedModel):
         'Scenario',
         related_name='periods'
     )
-    order = models.IntegerField(default=0)  # shouldn't this be unique wrt scenario?
+    order = models.IntegerField(
+        default=0)  # shouldn't this be unique wrt scenario?
     data = JSONField(default={}, blank=True)
 
     class Meta(object):
@@ -150,7 +151,8 @@ class Phase(AbstractTimeStampedModel):
         'Game',
         related_name='phases'
     )
-    order = models.PositiveSmallIntegerField(blank=True, null=True, db_index=True)
+    order = models.PositiveSmallIntegerField(blank=True, null=True,
+                                             db_index=True)
 
     class Meta(object):
         ordering = ('game', 'order')
@@ -377,14 +379,17 @@ class Scenario(AbstractTimeStampedModel):
     """Scenario model"""
 
     name = models.CharField(max_length=100)
+
     creator_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        'RunUser',
         blank=True,
         null=True,
         related_name='scenarios'
     )
     round = models.ForeignKey(
         'Round',
+        blank=True,
+        null=True,
         related_name='scenarios'
     )
     player_periods = models.IntegerField(blank=True, null=True)
@@ -406,8 +411,6 @@ class Scenario(AbstractTimeStampedModel):
     data = JSONField(default={}, blank=True)
 
     class Meta(object):
-        # Allow users to create test scenarios with the same name, so cannot:
-        # unique_together = ('name', 'round')
         verbose_name = _('scenario')
         verbose_name_plural = _('scenarios')
         ordering = ('created',)
