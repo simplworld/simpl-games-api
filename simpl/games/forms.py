@@ -102,7 +102,7 @@ class ScenarioForm(forms.ModelForm):
         model = models.Scenario
         fields = [
             'name',
-            'creator_user',
+            'runuser',
             'round',
             'player_periods',
             'current_period',

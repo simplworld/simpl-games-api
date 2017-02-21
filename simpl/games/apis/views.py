@@ -672,7 +672,7 @@ class ScenarioViewSet(CommonViewSet):
         # filters.SearchFilter,
     )
     filter_fields = (
-        'creator_user',
+        'runuser',
         'current_period',
         'last_period',
         'round',
@@ -705,11 +705,11 @@ class ScenarioViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Scenarioes per Name via name
-            - name: creator_user
+            - name: runuser
               type: integer
               paramType: query
               required: false
-              description: Filters Scenarioes per Creator RunUser via creator_user
+              description: Filters Scenarioes per Creator RunUser via runuser
             - name: current_period
               type: integer
               paramType: query

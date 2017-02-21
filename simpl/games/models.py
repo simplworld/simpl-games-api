@@ -380,7 +380,7 @@ class Scenario(AbstractTimeStampedModel):
 
     name = models.CharField(max_length=100)
 
-    creator_user = models.ForeignKey(
+    runuser = models.ForeignKey(
         'RunUser',
         blank=True,
         null=True,

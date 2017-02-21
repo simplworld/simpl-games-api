@@ -124,11 +124,11 @@ class RunUserAdmin(TimeStampedAdmin):
 class ScenarioAdmin(TimeStampedAdmin):
     list_display = (
         'name',
-        'creator_user',
+        'runuser',
         'round',
     )
     raw_id_fields = [
-        'creator_user',
+        'runuser',
         'round',
         'current_period',
         'last_period',
