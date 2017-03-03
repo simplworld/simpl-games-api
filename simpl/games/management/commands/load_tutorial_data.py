@@ -35,7 +35,7 @@ def command():
 
     # Create a Superuser
     superuser, created = User.objects.update_or_create(
-        username='system',
+        email='system@system.org',
         is_superuser=True,
         is_staff=True,
     )
@@ -49,7 +49,7 @@ def command():
             '{0} superuser: '.format('creating' if created else 'updating'),
             fg='green'
         ) +
-        '{0}'.format(superuser.username) +
+        '{0}'.format(superuser.email) +
         click.style(' with password "', fg='green') +
         '{0}'.format(password) +
         click.style('"', fg='green')
@@ -57,7 +57,7 @@ def command():
 
     # Create a User (Alice)
     user_alice, created = User.objects.update_or_create(
-        username='alice',
+        email='alice@example.com',
         is_staff=True,
     )
 
@@ -70,7 +70,7 @@ def command():
             '{0} user: '.format('creating' if created else 'updating'),
             fg='green'
         ) +
-        '{0}'.format(user_alice.username) +
+        '{0}'.format(user_alice.email) +
         click.style(' with password "', fg='green') +
         '{0}'.format(password) +
         click.style('"', fg='green')
@@ -78,7 +78,7 @@ def command():
 
     # Create a User (Bob)
     user_bob, created = User.objects.update_or_create(
-        username='bob',
+        email='bob@example.com',
         is_staff=True,
     )
 
@@ -91,7 +91,7 @@ def command():
             '{0} user: '.format('creating' if created else 'updating'),
             fg='green'
         ) +
-        '{0}'.format(user_bob.username) +
+        '{0}'.format(user_bob.email) +
         click.style(' with password "', fg='green') +
         '{0}'.format(password) +
         click.style('"', fg='green')

@@ -77,7 +77,7 @@ class RunSerializer(serializers.ModelSerializer):
 
 
 class RunUserSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(source='user.username', required=False, read_only=True)
+    email = serializers.CharField(source='user.email', required=False, read_only=True)
     first_name = serializers.CharField(source='user.first_name', required=False, read_only=True)
     last_name = serializers.CharField(source='user.last_name', required=False, read_only=True)
     email = serializers.CharField(source='user.email', required=False, read_only=True)
@@ -89,7 +89,7 @@ class RunUserSerializer(serializers.ModelSerializer):
         read_only_fields = (
             'created',
             'updated',
-            'username',
+            'email',
             'game_slug',
         )
 

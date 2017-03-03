@@ -4,7 +4,6 @@ from rest_framework.test import APITestCase
 from test_plus.test import TestCase
 
 from simpl.games.apis import serializers
-from simpl.games.models import Game
 from simpl.games.factories import (
     GameFactory, PeriodFactory, RoundFactory, RunFactory, ScenarioFactory,
     WorldFactory, PhaseFactory, RoleFactory, RunUserFactory, UserFactory
@@ -12,6 +11,7 @@ from simpl.games.factories import (
 
 
 class BaseAPITestCase(APITestCase, TestCase):
+    user_factory = UserFactory
 
     def setUp(self):
         self.user = self.make_user()

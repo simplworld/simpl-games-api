@@ -14,5 +14,5 @@ class SimplGamesConfig(AppConfig):
             on_change=events.on_user_changed,
             on_create=events.on_user_created,
             on_delete=events.on_user_deleted,
-            reverse=model_reverser('simpl_api:user-detail', username='username'),
+            reverse=model_reverser('simpl_api:user-detail', pk='pk'),
         )
