@@ -47,7 +47,7 @@ def command(world, run):
 
     # Create or update an User (Alice)
     user_alice, created = User.objects.update_or_create(
-        username='alice',
+        email='alice@example.com',
         password='Alice123',
         is_staff=True,
     )
@@ -56,7 +56,7 @@ def command(world, run):
             '{0} user: '.format('creating' if created else 'updating'),
             fg='green'
         ) +
-        '{0}'.format(user_alice.username) +
+        '{0}'.format(user_alice.email) +
         click.style('" with password "', fg='green') +
         '{0}'.format(user_alice.password) +
         click.style('"', fg='green')
@@ -80,7 +80,7 @@ def command(world, run):
 
     # Create or update an User (Bob)
     user_bob, created = User.objects.update_or_create(
-        username='bob',
+        email='bob@example.com',
         password='Bob123',
         is_staff=True,
     )
@@ -89,7 +89,7 @@ def command(world, run):
             '{0} user: '.format('creating' if created else 'updating'),
             fg='green'
         ) +
-        '{0}'.format(user_bob.username) +
+        '{0}'.format(user_bob.email) +
         click.style('" with password "', fg='green') +
         '{0}'.format(user_bob.password) +
         click.style('"', fg='green')

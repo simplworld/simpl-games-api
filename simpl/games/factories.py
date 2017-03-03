@@ -6,7 +6,6 @@ from . import models
 
 
 class UserFactory(factory.django.DjangoModelFactory):
-    username = factory.Sequence(lambda n: 'user_{}'.format(n))
     email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
     first_name = 'User'
     last_name = factory.Sequence(lambda n: '{}'.format(n))

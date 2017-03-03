@@ -44,6 +44,7 @@ THIRD_PARTY_APPS = (
     'fontawesome',
     'crispy_forms',  # Form layouts
     'rest_framework',
+    'cuser',
     'rest_framework_swagger',
     'thorn.django',
 )
@@ -208,6 +209,7 @@ AUTHENTICATION_BACKENDS = (
 
 # Some really nice defaults
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
