@@ -57,8 +57,13 @@ Create a superuser account to access the admin:
 $ ./manage.py createsuperuser
 ```
 
-For local development, call the superuser vagrant.
-This ensures test users can be assigned passwords in scripts.
+For local development, run:
+
+```bash
+$ ./manage.py create_vagrant_user
+```
+
+This creates a super user with id 'vagrant@wharton.upenn.edu' and password 'vagrant' and ensures test users can be assigned passwords in scripts.
 
 ### Settings setup
 
