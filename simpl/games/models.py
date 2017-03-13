@@ -445,7 +445,7 @@ class World(AbstractTimeStampedModel):
         related_name='worlds'
     )
     data = JSONField(default={}, blank=True)
-    canvas_ids = ArrayField(
+    external_ids = ArrayField(
         ArrayField(
             models.IntegerField()
         ),

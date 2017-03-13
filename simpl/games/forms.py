@@ -120,5 +120,5 @@ class WorldForm(forms.ModelForm):
             'name',
             'run',
             'data',
-            'canvas_ids',
+            'external_ids',
         ]
