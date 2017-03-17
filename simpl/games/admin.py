@@ -110,7 +110,7 @@ class RunUserAdmin(TimeStampedAdmin):
         'run',
         'world',
         'active',
-        'facilitator',
+        'leader',
     )
     raw_id_fields = [
         'user',

@@ -582,7 +582,7 @@ class RunUserViewSet(CommonViewSet):
     )
     filter_fields = (
         'active',
-        'facilitator',
+        'leader',
         'role',
         'run',
         'user',
@@ -615,11 +615,11 @@ class RunUserViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters RunUsers per Active via active
-            - name: facilitator
+            - name: leader
               type: boolean
               paramType: query
               required: false
-              description: Filters RunUsers per Facilitator via facilitator
+              description: Filters RunUsers per Leader via leader
             - name: role
               type: integer
               paramType: query
