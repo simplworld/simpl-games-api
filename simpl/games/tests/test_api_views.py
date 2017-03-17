@@ -667,7 +667,7 @@ class RunUserTestCase(BaseAPITestCase):
         obj = self.runuser
         url = reverse('simpl_api:runuser-detail', kwargs={'pk': obj.pk})
 
-        old_facilitator = obj.facilitator
+        old_leader = obj.leader
         payload = serializers.RunUserSerializer(obj).data
 
         # Does this api work without auth?
@@ -676,18 +676,18 @@ class RunUserTestCase(BaseAPITestCase):
 
         # Does this api work with auth?
         with self.login(self.user):
-            obj.facilitator = True
+            obj.leader = True
             payload = serializers.RunUserSerializer(obj).data
 
             response = self.client.put(url, payload, format='json')
             self.assertEqual(response.status_code, 200)
-            self.assertTrue(response.data['facilitator'] != old_facilitator)
+            self.assertTrue(response.data['leader'] != old_leader)
 
             obj.name = self.faker.name()
             payload = serializers.RunUserSerializer(obj).data
 
             # Test Updating Reversions
-            obj.facilitator = old_facilitator
+            obj.leader = old_leader
             payload = serializers.RunUserSerializer(obj).data
             response = self.client.put(url, payload, format='json')
             self.assertEqual(response.status_code, 200)

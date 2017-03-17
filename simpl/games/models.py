@@ -343,7 +343,7 @@ class RunUser(AbstractTimeStampedModel):
         null=True,
         related_name='run_users'
     )
-    facilitator = models.BooleanField(default=False)
+    leader = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     data = JSONField(default={}, blank=True)
 
