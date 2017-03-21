@@ -287,8 +287,6 @@ class Run(AbstractTimeStampedModel):
         'Game',
         related_name='runs'
     )
-    start_date = models.DateTimeField(blank=True, null=True)
-    end_date = models.DateTimeField(blank=True, null=True)
     data = JSONField(default={}, blank=True)
     phase = models.ForeignKey(
         'Phase',
