@@ -90,8 +90,6 @@ class RunForm(forms.ModelForm):
             'name',
             'active',
             'game',
-            'start_date',
-            'end_date',
             'data',
         ]
 

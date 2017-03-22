@@ -95,8 +95,6 @@ class RunAdmin(TimeStampedAdmin):
         'name',
         'active',
         'game',
-        'start_date',
-        'end_date',
     )
     raw_id_fields = [
         'game',
