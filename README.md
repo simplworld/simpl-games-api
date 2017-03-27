@@ -84,7 +84,7 @@ $ ./manage.py runserver 0.0.0.0:8100
 Install the test requirements in your virtualenv:
 
 ```bash
-$ pip install -r requirements/test.txt
+$ pip install -r requirements.txt
 ```
 
 Then run `py.test`:
@@ -115,14 +115,14 @@ $ git push && git push --tags
 ## Generate updated ERD of Models
 
 ```bash
-$ ./manage.py graph_models games -o docs/models.png 
+$ ./manage.py graph_models games -o docs/models.png
 ```
 
 ## What's where?
 
 - [API Docs](http://localhost:8100/docs/)
 - The [SIMPL api](http://localhost:8100/apis/)
-- [Django Admin](http://localhost:8100/admin/) 
+- [Django Admin](http://localhost:8100/admin/)
 - [SIMPL Frontend Admin](http://localhost:8100/simpl/) but only if you need it!
 
 ## Model Schema

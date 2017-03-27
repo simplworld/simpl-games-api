@@ -1,5 +1,5 @@
 #!/bin/bash
 
-pip install -r requirements/test.txt
+pip install -r requirements.txt
 
 PYTHONPATH=. py.test
