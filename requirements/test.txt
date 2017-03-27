@@ -1,7 +1,7 @@
 # Test dependencies go here.
 -r base.txt
 
-coverage==4.0.3
+coverage==4.3.4
 django_fakery==1.4.1
 django-test-plus==1.0.17
 django_coverage_plugin==1.3.1
@@ -11,8 +11,9 @@ flake8==2.5.4
 bumpversion==0.5.3
 
 # pytest!
-pytest-cov==2.2.1
-pytest-django==2.9.1
+pytest-cov==2.4.0
+pytest-django==3.1.2
+pytest-sugar==0.8.0
 
 # linters
 pydocstyle==1.0.0
