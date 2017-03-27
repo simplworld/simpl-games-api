@@ -101,7 +101,6 @@ Do not commit code if tests are failing.
 To release a new version of the docker image, tag a new version with `bumpversion`:
 
 ```
-$ pip install bumpversion
 $ bumpversion patch
 ```
 
