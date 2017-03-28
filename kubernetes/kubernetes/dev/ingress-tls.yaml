@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: simpl-dev
+  namespace: simpl
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - simpl.dev.wharton.revsys.com
+    secretName: simpl.dev.wharton.revsys.com-tls
+  rules:
+  - host: simpl.dev.wharton.revsys.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: simpl-dev
+          servicePort: 80

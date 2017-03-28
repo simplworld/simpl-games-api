@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: simpl-dev
+  namespace: simpl
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: simpl-dev
+    spec:
+      containers:
+      - image: registry.gitlab.com/lldev-team/simpl-games-api:develop
+        imagePullPolicy: Always
+        name: simpl
+        env:
+        - name: DATABASE_NAME
+          value: "simpl-dev"
+        - name: DATABASE_USER
+          value: "simpl-dev"
+        - name: DATABASE_HOST
+          value: "172.20.122.174"
+        - name: DJANGO_SETTINGS_MODULE
+          value: "config.settings.dev"
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: simpl-dev
+              key: database-password
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: registry.gitlab.com
