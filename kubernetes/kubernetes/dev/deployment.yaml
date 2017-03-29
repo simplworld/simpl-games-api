@@ -11,7 +11,7 @@ spec:
         app: simpl-dev
     spec:
       containers:
-      - image: registry.gitlab.com/lldev-team/simpl-games-api:develop
+      - image: registry.gitlab.com/lldev-team/simpl-games-api:v1.1.8
         imagePullPolicy: Always
         name: simpl
         env:
@@ -28,6 +28,8 @@ spec:
             secretKeyRef:
               name: simpl-dev
               key: database-password
+        - name: SECRET_KEY
+          value: "k-9wt5ky8)b3+iis4344q+%$+ghi7-4=so#44t2c8jd-hbrsgx"
         ports:
         - containerPort: 80
       imagePullSecrets:
