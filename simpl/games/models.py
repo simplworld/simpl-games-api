@@ -236,43 +236,6 @@ class Role(AbstractTimeStampedModel):
 
 @python_2_unicode_compatible
 @webhook_model(
-    on_change=events.on_round_changed,
-    on_create=events.on_round_created,
-    on_delete=events.on_round_deleted,
-    reverse=model_reverser('simpl_api:round-detail', pk='pk'),
-)
-class Round(AbstractTimeStampedModel):
-    """Round model"""
-
-    name = models.CharField(max_length=100)
-    world = models.ForeignKey(
-        'World',
-        related_name='rounds'
-    )
-    order = models.IntegerField(blank=True, null=True)
-    data = JSONField(default={}, blank=True)
-
-    class Meta(object):
-        unique_together = ('name', 'world')
-        verbose_name = _('round')
-        verbose_name_plural = _('rounds')
-
-    def __str__(self):
-        return self.name
-
-    @property
-    @cached_method("rounds:{.pk}:game")
-    def game(self):
-        return self.world.game
-
-    def webhook_payload(self):
-        from .apis.serializers import RoundSerializer
-
-        return RoundSerializer(self).data
-
-
-@python_2_unicode_compatible
-@webhook_model(
     on_change=events.on_run_changed,
     on_create=events.on_run_created,
     on_delete=events.on_run_deleted,
@@ -384,8 +347,8 @@ class Scenario(AbstractTimeStampedModel):
         null=True,
         related_name='scenarios'
     )
-    round = models.ForeignKey(
-        'Round',
+    world = models.ForeignKey(
+        'World',
         blank=True,
         null=True,
         related_name='scenarios'
@@ -404,7 +367,10 @@ class Scenario(AbstractTimeStampedModel):
     @property
     @cached_method("scenarios:{.pk}:game")
     def game(self):
-        return self.round.game
+        if self.world:
+            return self.world.game
+        else:
+            return self.runuser.game
 
     def webhook_payload(self):
         from .apis.serializers import ScenarioSerializer

@@ -1,5 +1,6 @@
 from rest_framework import filters, viewsets
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import SessionAuthentication, \
+    BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from . import serializers
@@ -436,73 +437,6 @@ class RoleViewSet(CommonViewSet):
         return super(RoleViewSet, self).update(request, pk=pk)
 
 
-class RoundViewSet(CommonViewSet):
-    """ Round resource. """
-
-    queryset = models.Round.objects.all()
-    serializer_class = serializers.RoundSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        'world',
-        'name',
-    )
-    ordering_fields = (
-        'created',
-        'modified',
-    )
-
-    def create(self, request):
-        """
-        Add a new Round
-        """
-        return super(RoundViewSet, self).create(request)
-
-    def destroy(self, request, pk=None):
-        """
-        Delete an Round
-        """
-        return super(RoundViewSet, self).destroy(request, pk=pk)
-
-    def list(self, request):
-        """
-        Returns a list of Rounds
-        ---
-        parameters:
-            - name: name
-              type: string
-              paramType: query
-              required: false
-              description: Filters Rounds per Name via name
-            - name: world
-              type: integer
-              paramType: query
-              required: false
-              description: Filters Rounds per World via world
-        """
-        return super(RoundViewSet, self).list(request)
-
-    def partial_update(self, request, pk=None):
-        """
-        Update an existing Round
-        """
-        return super(RoundViewSet, self).partial_update(request, pk=pk)
-
-    def retrieve(self, request, pk=None):
-        """
-        Find an Round by ID
-        """
-        return super(RoundViewSet, self).retrieve(request, pk=pk)
-
-    def update(self, request, pk=None):
-        """
-        Update an existing Round
-        """
-        return super(RoundViewSet, self).update(request, pk=pk)
-
-
 class RunViewSet(CommonViewSet):
     """ Run resource. """
 
@@ -574,7 +508,8 @@ class RunViewSet(CommonViewSet):
 class RunUserViewSet(CommonViewSet):
     """ RunUser resource. """
 
-    queryset = models.RunUser.objects.select_related('user', 'run__game', 'role')
+    queryset = models.RunUser.objects.select_related('user', 'run__game',
+                                                     'role')
     serializer_class = serializers.RunUserSerializer
     filter_backends = (
         filters.DjangoFilterBackend,
@@ -673,7 +608,7 @@ class ScenarioViewSet(CommonViewSet):
     )
     filter_fields = (
         'runuser',
-        'round',
+        'world',
         'name',
     )
     ordering_fields = (
@@ -708,11 +643,12 @@ class ScenarioViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Scenarioes per Creator RunUser via runuser
-            - name: round
+            - name: world
               type: integer
               paramType: query
               required: false
-              description: Filters Scenarioes per Round via round
+              description: Filters Scenarioes per World via world
+              TODO: Not all scenarios are associated with world
         """
         return super(ScenarioViewSet, self).list(request)
 

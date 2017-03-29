@@ -11,7 +11,6 @@ urlpatterns = [
     url(r'^phases/', include('simpl.games.urls.phase_urls')),
     url(r'^results/', include('simpl.games.urls.result_urls')),
     url(r'^roles/', include('simpl.games.urls.role_urls')),
-    url(r'^rounds/', include('simpl.games.urls.round_urls')),
     url(r'^runs/', include('simpl.games.urls.run_urls')),
     url(r'^scenarios/', include('simpl.games.urls.scenario_urls')),
     url(r'^worlds/', include('simpl.games.urls.world_urls')),

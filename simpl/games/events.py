@@ -31,11 +31,6 @@ on_role_changed = ModelEvent('{.game.slug}.role.changed')
 on_role_created = ModelEvent('{.game.slug}.role.created')
 on_role_deleted = ModelEvent('{.game.slug}.role.deleted')
 
-# Round events
-on_round_changed = ModelEvent('{.game.slug}.round.changed')
-on_round_created = ModelEvent('{.game.slug}.round.created')
-on_round_deleted = ModelEvent('{.game.slug}.round.deleted')
-
 # Run events
 on_run_changed = ModelEvent('{.game.slug}.run.changed')
 on_run_created = ModelEvent('{.game.slug}.run.created')

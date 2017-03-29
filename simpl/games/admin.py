@@ -77,18 +77,6 @@ class RoleAdmin(TimeStampedAdmin):
     ]
 
 
-@admin.register(models.Round)
-class RoundAdmin(TimeStampedAdmin):
-    list_display = (
-        'name',
-        'world',
-        'order',
-    )
-    raw_id_fields = [
-        'world',
-    ]
-
-
 @admin.register(models.Run)
 class RunAdmin(TimeStampedAdmin):
     list_display = (
@@ -123,11 +111,11 @@ class ScenarioAdmin(TimeStampedAdmin):
     list_display = (
         'name',
         'runuser',
-        'round',
+        'world',
     )
     raw_id_fields = [
         'runuser',
-        'round',
+        'world',
     ]
 
 

@@ -64,17 +64,6 @@ class RoleForm(forms.ModelForm):
         ]
 
 
-class RoundForm(forms.ModelForm):
-    class Meta:
-        model = models.Round
-        fields = [
-            'name',
-            'world',
-            'order',
-            'data',
-        ]
-
-
 class RunForm(forms.ModelForm):
     class Meta:
         model = models.Run
@@ -92,7 +81,7 @@ class ScenarioForm(forms.ModelForm):
         fields = [
             'name',
             'runuser',
-            'round',
+            'world',
         ]
 
 

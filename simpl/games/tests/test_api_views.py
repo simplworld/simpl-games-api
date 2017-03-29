@@ -5,7 +5,7 @@ from test_plus.test import TestCase
 
 from simpl.games.apis import serializers
 from simpl.games.factories import (
-    GameFactory, PeriodFactory, RoundFactory, RunFactory, ScenarioFactory,
+    GameFactory, PeriodFactory, RunFactory, ScenarioFactory,
     WorldFactory, PhaseFactory, RoleFactory, RunUserFactory, UserFactory
 )
 
@@ -19,7 +19,6 @@ class BaseAPITestCase(APITestCase, TestCase):
 
 
 class GameTestCase(BaseAPITestCase):
-
     def setUp(self):
         super(GameTestCase, self).setUp()
 
@@ -114,7 +113,6 @@ class GameTestCase(BaseAPITestCase):
 
 
 class PeriodTestCase(BaseAPITestCase):
-
     def setUp(self):
         super(PeriodTestCase, self).setUp()
 
@@ -211,7 +209,6 @@ class PeriodTestCase(BaseAPITestCase):
 
 
 class PhaseTestCase(BaseAPITestCase):
-
     def setUp(self):
         super(PhaseTestCase, self).setUp()
 
@@ -307,7 +304,6 @@ class PhaseTestCase(BaseAPITestCase):
 
 
 class RoleTestCase(BaseAPITestCase):
-
     def setUp(self):
         super(RoleTestCase, self).setUp()
 
@@ -401,104 +397,7 @@ class RoleTestCase(BaseAPITestCase):
             self.assertEqual(response.status_code, 200)
 
 
-class RoundTestCase(BaseAPITestCase):
-
-    def setUp(self):
-        super(RoundTestCase, self).setUp()
-
-        self.round = RoundFactory()
-
-    def test_create(self):
-        url = reverse('simpl_api:round-list')
-
-        world = WorldFactory()
-        obj = RoundFactory.build(world=world)
-        payload = serializers.RoundSerializer(obj).data
-
-        # Does this api work without auth?
-        response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
-
-        # Does this api work with auth?
-        with self.login(self.user):
-            response = self.client.post(url, payload, format='json')
-            self.assertEqual(response.status_code, 201)
-            self.assertNotEqual(len(response.data), 0)
-
-    def test_delete(self):
-        url = reverse('simpl_api:round-detail', kwargs={'pk': self.round.pk})
-
-        # Does this api work without auth?
-        response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 403)
-
-        # Does this api work with auth?
-        self.login(self.user)
-        response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 204)
-
-        # Verify that the object is gone?
-        response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 404)
-
-    def test_detail(self):
-        url = reverse('simpl_api:round-detail', kwargs={'pk': self.round.pk})
-
-        # Does this api work without auth?
-        response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
-
-        # Does this api work with auth?
-        self.login(self.user)
-        response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 200)
-        self.assertNotEqual(len(response.data), 0)
-
-    def test_list(self):
-        url = reverse('simpl_api:round-list')
-
-        # Does this api work without auth?
-        response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
-
-        # Does this api work with auth?
-        self.login(self.user)
-        response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 200)
-        self.assertNotEqual(len(response.data), 0)
-
-    def test_update(self):
-        obj = self.round
-        url = reverse('simpl_api:round-detail', kwargs={'pk': obj.pk})
-
-        old_name = obj.name
-        payload = serializers.RoundSerializer(obj).data
-
-        # Does this api work without auth?
-        response = self.client.put(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
-
-        # Does this api work with auth?
-        with self.login(self.user):
-            obj.name = self.faker.name()
-            payload = serializers.RoundSerializer(obj).data
-
-            response = self.client.put(url, payload, format='json')
-            self.assertEqual(response.status_code, 200)
-            self.assertTrue(response.data['name'] != old_name)
-
-            obj.name = self.faker.name()
-            payload = serializers.RoundSerializer(obj).data
-
-            # Test Updating Reversions
-            obj.name = old_name
-            payload = serializers.RoundSerializer(obj).data
-            response = self.client.put(url, payload, format='json')
-            self.assertEqual(response.status_code, 200)
-
-
 class RunTestCase(BaseAPITestCase):
-
     def setUp(self):
         super(RunTestCase, self).setUp()
 
@@ -594,7 +493,6 @@ class RunTestCase(BaseAPITestCase):
 
 
 class RunUserTestCase(BaseAPITestCase):
-
     def setUp(self):
         super(RunUserTestCase, self).setUp()
 
@@ -622,7 +520,8 @@ class RunUserTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:runuser-detail', kwargs={'pk': self.runuser.pk})
+        url = reverse('simpl_api:runuser-detail',
+                      kwargs={'pk': self.runuser.pk})
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
@@ -638,7 +537,8 @@ class RunUserTestCase(BaseAPITestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_detail(self):
-        url = reverse('simpl_api:runuser-detail', kwargs={'pk': self.runuser.pk})
+        url = reverse('simpl_api:runuser-detail',
+                      kwargs={'pk': self.runuser.pk})
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
@@ -694,7 +594,6 @@ class RunUserTestCase(BaseAPITestCase):
 
 
 class ScenarioTestCase(BaseAPITestCase):
-
     def setUp(self):
         super(ScenarioTestCase, self).setUp()
 
@@ -704,7 +603,7 @@ class ScenarioTestCase(BaseAPITestCase):
         url = reverse('simpl_api:scenario-list')
 
         obj = ScenarioFactory.build(
-            round=RoundFactory(),
+            world=WorldFactory(),
         )
         payload = serializers.ScenarioSerializer(obj).data
 
@@ -719,7 +618,8 @@ class ScenarioTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:scenario-detail', kwargs={'pk': self.scenario.pk})
+        url = reverse('simpl_api:scenario-detail',
+                      kwargs={'pk': self.scenario.pk})
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
@@ -735,7 +635,8 @@ class ScenarioTestCase(BaseAPITestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_detail(self):
-        url = reverse('simpl_api:scenario-detail', kwargs={'pk': self.scenario.pk})
+        url = reverse('simpl_api:scenario-detail',
+                      kwargs={'pk': self.scenario.pk})
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
@@ -791,7 +692,6 @@ class ScenarioTestCase(BaseAPITestCase):
 
 
 class WorldTestCase(BaseAPITestCase):
-
     def setUp(self):
         super(WorldTestCase, self).setUp()
 
