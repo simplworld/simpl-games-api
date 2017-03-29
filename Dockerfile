@@ -25,4 +25,4 @@ WORKDIR /code
 ENV PYTHONPATH /code:$PYTHONPATH
 
 EXPOSE 80
-CMD gunicorn config.wsgi -b 0.0.0.0:80
+CMD ["/code/start.sh"]
