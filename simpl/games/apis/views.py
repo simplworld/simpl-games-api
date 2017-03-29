@@ -673,8 +673,6 @@ class ScenarioViewSet(CommonViewSet):
     )
     filter_fields = (
         'runuser',
-        'current_period',
-        'last_period',
         'round',
         'name',
     )
@@ -710,16 +708,6 @@ class ScenarioViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Scenarioes per Creator RunUser via runuser
-            - name: current_period
-              type: integer
-              paramType: query
-              required: false
-              description: Filters Scenarioes per Current Period via current_period
-            - name: last_period
-              type: integer
-              paramType: query
-              required: false
-              description: Filters Scenarioes per Last Period via last_period
             - name: round
               type: integer
               paramType: query

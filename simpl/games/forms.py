@@ -4,7 +4,6 @@ from . import models
 
 
 class DecisionForm(forms.ModelForm):
-
     class Meta:
         model = models.Decision
         fields = [
@@ -16,7 +15,6 @@ class DecisionForm(forms.ModelForm):
 
 
 class GameForm(forms.ModelForm):
-
     class Meta:
         model = models.Game
         fields = [
@@ -26,7 +24,6 @@ class GameForm(forms.ModelForm):
 
 
 class PeriodForm(forms.ModelForm):
-
     class Meta:
         model = models.Period
         fields = [
@@ -37,7 +34,6 @@ class PeriodForm(forms.ModelForm):
 
 
 class PhaseForm(forms.ModelForm):
-
     class Meta:
         model = models.Phase
         fields = [
@@ -48,7 +44,6 @@ class PhaseForm(forms.ModelForm):
 
 
 class ResultForm(forms.ModelForm):
-
     class Meta:
         model = models.Result
         fields = [
@@ -60,7 +55,6 @@ class ResultForm(forms.ModelForm):
 
 
 class RoleForm(forms.ModelForm):
-
     class Meta:
         model = models.Role
         fields = [
@@ -71,7 +65,6 @@ class RoleForm(forms.ModelForm):
 
 
 class RoundForm(forms.ModelForm):
-
     class Meta:
         model = models.Round
         fields = [
@@ -83,7 +76,6 @@ class RoundForm(forms.ModelForm):
 
 
 class RunForm(forms.ModelForm):
-
     class Meta:
         model = models.Run
         fields = [
@@ -95,23 +87,16 @@ class RunForm(forms.ModelForm):
 
 
 class ScenarioForm(forms.ModelForm):
-
     class Meta:
         model = models.Scenario
         fields = [
             'name',
             'runuser',
             'round',
-            'player_periods',
-            'current_period',
-            'last_period',
-            'seed_periods',
-            'total_periods',
         ]
 
 
 class WorldForm(forms.ModelForm):
-
     class Meta:
         model = models.World
         fields = [

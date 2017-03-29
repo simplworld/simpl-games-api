@@ -128,8 +128,6 @@ class ScenarioAdmin(TimeStampedAdmin):
     raw_id_fields = [
         'runuser',
         'round',
-        'current_period',
-        'last_period',
     ]
 
 
