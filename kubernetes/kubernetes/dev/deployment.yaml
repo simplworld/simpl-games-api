@@ -20,7 +20,7 @@ spec:
         - name: DATABASE_USER
           value: "simpl-dev"
         - name: DATABASE_HOST
-          value: "172.20.122.174"
+          value: "172.20.33.180"
         - name: DJANGO_SETTINGS_MODULE
           value: "config.settings.dev"
         - name: DATABASE_PASSWORD
