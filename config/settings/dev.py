@@ -13,6 +13,8 @@ ALLOWED_HOSTS = [
     'simpl.dev.wharton.revsys.com',
 ]
 
+ROLLBAR['environment'] = 'development'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
