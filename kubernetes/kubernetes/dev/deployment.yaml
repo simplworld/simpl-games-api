@@ -11,7 +11,7 @@ spec:
         app: simpl-dev
     spec:
       containers:
-      - image: registry.gitlab.com/lldev-team/simpl-games-api:v1.1.13
+      - image: registry.gitlab.com/lldev-team/simpl-games-api:v1.2.1
         imagePullPolicy: Always
         name: simpl
         env:
