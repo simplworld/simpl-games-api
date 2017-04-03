@@ -4,7 +4,16 @@ env = environ.Env(
     DATABASE_USER=(str, 'simpl'),
     DATABASE_HOST=(str, 'localhost'),
     DATABASE_PASSWORD=str,
+    SECRET_KEY=str,
 )
+
+SECRET_KEY = env('SECRET_KEY')
+ALLOWED_HOSTS = [
+    'localhost',
+    'simpl.dev.wharton.revsys.com',
+]
+
+ROLLBAR['environment'] = 'development'
 
 DATABASES = {
     'default': {

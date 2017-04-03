@@ -11,7 +11,7 @@ spec:
         app: simpl-dev
     spec:
       containers:
-      - image: registry.gitlab.com/lldev-team/simpl-games-api:develop
+      - image: registry.gitlab.com/lldev-team/simpl-games-api:v1.2.1
         imagePullPolicy: Always
         name: simpl
         env:
@@ -20,7 +20,7 @@ spec:
         - name: DATABASE_USER
           value: "simpl-dev"
         - name: DATABASE_HOST
-          value: "172.20.122.174"
+          value: "172.20.33.180"
         - name: DJANGO_SETTINGS_MODULE
           value: "config.settings.dev"
         - name: DATABASE_PASSWORD
@@ -28,6 +28,8 @@ spec:
             secretKeyRef:
               name: simpl-dev
               key: database-password
+        - name: SECRET_KEY
+          value: "k-9wt5ky8)b3+iis4344q+%$+ghi7-4=so#44t2c8jd-hbrsgx"
         ports:
         - containerPort: 80
       imagePullSecrets:

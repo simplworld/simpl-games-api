@@ -69,6 +69,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 )
 
 # MIGRATIONS CONFIGURATION
@@ -257,4 +258,12 @@ SWAGGER_SETTINGS = {
         'put',
         'delete'
     ],
+}
+
+# Rollbar settings
+ROLLBAR = {
+    'access_token': '1b39e15b6d0840e0ba6a0e3dc080ce09',
+    'environment': 'development' if DEBUG else 'production',
+    'branch': 'master',
+    'root': '/code',
 }

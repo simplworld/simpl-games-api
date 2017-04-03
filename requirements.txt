@@ -92,3 +92,4 @@ pydocstyle==1.0.0
 
 # improved REPL
 ipdb==0.9.0
+rollbar==0.13.11

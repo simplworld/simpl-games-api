@@ -38,17 +38,9 @@ class WorldFactory(factory.django.DjangoModelFactory):
         model = models.World
 
 
-class RoundFactory(factory.django.DjangoModelFactory):
-    name = factory.Sequence(lambda n: 'Round #{}'.format(n))
-    world = factory.SubFactory(WorldFactory)
-
-    class Meta:
-        model = models.Round
-
-
 class ScenarioFactory(factory.django.DjangoModelFactory):
     name = factory.Sequence(lambda n: 'Scenario #{}'.format(n))
-    round = factory.SubFactory(RoundFactory)
+    world = factory.SubFactory(WorldFactory)
 
     class Meta:
         model = models.Scenario
