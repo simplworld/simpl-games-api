@@ -20,7 +20,7 @@ $ sudo ./install_postgres.sh
 ```bash
 vagrant ssh
 cd /vagrant/html
-git clone git@gitlab.com:lldev-team/simpl-games-api.git
+git clone git@learninglab.githost.io:lldev-team/simpl-games-api.git
 
 $ mkvirtualenv simpl-games-api
 $ add2virtualenv /vagrant/html/simpl-games-api
