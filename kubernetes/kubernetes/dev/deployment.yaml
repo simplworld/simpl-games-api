@@ -11,7 +11,7 @@ spec:
         app: simpl-dev
     spec:
       containers:
-      - image: registry.gitlab.com/lldev-team/simpl-games-api:v1.2.1
+      - image: learninglab.githost.io:4678/lldev-team/simpl-games-api:v1.2.2
         imagePullPolicy: Always
         name: simpl
         env:
@@ -33,4 +33,4 @@ spec:
         ports:
         - containerPort: 80
       imagePullSecrets:
-        - name: registry.gitlab.com
+        - name: learninglab.githost.io
