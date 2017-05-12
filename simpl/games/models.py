@@ -339,7 +339,7 @@ class RunUser(AbstractTimeStampedModel):
 class Scenario(AbstractTimeStampedModel):
     """Scenario model"""
 
-    name = models.CharField(max_length=100, blank=True)
+    name = models.CharField(max_length=100)
 
     runuser = models.ForeignKey(
         'RunUser',
