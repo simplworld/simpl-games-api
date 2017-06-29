@@ -50,8 +50,8 @@ git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to t
 django-bootstrap3==8.2.1
 
 # Wharton Specific Modules
-https://gitlab.com/lldev-team/django-courses/repository/archive.zip?ref=master&private_token=rQxmW9RM_Eo8WW5d6L7v
-https://gitlab.com/lldev-team/simpl-users/repository/archive.zip?ref=v0.3.3&private_token=rQxmW9RM_Eo8WW5d6L7v
+https://learninglab.githost.io/lldev-team/django-courses/repository/archive.zip?ref=master&private_token=bKzxcaegBJJ_Vs_PskEH
+https://learninglab.githost.io/lldev-team/simpl-users/repository/archive.zip?ref=v0.3.3&private_token=bKzxcaegBJJ_Vs_PskEH
 
 django-filter==0.13.0
 django-rest-swagger==0.3.7
