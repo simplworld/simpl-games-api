@@ -261,7 +261,6 @@ class Run(AbstractTimeStampedModel):
     objects = managers.ActiveQuerySet.as_manager()
 
     class Meta(object):
-        unique_together = ('name', 'game')
         verbose_name = _('run')
         verbose_name_plural = _('runs')
 
