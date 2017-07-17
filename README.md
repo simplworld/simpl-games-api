@@ -4,38 +4,35 @@ This project uses Python 3.5.x and Django 1.9.x
 
 ## Getting Started
 
-### To setup python-dev Vagrant box with PostgreSQL
+### To setup Vagrant box with PostgreSQL
 
 ```bash
-$ git clone ssh://git@stash.wharton.upenn.edu:7999/vagrant/python-dev-centos7.git
-$ cd python-dev-centos7
+$ git clone git@github.com:simplworld/python-vagrant-centos7.git
+$ cd python-vagrant-centos7
 $ vagrant up
-$ vagrant ssh
-$ cd /vagrant/examples/
-$ sudo ./install_postgres.sh
 ```
 
-### Setup simpl-games-api (assumes working in python-dev-centos7 vagrant)
+### Setup simpl-games-api
 
 ```bash
+$ cd python-vagrant-centos7/projects
+$ git clone git@github.com:simplworld/simpl-games-api.git
+
 vagrant ssh
-cd /vagrant/html
-git clone git@learninglab.githost.io:lldev-team/simpl-games-api.git
-
 $ mkvirtualenv simpl-games-api
-$ add2virtualenv /vagrant/html/simpl-games-api
+$ add2virtualenv /vagrant/projects/simpl-games-api
 ```
 
-### Python Setup (assumes working in python-dev-centos7 vagrant)
+### Python Setup (assumes working in vagrant)
 
 ```bash
-$ cd /vagrant/html/simpl-games-api
+$ cd projects/simpl-games-api
 $ pip install -r requirements.txt
 ```
 
 ### Create PostgreSQL database
 
-Create a database (defaults to Postgres):
+Create a database:
 
 ```bash
 $ createdb simpl
@@ -81,13 +78,7 @@ $ ./manage.py runserver 0.0.0.0:8100
 
 ### Run tests
 
-Install the test requirements in your virtualenv:
-
-```bash
-$ pip install -r requirements.txt
-```
-
-Then run `py.test`:
+Run `py.test`:
 
 ```bash
 $ export DJANGO_SETTINGS_MODULE=config.settings.test
