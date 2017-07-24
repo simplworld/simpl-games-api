@@ -18,7 +18,7 @@ $ vagrant up
 $ cd python-vagrant-centos7/projects
 $ git clone git@github.com:simplworld/simpl-games-api.git
 
-vagrant ssh
+$ vagrant ssh
 $ mkvirtualenv simpl-games-api
 $ add2virtualenv /vagrant/projects/simpl-games-api
 ```
