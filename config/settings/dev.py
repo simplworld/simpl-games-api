@@ -1,9 +1,16 @@
+from logging.config import dictConfig
+from jslog4kube import LOGGING
+
 from .common import *
+
+# Setup JSON structured logging
+dictConfig(LOGGING)
+
 env = environ.Env(
     DATABASE_NAME=(str, 'simpl'),
     DATABASE_USER=(str, 'simpl'),
     DATABASE_HOST=(str, 'localhost'),
-    DATABASE_PASSWORD=str,
+    DATABASE_PASSWORD=(str, ''),
     SECRET_KEY=str,
 )
 
