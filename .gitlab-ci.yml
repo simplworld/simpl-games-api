@@ -1,9 +1,9 @@
 image: docker:latest
 
 variables:
-  CONTAINER_TEST_IMAGE: registry.gitlab.com/lldev-team/simpl-games-api:$CI_BUILD_REF_NAME
-  CONTAINER_RELEASE_IMAGE: registry.gitlab.com/lldev-team/simpl-games-api:latest
-  CONTAINER_VERSION_IMAGE: registry.gitlab.com/lldev-team/simpl-tests:$CI_BUILD_TAG
+  CONTAINER_TEST_IMAGE: learninglab.githost.io:4678/lldev-team/simpl-games-api:$CI_BUILD_REF_NAME
+  CONTAINER_RELEASE_IMAGE: learninglab.githost.io:4678/lldev-team/simpl-games-api:latest
+  CONTAINER_VERSION_IMAGE: learninglab.githost.io:4678/lldev-team/simpl-tests:$CI_BUILD_TAG
 
 stages:
   - build
@@ -11,7 +11,7 @@ stages:
   - release
 
 before_script:
-  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN learninglab.githost.io:4678
 
 build:
   tags:
