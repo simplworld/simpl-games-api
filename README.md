@@ -1,6 +1,6 @@
 # SIMPL Games Framework API Project
 
-This project uses Python 3.5.x and Django 1.9.x
+This project uses Python 3.6.x and Django 1.9.x
 
 ## Getting Started
 
