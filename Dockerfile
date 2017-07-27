@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.6
 
 LABEL Description="Image for simpl-games-api" Vendor="Wharton" Version="1.2.7"
 
