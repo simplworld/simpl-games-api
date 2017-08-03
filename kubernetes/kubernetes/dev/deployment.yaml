@@ -11,7 +11,7 @@ spec:
         app: simpl-dev
     spec:
       containers:
-      - image: learninglab.githost.io:4678/lldev-team/simpl-games-api:v1.2.7
+      - image: learninglab.githost.io:4678/lldev-team/simpl-games-api:v1.2.8
         imagePullPolicy: Always
         name: simpl
         env:
