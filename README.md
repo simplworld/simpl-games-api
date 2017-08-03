@@ -118,3 +118,11 @@ $ ./manage.py graph_models games -o docs/models.png
 ## Model Schema
 
 ![](docs/models.png)
+
+# Deploying on LL Kubernetes Clusters
+
+You will need to use `kubectl config use-context <cluster>` to configure yourself
+to be pointing at the correct cluster.
+
+Once CI has built the new image and it is pushed to the Docker registry you just
+need to run `kubecl apply -f kubernetes/kubernetes/dev/deployment.yaml`
