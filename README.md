@@ -1,6 +1,6 @@
-# SIMPL Games Framework API Project
+# Simpl Games Framework API Project
 
-This project uses Python 3.5.x and Django 1.9.x
+This project uses Python 3.6.x and Django 1.9.x
 
 ## Getting Started
 
@@ -111,9 +111,9 @@ $ ./manage.py graph_models games -o docs/models.png
 ## What's where?
 
 - [API Docs](http://localhost:8100/docs/)
-- The [SIMPL api](http://localhost:8100/apis/)
+- The [Simpl api](http://localhost:8100/apis/)
 - [Django Admin](http://localhost:8100/admin/)
-- [SIMPL Frontend Admin](http://localhost:8100/simpl/) but only if you need it!
+- [Simpl Frontend Admin](http://localhost:8100/simpl/) but only if you need it!
 
 ## Model Schema
 
