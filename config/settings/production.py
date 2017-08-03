@@ -92,6 +92,9 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 DATABASES['default'] = env.db("DATABASE_URL")
 
+# Set CONN_MAX_AGE
+DATABASES['default']['CONN_MAX_AGE'] = 500
+
 # CACHING
 # ------------------------------------------------------------------------------
 # Heroku URL does not pass the DB number, so we parse it in
