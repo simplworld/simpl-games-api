@@ -1,6 +1,6 @@
 FROM python:3.6
 
-LABEL Description="Image for simpl-games-api" Vendor="Wharton" Version="1.2.8"
+LABEL Description="Image for simpl-games-api" Vendor="Wharton" Version="1.3.0"
 
 ENV PYTHONUNBUFFERED 1
 ENV DOCKERIZE_VERSION v0.2.0
