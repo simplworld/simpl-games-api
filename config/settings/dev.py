@@ -11,6 +11,7 @@ SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = [
     'localhost',
     'simpl.dev.wharton.revsys.com',
+    'simpl-dev.simpl',
 ]
 
 ROLLBAR['environment'] = 'development'
@@ -22,6 +23,7 @@ DATABASES = {
         'USER': env('DATABASE_USER'),
         'HOST': env('DATABASE_HOST'),
         'PASSWORD': env('DATABASE_PASSWORD'),
+        'ATOMIC_REQUESTS': True,
+        'CONN_MAX_AGE': 300,
     },
 }
-DATABASES['default']['ATOMIC_REQUESTS'] = True

@@ -6,6 +6,7 @@ from .. import models
 class DecisionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Decision
+        fields = '__all__'
         read_only_fields = (
             'created',
             'updated',
@@ -16,6 +17,7 @@ class GameSerializer(serializers.ModelSerializer):
     class Meta:
         lookup_field = 'slug'
         model = models.Game
+        fields = '__all__'
         read_only_fields = (
             'created',
             'updated',
@@ -25,6 +27,7 @@ class GameSerializer(serializers.ModelSerializer):
 class PeriodSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Period
+        fields = '__all__'
         read_only_fields = (
             'created',
             'updated',
@@ -34,6 +37,7 @@ class PeriodSerializer(serializers.ModelSerializer):
 class PhaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Phase
+        fields = '__all__'
         read_only_fields = (
             'created',
             'updated',
@@ -43,6 +47,7 @@ class PhaseSerializer(serializers.ModelSerializer):
 class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Result
+        fields = '__all__'
         read_only_fields = (
             'created',
             'updated',
@@ -52,6 +57,7 @@ class ResultSerializer(serializers.ModelSerializer):
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Role
+        fields = '__all__'
         read_only_fields = (
             'created',
             'updated',
@@ -61,6 +67,7 @@ class RoleSerializer(serializers.ModelSerializer):
 class RunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Run
+        fields = '__all__'
         read_only_fields = (
             'created',
             'updated',
@@ -83,6 +90,7 @@ class RunUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.RunUser
+        fields = '__all__'
         read_only_fields = (
             'created',
             'updated',
@@ -94,6 +102,7 @@ class RunUserSerializer(serializers.ModelSerializer):
 class ScenarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Scenario
+        fields = '__all__'
         read_only_fields = (
             'created',
             'updated',
@@ -103,6 +112,7 @@ class ScenarioSerializer(serializers.ModelSerializer):
 class WorldSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.World
+        fields = '__all__'
         read_only_fields = (
             'created',
             'updated',
