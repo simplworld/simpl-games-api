@@ -31,7 +31,7 @@ urlpatterns += [
     url(r'^courses/', include('courses.urls', namespace='courses')),
     url(r'^apis/', include(api_router.urls, namespace='simpl_api')),
     url(r'^apis/', include(simpl_users_api_router.urls, namespace='simpl_users_api')),
-    url(r"^apis/hooks/", include("thorn.django.rest_framework.urls", namespace="webhook")),
+    url(r'^apis/hooks/', include('thorn.django.rest_framework.urls', namespace='webhook')),
     url(r'^$', schema_view),  # Swagger
 ]
 

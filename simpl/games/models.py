@@ -109,8 +109,7 @@ class Period(AbstractTimeStampedModel):
         'Scenario',
         related_name='periods'
     )
-    order = models.IntegerField(
-        default=0)  # shouldn't this be unique wrt scenario?
+    order = models.IntegerField(default=0, db_index=True)  # shouldn't this be unique wrt scenario?
     data = JSONField(default={}, blank=True)
 
     class Meta(object):
@@ -338,7 +337,7 @@ class RunUser(AbstractTimeStampedModel):
 class Scenario(AbstractTimeStampedModel):
     """Scenario model"""
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, db_index=True)
 
     runuser = models.ForeignKey(
         'RunUser',

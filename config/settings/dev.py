@@ -1,4 +1,9 @@
 from .common import *
+from logging.config import dictConfig
+from jslog4kube import LOGGING
+
+dictConfig(LOGGING)
+
 env = environ.Env(
     DATABASE_NAME=(str, 'simpl'),
     DATABASE_USER=(str, 'simpl'),

@@ -92,3 +92,6 @@ pydocstyle==1.0.0
 # improved REPL
 ipdb==0.9.0
 rollbar==0.13.12
+
+# Logging
+git+https://github.com/revsys/jslog4kube.git@v1.0.1

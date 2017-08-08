@@ -11,7 +11,10 @@ Local settings
 from .common import *  # noqa
 from thorn import validators as thorn_validators
 
+from logging.config import dictConfig
+from jslog4kube import LOGGING
 
+dictConfig(LOGGING)
 # DEBUG
 # ------------------------------------------------------------------------------
 DEBUG = env.bool('DJANGO_DEBUG', default=True)
