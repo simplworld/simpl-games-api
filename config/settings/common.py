@@ -44,6 +44,7 @@ THIRD_PARTY_APPS = (
     'fontawesome',
     'crispy_forms',  # Form layouts
     'rest_framework',
+    'django_filters',
     'cuser',
     'rest_framework_swagger',
     'thorn.django',
