@@ -228,6 +228,7 @@ class Role(AbstractTimeStampedModel):
         unique_together = ('name', 'game')
         verbose_name = _('role')
         verbose_name_plural = _('roles')
+        ordering = ('created', )
 
     def __str__(self):
         return self.name
@@ -262,6 +263,7 @@ class Run(AbstractTimeStampedModel):
     class Meta(object):
         verbose_name = _('run')
         verbose_name_plural = _('runs')
+        ordering = ('-created', )
 
     def __str__(self):
         return self.name
@@ -312,6 +314,7 @@ class RunUser(AbstractTimeStampedModel):
         unique_together = ('user', 'run')
         verbose_name = _('run user')
         verbose_name_plural = _('run users')
+        ordering = ('run', 'user', 'created')
 
     def __str__(self):
         return self.user.__str__()
