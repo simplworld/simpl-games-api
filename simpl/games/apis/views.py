@@ -1,3 +1,5 @@
+import logging
+
 from rest_framework import filters, viewsets
 from rest_framework.authentication import (
     SessionAuthentication,
@@ -10,6 +12,8 @@ from rest_framework import status
 
 from . import serializers
 from .. import models
+
+logger = logging.getLogger(__name__)
 
 
 # Mixins
@@ -678,37 +682,50 @@ class ScenarioViewSet(CommonViewSet):
     @detail_route(methods=['post'])
     def rewind(self, request, pk=None):
         """
-        Rewind the scenario back to its period with the specified period_order
-        by deleting all periods whose order is greater than period_order.
-        By default, the decisions and results of the period with the specified period_order are deleted.
-        Specify delete_period_decisions to be False to prevent deleting the period's decisions.
-        Specify delete_period_results to be False to prevent deleting the period's results.
+        Rewind the scenario back to its period with the specified 'last_period_order'
+        by deleting all periods whose order is greater than last_period_order.
+        By default, the decisions and results of the period with the specified last_period_order are deleted.
+        Specify 'last_period_order' in post data to be non-zero to prevent deleting all periods back to period with order=0.
+        Specify 'delete_period_decisions' in post data to be False to prevent deleting the period's decisions.
+        Specify 'delete_period_results' in post data to be False to prevent deleting the period's results.
         :param request:
-        :param pk:
-        :return: None
+        :param pk: scenario id
+        :raises models.Period.DoesNotExist if the scenario does not have a period with specified last_period_order
         """
+        # logger.debug("scenarios/rewind: request.data: %s", request.data)
+
         scenario = self.get_object()
-        period_order = request.data.get('period_order', 0)
+        last_period_order = request.data.get('last_period_order', 0)
         delete_last_period_decisions = \
-            request.data.get('delete_period_decisions', True)
+            request.data.get('delete_last_period_decisions', True)
         delete_last_period_results = \
-            request.data.get('delete_period_results', True)
+            request.data.get('delete_last_period_results', True)
+
+        # logger.debug("scenarios/rewind: last_period_order: %s", last_period_order)
+        # logger.debug("scenarios/rewind: delete_last_period_decisions: %s", delete_last_period_decisions)
+        # logger.debug("scenarios/rewind: delete_last_period_results: %s", delete_last_period_results)
 
         last_period = None
-        periods = models.Period.objects.get(scenario=scenario.id)
+        periods = models.Period.objects.filter(scenario=scenario)
+        # logger.debug("scenarios/rewind: periods: %s", periods)
         for period in periods:
-            if period.id is period_order:
+            if period.order is last_period_order:
                 last_period = period
-            elif period.id > period_order:
+            elif period.order > last_period_order:
                 period.delete()
+        if last_period is None:
+            logger.error('last_period does not exist')
+            raise models.Period.DoesNotExist()
 
-        if last_period is not None and delete_last_period_decisions:
-            decisions = models.Decision.objects.get(period=last_period.id)
+        if delete_last_period_decisions is True:
+            # logger.debug("scenarios/rewind: delete last_period decisions")
+            decisions = models.Decision.objects.filter(period=last_period)
             for decision in decisions:
                 decision.delete()
 
-        if last_period is not None and delete_last_period_results:
-            results = models.Result.objects.get(period=last_period.id)
+        if delete_last_period_results is True:
+            # logger.debug("scenarios/rewind: delete last_period results")
+            results = models.Result.objects.filter(period=last_period)
             for result in results:
                 result.delete()
 

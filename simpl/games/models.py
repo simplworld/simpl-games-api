@@ -42,6 +42,7 @@ class Decision(AbstractTimeStampedModel):
         # unique_together = ('name', 'period', 'role')
         verbose_name = _('decision')
         verbose_name_plural = _('decisions')
+        ordering = ('name',)
 
     def __str__(self):
         return self.name
@@ -196,6 +197,7 @@ class Result(AbstractTimeStampedModel):
         unique_together = ('name', 'period', 'role')
         verbose_name = _('result')
         verbose_name_plural = _('results')
+        ordering = ('name',)
 
     def __str__(self):
         return self.name
@@ -228,7 +230,7 @@ class Role(AbstractTimeStampedModel):
         unique_together = ('name', 'game')
         verbose_name = _('role')
         verbose_name_plural = _('roles')
-        ordering = ('created', )
+        ordering = ('created',)
 
     def __str__(self):
         return self.name
@@ -263,7 +265,7 @@ class Run(AbstractTimeStampedModel):
     class Meta(object):
         verbose_name = _('run')
         verbose_name_plural = _('runs')
-        ordering = ('-created', )
+        ordering = ('-created',)
 
     def __str__(self):
         return self.name

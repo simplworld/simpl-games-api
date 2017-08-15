@@ -11,9 +11,14 @@ Local settings
 from .common import *  # noqa
 from thorn import validators as thorn_validators
 
+import logging
+
+
 # DEBUG
 # ------------------------------------------------------------------------------
-DEBUG = env.bool('DJANGO_DEBUG', default=True)
+#DEBUG = env.bool('DJANGO_DEBUG', default=True)
+DEBUG = env.bool("DJANGO_DEBUG", False)
+
 ALLOWED_HOSTS = ['*']
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
@@ -70,3 +75,36 @@ THORN_RECIPIENT_VALIDATORS = [
     thorn_validators.ensure_protocol('http', 'https'),
     thorn_validators.ensure_port(80, 443, 8080, 8000),
 ]
+
+# print logging to the console
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s %(levelname)s %(module)s: %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            # 'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO')
+        },
+        'simpl.games.apis': {
+            'handlers': ['console'],
+            'level': logging.DEBUG
+        },
+    },
+}
