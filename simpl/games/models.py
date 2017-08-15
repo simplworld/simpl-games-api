@@ -109,7 +109,7 @@ class Period(AbstractTimeStampedModel):
         'Scenario',
         related_name='periods'
     )
-    order = models.IntegerField(default=0, db_index=True)  # shouldn't this be unique wrt scenario?
+    order = models.IntegerField(default=0, db_index=True)
     data = JSONField(default={}, blank=True)
 
     class Meta(object):
