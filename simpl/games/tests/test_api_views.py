@@ -1,5 +1,3 @@
-
-
 from django.core.urlresolvers import reverse
 from faker import Faker
 from rest_framework.test import APITestCase
