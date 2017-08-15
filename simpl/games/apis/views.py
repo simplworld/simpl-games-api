@@ -678,8 +678,9 @@ class ScenarioViewSet(CommonViewSet):
     @detail_route(methods=['post'])
     def rewind(self, request, pk=None):
         """
-        Rewind the scenario back to its period with the specified period_order.
-        By default, that period's decisions and results are deleted.
+        Rewind the scenario back to its period with the specified period_order
+        by deleting all periods whose order is greater than period_order.
+        By default, the decisions and results of the period with the specified period_order are deleted.
         Specify delete_period_decisions to be False to prevent deleting the period's decisions.
         Specify delete_period_results to be False to prevent deleting the period's results.
         :param request:
@@ -688,9 +689,10 @@ class ScenarioViewSet(CommonViewSet):
         """
         scenario = self.get_object()
         period_order = request.data.get('period_order', 0)
-        delete_period_decisions = request.data.get('delete_period_decisions',
-                                                   True)
-        delete_period_results = request.data.get('delete_period_results', True)
+        delete_last_period_decisions = \
+            request.data.get('delete_period_decisions', True)
+        delete_last_period_results = \
+            request.data.get('delete_period_results', True)
 
         last_period = None
         periods = models.Period.objects.get(scenario=scenario.id)
@@ -700,15 +702,15 @@ class ScenarioViewSet(CommonViewSet):
             elif period.id > period_order:
                 period.delete()
 
-        if delete_period_decisions:
+        if last_period is not None and delete_last_period_decisions:
             decisions = models.Decision.objects.get(period=last_period.id)
             for decision in decisions:
                 decision.delete()
 
-        if delete_period_results:
+        if last_period is not None and delete_last_period_results:
             results = models.Result.objects.get(period=last_period.id)
             for result in results:
-                result.delete
+                result.delete()
 
         return Response(None, status.HTTP_204_NO_CONTENT)
 
