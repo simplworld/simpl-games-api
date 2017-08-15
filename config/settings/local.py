@@ -17,7 +17,7 @@ import logging
 # DEBUG
 # ------------------------------------------------------------------------------
 #DEBUG = env.bool('DJANGO_DEBUG', default=True)
-DEBUG = env.bool("DJANGO_DEBUG", False)
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
