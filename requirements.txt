@@ -55,7 +55,7 @@ https://learninglab.githost.io/lldev-team/simpl-users/repository/archive.zip?ref
 django-filter==1.0.4
 django-rest-swagger==2.1.2
 djangorestframework==3.6.3
-
+djangorestframework-bulk==0.2.1
 
 # Nicer CLI Interface
 click==6.6

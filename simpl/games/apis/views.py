@@ -1,6 +1,8 @@
 from rest_framework import filters, viewsets
-from rest_framework.authentication import SessionAuthentication, \
+from rest_framework.authentication import (
+    SessionAuthentication,
     BasicAuthentication
+)
 from rest_framework.permissions import IsAuthenticated
 
 from . import serializers

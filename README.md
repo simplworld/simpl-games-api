@@ -110,10 +110,10 @@ $ ./manage.py graph_models games -o docs/models.png
 
 ## What's where?
 
-- [API Docs](http://localhost:8100/docs/)
-- The [Simpl api](http://localhost:8100/apis/)
+- [API Docs](http://localhost:8100/)
+- [Simpl apis](http://localhost:8100/apis/)
 - [Django Admin](http://localhost:8100/admin/)
-- [Simpl Frontend Admin](http://localhost:8100/simpl/) but only if you need it!
+- ~~[Simpl Frontend Admin](http://localhost:8100/simpl/) but only if you need it!~~
 
 ## Model Schema
 
