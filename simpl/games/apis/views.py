@@ -4,6 +4,9 @@ from rest_framework.authentication import (
     BasicAuthentication
 )
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import detail_route
+from rest_framework.response import Response
+from rest_framework import status
 
 from . import serializers
 from .. import models
@@ -671,6 +674,43 @@ class ScenarioViewSet(CommonViewSet):
         Update an existing Scenario
         """
         return super(ScenarioViewSet, self).update(request, pk=pk)
+
+    @detail_route(methods=['post'])
+    def rewind(self, request, pk=None):
+        """
+        Rewind the scenario back to its period with the specified period_order.
+        By default, that period's decisions and results are deleted.
+        Specify delete_period_decisions to be False to prevent deleting the period's decisions.
+        Specify delete_period_results to be False to prevent deleting the period's results.
+        :param request:
+        :param pk:
+        :return: None
+        """
+        scenario = self.get_object()
+        period_order = request.data.get('period_order', 0)
+        delete_period_decisions = request.data.get('delete_period_decisions',
+                                                   True)
+        delete_period_results = request.data.get('delete_period_results', True)
+
+        last_period = None
+        periods = models.Period.objects.get(scenario=scenario.id)
+        for period in periods:
+            if period.id is period_order:
+                last_period = period
+            elif period.id > period_order:
+                period.delete()
+
+        if delete_period_decisions:
+            decisions = models.Decision.objects.get(period=last_period.id)
+            for decision in decisions:
+                decision.delete()
+
+        if delete_period_results:
+            results = models.Result.objects.get(period=last_period.id)
+            for result in results:
+                result.delete
+
+        return Response(None, status.HTTP_204_NO_CONTENT)
 
 
 class WorldViewSet(CommonViewSet):
