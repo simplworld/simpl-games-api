@@ -16,7 +16,7 @@ class BulkDecisionSerializer(BulkSerializerMixin, serializers.ModelSerializer):
             'created',
             'updated',
         )
-        # list_serializer_class = BulkListSerializer  # to handle update
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
 class BulkPeriodSerializer(BulkSerializerMixin, serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class BulkPeriodSerializer(BulkSerializerMixin, serializers.ModelSerializer):
             'created',
             'updated',
         )
-        # list_serializer_class = BulkListSerializer  # to handle update
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
 class BulkPhaseSerializer(BulkSerializerMixin, serializers.ModelSerializer):
@@ -38,7 +38,7 @@ class BulkPhaseSerializer(BulkSerializerMixin, serializers.ModelSerializer):
             'created',
             'updated',
         )
-        # list_serializer_class = BulkListSerializer  # to handle update
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
 class BulkResultSerializer(BulkSerializerMixin, serializers.ModelSerializer):
@@ -49,7 +49,7 @@ class BulkResultSerializer(BulkSerializerMixin, serializers.ModelSerializer):
             'created',
             'updated',
         )
-        # list_serializer_class = BulkListSerializer  # to handle update
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
 class BulkRoleSerializer(BulkSerializerMixin, serializers.ModelSerializer):
@@ -60,7 +60,7 @@ class BulkRoleSerializer(BulkSerializerMixin, serializers.ModelSerializer):
             'created',
             'updated',
         )
-        # list_serializer_class = BulkListSerializer  # to handle update
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
 class BulkRunSerializer(BulkSerializerMixin, serializers.ModelSerializer):
@@ -71,7 +71,7 @@ class BulkRunSerializer(BulkSerializerMixin, serializers.ModelSerializer):
             'created',
             'updated',
         )
-        # list_serializer_class = BulkListSerializer  # to handle update
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
 class BulkRunUserSerializer(BulkSerializerMixin, serializers.ModelSerializer):
@@ -98,7 +98,7 @@ class BulkRunUserSerializer(BulkSerializerMixin, serializers.ModelSerializer):
             'game_slug',
         )
 
-        # list_serializer_class = BulkListSerializer  # to handle update
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
 class BulkScenarioSerializer(BulkSerializerMixin, serializers.ModelSerializer):
@@ -109,7 +109,7 @@ class BulkScenarioSerializer(BulkSerializerMixin, serializers.ModelSerializer):
             'created',
             'updated',
         )
-        # list_serializer_class = BulkListSerializer  # to handle update
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
 class BulkWorldSerializer(BulkSerializerMixin, serializers.ModelSerializer):
@@ -120,4 +120,4 @@ class BulkWorldSerializer(BulkSerializerMixin, serializers.ModelSerializer):
             'created',
             'updated',
         )
-        # list_serializer_class = BulkListSerializer  # to handle update
+        list_serializer_class = BulkListSerializer  # to handle update
