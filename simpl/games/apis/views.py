@@ -686,8 +686,8 @@ class ScenarioViewSet(CommonViewSet):
         by deleting all periods whose order is greater than last_period_order.
         By default, the decisions and results of the period with the specified last_period_order are deleted.
         Specify 'last_period_order' in post data to be non-zero to prevent deleting all periods back to period with order=0.
-        Specify 'delete_period_decisions' in post data to be False to prevent deleting the period's decisions.
-        Specify 'delete_period_results' in post data to be False to prevent deleting the period's results.
+        Specify 'delete_last_period_decisions' in post data to be False to prevent deleting the period's decisions.
+        Specify 'delete_last_period_results' in post data to be False to prevent deleting the period's results.
         :param request:
         :param pk: scenario id
         :raises models.Period.DoesNotExist if the scenario does not have a period with specified last_period_order
