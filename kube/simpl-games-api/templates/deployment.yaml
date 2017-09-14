@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: simpl-api
+  namespace: {{.Values.namespace}}
+  labels:
+    heritage: {{.Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    revision: {{ .Release.Revision | default 0 | quote }}
+    chart: {{.Chart.Name}}-{{.Chart.Version}}
+    image: {{.Values.ImageTag}}
+  annotations:
+    helm.sh/created: {{ .Release.Time.Seconds | quote }}
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: simpl-api
+      env: {{.Values.deploymentEnvironment}}
+  template:
+    metadata:
+      labels:
+        app: simpl-api
+        env: {{.Values.deploymentEnvironment}}
+      annotations:
+        chksum/django-config: {{ include (print $.Template.BasePath  "/configmap-django.yaml") . | sha256sum | quote }}
+        chksum/nginx-config: {{ include (print $.Template.BasePath  "/configmap-nginx.yaml") . | sha256sum | quote }}
+    spec:
+      volumes:
+{{ toYaml .Values.Volumes | indent 8 }}
+      imagePullSecrets:
+        - name: learninglab.githost.io
+      containers:
+        -
+          name: simpl
+          image: {{.Values.Image}}:{{.Values.ImageTag}}
+          volumeMounts:
+{{ toYaml .Values.DjangoVolumeMounts | indent 12 }}
+          env:
+{{ toYaml .Values.Env | indent 12 }}
+          ports:
+            -
+              protocol: TCP
+              containerPort: 80
+        -
+          name: nginx
+          image: nginx:{{ .Values.nginxImageTag }}
+          volumeMounts:
+            -
+              name: ngx
+              mountPath: /etc/nginx/conf.d
+{{ toYaml .Values.NginxVolumeMounts | indent 12 }}
+          env:
+{{ toYaml .Values.Env | indent 12 }}
+          ports:
+            - 
+              protocol: TCP
+              containerPort: 80
