@@ -36,4 +36,4 @@ ENTRYPOINT ["/tini", "--"]
 CMD ["gunicorn", "-c", "/code/gunicorn.conf", "config.wsgi"]
 
 
-LABEL Description="Image for simpl-games-api" Vendor="Wharton" Version="1.3.5"
+LABEL Description="Image for simpl-games-api" Vendor="Wharton" Version="1.3.6"
