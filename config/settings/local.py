@@ -11,10 +11,14 @@ Local settings
 from .common import *  # noqa
 from thorn import validators as thorn_validators
 
+import logging
+
 
 # DEBUG
 # ------------------------------------------------------------------------------
-DEBUG = env.bool('DJANGO_DEBUG', default=True)
+#DEBUG = env.bool('DJANGO_DEBUG', default=True)
+DEBUG = False
+
 ALLOWED_HOSTS = ['*']
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
@@ -22,13 +26,13 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key only used for development and testing.
-SECRET_KEY = env("DJANGO_SECRET_KEY", default='j##=9%n86#+%p#%ad%d*!o@9*9(0x-uvl-@(7q4-vwcu(cz71a')
+SECRET_KEY = env("DJANGO_SECRET_KEY",
+                 default='j##=9%n86#+%p#%ad%d*!o@9*9(0x-uvl-@(7q4-vwcu(cz71a')
 
 # Mail settings
 # ------------------------------------------------------------------------------
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
-
 
 # CACHING
 # ------------------------------------------------------------------------------
@@ -42,7 +46,7 @@ CACHES = {
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
 MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-INSTALLED_APPS += ('debug_toolbar', )
+INSTALLED_APPS += ('debug_toolbar',)
 
 INTERNAL_IPS = ('127.0.0.1', '10.0.2.2',)
 
@@ -55,7 +59,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # django-extensions
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ('django_extensions', )
+INSTALLED_APPS += ('django_extensions',)
 
 # TESTING
 # ------------------------------------------------------------------------------
@@ -71,3 +75,36 @@ THORN_RECIPIENT_VALIDATORS = [
     thorn_validators.ensure_protocol('http', 'https'),
     thorn_validators.ensure_port(80, 443, 8080, 8000),
 ]
+
+# print logging to the console
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s %(levelname)s %(module)s: %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            # 'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO')
+        },
+        'simpl.games.apis': {
+            'handlers': ['console'],
+            'level': logging.DEBUG
+        },
+    },
+}

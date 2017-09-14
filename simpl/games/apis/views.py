@@ -1,10 +1,19 @@
+import logging
+
 from rest_framework import filters, viewsets
-from rest_framework.authentication import SessionAuthentication, \
+from rest_framework.authentication import (
+    SessionAuthentication,
     BasicAuthentication
+)
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import detail_route
+from rest_framework.response import Response
+from rest_framework import status
 
 from . import serializers
 from .. import models
+
+logger = logging.getLogger(__name__)
 
 
 # Mixins
@@ -669,6 +678,58 @@ class ScenarioViewSet(CommonViewSet):
         Update an existing Scenario
         """
         return super(ScenarioViewSet, self).update(request, pk=pk)
+
+    @detail_route(methods=['post'])
+    def rewind(self, request, pk=None):
+        """
+        Rewind the scenario back to its period with the specified 'last_period_order'
+        by deleting all periods whose order is greater than last_period_order.
+        By default, the decisions and results of the period with the specified last_period_order are deleted.
+        Specify 'last_period_order' in post data to be non-zero to prevent deleting all periods back to period with order=0.
+        Specify 'delete_last_period_decisions' in post data to be False to prevent deleting the period's decisions.
+        Specify 'delete_last_period_results' in post data to be False to prevent deleting the period's results.
+        :param request:
+        :param pk: scenario id
+        :raises models.Period.DoesNotExist if the scenario does not have a period with specified last_period_order
+        """
+        # logger.debug("scenarios/rewind: request.data: %s", request.data)
+
+        scenario = self.get_object()
+        last_period_order = request.data.get('last_period_order', 0)
+        delete_last_period_decisions = \
+            request.data.get('delete_last_period_decisions', True)
+        delete_last_period_results = \
+            request.data.get('delete_last_period_results', True)
+
+        # logger.debug("scenarios/rewind: last_period_order: %s", last_period_order)
+        # logger.debug("scenarios/rewind: delete_last_period_decisions: %s", delete_last_period_decisions)
+        # logger.debug("scenarios/rewind: delete_last_period_results: %s", delete_last_period_results)
+
+        last_period = None
+        periods = models.Period.objects.filter(scenario=scenario)
+        # logger.debug("scenarios/rewind: periods: %s", periods)
+        for period in periods:
+            if period.order is last_period_order:
+                last_period = period
+            elif period.order > last_period_order:
+                period.delete()
+        if last_period is None:
+            logger.error('last_period does not exist')
+            raise models.Period.DoesNotExist()
+
+        if delete_last_period_decisions is True:
+            # logger.debug("scenarios/rewind: delete last_period decisions")
+            decisions = models.Decision.objects.filter(period=last_period)
+            for decision in decisions:
+                decision.delete()
+
+        if delete_last_period_results is True:
+            # logger.debug("scenarios/rewind: delete last_period results")
+            results = models.Result.objects.filter(period=last_period)
+            for result in results:
+                result.delete()
+
+        return Response(None, status.HTTP_204_NO_CONTENT)
 
 
 class WorldViewSet(CommonViewSet):

@@ -6,7 +6,8 @@ from test_plus.test import TestCase
 from simpl.games.apis import serializers
 from simpl.games.factories import (
     GameFactory, PeriodFactory, RunFactory, ScenarioFactory,
-    WorldFactory, PhaseFactory, RoleFactory, RunUserFactory, UserFactory
+    WorldFactory, PhaseFactory, RoleFactory, RunUserFactory, UserFactory,
+    DecisionFactory, ResultFactory
 )
 
 
@@ -689,6 +690,42 @@ class ScenarioTestCase(BaseAPITestCase):
             payload = serializers.ScenarioSerializer(obj).data
             response = self.client.put(url, payload, format='json')
             self.assertEqual(response.status_code, 200)
+
+    def test_rewind(self):
+        # URL pattern: ^scenarios/{pk}/rewind/$ Name: 'scenario-rewind'
+        url = reverse('simpl_api:scenario-rewind',
+                      kwargs={'pk': self.scenario.pk})
+
+        # add period1 and period2 to scenario
+        period1 = PeriodFactory.build(scenario=self.scenario)
+        period1.order = 1
+
+        period2 = PeriodFactory.build(scenario=self.scenario, order=2)
+        period2.order = 2
+
+        # add decision to period1
+        decision = DecisionFactory.build(period=period1)
+
+        # add result to period1
+        result = ResultFactory.build(period=period1)
+
+        payload = {
+            'period_order': 1,
+            'delete_period_decisions': False,
+            'delete_result_decisions': True
+        }
+
+        # Does this api work without auth?
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, 403)
+
+        # Does this api work with auth?
+        self.login(self.user)
+
+        # 'twould appear factory objects are not useful for testing rewind
+        # response = self.client.post(url, payload, format='json')
+        # self.assertEqual(response.status_code, 200)
+        # self.assertNotEqual(len(response.data), 0)
 
 
 class WorldTestCase(BaseAPITestCase):

@@ -42,6 +42,7 @@ class Decision(AbstractTimeStampedModel):
         # unique_together = ('name', 'period', 'role')
         verbose_name = _('decision')
         verbose_name_plural = _('decisions')
+        ordering = ('name',)
 
     def __str__(self):
         return self.name
@@ -109,8 +110,7 @@ class Period(AbstractTimeStampedModel):
         'Scenario',
         related_name='periods'
     )
-    order = models.IntegerField(
-        default=0)  # shouldn't this be unique wrt scenario?
+    order = models.IntegerField(default=0, db_index=True)
     data = JSONField(default={}, blank=True)
 
     class Meta(object):
@@ -197,6 +197,7 @@ class Result(AbstractTimeStampedModel):
         unique_together = ('name', 'period', 'role')
         verbose_name = _('result')
         verbose_name_plural = _('results')
+        ordering = ('name',)
 
     def __str__(self):
         return self.name
@@ -229,6 +230,7 @@ class Role(AbstractTimeStampedModel):
         unique_together = ('name', 'game')
         verbose_name = _('role')
         verbose_name_plural = _('roles')
+        ordering = ('created',)
 
     def __str__(self):
         return self.name
@@ -263,6 +265,7 @@ class Run(AbstractTimeStampedModel):
     class Meta(object):
         verbose_name = _('run')
         verbose_name_plural = _('runs')
+        ordering = ('-created',)
 
     def __str__(self):
         return self.name
@@ -313,6 +316,7 @@ class RunUser(AbstractTimeStampedModel):
         unique_together = ('user', 'run')
         verbose_name = _('run user')
         verbose_name_plural = _('run users')
+        ordering = ('run', 'user', 'created')
 
     def __str__(self):
         return self.user.__str__()
@@ -338,7 +342,7 @@ class RunUser(AbstractTimeStampedModel):
 class Scenario(AbstractTimeStampedModel):
     """Scenario model"""
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, db_index=True)
 
     runuser = models.ForeignKey(
         'RunUser',

@@ -110,19 +110,25 @@ $ ./manage.py graph_models games -o docs/models.png
 
 ## What's where?
 
-- [API Docs](http://localhost:8100/docs/)
-- The [Simpl api](http://localhost:8100/apis/)
+- [API Docs](http://localhost:8100/)
+- [Simpl apis](http://localhost:8100/apis/)
 - [Django Admin](http://localhost:8100/admin/)
-- [Simpl Frontend Admin](http://localhost:8100/simpl/) but only if you need it!
+- ~~[Simpl Frontend Admin](http://localhost:8100/simpl/) but only if you need it!~~
 
 ## Model Schema
 
 ![](docs/models.png)
 
-# Deploying on LL Kubernetes Clusters
+# Deploying on LL Kubernetes development cluster
 
-You will need to use `kubectl config use-context <cluster>` to configure yourself
-to be pointing at the correct cluster.
+To configure yourself to be pointing at the correct cluster run:
+```
+kubectl config use-context <cluster>
+```
 
-Once CI has built the new image and it is pushed to the Docker registry you just
-need to run `kubecl apply -f kubernetes/kubernetes/dev/deployment.yaml`
+where cluster is a Kubernetes cluster name in your ~/.kube/config
+
+Once CI has built the new image and it is pushed to the Docker registry, run:
+```
+kubectl apply -f kubernetes/dev/deployment.yaml
+```

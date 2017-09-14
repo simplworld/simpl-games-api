@@ -1,9 +1,14 @@
 from rest_framework import serializers
 
+from rest_framework_bulk import (
+    BulkListSerializer,
+    BulkSerializerMixin,
+)
+
 from .. import models
 
 
-class DecisionSerializer(serializers.ModelSerializer):
+class BulkDecisionSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     class Meta:
         model = models.Decision
         fields = '__all__'
@@ -11,20 +16,10 @@ class DecisionSerializer(serializers.ModelSerializer):
             'created',
             'updated',
         )
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
-class GameSerializer(serializers.ModelSerializer):
-    class Meta:
-        lookup_field = 'slug'
-        model = models.Game
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-        )
-
-
-class PeriodSerializer(serializers.ModelSerializer):
+class BulkPeriodSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     class Meta:
         model = models.Period
         fields = '__all__'
@@ -32,9 +27,10 @@ class PeriodSerializer(serializers.ModelSerializer):
             'created',
             'updated',
         )
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
-class PhaseSerializer(serializers.ModelSerializer):
+class BulkPhaseSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     class Meta:
         model = models.Phase
         fields = '__all__'
@@ -42,9 +38,10 @@ class PhaseSerializer(serializers.ModelSerializer):
             'created',
             'updated',
         )
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
-class ResultSerializer(serializers.ModelSerializer):
+class BulkResultSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     class Meta:
         model = models.Result
         fields = '__all__'
@@ -52,9 +49,10 @@ class ResultSerializer(serializers.ModelSerializer):
             'created',
             'updated',
         )
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
-class RoleSerializer(serializers.ModelSerializer):
+class BulkRoleSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     class Meta:
         model = models.Role
         fields = '__all__'
@@ -62,9 +60,10 @@ class RoleSerializer(serializers.ModelSerializer):
             'created',
             'updated',
         )
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
-class RunSerializer(serializers.ModelSerializer):
+class BulkRunSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     class Meta:
         model = models.Run
         fields = '__all__'
@@ -72,9 +71,10 @@ class RunSerializer(serializers.ModelSerializer):
             'created',
             'updated',
         )
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
-class RunUserSerializer(serializers.ModelSerializer):
+class BulkRunUserSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     email = serializers.CharField(source='user.email', required=False,
                                   read_only=True)
     first_name = serializers.CharField(source='user.first_name',
@@ -98,8 +98,10 @@ class RunUserSerializer(serializers.ModelSerializer):
             'game_slug',
         )
 
+        list_serializer_class = BulkListSerializer  # to handle update
 
-class ScenarioSerializer(serializers.ModelSerializer):
+
+class BulkScenarioSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     class Meta:
         model = models.Scenario
         fields = '__all__'
@@ -107,9 +109,10 @@ class ScenarioSerializer(serializers.ModelSerializer):
             'created',
             'updated',
         )
+        list_serializer_class = BulkListSerializer  # to handle update
 
 
-class WorldSerializer(serializers.ModelSerializer):
+class BulkWorldSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     class Meta:
         model = models.World
         fields = '__all__'
@@ -117,3 +120,4 @@ class WorldSerializer(serializers.ModelSerializer):
             'created',
             'updated',
         )
+        list_serializer_class = BulkListSerializer  # to handle update
