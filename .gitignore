@@ -69,3 +69,4 @@ staticfiles/
 
 # pytest cache??
 .cache/
+.env_
