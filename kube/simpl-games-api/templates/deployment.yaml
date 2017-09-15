@@ -1,14 +1,15 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: simpl-api
+  name: simpl-api-{{.Values.deploymentEnvironment}}
   namespace: {{.Values.namespace}}
   labels:
+    app: simpl-api
+    env: {{.Values.deploymentEnvironment}}
     heritage: {{.Release.Service | quote }}
     release: {{ .Release.Name | quote }}
     revision: {{ .Release.Revision | default 0 | quote }}
     chart: {{.Chart.Name}}-{{.Chart.Version}}
-    image: {{.Values.ImageTag}}
   annotations:
     helm.sh/created: {{ .Release.Time.Seconds | quote }}
 spec:
@@ -22,14 +23,31 @@ spec:
       labels:
         app: simpl-api
         env: {{.Values.deploymentEnvironment}}
+        imageTag: {{.Values.ImageTag}}
       annotations:
         chksum/django-config: {{ include (print $.Template.BasePath  "/configmap-django.yaml") . | sha256sum | quote }}
         chksum/nginx-config: {{ include (print $.Template.BasePath  "/configmap-nginx.yaml") . | sha256sum | quote }}
+        pod.beta.kubernetes.io/init-containers: '[
+          {
+            "name": "migrate",
+            "image": "{{ .Values.Image }}:{{ .Values.ImageTag }}",
+            "command": ["sh", "-c", "/usr/local/bin/python /code/manage.py migrate || sleep 1000"],
+            "env": {{ toJson .Values.Env }},
+            "volumeMounts": {{ toJson .Values.DjangoVolumeMounts }}
+          },
+          {
+            "name": "collectstatic",
+            "image": "{{ .Values.Image }}:{{ .Values.ImageTag }}",
+            "command": ["sh", "-c", "/usr/local/bin/python /code/manage.py collectstatic --noinput || sleep 1000"],
+            "env": {{ toJson .Values.Env }},
+            "volumeMounts": {{ toJson .Values.DjangoVolumeMounts }}
+          }
+      ]'
     spec:
       volumes:
 {{ toYaml .Values.Volumes | indent 8 }}
       imagePullSecrets:
-        - name: learninglab.githost.io
+        - name: githost-registry
       containers:
         -
           name: simpl
@@ -41,7 +59,7 @@ spec:
           ports:
             -
               protocol: TCP
-              containerPort: 80
+              containerPort: 8000
         -
           name: nginx
           image: nginx:{{ .Values.nginxImageTag }}

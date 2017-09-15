@@ -3,7 +3,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: simpl-games-api
+  name: simpl-api-{{.Values.deploymentEnvironment}}
   namespace: {{.Values.namespace}}
   labels:
     env: {{.Values.deploymentEnvironment}}
@@ -21,10 +21,11 @@ spec:
     - {{ .Values.publicFqdn }}
     secretName: {{.Values.publicFqdn}}-tls
   rules:
-  - host: {{ .Values.publicFqdn }}
+  - 
+    host: {{ .Values.publicFqdn }}
     http:
       paths:
       - path: /
         backend:
-          serviceName: http
+          serviceName: simpl-api
           servicePort: 80
