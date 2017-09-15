@@ -529,6 +529,7 @@ class RunUserViewSet(CommonViewSet):
         'leader',
         'role',
         'run',
+        'run__game__slug',
         'user',
         'world',
     )
@@ -609,7 +610,7 @@ class RunUserViewSet(CommonViewSet):
 class ScenarioViewSet(CommonViewSet):
     """ Scenario resource. """
 
-    queryset = models.Scenario.objects.all()
+    queryset = models.Scenario.objects.select_related('world__run__game')
     serializer_class = serializers.ScenarioSerializer
     filter_backends = (
         filters.DjangoFilterBackend,
@@ -618,6 +619,7 @@ class ScenarioViewSet(CommonViewSet):
     filter_fields = (
         'runuser',
         'world',
+        'world__run__game__slug',
         'name',
     )
     ordering_fields = (
@@ -735,7 +737,7 @@ class ScenarioViewSet(CommonViewSet):
 class WorldViewSet(CommonViewSet):
     """ World resource. """
 
-    queryset = models.World.objects.all()
+    queryset = models.World.objects.select_related('run__game')
     serializer_class = serializers.WorldSerializer
     filter_backends = (
         filters.DjangoFilterBackend,
@@ -743,6 +745,7 @@ class WorldViewSet(CommonViewSet):
     )
     filter_fields = (
         'run',
+        'run__game__slug',
         'name',
     )
     ordering_fields = (
