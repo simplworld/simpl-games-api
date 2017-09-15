@@ -123,12 +123,14 @@ $ ./manage.py graph_models games -o docs/models.png
 
 To configure yourself to be pointing at the correct cluster run:
 ```
-kubectl config use-context <cluster>
+kubectl config set-context <cluster>
 ```
 
 where cluster is a Kubernetes cluster name in your ~/.kube/config
 
 Once CI has built the new image and it is pushed to the Docker registry, run:
 ```
-kubectl apply -f kubernetes/dev/deployment.yaml
+
+helm upgrade simpl-dev kube/simpl-games-api
+
 ```
