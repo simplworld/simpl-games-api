@@ -1,0 +1,24 @@
+## Bitnami Memcached image version
+## ref: https://hub.docker.com/r/bitnami/memcached/tags/
+##
+image: memcached:1.5-alpine
+
+environment: dev
+project: default
+namespace: default
+
+
+##Specify a imagePullPolicy
+## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+##
+imagePullPolicy: IfNotPresent
+
+serviceType: ClusterIP
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 250m

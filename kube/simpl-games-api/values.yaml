@@ -2,16 +2,16 @@
 
 Image: learninglab.githost.io:4678/lldev-team/simpl-games-api
 ImageTag: v1.3.7
-namespace: simpl-test
+namespace: simpl
 
 nginxImageTag: "1.12.1-alpine"
 
 deploymentEnvironment: dev
 clientMaxBodySize: 250m
 
-replicaCount: "1"
+replicaCount: "2"
 
-publicFqdn: simpl-test.dev.wharton.revsys.com
+publicFqdn: simpl.dev.wharton.revsys.com
 
 Env:
   - 
@@ -19,7 +19,7 @@ Env:
     value: "kube.settings"
   -
     name: DJANGO_FQDN
-    value: simpl-test.dev.wharton.revsys.com
+    value: simpl.dev.wharton.revsys.com
 
   # silence django deprecation warnings
   -
@@ -49,9 +49,6 @@ Env:
       fieldRef:
         fieldPath: metadata.name
         apiVersion: v1
-  -
-    name: DJANGO_REDIS_URL
-    value: redis://redis:6379
   - 
     name: DJANGO_DB_NAME
     value: simpl-dev

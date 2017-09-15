@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: simpl-api-{{.Values.deploymentEnvironment}}
+  name: simpl-api
   namespace: {{.Values.namespace}}
   labels:
     heritage: {{.Release.Service | quote }}
