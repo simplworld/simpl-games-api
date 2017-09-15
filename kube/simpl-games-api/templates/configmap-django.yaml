@@ -96,7 +96,7 @@ data:
 
 
     # Set CONN_MAX_AGE
-    DATABASES['default']['CONN_MAX_AGE'] = 500
+    # DATABASES['default']['CONN_MAX_AGE'] = 500
 
     # CACHING
     # ------------------------------------------------------------------------------
