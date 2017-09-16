@@ -1,6 +1,6 @@
 import logging
 
-from rest_framework import filters, viewsets
+from rest_framework import viewsets
 from rest_framework.authentication import (
     SessionAuthentication,
     BasicAuthentication
@@ -10,7 +10,7 @@ from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 from rest_framework import status
 
-from . import serializers
+from . import filters, serializers
 from .. import models
 
 logger = logging.getLogger(__name__)
@@ -28,17 +28,11 @@ class CommonViewSet(viewsets.ModelViewSet):
 class DecisionViewSet(CommonViewSet):
     """ Decision resource. """
 
-    queryset = models.Decision.objects.all()
+    queryset = models.Decision.objects.select_related(
+        'period__scenario__world__run__game',
+    )
     serializer_class = serializers.DecisionSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        'period',
-        'role',
-        'name',
-    )
+    filter_class = filters.DecisionFilter
     ordering_fields = (
         'created',
         'modified',
@@ -76,6 +70,11 @@ class DecisionViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Decisions per Role via role
+            - name: game_slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Decisions per Game via slug
         """
         return super(DecisionViewSet, self).list(request)
 
@@ -103,10 +102,6 @@ class GameViewSet(CommonViewSet):
 
     queryset = models.Game.objects.all()
     serializer_class = serializers.GameSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
     filter_fields = (
         'active',
         'name',
@@ -175,16 +170,11 @@ class GameViewSet(CommonViewSet):
 class PeriodViewSet(CommonViewSet):
     """ Period resource. """
 
-    queryset = models.Period.objects.all()
+    queryset = models.Period.objects.select_related(
+        'scenario__world__run__game',
+    )
     serializer_class = serializers.PeriodSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        'scenario',
-        'order',
-    )
+    filter_class = filters.PeriodFilter
     ordering_fields = (
         'created',
         'modified',
@@ -207,16 +197,21 @@ class PeriodViewSet(CommonViewSet):
         Returns a list of Periods
         ---
         parameters:
-            - name: name
-              type: string
-              paramType: query
-              required: false
-              description: Filters Periods per Name via name
             - name: scenario
               type: integer
               paramType: query
               required: false
               description: Filters Periods per Scenario via scenario
+            - name: order
+              type: integer
+              paramType: query
+              required: false
+              description: Filters Periods by order
+            - name: game_slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Periods per Game via slug
         """
         return super(PeriodViewSet, self).list(request)
 
@@ -242,16 +237,9 @@ class PeriodViewSet(CommonViewSet):
 class PhaseViewSet(CommonViewSet):
     """ Phase resource. """
 
-    queryset = models.Phase.objects.all()
+    queryset = models.Phase.objects.select_related('game')
     serializer_class = serializers.PhaseSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        'game',
-        'name',
-    )
+    filter_class = filters.PhaseFilter
     ordering_fields = (
         'created',
         'modified',
@@ -284,6 +272,11 @@ class PhaseViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Phases per Name via name
+            - name: game_slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Phases per Game via slug
         """
         return super(PhaseViewSet, self).list(request)
 
@@ -309,17 +302,11 @@ class PhaseViewSet(CommonViewSet):
 class ResultViewSet(CommonViewSet):
     """ Result resource. """
 
-    queryset = models.Result.objects.all()
+    queryset = models.Result.objects.select_related(
+        'period__scenario__world__run__game',
+    )
     serializer_class = serializers.ResultSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        'period',
-        'role',
-        'name',
-    )
+    filter_class = filters.ResultFilter
     ordering_fields = (
         'created',
         'modified',
@@ -357,6 +344,11 @@ class ResultViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Results per Role via role
+            - name: game_slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Results per Game via slug
         """
         return super(ResultViewSet, self).list(request)
 
@@ -382,16 +374,9 @@ class ResultViewSet(CommonViewSet):
 class RoleViewSet(CommonViewSet):
     """ Role resource. """
 
-    queryset = models.Role.objects.all()
+    queryset = models.Role.objects.select_related('game')
     serializer_class = serializers.RoleSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        'game',
-        'name',
-    )
+    filter_class = filters.RoleFilter
     ordering_fields = (
         'created',
         'modified',
@@ -424,6 +409,11 @@ class RoleViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Roles per Name via name
+            - name: game_slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Roles per Game via slug
         """
         return super(RoleViewSet, self).list(request)
 
@@ -449,17 +439,9 @@ class RoleViewSet(CommonViewSet):
 class RunViewSet(CommonViewSet):
     """ Run resource. """
 
-    queryset = models.Run.objects.all()
+    queryset = models.Run.objects.select_related('game')
     serializer_class = serializers.RunSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        'game',
-        'name',
-        'phase',
-    )
+    filter_class = filters.RunFilter
     ordering_fields = (
         'created',
         'modified',
@@ -492,6 +474,11 @@ class RunViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Runs per Name via name
+            - name: game_slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Runs per Game via slug
         """
         return super(RunViewSet, self).list(request)
 
@@ -520,19 +507,7 @@ class RunUserViewSet(CommonViewSet):
     queryset = models.RunUser.objects.select_related('user', 'run__game',
                                                      'role')
     serializer_class = serializers.RunUserSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        'active',
-        'leader',
-        'role',
-        'run',
-        'run__game__slug',
-        'user',
-        'world',
-    )
+    filter_class = filters.RunUserFilter
     ordering_fields = (
         'created',
         'modified',
@@ -585,6 +560,11 @@ class RunUserViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters RunUsers per World via world
+            - name: game_slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters RunUsers per Game via slug
         """
         return super(RunUserViewSet, self).list(request)
 
@@ -612,16 +592,7 @@ class ScenarioViewSet(CommonViewSet):
 
     queryset = models.Scenario.objects.select_related('world__run__game')
     serializer_class = serializers.ScenarioSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        'runuser',
-        'world',
-        'world__run__game__slug',
-        'name',
-    )
+    filter_class = filters.ScenarioFilter
     ordering_fields = (
         'created',
         'modified',
@@ -660,6 +631,11 @@ class ScenarioViewSet(CommonViewSet):
               required: false
               description: Filters Scenarioes per World via world
               TODO: Not all scenarios are associated with world
+            - name: game_slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Scenarioes per Game via slug
         """
         return super(ScenarioViewSet, self).list(request)
 
@@ -739,15 +715,7 @@ class WorldViewSet(CommonViewSet):
 
     queryset = models.World.objects.select_related('run__game')
     serializer_class = serializers.WorldSerializer
-    filter_backends = (
-        filters.DjangoFilterBackend,
-        # filters.SearchFilter,
-    )
-    filter_fields = (
-        'run',
-        'run__game__slug',
-        'name',
-    )
+    filter_class = filters.WorldFilter
     ordering_fields = (
         'created',
         'modified',
@@ -780,6 +748,11 @@ class WorldViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Worlds per Run via run
+            - name: game_slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Worlds per Game via slug
         """
         return super(WorldViewSet, self).list(request)
 
