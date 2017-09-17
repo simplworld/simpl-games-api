@@ -697,17 +697,17 @@ class ScenarioTestCase(BaseAPITestCase):
                       kwargs={'pk': self.scenario.pk})
 
         # add period1 and period2 to scenario
-        period1 = PeriodFactory.build(scenario=self.scenario)
+        period1 = PeriodFactory.create(scenario=self.scenario)
         period1.order = 1
 
-        period2 = PeriodFactory.build(scenario=self.scenario, order=2)
+        period2 = PeriodFactory.create(scenario=self.scenario, order=2)
         period2.order = 2
 
         # add decision to period1
-        decision = DecisionFactory.build(period=period1)
+        decision = DecisionFactory.create(period=period1)
 
         # add result to period1
-        result = ResultFactory.build(period=period1)
+        result = ResultFactory.create(period=period1)
 
         payload = {
             'period_order': 1,
@@ -723,9 +723,8 @@ class ScenarioTestCase(BaseAPITestCase):
         self.login(self.user)
 
         # 'twould appear factory objects are not useful for testing rewind
-        # response = self.client.post(url, payload, format='json')
-        # self.assertEqual(response.status_code, 200)
-        # self.assertNotEqual(len(response.data), 0)
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, 204)
 
 
 class WorldTestCase(BaseAPITestCase):
