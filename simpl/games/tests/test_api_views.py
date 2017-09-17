@@ -1,7 +1,10 @@
+from unittest import mock
+
 from django.core.urlresolvers import reverse
 from faker import Faker
 from rest_framework.test import APITestCase
 from test_plus.test import TestCase
+from thorn.dispatch.base import Dispatcher
 
 from simpl.games.apis import serializers
 from simpl.games.factories import (
@@ -691,7 +694,8 @@ class ScenarioTestCase(BaseAPITestCase):
             response = self.client.put(url, payload, format='json')
             self.assertEqual(response.status_code, 200)
 
-    def test_rewind(self):
+    @mock.patch.object(Dispatcher, 'send')
+    def test_rewind(self, mock_method):
         # URL pattern: ^scenarios/{pk}/rewind/$ Name: 'scenario-rewind'
         url = reverse('simpl_api:scenario-rewind',
                       kwargs={'pk': self.scenario.pk})
@@ -725,6 +729,10 @@ class ScenarioTestCase(BaseAPITestCase):
         # 'twould appear factory objects are not useful for testing rewind
         response = self.client.post(url, payload, format='json')
         self.assertEqual(response.status_code, 204)
+
+        # should have fired 7 webhooks
+        self.assertTrue(mock_method.called)
+        self.assertEqual(mock_method.call_count, 7)
 
 
 class WorldTestCase(BaseAPITestCase):
