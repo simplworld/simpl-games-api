@@ -123,7 +123,8 @@ $ ./manage.py graph_models games -o docs/models.png
 
 To configure yourself to be pointing at the correct cluster run:
 ```
-kubectl config set-context <cluster>
+kubectl config use-context <cluster>
+kubectl config set-context <cluster> --namespace=<namespace where you’ll be working>
 ```
 
 where cluster is a Kubernetes cluster name in your ~/.kube/config

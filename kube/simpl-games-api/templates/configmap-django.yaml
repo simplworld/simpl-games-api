@@ -52,7 +52,7 @@ data:
     # ------------------------------------------------------------------------------
     # Hosts/domain names that are valid for this site
     # See https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
-    ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['{{.Values.publicFqdn}}'])
+    ALLOWED_HOSTS = ['simpl.dev.wharton.revsys.com', 'simpl-api.simpl']
     # END SITE CONFIGURATION
 
     INSTALLED_APPS += ("gunicorn", )
@@ -90,7 +90,8 @@ data:
             'NAME': E.db_name,
             'PASSWORD': E.db_pass,
             'PORT': int(E.db_port) if E.count('db_port') else 5432,
-            'USER': E.db_user
+            'USER': E.db_user,
+            'CONN_MAX_AGE': 60,
         }
     }
 
