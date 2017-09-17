@@ -77,34 +77,34 @@ THORN_RECIPIENT_VALIDATORS = [
 ]
 
 # print logging to the console
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'simple': {
-            'format': '%(asctime)s %(levelname)s %(module)s: %(message)s'
-        },
-    },
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        },
-    },
-    'handlers': {
-        'console': {
-            # 'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple'
-        }
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO')
-        },
-        'simpl.games.apis': {
-            'handlers': ['console'],
-            'level': logging.DEBUG
-        },
-    },
-}
+#LOGGING = {
+#    'version': 1,
+#    'disable_existing_loggers': False,
+#    'formatters': {
+#        'simple': {
+#            'format': '%(asctime)s %(levelname)s %(module)s: %(message)s'
+#        },
+#    },
+#    'filters': {
+#        'require_debug_true': {
+#            '()': 'django.utils.log.RequireDebugTrue',
+#        },
+#    },
+#    'handlers': {
+#        'console': {
+#            # 'filters': ['require_debug_true'],
+#            'class': 'logging.StreamHandler',
+#            'formatter': 'simple'
+#        }
+#    },
+#    'loggers': {
+#        'django': {
+#            'handlers': ['console'],
+#            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO')
+#        },
+#        'simpl.games.apis': {
+#            'handlers': ['console'],
+#            'level': logging.DEBUG
+#        },
+#    },
+#}

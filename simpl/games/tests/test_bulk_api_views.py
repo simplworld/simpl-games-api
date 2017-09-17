@@ -1,14 +1,13 @@
+from unittest import mock
 import json
 
 from django.core.urlresolvers import reverse
 
-from django.test.client import RequestFactory
-
+from faker import Faker
 from rest_framework import status
 from rest_framework.test import APITestCase
-
-from faker import Faker
 from test_plus.test import TestCase
+from thorn.dispatch.base import Dispatcher
 
 from simpl.games.apis import bulk_views
 from simpl.games.models import (
@@ -72,7 +71,8 @@ class BulkDecisionTestCase(BaseTestCase):
             )
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_post_bulk(self):
+    @mock.patch.object(Dispatcher, 'send')
+    def test_post_bulk(self, mock_method):
         """
         Test that POST with multiple resources returns 201
         """
@@ -108,7 +108,12 @@ class BulkDecisionTestCase(BaseTestCase):
             )
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_unfiltered_delete(self):
+        # should have fired 2 webhooks
+        self.assertTrue(mock_method.called)
+        self.assertEqual(mock_method.call_count, 2)
+
+    @mock.patch.object(Dispatcher, 'send')
+    def test_unfiltered_delete(self, mock_method):
         """
         DELETE is not allowed if results are not filtered by query params.
         """
@@ -139,6 +144,9 @@ class BulkDecisionTestCase(BaseTestCase):
             response = self.client.delete(self.url)
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
             self.assertEqual(Decision.objects.count(), 2)
+
+        self.assertTrue(mock_method.called)
+        self.assertEqual(mock_method.call_count, 2)
 
     def test_filtered_delete(self):
         """
@@ -218,7 +226,8 @@ class BulkResultTestCase(BaseTestCase):
             )
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_post_bulk(self):
+    @mock.patch.object(Dispatcher, 'send')
+    def test_post_bulk(self, mock_method):
         """
         Test that POST with multiple resources returns 201
         """
@@ -254,7 +263,12 @@ class BulkResultTestCase(BaseTestCase):
             )
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_unfiltered_delete(self):
+        # should have fired 2 webhooks
+        self.assertTrue(mock_method.called)
+        self.assertEqual(mock_method.call_count, 2)
+
+    @mock.patch.object(Dispatcher, 'send')
+    def test_unfiltered_delete(self, mock_method):
         """
         DELETE is not allowed if results are not filtered by query params.
         """
@@ -285,6 +299,10 @@ class BulkResultTestCase(BaseTestCase):
             response = self.client.post(self.url)
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
             self.assertEqual(Result.objects.count(), 2)
+
+        # should have fired 2 webhooks
+        self.assertTrue(mock_method.called)
+        self.assertEqual(mock_method.call_count, 2)
 
     def test_filtered_delete(self):
         """
