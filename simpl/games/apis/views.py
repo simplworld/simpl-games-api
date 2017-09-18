@@ -28,9 +28,7 @@ class CommonViewSet(viewsets.ModelViewSet):
 class DecisionViewSet(CommonViewSet):
     """ Decision resource. """
 
-    queryset = models.Decision.objects.select_related(
-        'period__scenario__world__run__game',
-    )
+    queryset = models.Decision.objects.all()
     serializer_class = serializers.DecisionSerializer
     filter_class = filters.DecisionFilter
     ordering_fields = (
@@ -170,9 +168,7 @@ class GameViewSet(CommonViewSet):
 class PeriodViewSet(CommonViewSet):
     """ Period resource. """
 
-    queryset = models.Period.objects.select_related(
-        'scenario__world__run__game',
-    )
+    queryset = models.Period.objects.all()
     serializer_class = serializers.PeriodSerializer
     filter_class = filters.PeriodFilter
     ordering_fields = (
@@ -237,7 +233,7 @@ class PeriodViewSet(CommonViewSet):
 class PhaseViewSet(CommonViewSet):
     """ Phase resource. """
 
-    queryset = models.Phase.objects.select_related('game')
+    queryset = models.Phase.objects.all()
     serializer_class = serializers.PhaseSerializer
     filter_class = filters.PhaseFilter
     ordering_fields = (
@@ -302,9 +298,7 @@ class PhaseViewSet(CommonViewSet):
 class ResultViewSet(CommonViewSet):
     """ Result resource. """
 
-    queryset = models.Result.objects.select_related(
-        'period__scenario__world__run__game',
-    )
+    queryset = models.Result.objects.all()
     serializer_class = serializers.ResultSerializer
     filter_class = filters.ResultFilter
     ordering_fields = (
@@ -374,7 +368,7 @@ class ResultViewSet(CommonViewSet):
 class RoleViewSet(CommonViewSet):
     """ Role resource. """
 
-    queryset = models.Role.objects.select_related('game')
+    queryset = models.Role.objects.all()
     serializer_class = serializers.RoleSerializer
     filter_class = filters.RoleFilter
     ordering_fields = (
@@ -439,7 +433,7 @@ class RoleViewSet(CommonViewSet):
 class RunViewSet(CommonViewSet):
     """ Run resource. """
 
-    queryset = models.Run.objects.select_related('game')
+    queryset = models.Run.objects.all()
     serializer_class = serializers.RunSerializer
     filter_class = filters.RunFilter
     ordering_fields = (
@@ -504,8 +498,9 @@ class RunViewSet(CommonViewSet):
 class RunUserViewSet(CommonViewSet):
     """ RunUser resource. """
 
-    queryset = models.RunUser.objects.select_related('user', 'run__game',
-                                                     'role')
+    queryset = models.RunUser.objects.select_related(
+        'user', 'run__game', 'role',
+    )
     serializer_class = serializers.RunUserSerializer
     filter_class = filters.RunUserFilter
     ordering_fields = (
@@ -590,7 +585,7 @@ class RunUserViewSet(CommonViewSet):
 class ScenarioViewSet(CommonViewSet):
     """ Scenario resource. """
 
-    queryset = models.Scenario.objects.select_related('world__run__game')
+    queryset = models.Scenario.objects.all()
     serializer_class = serializers.ScenarioSerializer
     filter_class = filters.ScenarioFilter
     ordering_fields = (
@@ -713,7 +708,7 @@ class ScenarioViewSet(CommonViewSet):
 class WorldViewSet(CommonViewSet):
     """ World resource. """
 
-    queryset = models.World.objects.select_related('run__game')
+    queryset = models.World.objects.all()
     serializer_class = serializers.WorldSerializer
     filter_class = filters.WorldFilter
     ordering_fields = (
