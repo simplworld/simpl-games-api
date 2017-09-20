@@ -6,12 +6,12 @@ namespace: simpl
 
 nginxImageTag: "1.12.1-alpine"
 
-deploymentEnvironment: dev
+deploymentEnvironment: &env prod
 clientMaxBodySize: 250m
 
 replicaCount: "1"
 
-publicFqdn: &fqdn simpl.dev.wharton.revsys.com
+publicFqdn: &fqdn simpl.prod.wharton.revsys.com
 
 Env:
   - 
@@ -51,10 +51,10 @@ Env:
         apiVersion: v1
   - 
     name: DJANGO_DB_NAME
-    value: simpl-dev
+    value: simpl
   -
     name: DJANGO_DB_USER
-    value: simpl-dev
+    value: simpl
   -
     name: DJANGO_DB_HOST
     value: postgres
@@ -65,7 +65,7 @@ Env:
     name: DJANGO_DB_PASS
     valueFrom:
       secretKeyRef:
-        name: simpl-dev
+        name: simpl
         key: database-password
   -
     name: DJANGO_SECRET_KEY
