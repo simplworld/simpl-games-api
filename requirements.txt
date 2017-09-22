@@ -50,7 +50,7 @@ django-bootstrap3==8.2.1
 
 # Wharton Specific Modules
 https://learninglab.githost.io/lldev-team/django-courses/repository/archive.zip?ref=master&private_token=bKzxcaegBJJ_Vs_PskEH
-https://learninglab.githost.io/lldev-team/simpl-users/repository/archive.zip?ref=v0.3.3&private_token=bKzxcaegBJJ_Vs_PskEH
+https://learninglab.githost.io/lldev-team/simpl-users/repository/archive.zip?ref=v0.3.4&private_token=bKzxcaegBJJ_Vs_PskEH
 
 django-filter==1.0.4
 django-rest-swagger==2.1.2
