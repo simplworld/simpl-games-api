@@ -4,6 +4,10 @@ FROM python:3.6-slim
 ENV PYTHONUNBUFFERED 1
 ENV TINI_VERSION v0.14.0
 
+ARG proxy
+ENV http_proxy ${proxy}
+ENV https_proxy ${proxy}
+
 RUN mkdir -p /code/; apt update && apt -y upgrade; \
     apt-get -y install netcat-openbsd curl git gnupg  \
     && curl -sL -o /tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini  \
