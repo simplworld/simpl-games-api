@@ -36,6 +36,9 @@ ENV PYTHONPATH /code:$PYTHONPATH
 
 EXPOSE 8000
 
+ENV http_proxy ''
+ENV https_proxy ''
+
 ENTRYPOINT ["/tini", "--"]
 
 CMD ["gunicorn", "-c", "/code/gunicorn.conf", "config.wsgi"]
