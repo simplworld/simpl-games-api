@@ -1,7 +1,7 @@
 # vim: ft=sls nolist
 
 Image: learninglab.githost.io:4678/lldev-team/simpl-games-api
-ImageTag: v1.3.10
+ImageTag: v1.3.11
 namespace: simpl
 
 nginxImageTag: "1.12.1-alpine"
@@ -14,7 +14,7 @@ replicaCount: "1"
 publicFqdn: &fqdn simpl.prod.wharton.revsys.com
 
 Env:
-  - 
+  -
     name: DJANGO_SETTINGS_MODULE
     value: "kube.settings"
   -
@@ -25,31 +25,31 @@ Env:
   -
     name: PYTHONWARNINGS
     value: ignore
-  - 
+  -
     name: X_NODE_NAME
     valueFrom:
       fieldRef:
         fieldPath: spec.nodeName
         apiVersion: v1
-  - 
+  -
     name: X_POD_IP
     valueFrom:
       fieldRef:
         fieldPath: status.podIP
         apiVersion: v1
-  - 
+  -
     name: X_KUBE_NAMESPACE
     valueFrom:
       fieldRef:
         fieldPath: metadata.namespace
         apiVersion: v1
-  - 
-    name: X_POD_NAME 
+  -
+    name: X_POD_NAME
     valueFrom:
       fieldRef:
         fieldPath: metadata.name
         apiVersion: v1
-  - 
+  -
     name: DJANGO_DB_NAME
     value: simpl
   -
@@ -82,10 +82,10 @@ Volumes:
   -
     name: run
     emptyDir: {}
-  - 
+  -
     name: staticfiles
     emptyDir: {}
-  - 
+  -
     name: ngx
     configMap:
       name: nginx-config
