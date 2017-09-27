@@ -138,7 +138,9 @@ helm upgrade simpl-api-dev kube/simpl-games-api
 For the production cluster use:
 
 ```
+
 helm upgrade -f kube/simpl-games-api/prod_values.yaml --set=ImageTag=<image-tab> simpl-api-prod kube/simpl-games-api/
+
 ```
 
 For example, if you were deploying `v1.0.0` you would run ```helm upgrade -f kube/simpl-games-api/prod_values.yaml --set=ImageTag=v1.0.0 simpl-api-prod kube/simpl-games-api/```
