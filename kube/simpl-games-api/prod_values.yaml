@@ -92,7 +92,7 @@ Volumes:
   -
     name: django
     configMap:
-      name: settings
+      name: settings-simpl
       items:
         -
           key: settings
