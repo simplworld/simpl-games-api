@@ -144,3 +144,19 @@ helm upgrade -f kube/simpl-games-api/prod_values.yaml --set=ImageTag=<image-tab>
 ```
 
 For example, if you were deploying `v1.0.0` you would run ```helm upgrade -f kube/simpl-games-api/prod_values.yaml --set=ImageTag=v1.0.0 simpl-api-prod kube/simpl-games-api/```
+
+## Check Deployed System
+
+We have a simple management command which will check DNS, HTTP/HTTPS connectivity in general, ability to login to the admin, that the API responds properly and that the game slug in question is installed.  To use this command you **MUST** have a valid admin login to use the command.
+
+Simple usage:
+
+```
+manage.py check_deploy https://simpl.dev.wharton.revsys.com/
+```
+
+The command will prompt you for your admin user's email address (aka username), password, and game slug.  Or you can provide them on the command line like this: 
+
+```
+manage.py check_deploy https://simpl.dev.wharton.revsys.com/ --email='frank@revsys.com' --password='secret!' --game=roe
+```
