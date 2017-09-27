@@ -10,6 +10,8 @@ subsets:
       - ip: 10.71.63.250
 {{- else if eq .Values.deploymentEnvironment "prod" }}
       - ip: 172.31.28.2
+{{- else if eq .Values.deploymentEnvironment "playground" }}
+      - ip: 172.31.28.2
 {{- end }}
     ports:
       -

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: settings
+  name: settings-simpl
   namespace: {{.Values.namespace}}
   labels:
     app: simpl-api
