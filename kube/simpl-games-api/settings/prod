@@ -41,7 +41,7 @@ DATABASES = {
 }
 
 SESSION_ENGINE = "django.contrib.sessions.backend.cached_db"
-INSTALLED_APPS += ('django.contrib.sessions')
+INSTALLED_APPS += ('django.contrib.sessions',)
 
 CACHES = {
   'default': {
