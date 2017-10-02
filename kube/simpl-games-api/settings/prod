@@ -27,6 +27,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # ------------------------------------------------------------------------------
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -38,6 +39,9 @@ DATABASES = {
         'CONN_MAX_AGE': 60,
     }
 }
+
+SESSION_ENGINE = "django.contrib.sessions.backend.cached_db"
+INSTALLED_APPS += ('django.contrib.sessions')
 
 CACHES = {
   'default': {

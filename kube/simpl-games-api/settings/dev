@@ -1,3 +1,5 @@
+# set ft=python
+
 from django.utils import six
 from thorn import validators as thorn_validators
 from jslog4kube import LOGGING
@@ -29,18 +31,6 @@ SECURITY_MIDDLEWARE = (
 # Make sure djangosecure.middleware.SecurityMiddleware is listed first
 MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
 
-# set this to 60 seconds and then to 518400 when you can prove it works
-SECURE_HSTS_SECONDS = 60
-SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
-    "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
-SECURE_FRAME_DENY = env.bool("DJANGO_SECURE_FRAME_DENY", default=True)
-SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
-    "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
-SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = False
-SESSION_COOKIE_HTTPONLY = True
-SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
-
 # SITE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Hosts/domain names that are valid for this site
@@ -50,24 +40,6 @@ ALLOWED_HOSTS = ['simpl.dev.wharton.revsys.com', 'simpl-api.simpl']
 
 INSTALLED_APPS += ("gunicorn", )
 
-# STORAGE CONFIGURATION
-# ------------------------------------------------------------------------------
-# Uploaded Media Files
-# ------------------------
-# See: http://django-storages.readthedocs.org/en/latest/index.html
-
-# AWS cache settings, don't change unless you know what you're doing:
-AWS_EXPIRY = 60 * 60 * 24 * 7
-
-
-
-# Static Assets
-# ------------------------
-
-# TEMPLATE CONFIGURATION
-# ------------------------------------------------------------------------------
-# See:
-# https://docs.djangoproject.com/en/dev/ref/templates/api/#django.template.loaders.cached.Loader
 TEMPLATES[0]['OPTIONS']['loaders'] = [
     ('django.template.loaders.cached.Loader', [
         'django.template.loaders.filesystem.Loader', 'django.template.loaders.app_directories.Loader', ]),
@@ -87,6 +59,9 @@ DATABASES = {
         'CONN_MAX_AGE': 60,
     }
 }
+
+SESSION_ENGINE = "django.contrib.sessions.backend.cached_db"
+INSTALLED_APPS += ('django.contrib.sessions')
 
 
 # Set CONN_MAX_AGE
