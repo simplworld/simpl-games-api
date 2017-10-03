@@ -55,6 +55,7 @@ THORN_RECIPIENT_VALIDATORS = [
     thorn_validators.ensure_port(80, 443, 8080),
 ]
 
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 ALLOWED_HOSTS = ['localhost', 'simpl-api.playground', 'simpl-api',  E.fqdn]
 
