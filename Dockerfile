@@ -24,7 +24,7 @@ RUN apt update \
     && apt-get -y remove libjpeg62-turbo-dev zlib1g-dev gcc make \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/* /usr/share/man /usr/local/share/man \
-    && find /usr -type f -name "*.pyc" -exec rm -r {} +
+    && find /usr -type f -regex "*.py[co]$" -exec rm -r {} +
 
 ADD . /code/
 WORKDIR /code
