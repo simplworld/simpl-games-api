@@ -79,9 +79,8 @@ class ScenarioFilter(filters.FilterSet):
 
     def filter_runuser_and_worlds_in_game(self, queryset, name, value):
         """
-        We need to retrieve Scenarios which are attached to worlds in
-        the given game slug, but also Scenarios attached simply to runusers
-        who are in worlds in the game
+        We need to retrieve Scenarios which are attached to worlds or runusers
+        in the given game slug
         """
         return queryset.filter(
             Q(world__run__game__slug=value) |
