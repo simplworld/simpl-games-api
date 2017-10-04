@@ -95,6 +95,8 @@ class ScenarioFilter(filters.FilterSet):
             'world',
             'name',
             'game_slug',
+            'world__run',
+            'runuser__run'
         ]
 
 
