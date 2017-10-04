@@ -119,18 +119,70 @@ $ ./manage.py graph_models games -o docs/models.png
 
 ![](docs/models.png)
 
+## Check Deployed System
+
+We have a simple management command which will check DNS, HTTP/HTTPS connectivity in general, ability to login to the admin, that the API responds properly and that the game slug in question is installed.  To use this command you **MUST** have a valid admin login to use the command.
+
+Simple usage:
+
+```
+manage.py check_deploy https://simpl.dev.wharton.revsys.com/
+```
+
+The command will prompt you for your admin user's email address (aka username), password, and game slug.  Or you can provide them on the command line like this: 
+
+```
+manage.py check_deploy https://simpl.dev.wharton.revsys.com/ --email='frank@revsys.com' --password='secret!' --game=roe
+```
+
 # Deploying on LL Kubernetes development cluster
 
-To configure yourself to be pointing at the correct cluster run:
-```
-kubectl config set-context <cluster>
+
+# Kubernetes Deployment
+
+## TL;DR section
+
+
+### setup the `kubectl` environment
+
+
+#### select cluster
+
 ```
 
-where cluster is a Kubernetes cluster name in your ~/.kube/config
-
-Once CI has built the new image and it is pushed to the Docker registry, run:
-```
-
-helm upgrade simpl-dev kube/simpl-games-api
+#: kubectl config use-context <cluster-name>
 
 ```
+
+#### set default namespace
+
+```
+
+#: kubectl config set-context <cluster-name> --namespace=simpl
+
+```
+
+### upgrade production deployment 
+
+```
+
+:#  helm upgrade simpl-api-prod -f kube/simpl-games-api/prod_values.yaml --set=ImageTag=<target docker image tag> kube/simpl-games-api
+
+```
+
+### upgrade dev deployment
+```
+
+:#  helm upgrade simpl-api-dev kube/simpl-games-api
+
+```
+
+----
+
+### Why the difference between dev and prod deployment?
+
+ * Helm reads (by default) <chart-name>/values.yaml
+ * Most deployments will be _dev_ environment deployments which is slated to include any test-passing, tagged image
+   * for the same reasons, `kube/*/values.yaml` **is** targetted by **bumpversion** for the purpose of adjusting the `ImageTag` key
+   * for the same reasons, `kube/*/prod_values.yaml` **is not** targetted by **bumpversion** and thus requires the additional `--set` argument
+

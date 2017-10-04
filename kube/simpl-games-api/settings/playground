@@ -1,0 +1,62 @@
+# vim: ft=python
+
+from django.utils import six
+from thorn import validators as thorn_validators
+from jslog4kube import LOGGING
+
+for el in 'rest_framework|allauth|cuser|thorn.django|simpl_users|courses|simpl|kombu|django.templates|django.requests'.split('|'):
+    LOGGING['loggers'][el] = LOGGING['loggers']['demo']
+
+
+from config.settings.common import *  # noqa
+from config.settings.env import e as E
+
+SECRET_KEY = env("DJANGO_SECRET_KEY")
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
+    "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True)
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True
+
+TEMPLATES[0]['OPTIONS']['loaders'] = [
+    ('django.template.loaders.cached.Loader', [
+        'django.template.loaders.filesystem.Loader', 'django.template.loaders.app_directories.Loader', ]),
+]
+
+# DATABASE CONFIGURATION
+# ------------------------------------------------------------------------------
+# Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': E.db_host,
+        'NAME': E.db_name,
+        'PASSWORD': E.db_pass,
+        'PORT': int(E.db_port) if E.count('db_port') else 5432,
+        'USER': E.db_user,
+        'CONN_MAX_AGE': 60,
+    }
+}
+
+CACHES = {
+  'default': {
+      'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+      'LOCATION': "memcache:11211",
+  },
+}
+
+# Your production stuff: Below this line define 3rd party library settings
+THORN_RECIPIENT_VALIDATORS = [
+    thorn_validators.block_internal_ips(),
+    thorn_validators.ensure_protocol('http', 'https'),
+    thorn_validators.ensure_port(80, 443, 8080),
+]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
+ALLOWED_HOSTS = ['localhost', 'simpl-api.playground', 'simpl-api',  E.fqdn]
+
+LOGOUT_URL = '/admin/logout'

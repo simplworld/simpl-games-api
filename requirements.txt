@@ -50,7 +50,7 @@ django-bootstrap3==8.2.1
 
 # Wharton Specific Modules
 https://learninglab.githost.io/lldev-team/django-courses/repository/archive.zip?ref=master&private_token=bKzxcaegBJJ_Vs_PskEH
-https://learninglab.githost.io/lldev-team/simpl-users/repository/archive.zip?ref=v0.3.3&private_token=bKzxcaegBJJ_Vs_PskEH
+https://learninglab.githost.io/lldev-team/simpl-users/repository/archive.zip?ref=v0.3.5&private_token=bKzxcaegBJJ_Vs_PskEH
 
 django-filter==1.0.4
 django-rest-swagger==2.1.2
@@ -59,7 +59,7 @@ djangorestframework-bulk==0.2.1
 
 # Nicer CLI Interface
 click==6.6
-django-click==1.2.0
+django-click==2.0.0
 
 # for courses
 unicodecsv==0.14.1
@@ -91,7 +91,7 @@ pydocstyle==1.0.0
 
 # improved REPL
 ipdb==0.9.0
-rollbar==0.13.12
+rollbar==0.13.13
 
 # Logging
-git+https://github.com/revsys/jslog4kube.git@v1.0.2
+git+https://github.com/revsys/jslog4kube.git@v1.0.4

@@ -9,7 +9,7 @@ data:
       listen 80 deferred;
 
       error_log /dev/stdout info;
-      access_log off;
+      access_log /dev/stdout main;
 
       proxy_set_header        Host            $host;
       proxy_set_header        X-Real-IP       $remote_addr;
