@@ -17,9 +17,9 @@ import logging
 # DEBUG
 # ------------------------------------------------------------------------------
 #DEBUG = env.bool('DJANGO_DEBUG', default=True)
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost']
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 # SECRET CONFIGURATION
