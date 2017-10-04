@@ -655,15 +655,21 @@ class ScenarioViewSet(CommonViewSet):
     @detail_route(methods=['post'])
     def rewind(self, request, pk=None):
         """
-        Rewind the scenario back to its period with the specified 'last_period_order'
-        by deleting all periods whose order is greater than last_period_order.
-        By default, the decisions and results of the period with the specified last_period_order are deleted.
-        Specify 'last_period_order' in post data to be non-zero to prevent deleting all periods back to period with order=0.
-        Specify 'delete_last_period_decisions' in post data to be False to prevent deleting the period's decisions.
-        Specify 'delete_last_period_results' in post data to be False to prevent deleting the period's results.
+        Rewind the scenario back to its period with the specified
+        'last_period_order' by deleting all periods whose order is
+        greater than last_period_order.
+        By default, the decisions and results of the period with
+        the specified last_period_order are deleted.
+        Specify 'last_period_order' in post data to be non-zero to prevent
+        deleting all periods back to period with order=0.
+        Specify 'delete_last_period_decisions' in post data to be False to
+        prevent deleting the last period's decisions.
+        Specify 'delete_last_period_results' in post data to be False to
+        prevent deleting the last period's results.
         :param request:
         :param pk: scenario id
-        :raises models.Period.DoesNotExist if the scenario does not have a period with specified last_period_order
+        :raises models.Period.DoesNotExist if the scenario does not have
+        a period with specified last_period_order
         """
         # logger.debug("scenarios/rewind: request.data: %s", request.data)
 
@@ -679,28 +685,22 @@ class ScenarioViewSet(CommonViewSet):
         # logger.debug("scenarios/rewind: delete_last_period_results: %s", delete_last_period_results)
 
         last_period = None
-        periods = models.Period.objects.filter(scenario=scenario)
-        # logger.debug("scenarios/rewind: periods: %s", periods)
-        for period in periods:
-            if period.order is last_period_order:
-                last_period = period
-            elif period.order > last_period_order:
-                period.delete()
-        if last_period is None:
+        models.Period.objects.filter(scenario=scenario,
+                                     order__gt=last_period_order).delete()
+        try:
+            last_period = models.Period.objects.get(scenario=scenario,
+                                                    order=last_period_order)
+        except models.Period.DoesNotExist:
             logger.error('last_period does not exist')
-            raise models.Period.DoesNotExist()
+            raise
 
         if delete_last_period_decisions is True:
             # logger.debug("scenarios/rewind: delete last_period decisions")
-            decisions = models.Decision.objects.filter(period=last_period)
-            for decision in decisions:
-                decision.delete()
+            models.Decision.objects.filter(period=last_period).delete()
 
         if delete_last_period_results is True:
             # logger.debug("scenarios/rewind: delete last_period results")
-            results = models.Result.objects.filter(period=last_period)
-            for result in results:
-                result.delete()
+            models.Result.objects.filter(period=last_period).delete()
 
         return Response(None, status.HTTP_204_NO_CONTENT)
 
