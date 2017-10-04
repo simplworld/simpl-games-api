@@ -75,7 +75,8 @@ class WorldFilter(filters.FilterSet):
 
 class ScenarioFilter(filters.FilterSet):
 
-    game_slug = filters.CharFilter(name='special-filter', method='filter_runuser_and_worlds_in_game')
+    game_slug = filters.CharFilter(name='special-filter',
+                                   method='filter_runuser_and_worlds_in_game')
 
     def filter_runuser_and_worlds_in_game(self, queryset, name, value):
         """
@@ -99,13 +100,13 @@ class ScenarioFilter(filters.FilterSet):
 
 class PeriodFilter(filters.FilterSet):
 
-    game_slug = filters.CharFilter(name='special-filter', method='filter_runuser_and_worlds_in_game')
+    game_slug = filters.CharFilter(name='special-filter',
+                                   method='filter_runuser_and_worlds_in_game')
 
     def filter_runuser_and_worlds_in_game(self, queryset, name, value):
         """
-        We need to retrieve Periods in Scenarios which are attached to worlds in
-        the given game slug, but also Scenarios attached simply to runusers
-        who are in worlds in the game
+        We need to retrieve Periods in Scenarios which are attached to worlds
+        or runusers in the given game slug
         """
         return queryset.filter(
             Q(scenario__world__run__game__slug=value) |
@@ -123,7 +124,18 @@ class PeriodFilter(filters.FilterSet):
 
 class DecisionFilter(filters.FilterSet):
 
-    game_slug = filters.CharFilter(name='period__scenario__world__run__game__slug')
+    game_slug = filters.CharFilter(name='special-filter',
+                                   method='filter_runuser_and_worlds_in_game')
+
+    def filter_runuser_and_worlds_in_game(self, queryset, name, value):
+        """
+        We need to retrieve Decisions attached to Periods in Scenarios which are
+        attached to worlds or runusers in the given game slug
+        """
+        return queryset.filter(
+            Q(period__scenario__world__run__game__slug=value) |
+            Q(period__scenario__runuser__run__game__slug=value)
+        )
 
     class Meta:
         model = models.Decision
@@ -137,7 +149,18 @@ class DecisionFilter(filters.FilterSet):
 
 class ResultFilter(filters.FilterSet):
 
-    game_slug = filters.CharFilter(name='period__scenario__world__run__game__slug')
+    game_slug = filters.CharFilter(name='special-filter',
+                                   method='filter_runuser_and_worlds_in_game')
+
+    def filter_runuser_and_worlds_in_game(self, queryset, name, value):
+        """
+        We need to retrieve Results attached to Periods in Scenarios which are
+        attached to worlds or runusers in the given game slug
+        """
+        return queryset.filter(
+            Q(period__scenario__world__run__game__slug=value) |
+            Q(period__scenario__runuser__run__game__slug=value)
+        )
 
     class Meta:
         model = models.Result
