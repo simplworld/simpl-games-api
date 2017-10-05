@@ -121,6 +121,8 @@ class PeriodFilter(filters.FilterSet):
             'scenario',
             'order',
             'game_slug',
+            'scenario__world__run',
+            'scenario__runuser__run'
         ]
 
 
@@ -146,6 +148,8 @@ class DecisionFilter(filters.FilterSet):
             'period',
             'role',
             'game_slug',
+            'period__scenario__world__run',
+            'period__scenario__runuser__run'
         ]
 
 
@@ -171,4 +175,6 @@ class ResultFilter(filters.FilterSet):
             'period',
             'role',
             'game_slug',
+            'period__scenario__world__run',
+            'period__scenario__runuser__run'
         ]
