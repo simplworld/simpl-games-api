@@ -132,7 +132,7 @@ manage.py check_deploy https://simpl.dev.wharton.revsys.com/
 The command will prompt you for your admin user's email address (aka username), password, and game slug.  Or you can provide them on the command line like this: 
 
 ```
-manage.py check_deploy https://simpl.dev.wharton.revsys.com/ --email='frank@revsys.com' --password='secret!' --game=roe
+manage.py check_deploy https://simpl.mine.ed/ --email='me@mine.ed' --password='sumpun' --game=sim
 ```
 
 # Deploying on LL Kubernetes development cluster
