@@ -126,7 +126,7 @@ We have a simple management command which will check DNS, HTTP/HTTPS connectivit
 Simple usage:
 
 ```
-manage.py check_deploy https://simpl.dev.wharton.revsys.com/
+manage.py check_deploy https://simpl.mine.ed/
 ```
 
 The command will prompt you for your admin user's email address (aka username), password, and game slug.  Or you can provide them on the command line like this: 
