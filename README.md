@@ -142,39 +142,35 @@ manage.py check_deploy https://simpl.mine.ed/ --email='me@mine.ed' --password='s
 
 ## TL;DR section
 
-
 ### setup the `kubectl` environment
 
-
-#### select cluster
+#### show current cluster contexts
 
 ```
+#: kubectl config get-contexts
+```
 
+#### select different cluster (if needed)
+
+```
 #: kubectl config use-context <cluster-name>
-
 ```
 
-#### set default namespace
+#### select different default namespace  (if needed)
 
 ```
-
 #: kubectl config set-context <cluster-name> --namespace=simpl
+```
 
+### upgrade dev deployment
+```
+:#  helm upgrade simpl-api-dev kube/simpl-games-api
 ```
 
 ### upgrade production deployment 
 
 ```
-
 :#  helm upgrade simpl-api-prod -f kube/simpl-games-api/prod_values.yaml --set=ImageTag=<target docker image tag> kube/simpl-games-api
-
-```
-
-### upgrade dev deployment
-```
-
-:#  helm upgrade simpl-api-dev kube/simpl-games-api
-
 ```
 
 ----
@@ -186,3 +182,10 @@ manage.py check_deploy https://simpl.mine.ed/ --email='me@mine.ed' --password='s
    * for the same reasons, `kube/*/values.yaml` **is** targetted by **bumpversion** for the purpose of adjusting the `ImageTag` key
    * for the same reasons, `kube/*/prod_values.yaml` **is not** targetted by **bumpversion** and thus requires the additional `--set` argument
 
+## run kubectl web console
+
+```
+:#  kubectl proxy
+```
+
+Browse to http:/localhost:8001/ui
