@@ -39,15 +39,20 @@ spec:
           name: celery
           image: {{.Values.Image}}:{{.Values.ImageTag}}
           args:
-            - celery
-            - -E
-            - -A
-            - simpl.taskapp.celery_app
-            - worker
-            - -l
-            - INFO
-            - -b
-            - redis://celery-redis/1
+            - /bin/bash
+            - -c
+            - 'celery -E -A simpl.taskapp.celery_app worker -l INFO -b redis://celery-redis/1 -n ${HOSTNAME}'
+          volumeMounts:
+{{ toYaml .Values.DjangoVolumeMounts | indent 12 }}
+          env:
+{{ toYaml .Values.Env | indent 12 }}
+        -
+          name: flower
+          image: {{.Values.Image}}:{{.Values.ImageTag}}
+          args:
+            - /bin/bash
+            - -c
+            - 'celery flower -A simpl.taskapp.celery_app -l DEBUG --debug -b redis://celery-redis/1 --address=${X_POD_IP} --inspect --enable-events'
           volumeMounts:
 {{ toYaml .Values.DjangoVolumeMounts | indent 12 }}
           env:
@@ -55,4 +60,4 @@ spec:
           ports:
             -
               protocol: TCP
-              containerPort: 8000
+              containerPort: 5555
