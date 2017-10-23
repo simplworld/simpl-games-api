@@ -1,0 +1,1 @@
+../../kube/simpl-games-api/settings/dev

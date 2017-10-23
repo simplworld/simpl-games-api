@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: celery-simpl-api
+  namespace: {{.Values.namespace}}
+  labels:
+    app: celery-simpl-api
+    env: {{.Values.deploymentEnvironment}}
+    heritage: {{.Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    revision: {{ .Release.Revision | default 0 | quote }}
+    chart: {{.Chart.Name}}-{{.Chart.Version}}
+  annotations:
+    helm.sh/created: {{ .Release.Time.Seconds | quote }}
+    revsys.com/pg_db: simpl-{{.Values.deploymentEnvironment}}
+    revsys.com/pg_secret_name: simpl-{{.Values.deploymentEnvironment}}
+    revsys.com/pg_user_name: simpl
+spec:
+  replicas: {{.Values.celeryReplicaCount}}
+  selector:
+    matchLabels:
+      app: celery-simpl-api
+      env: {{.Values.deploymentEnvironment}}
+  template:
+    metadata:
+      labels:
+        app: celery-simpl-api
+        env: {{.Values.deploymentEnvironment}}
+        imageTag: {{.Values.ImageTag}}
+      annotations:
+        chksum/django-config: {{ include (print $.Template.BasePath  "/configmap-django.yaml") . | sha256sum | quote }}
+    spec:
+      volumes:
+{{ toYaml .Values.Volumes | indent 8 }}
+      imagePullSecrets:
+        - name: learninglab.githost.io
+      containers:
+        -
+          name: celery
+          image: {{.Values.Image}}:{{.Values.ImageTag}}
+          args:
+            - celery
+            - -E
+            - -A
+            - simpl.taskapp.celery_app
+            - worker
+            - -l
+            - INFO
+            - -b
+            - redis://celery-redis/1
+          volumeMounts:
+{{ toYaml .Values.DjangoVolumeMounts | indent 12 }}
+          env:
+{{ toYaml .Values.Env | indent 12 }}
+          ports:
+            -
+              protocol: TCP
+              containerPort: 8000

@@ -12,6 +12,9 @@ metadata:
     chart: {{.Chart.Name}}-{{.Chart.Version}}
   annotations:
     helm.sh/created: {{ .Release.Time.Seconds | quote }}
+    revsys.com/pg_db: simpl-{{.Values.deploymentEnvironment}}
+    revsys.com/pg_secret_name: simpl-{{.Values.deploymentEnvironment}}
+    revsys.com/pg_user_name: simpl
 spec:
   replicas: {{.Values.replicaCount}}
   selector:

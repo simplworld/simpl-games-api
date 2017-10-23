@@ -12,6 +12,7 @@ clientMaxBodySize: 250m
 replicaCount: "1"
 
 publicFqdn: &fqdn simpl.dev.wharton.revsys.com
+celeryReplicaCount: 2
 
 Env:
   - 

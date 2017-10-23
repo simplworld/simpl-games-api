@@ -3,12 +3,10 @@
 include .version
 
 ifdef PKG_PROXY
-	PROXY_ARGS := --build-arg proxy=${PKG_PROXY}
+	PROXY_ARGS := --build-arg=http_proxy=${PKG_PROXY} --build-arg=https_proxy=${PKG_PROXY}
 else
 	PROXY_ARGS :=
 endif
-
-PROXY = 
 
 build-image:
 	@echo building ${IMAGE_TAG}

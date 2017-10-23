@@ -82,3 +82,13 @@ THORN_RECIPIENT_VALIDATORS = [
     thorn_validators.ensure_protocol('http', 'https'),
     thorn_validators.ensure_port(80, 443, 8080),
 ]
+
+BROKER_URL = "redis://celery-redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://celery-redis:6379/1"
+CELERY_ALWAYS_EAGER = False
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = "UTC"
+CELERYD_WORKER_HIJACK_ROOT_LOGGER = False
+
+

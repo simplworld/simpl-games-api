@@ -26,12 +26,18 @@ test:
     - docker
   stage: test
   services:
-    - postgres:latest
+    - name: postgres:9.6
+      alias: postgres
   variables:
     DJANGO_SETTINGS_MODULE: 'config.settings.test'
     SIMPL_GAMES_API_PORT: "8100"
+    POSTGRES_PASSWORD: ""
+    POSTGRES_USER: postgres
+    POSTGRES_DB: postgres
   script:
-    - docker run --link $HOSTNAME-postgres:postgres -e "DATABASE_URL=postgres://postgres@postgres/postgres" ${CONTAINER_TEST_IMAGE} /code/tests.sh
+    - export PGPASSWORD=$POSTGRES_PASSWORD
+    - export PGHOST=${POSTGRES_PORT_5432_TCP_ADDR}
+    - docker run -e "DATABASE_URL=postgres://postgres@${POSTGRES_PORT_5432_TCP_ADDR}/postgres" ${CONTAINER_TEST_IMAGE} /bin/bash -c /code/tests.sh
 
 release-image:
   tags:
