@@ -1,4 +1,4 @@
-FROM python:3.6-slim
+FROM registry.gitlab.com/revsys/docker-builds/python:3.6.3-wee-optimized-lto
 
 
 ENV PYTHONUNBUFFERED 1

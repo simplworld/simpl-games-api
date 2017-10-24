@@ -9,3 +9,4 @@
 ./.bumpversion.cfg
 ./staticfiles/
 tags
+.env*
