@@ -164,23 +164,16 @@ manage.py check_deploy https://simpl.mine.ed/ --email='me@mine.ed' --password='s
 
 ### upgrade dev deployment
 ```
-:#  helm upgrade simpl-api-dev kube/simpl-games-api
+:#  helm upgrade --set=ImageTag=<target docker image tag> simpl-api-dev kube/simpl-games-api
 ```
 
 ### upgrade production deployment 
 
 ```
-:#  helm upgrade simpl-api-prod -f kube/simpl-games-api/prod_values.yaml --set=ImageTag=<target docker image tag> kube/simpl-games-api
+:#  helm upgrade --set=ImageTag=<target docker image tag> simpl-api-prod kube/simpl-games-api
 ```
 
 ----
-
-### Why the difference between dev and prod deployment?
-
- * Helm reads (by default) <chart-name>/values.yaml
- * Most deployments will be _dev_ environment deployments which is slated to include any test-passing, tagged image
-   * for the same reasons, `kube/*/values.yaml` **is** targetted by **bumpversion** for the purpose of adjusting the `ImageTag` key
-   * for the same reasons, `kube/*/prod_values.yaml` **is not** targetted by **bumpversion** and thus requires the additional `--set` argument
 
 ## run kubectl web console
 
