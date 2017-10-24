@@ -55,6 +55,13 @@ spec:
         -
           name: simpl
           image: {{.Values.Image}}:{{.Values.ImageTag}}
+          args:
+            - gunicorn
+            - -c
+            - /code/gunicorn.conf
+            - -k
+            - gevent
+            - config.wsgi
           volumeMounts:
 {{ toYaml .Values.DjangoVolumeMounts | indent 12 }}
           env:

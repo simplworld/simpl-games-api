@@ -10,3 +10,5 @@
 ./staticfiles/
 tags
 .env*
+.version
+Dockerfile*

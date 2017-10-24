@@ -41,7 +41,7 @@ spec:
           args:
             - /bin/bash
             - -c
-            - 'celery -E -A simpl.taskapp.celery_app worker -l INFO -b redis://celery-redis/1 -n ${HOSTNAME}'
+            - 'celery -E -A simpl.taskapp.celery_app worker -P gevent -l INFO -b redis://celery-redis/1 -n ${HOSTNAME}'
           volumeMounts:
 {{ toYaml .Values.DjangoVolumeMounts | indent 12 }}
           env:
@@ -52,7 +52,7 @@ spec:
           args:
             - /bin/bash
             - -c
-            - 'celery flower -A simpl.taskapp.celery_app -l DEBUG --debug -b redis://celery-redis/1 --address=${X_POD_IP} --inspect --enable-events'
+            - 'celery flower -A simpl.taskapp.celery_app -l info --debug -b redis://celery-redis/1 --address=${X_POD_IP} --inspect --enable-events'
           volumeMounts:
 {{ toYaml .Values.DjangoVolumeMounts | indent 12 }}
           env:

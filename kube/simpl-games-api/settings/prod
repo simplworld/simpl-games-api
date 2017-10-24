@@ -60,3 +60,13 @@ THORN_RECIPIENT_VALIDATORS = [
 ALLOWED_HOSTS = ['localhost', 'simpl-api.simpl', E.fqdn]
 
 LOGOUT_URL = '/admin/logout'
+
+BROKER_URL = "redis://celery-redis:6379/1"
+CELERY_RESULT_BACKEND = "redis://celery-redis:6379/1"
+CELERY_ALWAYS_EAGER = False
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = "UTC"
+CELERYD_WORKER_HIJACK_ROOT_LOGGER = False
+
+THORN_DISPATCHER = "celery"
