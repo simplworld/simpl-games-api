@@ -1,6 +1,6 @@
 # vim: ft=sh
 
-export IMAGE_VERSION="v1.3.18"
+export IMAGE_VERSION="v1.3.19"
 export IMAGE_TAG="learninglab.githost.io:4678/lldev-team/simpl-games-api:${IMAGE_VERSION}"
 
 
