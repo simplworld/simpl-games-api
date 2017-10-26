@@ -170,10 +170,8 @@ manage.py check_deploy https://simpl.mine.ed/ --email='me@mine.ed' --password='s
 ### upgrade production deployment
 
 ```
-:#  helm upgrade -f kube/simpl-games-api/prod_values.yaml --set=ImageTag=<target docker image tag> simpl-api-prod kube/simpl-games-api
+:#  helm upgrade --set=ImageTag=<target docker image tag> -f kube/simpl-games-api/prod_values.yaml simpl-api-prod kube/simpl-games-api
 ```
-
-----
 
 ## run kubectl web console
 
