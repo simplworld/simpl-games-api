@@ -60,7 +60,7 @@ For local development, run:
 $ ./manage.py create_vagrant_user
 ```
 
-This creates a super user with id 'vagrant@wharton.upenn.edu' and password 'vagrant' and ensures test users can be assigned passwords in scripts.
+This creates a super user with id 'vagrant@simpl.world' and password 'vagrant' and ensures test users can be assigned passwords in scripts.
 
 ### Settings setup
 
