@@ -30,6 +30,10 @@ spec:
       annotations:
         chksum/django-config: {{ include (print $.Template.BasePath  "/configmap-django.yaml") . | sha256sum | quote }}
     spec:
+      {{ if .Values.tolerations -}}
+      tolerations:
+{{ toYaml .Values.tolerations | indent 10 }}
+      {{- end }}
       volumes:
 {{ toYaml .Values.Volumes | indent 8 }}
       imagePullSecrets:

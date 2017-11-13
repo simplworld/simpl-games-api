@@ -1,0 +1,126 @@
+# vim: ft=sls nolist
+
+Image: learninglab.githost.io:4678/lldev-team/simpl-games-api
+
+nginxImageTag: "1.12.1-alpine"
+
+namespace: aux-simpl
+
+deploymentEnvironment: &env prod-aux
+clientMaxBodySize: 250m
+
+replicaCount: "1"
+
+publicFqdn: &fqdn simpl-api-aux.prod.wharton.revsys.com
+
+tolerations:
+  -
+    key: dedicated
+    value: roe
+    operator: "Equal"
+    effect: PreferNoSchedule
+
+Env:
+  - 
+    name: DJANGO_SETTINGS_MODULE
+    value: "kube.settings"
+  -
+    name: DJANGO_FQDN
+    value: *fqdn
+
+  # silence django deprecation warnings
+  -
+    name: PYTHONWARNINGS
+    value: ignore
+  - 
+    name: X_NODE_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName
+        apiVersion: v1
+  - 
+    name: X_POD_IP
+    valueFrom:
+      fieldRef:
+        fieldPath: status.podIP
+        apiVersion: v1
+  - 
+    name: X_KUBE_NAMESPACE
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.namespace
+        apiVersion: v1
+  - 
+    name: X_POD_NAME 
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+        apiVersion: v1
+  - 
+    name: DJANGO_DB_NAME
+    value: simpl-aux
+  -
+    name: DJANGO_DB_USER
+    value: simpl
+  -
+    name: DJANGO_DB_HOST
+    value: postgres
+  -
+    name: DJANGO_DB_PORT
+    value: "5432"
+  -
+    name: DJANGO_DB_PASS
+    valueFrom:
+      secretKeyRef:
+        name: simpl
+        key: database-password
+  -
+    name: DJANGO_SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        name: django
+        key: secret
+  -
+    name: DJANGO_DEBUG
+    value: ""
+
+# Volumes
+Volumes:
+  -
+    name: run
+    emptyDir: {}
+  - 
+    name: staticfiles
+    emptyDir: {}
+  - 
+    name: ngx
+    configMap:
+      name: nginx-config
+  -
+    name: django
+    configMap:
+      name: settings-simpl
+      items:
+        -
+          key: settings
+          path: settings.py
+          mode: 0600
+
+DjangoVolumeMounts:
+  -
+    name: django
+    mountPath: /code/kube
+  -
+    name: staticfiles
+    mountPath: /code/staticfiles
+  -
+    name: run
+    mountPath: /run
+
+NginxVolumeMounts:
+  -
+    name: staticfiles
+    mountPath: /code/staticfiles
+  -
+    name: run
+    mountPath: /run
