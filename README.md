@@ -72,8 +72,10 @@ $ export DJANGO_SETTINGS_MODULE=config.settings.local
 
 ### Start the web server
 
+Django's `runserver` does not support `Keep-Alive` requests, so we use `gunicorn` instead. A command to run gunicorn is included in `simpl-games-api`:
+
 ```bash
-$ ./manage.py runserver 0.0.0.0:8100
+$ ./manage.py run_gunicorn 0.0.0.0:8100
 ```
 
 ### Run tests
