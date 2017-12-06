@@ -70,3 +70,7 @@ staticfiles/
 # pytest cache??
 .cache/
 .env_
+
+*.gz
+*.json
+
