@@ -106,7 +106,10 @@ $ git push && git push --tags
 
 ## Generate updated ERD of Models
 
-```bash
+If you are using an environment that supports running Pillow, uncomment the Pillow line in requirements.txt and run:
+
+```
+$ pip install -r requirements.txt --upgrade
 $ ./manage.py graph_models games -o docs/models.png
 ```
 
