@@ -1,7 +1,7 @@
 # vim: ft=sls nolist
 
 Image: learninglab.githost.io:4678/lldev-team/simpl-games-api
-ImageTag: v1.3.21
+ImageTag: v1.3.22
 namespace: simpl
 
 nginxImageTag: "1.12.1-alpine"
