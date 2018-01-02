@@ -57,10 +57,10 @@ $ ./manage.py createsuperuser
 For local development, run:
 
 ```bash
-$ ./manage.py create_vagrant_user
+$ ./manage.py create_simpl_user
 ```
 
-This creates a super user with id 'vagrant@simpl.world' and password 'vagrant' and ensures test users can be assigned passwords in scripts.
+This creates a super user with id 'simpl@simpl.world' and password 'simpl' and ensures test users can be assigned passwords in scripts.
 
 ### Settings setup
 

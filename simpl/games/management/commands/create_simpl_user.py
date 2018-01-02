@@ -6,6 +6,6 @@ from simpl_users.models import User
 @click.command()
 def command():
     try:
-        User.objects.get(email='vagrant@simpl.world')
+        User.objects.get(email='simpl@simpl.world')
     except User.DoesNotExist:
-        User.objects.create_superuser('vagrant@simpl.world  ', 'vagrant')
+        User.objects.create_superuser('simpl@simpl.world  ', 'simpl')
