@@ -185,3 +185,18 @@ manage.py check_deploy https://simpl.mine.ed/ --email='me@mine.ed' --password='s
 ```
 
 Browse to http:/localhost:8001/ui
+
+
+## Setting up SIMPL_GAMES_AUTH secret
+
+```
+
+:# kubectl create secret
+  --namespace=simpl \
+  generic simpl-auth \
+  --from-literal=id=puser@somedomain.com \
+  --from-literal=password=ThePassword
+
+```
+
+This command also needs to be executed with `namespace` set to _roe_.

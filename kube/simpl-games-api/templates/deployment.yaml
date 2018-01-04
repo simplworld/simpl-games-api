@@ -10,6 +10,7 @@ metadata:
     release: {{ .Release.Name | quote }}
     revision: {{ .Release.Revision | default 0 | quote }}
     chart: {{.Chart.Name}}-{{.Chart.Version}}
+    imageTag: {{.Values.ImageTag}}
   annotations:
     helm.sh/created: {{ .Release.Time.Seconds | quote }}
     revsys.com/pg_db: simpl-{{.Values.deploymentEnvironment}}
