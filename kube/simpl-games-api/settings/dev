@@ -9,7 +9,6 @@ LOGGING['loggers']['allauth'] = LOGGING['loggers']['demo']
 LOGGING['loggers']['cuser'] = LOGGING['loggers']['demo']
 LOGGING['loggers']['thorn.django'] = LOGGING['loggers']['demo']
 LOGGING['loggers']['simpl_users'] = LOGGING['loggers']['demo']
-LOGGING['loggers']['courses'] = LOGGING['loggers']['demo']
 LOGGING['loggers']['simpl'] = LOGGING['loggers']['demo']
 LOGGING['loggers']['kombu'] = LOGGING['loggers']['demo']
 

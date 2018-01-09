@@ -29,7 +29,6 @@ urlpatterns += [
 urlpatterns += [
     url(r'^simpl/', include('simpl.games.urls', namespace='simpl')),
     url(r'^users/', include('simpl_users.urls', namespace='users')),
-    url(r'^courses/', include('courses.urls', namespace='courses')),
 
     url(r'^apis/', include(api_router.urls, namespace='simpl_api')),
     url(r'^apis/',
