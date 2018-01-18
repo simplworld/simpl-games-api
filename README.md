@@ -43,6 +43,7 @@ $ createdb simpl
 Sync models to database:
 
 ```bash
+$ ./manage.py makemigrations
 $ ./manage.py migrate
 ```
 
