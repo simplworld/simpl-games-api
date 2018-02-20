@@ -30,15 +30,14 @@ class StandaloneApplication(gunicorn.app.base.BaseApplication):
 
 @click.command()
 @click.option('--worker-connections', default=1000)
+@click.option('--worker-class', default='tornado')
 @click.argument('bind', required=False)
 @click.option('--workers')
-def command(worker_connections, bind=None, workers=None):
+def command(worker_connections, worker_class, bind=None, workers=None):
     if bind is None:
         bind = '127.0.0.1:8000'
     if workers is None:
         workers = number_of_workers()
-
-
 
     options = {
         'access_log_format': '%(t)s "%(r)s" %(s)s %(b)s',
@@ -54,7 +53,7 @@ def command(worker_connections, bind=None, workers=None):
         'worker_connections': worker_connections,
         'threads': 20,
         'keep_alive': 10,
-        'worker_class': 'gthread',
+        'worker_class': worker_class,
     }
 
     StandaloneApplication(application, options).run()
