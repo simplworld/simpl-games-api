@@ -29,13 +29,16 @@ class StandaloneApplication(gunicorn.app.base.BaseApplication):
 
 
 @click.command()
+@click.option('--worker-connections', default=1000)
 @click.argument('bind', required=False)
 @click.option('--workers')
-def command(bind=None, workers=None):
+def command(worker_connections, bind=None, workers=None):
     if bind is None:
         bind = '127.0.0.1:8000'
     if workers is None:
         workers = number_of_workers()
+
+
 
     options = {
         'access_log_format': '%(t)s "%(r)s" %(s)s %(b)s',
@@ -48,7 +51,7 @@ def command(bind=None, workers=None):
         # use the `worker_connections` argument in concert with the `threads`
         # argument to determine whether or not there is sufficient room to run
         # keep-alive threads
-        'worker_connections': 30,
+        'worker_connections': worker_connections,
         'threads': 20,
         'keep_alive': 10,
         'worker_class': 'gthread',
