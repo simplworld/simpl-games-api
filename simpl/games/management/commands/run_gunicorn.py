@@ -31,9 +31,11 @@ class StandaloneApplication(gunicorn.app.base.BaseApplication):
 @click.command()
 @click.option('--worker-connections', default=1000)
 @click.option('--worker-class', default='tornado')
+@click.option('--threads', default=10)
+@click.option('--keep-alive', default=10)
 @click.argument('bind', required=False)
 @click.option('--workers')
-def command(worker_connections, worker_class, bind=None, workers=None):
+def command(worker_connections, worker_class, threads, keep_alive, bind=None, workers=None):
     if bind is None:
         bind = '127.0.0.1:8000'
     if workers is None:
@@ -51,8 +53,8 @@ def command(worker_connections, worker_class, bind=None, workers=None):
         # argument to determine whether or not there is sufficient room to run
         # keep-alive threads
         'worker_connections': worker_connections,
-        'threads': 20,
-        'keep_alive': 10,
+        'threads': threads,
+        'keep_alive': keep_alive,
         'worker_class': worker_class,
     }
 
