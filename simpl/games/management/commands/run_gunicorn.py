@@ -30,7 +30,7 @@ class StandaloneApplication(gunicorn.app.base.BaseApplication):
 
 @click.command()
 @click.option('--worker-connections', default=1000)
-@click.option('--worker-class', default='tornado')
+@click.option('--worker-class', default='gaiohttp')
 @click.option('--threads', default=10)
 @click.option('--keep-alive', default=10)
 @click.argument('bind', required=False)
