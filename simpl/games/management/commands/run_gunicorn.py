@@ -56,6 +56,7 @@ def command(worker_connections, worker_class, threads, keep_alive, bind=None, wo
         'threads': threads,
         'keep_alive': keep_alive,
         'worker_class': worker_class,
+        'reload': True,
     }
 
     StandaloneApplication(application, options).run()
