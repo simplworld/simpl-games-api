@@ -47,11 +47,6 @@ def command(worker_connections, worker_class, threads, keep_alive, bind=None, wo
         'bind': bind,
         'log_level': 'INFO',
         'workers': workers,
-
-        # contrary to the documentation, the gthread worker type does actually
-        # use the `worker_connections` argument in concert with the `threads`
-        # argument to determine whether or not there is sufficient room to run
-        # keep-alive threads
         'worker_connections': worker_connections,
         'threads': threads,
         'keep_alive': keep_alive,
