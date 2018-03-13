@@ -69,6 +69,7 @@ django-extensions==1.7.3
 # Gunicorn
 gunicorn==19.7.1
 aiohttp<2.0
+tornado==4.5.3
 
 # Testing related
 coverage==4.3.4
