@@ -31,6 +31,7 @@ spec:
       annotations:
         chksum/django-config: {{ include (print $.Template.BasePath  "/configmap-django.yaml") . | sha256sum | quote }}
         chksum/nginx-config: {{ include (print $.Template.BasePath  "/configmap-nginx.yaml") . | sha256sum | quote }}
+        chksum/nginx-server-config: {{ include (print $.Template.BasePath  "/configmap-nginx-server.yaml") . | sha256sum | quote }}
         pod.beta.kubernetes.io/init-containers: '[
           {
             "name": "migrate",
@@ -80,6 +81,9 @@ spec:
             -
               name: ngx
               mountPath: /etc/nginx/conf.d
+            -
+              name: ngx-server
+              mountPath: /etc/nginx/nginx.conf
 {{ toYaml .Values.NginxVolumeMounts | indent 12 }}
           env:
 {{ toYaml .Values.Env | indent 12 }}
