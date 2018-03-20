@@ -5,7 +5,7 @@
 wheel==0.29.0
 
 # Django
-django==1.11.6
+Django==1.11.11
 
 # Configuration
 django-environ==0.4.4
@@ -48,11 +48,11 @@ git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to t
 django-bootstrap3==8.2.1
 
 # Simpl Modules
-https://learninglab.githost.io/lldev-team/simpl-users/repository/archive.zip?private_token=bKzxcaegBJJ_Vs_PskEH&ref=v0.3.6
+https://learninglab.githost.io/lldev-team/simpl-users/repository/archive.zip?private_token=bKzxcaegBJJ_Vs_PskEH&ref=v0.3.7
 
 django-filter==1.0.4
 django-rest-swagger==2.1.2
-djangorestframework==3.6.3
+djangorestframework==3.6.4
 djangorestframework-bulk==0.2.1
 
 # Nicer CLI Interface
