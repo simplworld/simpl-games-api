@@ -6,7 +6,7 @@ metadata:
 data:
   default.conf: |-
     server {
-      listen 80 deferred;
+      listen 80 deferred backlog=4000;
 
       error_log /dev/stdout info;
       access_log /dev/stdout main;
