@@ -20,13 +20,13 @@ $ git clone git@github.com:simplworld/simpl-games-api.git
 
 $ vagrant ssh
 $ mkvirtualenv simpl-games-api
-$ add2virtualenv /vagrant/projects/simpl-games-api
 ```
 
 ### Python Setup (assumes working in vagrant)
 
 ```bash
 $ cd projects/simpl-games-api
+$ add2virtualenv .
 $ pip install -r requirements.txt
 ```
 
@@ -43,7 +43,6 @@ $ createdb simpl
 Sync models to database:
 
 ```bash
-$ ./manage.py makemigrations
 $ ./manage.py migrate
 ```
 
