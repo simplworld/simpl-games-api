@@ -1,9 +1,11 @@
-# set ft=python
+# vim: ft=python
 
+from config.settings.env import e as E
 from django.utils import six
 from thorn import validators as thorn_validators
 from jslog4kube import LOGGING
 
+DEBUG = True
 LOGGING['loggers']['rest_framework'] = LOGGING['loggers']['demo']
 LOGGING['loggers']['allauth'] = LOGGING['loggers']['demo']
 LOGGING['loggers']['cuser'] = LOGGING['loggers']['demo']
@@ -13,14 +15,13 @@ LOGGING['loggers']['simpl'] = LOGGING['loggers']['demo']
 LOGGING['loggers']['kombu'] = LOGGING['loggers']['demo']
 
 from config.settings.common import *  # noqa
-from config.settings.env import e as E
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # django-secure
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ("djangosecure", )
+#INSTALLED_APPS += ("djangosecure", )
 
 SECURITY_MIDDLEWARE = (
     'djangosecure.middleware.SecurityMiddleware',
@@ -34,10 +35,8 @@ MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
 # ------------------------------------------------------------------------------
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['simpl.dev.wharton.revsys.com', 'simpl-api.simpl']
+ALLOWED_HOSTS = ['simpl.dev.wharton.revsys.com', 'simpl-api.simpl', 'wsgi']
 # END SITE CONFIGURATION
-
-INSTALLED_APPS += ("gunicorn", )
 
 TEMPLATES[0]['OPTIONS']['loaders'] = [
     ('django.template.loaders.cached.Loader', [
@@ -49,13 +48,16 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django_db_geventpool.backends.postgresql_psycopg2',
         'HOST': E.db_host,
         'NAME': E.db_name,
         'PASSWORD': E.db_pass,
         'PORT': int(E.db_port) if E.count('db_port') else 5432,
         'USER': E.db_user,
-        'CONN_MAX_AGE': 60,
+        'CONN_MAX_AGE': 0,
+        'OPTIONS': {
+            'MAX_CONNS':200,
+        }
     }
 }
 
@@ -69,10 +71,10 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 # ------------------------------------------------------------------------------
 # Heroku URL does not pass the DB number, so we parse it in
 CACHES = {
-  'default': {
-      'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-      'LOCATION': "memcache:11211",
-  },
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': "memcache:11211",
+    },
 }
 
 # Your production stuff: Below this line define 3rd party library settings
