@@ -1,21 +1,11 @@
-FROM registry.gitlab.com/revsys/docker-builds/python:3.6.3-wee-optimized-lto
+From gladiatr72/just-tini:latest as tini
+
+FROM revolutionsystems/python:3.6.5-wee-optimized-lto
 
 
 ENV PYTHONUNBUFFERED 1
-ENV TINI_VERSION v0.14.0
 
-RUN mkdir -p /code/; apt update && apt -y upgrade; \
-    apt-get -y install netcat-openbsd curl git gnupg  \
-    && curl -sL -o /tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini  \
-    && curl -sL -o /tini.asc https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc \
-    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 595E85A6B1B4779EA4DAAEC70B588DFF0527A9B7 \
-    && gpg --verify /tini.asc \
-    && chmod 700 /tini \
-    && apt remove -y $( dpkg -l | cut -d" " -f3 | egrep '^(x11|tk|libice|gtk|imagemag|mysql|curl)' ) \
-    && apt-get -y autoremove \
-    && rm -rf /var/lib/apt/lists/* /usr/share/man /usr/local/share/man
-
-ADD ./requirements.txt ./code/requirements.txt
+COPY ./requirements.txt ./code/requirements.txt
 
 RUN apt update \
         && apt-get -y install libjpeg62-turbo-dev zlib1g-dev gcc make \
@@ -26,6 +16,7 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/* /usr/share/man /usr/local/share/man \
     && find /usr -type f -regex "*.py[co]$" -exec rm -r {} +
 
+COPY --from=tini /tini /tini
 ADD . /code/
 WORKDIR /code
 ENV PYTHONPATH /code:$PYTHONPATH
