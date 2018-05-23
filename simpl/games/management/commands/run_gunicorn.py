@@ -14,7 +14,7 @@ def command(bind):
 
     config_path = settings.ROOT_DIR + 'gunicorn.conf'
 
-    command = "gunicorn -c {config_path} --log-level=DEBUG -b {bind} config.wsgi".format(
+    command = "gunicorn -c {config_path} --log-level=DEBUG --reload -b {bind} config.wsgi".format(
         config_path=config_path,
         bind=bind,
     )
