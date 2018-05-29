@@ -140,6 +140,16 @@ The command will prompt you for your admin user's email address (aka username), 
 manage.py check_deploy https://simpl.mine.ed/ --email='me@mine.ed' --password='sumpun' --game=sim
 ```
 
+## Count game model objects
+
+Management command that print counts of all simpl model objects based on game slug. For example, run
+
+```
+./manage.py count_game_models -s calc
+```
+
+to see counts of all model objects for a game with slug 'calc'.
+
 # Deploying on LL Kubernetes development cluster
 
 
