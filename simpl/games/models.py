@@ -42,7 +42,7 @@ class Decision(AbstractTimeStampedModel):
         # unique_together = ('name', 'period', 'role')
         verbose_name = _('decision')
         verbose_name_plural = _('decisions')
-        ordering = ('name',)
+        ordering = ('pk',)
 
     def __str__(self):
         return self.name
@@ -77,6 +77,7 @@ class Game(AbstractTimeStampedModel):
     class Meta(object):
         verbose_name = _('game')
         verbose_name_plural = _('games')
+        ordering = ('pk',)
 
     def save(self, *args, **kwargs):
         """
@@ -117,7 +118,7 @@ class Period(AbstractTimeStampedModel):
         unique_together = ('scenario', 'order')
         verbose_name = _('period')
         verbose_name_plural = _('periods')
-        ordering = ('order',)
+        ordering = ('pk',)
 
     def __str__(self):
         return '{0}: {1}'.format(
@@ -155,10 +156,10 @@ class Phase(AbstractTimeStampedModel):
                                              db_index=True)
 
     class Meta(object):
-        ordering = ('game', 'order')
         unique_together = ('name', 'game')
         verbose_name = _('phase')
         verbose_name_plural = _('phases')
+        ordering = ('pk',)
 
     def __str__(self):
         return self.name
@@ -197,7 +198,7 @@ class Result(AbstractTimeStampedModel):
         unique_together = ('name', 'period', 'role')
         verbose_name = _('result')
         verbose_name_plural = _('results')
-        ordering = ('name',)
+        ordering = ('pk',)
 
     def __str__(self):
         return self.name
@@ -265,7 +266,7 @@ class Run(AbstractTimeStampedModel):
     class Meta(object):
         verbose_name = _('run')
         verbose_name_plural = _('runs')
-        ordering = ('-created',)
+        ordering = ('pk',)
 
     def __str__(self):
         return self.name
@@ -316,7 +317,7 @@ class RunUser(AbstractTimeStampedModel):
         unique_together = ('user', 'run')
         verbose_name = _('run user')
         verbose_name_plural = _('run users')
-        ordering = ('run', 'user', 'created')
+        ordering = ('pk',)
 
     def __str__(self):
         return self.user.__str__()
@@ -362,7 +363,7 @@ class Scenario(AbstractTimeStampedModel):
     class Meta(object):
         verbose_name = _('scenario')
         verbose_name_plural = _('scenarios')
-        ordering = ('created',)
+        ordering = ('pk',)
 
     def __str__(self):
         return self.name
@@ -409,7 +410,7 @@ class World(AbstractTimeStampedModel):
         unique_together = ('name', 'run')
         verbose_name = _('world')
         verbose_name_plural = _('worlds')
-        ordering = ('created',)
+        ordering = ('pk',)
 
     def __str__(self):
         return self.name
