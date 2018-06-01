@@ -48,7 +48,7 @@ git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to t
 django-bootstrap3==8.2.1
 
 # Simpl Modules
-https://learninglab.githost.io/api/v4/projects/lldev-team%2Fsimpl-users/repository/archive?sha=v0.3.7&private_token=bKzxcaegBJJ_Vs_PskEH
+https://learninglab.githost.io/api/v4/projects/lldev-team%2Fsimpl-users/repository/archive?sha=v0.3.8&private_token=bKzxcaegBJJ_Vs_PskEH
 django-filter==1.0.4
 django-rest-swagger==2.1.2
 djangorestframework==3.6.4
