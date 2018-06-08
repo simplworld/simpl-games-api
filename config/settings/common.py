@@ -246,7 +246,7 @@ REST_FRAMEWORK = {
         'rest_framework.filters.DjangoFilterBackend',
     ),
     'DEFAULT_PAGINATION_CLASS': 'simpl.core.pagination.LinkHeaderPagination',
-    'PAGE_SIZE': 10000,
+    'PAGE_SIZE': 500,
 }
 
 SWAGGER_SETTINGS = {
