@@ -1,0 +1,47 @@
+{% extends "simpl/results/base.html" %}
+
+{% block title %}
+  Result List
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>Result List <small>{% if paginator %}({{ paginator.count }} total){% endif %}</small></h1>
+  </header>
+
+  <p><a class="btn btn-primary" href={% url "simpl:result_create" %}>Create New Result</a></p>
+
+  <table class="table table-bordered table-striped table-responsive">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for result in result_list %}
+      <tr>
+        <td>
+          <a href="{% url 'simpl:result_detail' result.pk %}">{{ result }}</a>
+        </td>
+        <td>
+          <a class="btn btn-default" href="{% url 'simpl:result_update' result.pk %}">Update</a>
+          <a class="btn btn-danger" href="{% url 'simpl:result_delete' result.pk %}">Delete</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="2">No Results yet.</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% comment %}
+  PAGINATION
+  {% endcomment %}
+
+  {% include "includes/pagination.html" %}
+</div>
+{% endblock inner_content %}

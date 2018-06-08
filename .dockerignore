@@ -1,0 +1,14 @@
+./.git/
+./.git*
+./tmp/
+./log/
+./Makefile
+./Dockerfile
+./kube/
+./.version
+./.bumpversion.cfg
+./staticfiles/
+tags
+.env*
+.version
+Dockerfile*

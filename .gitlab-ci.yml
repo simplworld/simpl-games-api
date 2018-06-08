@@ -1,0 +1,54 @@
+image: docker:latest
+
+variables:
+  CONTAINER_TEST_IMAGE: learninglab.githost.io:4678/lldev-team/simpl-games-api:$CI_BUILD_REF_NAME
+  CONTAINER_RELEASE_IMAGE: learninglab.githost.io:4678/lldev-team/simpl-games-api:latest
+  CONTAINER_VERSION_IMAGE: learninglab.githost.io:4678/lldev-team/simpl-tests:$CI_BUILD_TAG
+
+stages:
+  - build
+  - test
+  - release
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN learninglab.githost.io:4678
+
+build:
+  tags:
+    - docker
+  stage: build
+  script:
+    - docker build -t $CONTAINER_TEST_IMAGE .
+    - docker push $CONTAINER_TEST_IMAGE
+
+test:
+  tags:
+    - docker
+  stage: test
+  services:
+    - name: postgres:9.6
+      alias: postgres
+  variables:
+    DJANGO_SETTINGS_MODULE: 'config.settings.test'
+    SIMPL_GAMES_API_PORT: "8100"
+    POSTGRES_PASSWORD: ""
+    POSTGRES_USER: postgres
+    POSTGRES_DB: postgres
+  script:
+    - export PGPASSWORD=$POSTGRES_PASSWORD
+    - export PGHOST=${POSTGRES_PORT_5432_TCP_ADDR}
+    - docker run -e "DATABASE_URL=postgres://postgres@${POSTGRES_PORT_5432_TCP_ADDR}/postgres" ${CONTAINER_TEST_IMAGE} /bin/bash -c /code/tests.sh
+
+release-image:
+  tags:
+    - docker
+  stage: release
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_VERSION_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
+  only:
+    - tags
+  except:
+    - branches

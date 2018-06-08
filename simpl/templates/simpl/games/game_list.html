@@ -1,0 +1,50 @@
+{% extends "simpl/games/base.html" %}
+
+{% block title %}
+  Game List
+{% endblock %}
+
+{% block inner_content %}
+<div class="col-md-9">
+  <header>
+    <h1>Game List <small>{% if paginator %}({{ paginator.count }} total){% endif %}</small></h1>
+  </header>
+
+  <p><a class="btn btn-primary" href={% url "simpl:game_create" %}>Create New Game</a></p>
+
+  <table class="table table-bordered table-striped table-responsive">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Active</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for game in game_list %}
+      <tr>
+        <td>
+          <a href="{% url 'simpl:game_detail' game.pk %}">{{ game }}</a>
+        </td>
+        <td>
+          {% include "includes/active_status_field.html" with obj=game %}
+        </td>
+        <td>
+          <a class="btn btn-default" href="{% url 'simpl:run_list' %}">Runs</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3">No Games yet.</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% comment %}
+  PAGINATION
+  {% endcomment %}
+
+  {% include "includes/pagination.html" %}
+</div>
+{% endblock inner_content %}
