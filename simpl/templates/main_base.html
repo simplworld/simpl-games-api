@@ -13,6 +13,8 @@
 {% endcomment %}
 
 {% block main_nav %}
+{% url 'courses:code_list' as courses_list_url %}
+{% if courses_list_url %}
 <li class="dropdown-list" class="{% block menu_courses %}{% endblock menu_courses %}">
   <div class="dropdown">
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -35,6 +37,7 @@
     </ul>
   </div>
 </li><!--/ end dropdown-list -->
+{% endif %}
 
 <li class="dropdown-list" class="{% block menu_simpl %}active{% endblock menu_simpl %}">
   <div class="dropdown">
@@ -124,6 +127,8 @@
       </ul>
     </nav>
 
+    {% url 'courses:code_list' as courses_list_url %}
+    {% if courses_list_url %}
     <h3>Courses</h3>
     <nav id="sidebar-nav">
       <ul>
@@ -146,6 +151,7 @@
 
       </ul>
     </nav>
+    {% endif %}
 
   </div>
 
