@@ -17,7 +17,7 @@ framework.
 import os
 
 from django.core.wsgi import get_wsgi_application
-#from whitenoise.django import DjangoWhiteNoise
+from whitenoise.django import DjangoWhiteNoise
 
 
 
@@ -34,7 +34,7 @@ application = get_wsgi_application()
 
 # Use Whitenoise to serve static files
 # See: https://whitenoise.readthedocs.org/
-# application = DjangoWhiteNoise(application)
+application = DjangoWhiteNoise(application)
 
 
 # Apply WSGI middleware here.
