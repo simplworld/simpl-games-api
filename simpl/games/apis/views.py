@@ -1,5 +1,6 @@
 import logging
 
+from django.db.models import Q
 from rest_framework import viewsets
 from rest_framework.authentication import (
     SessionAuthentication,
@@ -22,6 +23,33 @@ class CommonViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
 
+    def get_queryset(self):
+        """
+        Filter the queryset by the user.
+
+        No filtering is done if the user is a staff members or if
+        :attr:`user_filter` is set to ``None``.
+
+        Otherwise, the :attr:`user_filter` (or an OR of multiple
+        filters, if set to a list or tuple) is used as the
+        ``QuerySet.filter()`` keyword argument which will have a value
+        of the current user.
+        """
+        qs = super(CommonViewSet, self).get_queryset()
+        if not hasattr(self, 'user_filter'):
+            raise NotImplementedError(
+                'Add the user_filter property to this model viewset')
+        if not self.user_filter or self.request.user.is_staff:
+            return qs
+        if self.request.user.is_anonymous:
+            return qs.none()
+        if isinstance(self.user_filter, (list, tuple)):
+            filters = Q()
+            for user_filter in self.user_filter:
+                filters |= Q(**{user_filter: self.request.user.pk})
+            return qs.filter(filters)
+        return qs.filter(**{self.user_filter: self.request.user.pk})
+
 
 # ViewSets
 
@@ -35,6 +63,10 @@ class DecisionViewSet(CommonViewSet):
         'created',
         'modified',
     )
+    user_filter = [
+        'scenario__run_user__user',
+        'scenario__world__runs__run_users__user',
+    ]
 
     def create(self, request):
         """
@@ -110,6 +142,7 @@ class GameViewSet(CommonViewSet):
         'created',
         'modified',
     )
+    user_filter = 'runs__run_users__user'
 
     def create(self, request):
         """
@@ -175,6 +208,10 @@ class PeriodViewSet(CommonViewSet):
         'created',
         'modified',
     )
+    user_filter = [
+        'scenario__run_user__user',
+        'scenario__world__runs__run_users__user',
+    ]
 
     def create(self, request):
         """
@@ -240,6 +277,7 @@ class PhaseViewSet(CommonViewSet):
         'created',
         'modified',
     )
+    user_filter = 'game__runs__run_users__user'
 
     def create(self, request):
         """
@@ -305,6 +343,10 @@ class ResultViewSet(CommonViewSet):
         'created',
         'modified',
     )
+    user_filter = [
+        'period__scenario__run_user__user',
+        'period__scenario__world__runs__run_users__user',
+    ]
 
     def create(self, request):
         """
@@ -375,6 +417,7 @@ class RoleViewSet(CommonViewSet):
         'created',
         'modified',
     )
+    user_filter = 'game__runs__run_users__user'
 
     def create(self, request):
         """
@@ -440,6 +483,7 @@ class RunViewSet(CommonViewSet):
         'created',
         'modified',
     )
+    user_filter = 'run_users__user'
 
     def create(self, request):
         """
@@ -507,6 +551,8 @@ class RunUserViewSet(CommonViewSet):
         'created',
         'modified',
     )
+    # Allow view access to all users in worlds that you are part of
+    user_filter = ['pk', 'world__run_users__user']
 
     def create(self, request):
         """
@@ -592,6 +638,7 @@ class ScenarioViewSet(CommonViewSet):
         'created',
         'modified',
     )
+    user_filter = ['run_user__user', 'world__run_users__user']
 
     def create(self, request):
         """
@@ -715,6 +762,7 @@ class WorldViewSet(CommonViewSet):
         'created',
         'modified',
     )
+    user_filter = 'run_users__user'
 
     def create(self, request):
         """
