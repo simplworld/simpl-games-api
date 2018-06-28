@@ -37,12 +37,41 @@ class GameDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'game'
 
 
-class GameListView(LoginRequiredMixin, ListView):
+class GameListViewOLD(LoginRequiredMixin, ListView):
     model = Game
     template_name = 'simpl/games/game_list.html'
     paginate_by = 20
     context_object_name = 'game_list'
     allow_empty = True
+
+
+from simpl.games.apis.views import GameViewSet
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.renderers import TemplateHTMLRenderer
+
+
+class ViewSetTemplateHTMLRenderer(TemplateHTMLRenderer):
+    def get_template_context(self, data, renderer_context):
+        response = renderer_context['response']
+        if response.exception:
+            data['status_code'] = response.status_code
+        view = renderer_context['view']
+        context = {}
+        if isinstance(data, dict) and 'results' in data:
+            context['page_obj'] = view.paginator.page
+            data = data['results']
+        context[view.context_object_name] = data
+        return context
+
+
+class GameListView(LoginRequiredMixin, GameViewSet):
+    renderer_classes = (ViewSetTemplateHTMLRenderer,)
+    pagination_class = PageNumberPagination
+
+    template_name = 'simpl/games/game_list.html'
+    paginate_by = 20
+    context_object_name = 'game_list'
+    # allow_empty = True
 
 
 class GameUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):

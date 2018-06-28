@@ -27,6 +27,6 @@ urlpatterns = [
         name='game_detail'),
 
     url(r'^$',
-        GameListView.as_view(),
+        GameListView.as_view({'get': 'list'}),
         name='game_list'),
 ]

@@ -24,7 +24,7 @@
     {% for game in game_list %}
       <tr>
         <td>
-          <a href="{% url 'simpl:game_detail' game.pk %}">{{ game }}</a>
+          <a href="{% url 'simpl:game_detail' game.id %}">{{ game.name }}</a>
         </td>
         <td>
           {% include "includes/active_status_field.html" with obj=game %}
