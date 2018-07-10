@@ -78,6 +78,8 @@ Django's `runserver` does not support `Keep-Alive` requests, so we use `gunicorn
 $ ./manage.py run_gunicorn
 ```
 
+**NOTE**: You may need to create a directory named `staticfiles` and run `manage.py collectstatic` to have the admin media show up correctly. 
+
 ### Run tests
 
 Run `py.test`:
