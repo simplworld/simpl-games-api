@@ -72,13 +72,19 @@ $ export DJANGO_SETTINGS_MODULE=config.settings.local
 
 ### Start the web server
 
-Django's `runserver` does not support `Keep-Alive` requests, so we use `gunicorn` instead. A command to run gunicorn is included in `simpl-games-api`:
+```bash
+$ ./manage.py runserver 0.0.0.0:8100
+```
+**NOTE**: You may need to create a directory named `staticfiles` and run `manage.py collectstatic` to have the admin media show up correctly.
+
+Django's `runserver` does not support `Keep-Alive` requests, so we use `gunicorn` instead in production.
+
+A command to run gunicorn is included in `simpl-games-api`:
 
 ```bash
 $ ./manage.py run_gunicorn
 ```
 
-**NOTE**: You may need to create a directory named `staticfiles` and run `manage.py collectstatic` to have the admin media show up correctly. 
 
 ### Run tests
 
@@ -115,12 +121,6 @@ $ pip install -r requirements.txt --upgrade
 $ ./manage.py graph_models games -o docs/models.png
 ```
 
-## What's where?
-
-- [API Docs](http://localhost:8100/)
-- [Simpl apis](http://localhost:8100/apis/)
-- [Django Admin](http://localhost:8100/admin/)
-- ~~[Simpl Frontend Admin](http://localhost:8100/simpl/) but only if you need it!~~
 
 ## Model Schema
 
@@ -151,5 +151,13 @@ Management command that print counts of all simpl model objects based on game sl
 ```
 
 to see counts of all model objects for a game with slug 'calc'.
+
+
+## What's where?
+
+- [API Docs](http://localhost:8100/)
+- [Simpl apis](http://localhost:8100/apis/)
+- [Django Admin](http://localhost:8100/admin/)
+- ~~[Simpl Frontend Admin](http://localhost:8100/simpl/) but only if you need it!~~
 
 
