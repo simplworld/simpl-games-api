@@ -72,11 +72,19 @@ $ export DJANGO_SETTINGS_MODULE=config.settings.local
 
 ### Start the web server
 
-Django's `runserver` does not support `Keep-Alive` requests, so we use `gunicorn` instead. A command to run gunicorn is included in `simpl-games-api`:
+```bash
+$ ./manage.py runserver 0.0.0.0:8100
+```
+**NOTE**: You may need to create a directory named `staticfiles` and run `manage.py collectstatic` to have the admin media show up correctly.
+
+Django's `runserver` does not support `Keep-Alive` requests, so we use `gunicorn` instead in production.
+
+A command to run gunicorn is included in `simpl-games-api`:
 
 ```bash
 $ ./manage.py run_gunicorn
 ```
+
 
 ### Run tests
 
@@ -113,12 +121,6 @@ $ pip install -r requirements.txt --upgrade
 $ ./manage.py graph_models games -o docs/models.png
 ```
 
-## What's where?
-
-- [API Docs](http://localhost:8100/)
-- [Simpl apis](http://localhost:8100/apis/)
-- [Django Admin](http://localhost:8100/admin/)
-- ~~[Simpl Frontend Admin](http://localhost:8100/simpl/) but only if you need it!~~
 
 ## Model Schema
 
@@ -150,63 +152,12 @@ Management command that print counts of all simpl model objects based on game sl
 
 to see counts of all model objects for a game with slug 'calc'.
 
-# Deploying on LL Kubernetes development cluster
+
+## What's where?
+
+- [API Docs](http://localhost:8100/)
+- [Simpl apis](http://localhost:8100/apis/)
+- [Django Admin](http://localhost:8100/admin/)
+- ~~[Simpl Frontend Admin](http://localhost:8100/simpl/) but only if you need it!~~
 
 
-# Kubernetes Deployment
-
-## TL;DR section
-
-### setup the `kubectl` environment
-
-#### show current cluster contexts
-
-```
-#: kubectl config get-contexts
-```
-
-#### select different cluster (if needed)
-
-```
-#: kubectl config use-context <cluster-name>
-```
-
-#### select different default namespace  (if needed)
-
-```
-#: kubectl config set-context <cluster-name> --namespace=simpl
-```
-
-### upgrade dev deployment
-```
-:#  helm upgrade --set=ImageTag=<target docker image tag> simpl-api-dev kube/simpl-games-api
-```
-
-### upgrade production deployment
-
-```
-:#  helm upgrade --set=ImageTag=<target docker image tag> -f kube/simpl-games-api/prod_values.yaml simpl-api-prod kube/simpl-games-api
-```
-
-## run kubectl web console
-
-```
-:#  kubectl proxy
-```
-
-Browse to http:/localhost:8001/ui
-
-
-## Setting up SIMPL_GAMES_AUTH secret
-
-```
-
-:# kubectl create secret
-  --namespace=simpl \
-  generic simpl-auth \
-  --from-literal=id=puser@somedomain.com \
-  --from-literal=password=ThePassword
-
-```
-
-This command also needs to be executed with `namespace` set to _roe_.

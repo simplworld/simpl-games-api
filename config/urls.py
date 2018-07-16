@@ -25,6 +25,10 @@ urlpatterns += [
     url(r'^accounts/', include('allauth.urls')),
 ]
 
+# Static Media and User Uploads
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT, show_indexes=True)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 # Our application urls
 urlpatterns += [
     url(r'^simpl/', include('simpl.games.urls', namespace='simpl')),
@@ -39,9 +43,6 @@ urlpatterns += [
         include(bulk_api_router.urls, namespace='simpl_bulk_api')),
     url(r'^$', schema_view),  # Swagger
 ]
-
-# Static Media and User Uploads
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
