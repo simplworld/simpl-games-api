@@ -43,7 +43,7 @@ class RunFilter(filters.FilterSet):
 
 class RunUserFilter(filters.FilterSet):
     game_slug = filters.CharFilter(name='run__game__slug')
-    run_active = filters.CharFilter(name='run__active')
+    run_active = filters.BooleanFilter(name='run__active')
 
     class Meta:
         model = models.RunUser
@@ -61,7 +61,7 @@ class RunUserFilter(filters.FilterSet):
 
 class WorldFilter(filters.FilterSet):
     game_slug = filters.CharFilter(name='run__game__slug')
-    run_active = filters.CharFilter(name='run__active')
+    run_active = filters.BooleanFilter(name='run__active')
 
     class Meta:
         model = models.World
@@ -87,8 +87,8 @@ class ScenarioFilter(filters.FilterSet):
             Q(runuser__run__game__slug=value)
         )
 
-    run_active = filters.CharFilter(name='special-filter',
-                                    method='filter_runuser_and_worlds_in_run_active')
+    run_active = filters.BooleanFilter(name='special-filter',
+                                       method='filter_runuser_and_worlds_in_run_active')
 
     def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
         """
@@ -127,8 +127,8 @@ class PeriodFilter(filters.FilterSet):
             Q(scenario__runuser__run__game__slug=value)
         )
 
-    run_active = filters.CharFilter(name='special-filter',
-                                    method='filter_runuser_and_worlds_in_run_active')
+    run_active = filters.BooleanFilter(name='special-filter',
+                                       method='filter_runuser_and_worlds_in_run_active')
 
     def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
         """
@@ -166,8 +166,8 @@ class DecisionFilter(filters.FilterSet):
             Q(period__scenario__runuser__run__game__slug=value)
         )
 
-    run_active = filters.CharFilter(name='special-filter',
-                                    method='filter_runuser_and_worlds_in_run_active')
+    run_active = filters.BooleanFilter(name='special-filter',
+                                       method='filter_runuser_and_worlds_in_run_active')
 
     def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
         """
@@ -206,8 +206,8 @@ class ResultFilter(filters.FilterSet):
             Q(period__scenario__runuser__run__game__slug=value)
         )
 
-    run_active = filters.CharFilter(name='special-filter',
-                                    method='filter_runuser_and_worlds_in_run_active')
+    run_active = filters.BooleanFilter(name='special-filter',
+                                       method='filter_runuser_and_worlds_in_run_active')
 
     def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
         """
