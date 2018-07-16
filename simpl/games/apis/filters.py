@@ -40,6 +40,7 @@ class RunFilter(filters.FilterSet):
             'game',
             'name',
             'game_slug',
+            'active',
         ]
 
 
