@@ -5,7 +5,6 @@ from .. import models
 
 
 class RoleFilter(filters.FilterSet):
-
     game_slug = filters.CharFilter(name='game__slug')
 
     class Meta:
@@ -18,7 +17,6 @@ class RoleFilter(filters.FilterSet):
 
 
 class PhaseFilter(filters.FilterSet):
-
     game_slug = filters.CharFilter(name='game__slug')
 
     class Meta:
@@ -31,7 +29,6 @@ class PhaseFilter(filters.FilterSet):
 
 
 class RunFilter(filters.FilterSet):
-
     game_slug = filters.CharFilter(name='game__slug')
 
     class Meta:
@@ -45,8 +42,8 @@ class RunFilter(filters.FilterSet):
 
 
 class RunUserFilter(filters.FilterSet):
-
     game_slug = filters.CharFilter(name='run__game__slug')
+    run_active = filters.CharFilter(name='run__active')
 
     class Meta:
         model = models.RunUser
@@ -58,12 +55,13 @@ class RunUserFilter(filters.FilterSet):
             'user',
             'world',
             'game_slug',
+            'run_active',
         ]
 
 
 class WorldFilter(filters.FilterSet):
-
     game_slug = filters.CharFilter(name='run__game__slug')
+    run_active = filters.CharFilter(name='run__active')
 
     class Meta:
         model = models.World
@@ -71,11 +69,11 @@ class WorldFilter(filters.FilterSet):
             'run',
             'name',
             'game_slug',
+            'run_active',
         ]
 
 
 class ScenarioFilter(filters.FilterSet):
-
     game_slug = filters.CharFilter(name='special-filter',
                                    method='filter_runuser_and_worlds_in_game')
 
@@ -89,6 +87,19 @@ class ScenarioFilter(filters.FilterSet):
             Q(runuser__run__game__slug=value)
         )
 
+    run_active = filters.CharFilter(name='special-filter',
+                                    method='filter_runuser_and_worlds_in_run_active')
+
+    def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
+        """
+        We need to retrieve Scenarios which are attached to worlds or runusers
+        in runs with active value
+        """
+        return queryset.filter(
+            Q(world__run__active=value) |
+            Q(runuser__run__active=value)
+        )
+
     class Meta:
         model = models.Scenario
         fields = [
@@ -96,13 +107,13 @@ class ScenarioFilter(filters.FilterSet):
             'world',
             'name',
             'game_slug',
+            'run_active',
             'world__run',
-            'runuser__run'
+            'runuser__run',
         ]
 
 
 class PeriodFilter(filters.FilterSet):
-
     game_slug = filters.CharFilter(name='special-filter',
                                    method='filter_runuser_and_worlds_in_game')
 
@@ -116,19 +127,32 @@ class PeriodFilter(filters.FilterSet):
             Q(scenario__runuser__run__game__slug=value)
         )
 
+    run_active = filters.CharFilter(name='special-filter',
+                                    method='filter_runuser_and_worlds_in_run_active')
+
+    def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
+        """
+        We need to retrieve Periods in Scenarios  which are attached to worlds
+        or runusers in runs with active value
+        """
+        return queryset.filter(
+            Q(scenario__world__run__active=value) |
+            Q(scenario__runuser__run__active=value)
+        )
+
     class Meta:
         model = models.Period
         fields = [
             'scenario',
             'order',
             'game_slug',
+            'run_active',
             'scenario__world__run',
             'scenario__runuser__run'
         ]
 
 
 class DecisionFilter(filters.FilterSet):
-
     game_slug = filters.CharFilter(name='special-filter',
                                    method='filter_runuser_and_worlds_in_game')
 
@@ -142,6 +166,19 @@ class DecisionFilter(filters.FilterSet):
             Q(period__scenario__runuser__run__game__slug=value)
         )
 
+    run_active = filters.CharFilter(name='special-filter',
+                                    method='filter_runuser_and_worlds_in_run_active')
+
+    def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
+        """
+        We need to retrieve Decisions attached to Periods in Scenarios which are
+        attached to worlds or runusers in runs with active value
+        """
+        return queryset.filter(
+            Q(period__scenario__world__run__active=value) |
+            Q(period__scenario__runuser__run__active=value)
+        )
+
     class Meta:
         model = models.Decision
         fields = [
@@ -149,13 +186,13 @@ class DecisionFilter(filters.FilterSet):
             'period',
             'role',
             'game_slug',
+            'run_active',
             'period__scenario__world__run',
             'period__scenario__runuser__run'
         ]
 
 
 class ResultFilter(filters.FilterSet):
-
     game_slug = filters.CharFilter(name='special-filter',
                                    method='filter_runuser_and_worlds_in_game')
 
@@ -169,6 +206,19 @@ class ResultFilter(filters.FilterSet):
             Q(period__scenario__runuser__run__game__slug=value)
         )
 
+    run_active = filters.CharFilter(name='special-filter',
+                                    method='filter_runuser_and_worlds_in_run_active')
+
+    def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
+        """
+        We need to retrieve Results attached to Periods in Scenarios which are
+        attached to worlds or runusers in runs with active value
+        """
+        return queryset.filter(
+            Q(period__scenario__world__run__active=value) |
+            Q(period__scenario__runuser__run__active=value)
+        )
+
     class Meta:
         model = models.Result
         fields = [
@@ -176,6 +226,7 @@ class ResultFilter(filters.FilterSet):
             'period',
             'role',
             'game_slug',
+            'run_active',
             'period__scenario__world__run',
             'period__scenario__runuser__run'
         ]
