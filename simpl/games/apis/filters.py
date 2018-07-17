@@ -43,6 +43,7 @@ class RunFilter(filters.FilterSet):
 
 class RunUserFilter(filters.FilterSet):
     game_slug = filters.CharFilter(name='run__game__slug')
+
     run_active = filters.BooleanFilter(name='run__active')
 
     class Meta:
@@ -61,6 +62,7 @@ class RunUserFilter(filters.FilterSet):
 
 class WorldFilter(filters.FilterSet):
     game_slug = filters.CharFilter(name='run__game__slug')
+
     run_active = filters.BooleanFilter(name='run__active')
 
     class Meta:
@@ -100,6 +102,19 @@ class ScenarioFilter(filters.FilterSet):
             Q(runuser__run__active=value)
         )
 
+    run = filters.NumberFilter(name='special-filter',
+                               method='filter_runuser_and_worlds_in_run')
+
+    def filter_runuser_and_worlds_in_run(self, queryset, name, value):
+        """
+        We need to retrieve Scenarios which are attached to worlds or runusers
+        in the given run
+        """
+        return queryset.filter(
+            Q(world__run=value) |
+            Q(runuser__run=value)
+        )
+
     class Meta:
         model = models.Scenario
         fields = [
@@ -108,6 +123,7 @@ class ScenarioFilter(filters.FilterSet):
             'name',
             'game_slug',
             'run_active',
+            'run',
             'world__run',
             'runuser__run',
         ]
@@ -140,6 +156,19 @@ class PeriodFilter(filters.FilterSet):
             Q(scenario__runuser__run__active=value)
         )
 
+    run = filters.NumberFilter(name='special-filter',
+                               method='filter_runuser_and_worlds_in_run')
+
+    def filter_runuser_and_worlds_in_run(self, queryset, name, value):
+        """
+        We need to retrieve Periods in Scenarios  which are attached to worlds or runusers
+        in the given run
+        """
+        return queryset.filter(
+            Q(scenario__world__run=value) |
+            Q(scenario__runuser__run=value)
+        )
+
     class Meta:
         model = models.Period
         fields = [
@@ -147,6 +176,7 @@ class PeriodFilter(filters.FilterSet):
             'order',
             'game_slug',
             'run_active',
+            'run',
             'scenario__world__run',
             'scenario__runuser__run'
         ]
@@ -179,6 +209,19 @@ class DecisionFilter(filters.FilterSet):
             Q(period__scenario__runuser__run__active=value)
         )
 
+    run = filters.NumberFilter(name='special-filter',
+                               method='filter_runuser_and_worlds_in_run')
+
+    def filter_runuser_and_worlds_in_run(self, queryset, name, value):
+        """
+        We need to retrieve Decisions attached to Periods in Scenarios  which are
+        attached to worlds or runusers in the given run
+        """
+        return queryset.filter(
+            Q(period__scenario__world__run=value) |
+            Q(period__scenario__runuser__run=value)
+        )
+
     class Meta:
         model = models.Decision
         fields = [
@@ -187,6 +230,7 @@ class DecisionFilter(filters.FilterSet):
             'role',
             'game_slug',
             'run_active',
+            'run',
             'period__scenario__world__run',
             'period__scenario__runuser__run'
         ]
@@ -219,6 +263,19 @@ class ResultFilter(filters.FilterSet):
             Q(period__scenario__runuser__run__active=value)
         )
 
+    run = filters.NumberFilter(name='special-filter',
+                               method='filter_runuser_and_worlds_in_run')
+
+    def filter_runuser_and_worlds_in_run(self, queryset, name, value):
+        """
+        We need to retrieve Results attached to Periods in Scenarios  which are
+        attached to worlds or runusers in the given run
+        """
+        return queryset.filter(
+            Q(period__scenario__world__run=value) |
+            Q(period__scenario__runuser__run=value)
+        )
+
     class Meta:
         model = models.Result
         fields = [
@@ -227,6 +284,7 @@ class ResultFilter(filters.FilterSet):
             'role',
             'game_slug',
             'run_active',
+            'run',
             'period__scenario__world__run',
             'period__scenario__runuser__run'
         ]
