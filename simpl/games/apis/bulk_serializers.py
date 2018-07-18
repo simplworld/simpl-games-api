@@ -21,9 +21,12 @@ class BulkDecisionSerializer(BulkSerializerMixin, serializers.ModelSerializer):
 
     def get_run_active(self, obj):
         try:
-            return obj.period.scenario.world.run.active or \
-                   obj.period.scenario.runuser.run.active
-        except ObjectDoesNotExist:
+            scenario = obj.period.scenario
+            if scenario.world is not None:
+                return scenario.world.run.active
+            elif scenario.runuser is not None:
+                return scenario.runuser.run.active
+        except Exception as e:
             return None
 
     class Meta:
@@ -42,9 +45,12 @@ class BulkPeriodSerializer(BulkSerializerMixin, serializers.ModelSerializer):
 
     def get_run_active(self, obj):
         try:
-            return obj.scenario.world.run.active or \
-                   obj.scenario.runuser.run.active
-        except ObjectDoesNotExist:
+            scenario = obj.scenario
+            if scenario.world is not None:
+                return scenario.world.run.active
+            elif scenario.runuser is not None:
+                return scenario.runuser.run.active
+        except Exception as e:
             return None
 
     class Meta:
@@ -74,9 +80,12 @@ class BulkResultSerializer(BulkSerializerMixin, serializers.ModelSerializer):
 
     def get_run_active(self, obj):
         try:
-            return obj.period.scenario.world.run.active or \
-                   obj.period.scenario.runuser.run.active
-        except ObjectDoesNotExist:
+            scenario = obj.period.scenario
+            if scenario.world is not None:
+                return scenario.world.run.active
+            elif scenario.runuser is not None:
+                return scenario.runuser.run.active
+        except Exception as e:
             return None
 
     class Meta:
@@ -118,7 +127,7 @@ class BulkRunUserSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     def get_run_active(self, obj):
         try:
             return obj.run.active
-        except ObjectDoesNotExist:
+        except Exception as e:
             return None
 
     email = serializers.CharField(source='user.email', required=False,
@@ -151,9 +160,12 @@ class BulkScenarioSerializer(BulkSerializerMixin, serializers.ModelSerializer):
 
     def get_run_active(self, obj):
         try:
-            return obj.world.run.active or \
-                   obj.runuser.run.active
-        except ObjectDoesNotExist:
+            scenario = obj
+            if scenario.world is not None:
+                return scenario.world.run.active
+            elif scenario.runuser is not None:
+                return scenario.runuser.run.active
+        except Exception as e:
             return None
 
     class Meta:
@@ -173,7 +185,7 @@ class BulkWorldSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     def get_run_active(self, obj):
         try:
             return obj.run.active
-        except ObjectDoesNotExist:
+        except Exception as e:
             return None
 
     class Meta:
