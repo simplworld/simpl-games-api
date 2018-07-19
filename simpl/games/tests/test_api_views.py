@@ -730,9 +730,9 @@ class ScenarioTestCase(BaseAPITestCase):
         response = self.client.post(url, payload, format='json')
         self.assertEqual(response.status_code, 204)
 
-        # should have fired 7 webhooks
+        # should have fired 8 webhooks - including one for user
         self.assertTrue(mock_method.called)
-        self.assertEqual(mock_method.call_count, 7)
+        self.assertEqual(mock_method.call_count, 8)
 
 
 class WorldTestCase(BaseAPITestCase):
