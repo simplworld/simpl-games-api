@@ -28,7 +28,7 @@ class CommonViewSet(viewsets.ModelViewSet):
 class DecisionViewSet(CommonViewSet):
     """ Decision resource. """
 
-    queryset = models.Decision.objects.all()
+    queryset = models.Decision.objects.all().select_related('period')
     serializer_class = serializers.DecisionSerializer
     filter_class = filters.DecisionFilter
     ordering_fields = (
@@ -168,7 +168,7 @@ class GameViewSet(CommonViewSet):
 class PeriodViewSet(CommonViewSet):
     """ Period resource. """
 
-    queryset = models.Period.objects.all()
+    queryset = models.Period.objects.all().select_related('scenario')
     serializer_class = serializers.PeriodSerializer
     filter_class = filters.PeriodFilter
     ordering_fields = (
@@ -298,7 +298,7 @@ class PhaseViewSet(CommonViewSet):
 class ResultViewSet(CommonViewSet):
     """ Result resource. """
 
-    queryset = models.Result.objects.all()
+    queryset = models.Result.objects.all().select_related('period')
     serializer_class = serializers.ResultSerializer
     filter_class = filters.ResultFilter
     ordering_fields = (
@@ -498,7 +498,7 @@ class RunViewSet(CommonViewSet):
 class RunUserViewSet(CommonViewSet):
     """ RunUser resource. """
 
-    queryset = models.RunUser.objects.select_related(
+    queryset = models.RunUser.objects.all().select_related(
         'user', 'run__game', 'role',
     )
     serializer_class = serializers.RunUserSerializer
@@ -585,7 +585,8 @@ class RunUserViewSet(CommonViewSet):
 class ScenarioViewSet(CommonViewSet):
     """ Scenario resource. """
 
-    queryset = models.Scenario.objects.all()
+    queryset = models.Scenario.objects.all().select_related('runuser',
+                                                            'world')
     serializer_class = serializers.ScenarioSerializer
     filter_class = filters.ScenarioFilter
     ordering_fields = (
@@ -619,13 +620,12 @@ class ScenarioViewSet(CommonViewSet):
               type: integer
               paramType: query
               required: false
-              description: Filters Scenarioes per Creator RunUser via runuser
+              description: Filters Scenarioes per RunUser via runuser
             - name: world
               type: integer
               paramType: query
               required: false
               description: Filters Scenarioes per World via world
-              TODO: Not all scenarios are associated with world
             - name: game_slug
               type: string
               paramType: query
@@ -708,7 +708,7 @@ class ScenarioViewSet(CommonViewSet):
 class WorldViewSet(CommonViewSet):
     """ World resource. """
 
-    queryset = models.World.objects.all()
+    queryset = models.World.objects.all().select_related('run', )
     serializer_class = serializers.WorldSerializer
     filter_class = filters.WorldFilter
     ordering_fields = (
