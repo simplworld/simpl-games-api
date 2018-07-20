@@ -26,7 +26,7 @@ class BulkDecisionSerializer(BulkSerializerMixin, serializers.ModelSerializer):
                 return scenario.world.run.active
             elif scenario.runuser is not None:
                 return scenario.runuser.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     class Meta:
@@ -50,7 +50,7 @@ class BulkPeriodSerializer(BulkSerializerMixin, serializers.ModelSerializer):
                 return scenario.world.run.active
             elif scenario.runuser is not None:
                 return scenario.runuser.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     class Meta:
@@ -85,7 +85,7 @@ class BulkResultSerializer(BulkSerializerMixin, serializers.ModelSerializer):
                 return scenario.world.run.active
             elif scenario.runuser is not None:
                 return scenario.runuser.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     class Meta:
@@ -127,7 +127,7 @@ class BulkRunUserSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     def get_run_active(self, obj):
         try:
             return obj.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     email = serializers.CharField(source='user.email', required=False,
@@ -165,7 +165,7 @@ class BulkScenarioSerializer(BulkSerializerMixin, serializers.ModelSerializer):
                 return scenario.world.run.active
             elif scenario.runuser is not None:
                 return scenario.runuser.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     class Meta:
@@ -185,7 +185,7 @@ class BulkWorldSerializer(BulkSerializerMixin, serializers.ModelSerializer):
     def get_run_active(self, obj):
         try:
             return obj.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     class Meta:

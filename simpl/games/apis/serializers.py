@@ -20,7 +20,7 @@ class DecisionSerializer(serializers.ModelSerializer):
                 return scenario.world.run.active
             elif scenario.runuser is not None:
                 return scenario.runuser.run.active
-        except Exception as e:
+        except ObjectDoesNotExist:
             return None
 
     class Meta:
@@ -54,7 +54,7 @@ class PeriodSerializer(serializers.ModelSerializer):
                 return scenario.world.run.active
             elif scenario.runuser is not None:
                 return scenario.runuser.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     class Meta:
@@ -87,7 +87,7 @@ class ResultSerializer(serializers.ModelSerializer):
                 return scenario.world.run.active
             elif scenario.runuser is not None:
                 return scenario.runuser.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     class Meta:
@@ -126,7 +126,7 @@ class RunUserSerializer(serializers.ModelSerializer):
     def get_run_active(self, obj):
         try:
             return obj.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     email = serializers.CharField(source='user.email', required=False,
@@ -162,7 +162,7 @@ class ScenarioSerializer(serializers.ModelSerializer):
                 return scenario.world.run.active
             elif scenario.runuser is not None:
                 return scenario.runuser.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     class Meta:
@@ -181,7 +181,7 @@ class WorldSerializer(serializers.ModelSerializer):
     def get_run_active(self, obj):
         try:
             return obj.run.active
-        except Exception as e:
+        except (ObjectDoesNotExist, AttributeError):
             return None
 
     class Meta:
