@@ -41,7 +41,7 @@ class BulkCommonViewSet(BulkCreateDestroyModelViewSet):
 class BulkDecisionViewSet(BulkCommonViewSet):
     """ Decision resource. """
     model = models.Decision
-    queryset = models.Decision.objects.all()
+    queryset = models.Decision.objects.all().select_related('period')
     serializer_class = bulk_serializers.BulkDecisionSerializer
     filter_class = filters.DecisionFilter
     ordering_fields = (
@@ -65,7 +65,7 @@ class BulkDecisionViewSet(BulkCommonViewSet):
 class BulkPeriodViewSet(BulkCommonViewSet):
     """ Period resource. """
     model = models.Period
-    queryset = models.Period.objects.all()
+    queryset = models.Period.objects.all().select_related('scenario')
     serializer_class = bulk_serializers.BulkPeriodSerializer
     filter_class = filters.PeriodFilter
     ordering_fields = (
@@ -113,7 +113,7 @@ class BulkPhaseViewSet(BulkCommonViewSet):
 class BulkResultViewSet(BulkCommonViewSet):
     """ Result resource. """
     model = models.Result
-    queryset = models.Result.objects.all()
+    queryset = models.Result.objects.all().select_related('period')
     serializer_class = bulk_serializers.BulkResultSerializer
     filter_class = filters.ResultFilter
     ordering_fields = (
@@ -185,8 +185,9 @@ class BulkRunViewSet(BulkCommonViewSet):
 class BulkRunUserViewSet(BulkCommonViewSet):
     """ RunUser resource. """
     model = models.RunUser
-    queryset = \
-        models.RunUser.objects.select_related('user', 'run__game', 'role')
+    queryset = models.RunUser.objects.all().select_related(
+        'user', 'run__game', 'role',
+    )
     serializer_class = bulk_serializers.BulkRunUserSerializer
     filter_class = filters.RunUserFilter
     ordering_fields = (
@@ -210,7 +211,7 @@ class BulkRunUserViewSet(BulkCommonViewSet):
 class BulkScenarioViewSet(BulkCommonViewSet):
     """ Scenario resource. """
     model = models.Scenario
-    queryset = models.Scenario.objects.all()
+    queryset = models.Scenario.objects.all().select_related('runuser', 'world')
     serializer_class = bulk_serializers.BulkScenarioSerializer
     filter_class = filters.ScenarioFilter
     ordering_fields = (
@@ -234,7 +235,7 @@ class BulkScenarioViewSet(BulkCommonViewSet):
 class BulkWorldViewSet(BulkCommonViewSet):
     """ World resource. """
     model = models.World
-    queryset = models.World.objects.all()
+    queryset = models.World.objects.all().select_related('run')
     serializer_class = bulk_serializers.BulkWorldSerializer
     filter_class = filters.WorldFilter
     ordering_fields = (
