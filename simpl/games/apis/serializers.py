@@ -135,8 +135,6 @@ class RunUserSerializer(serializers.ModelSerializer):
                                        required=False, read_only=True)
     last_name = serializers.CharField(source='user.last_name', required=False,
                                       read_only=True)
-    game_slug = serializers.CharField(source='game.slug', required=False,
-                                      read_only=True)
     role_name = serializers.CharField(source='role.name', required=False,
                                       read_only=True)
 
@@ -147,7 +145,6 @@ class RunUserSerializer(serializers.ModelSerializer):
             'created',
             'updated',
             'email',
-            'game_slug',
             'run_active',
         )
 
