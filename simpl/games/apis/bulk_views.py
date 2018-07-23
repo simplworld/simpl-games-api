@@ -186,7 +186,7 @@ class BulkRunUserViewSet(BulkCommonViewSet):
     """ RunUser resource. """
     model = models.RunUser
     queryset = models.RunUser.objects.all().select_related(
-        'user', 'run__game', 'role',
+        'user', 'run', 'role',
     )
     serializer_class = bulk_serializers.BulkRunUserSerializer
     filter_class = filters.RunUserFilter
