@@ -1,0 +1,22 @@
+language: python
+
+python:
+  - "3.6"
+
+install:
+  - pip install -r requirements.txt
+
+services:
+  - postgresql
+
+addons:
+  postgresql: "9.6"
+
+before_script:
+  - psql -c 'create database simpl;' -U postgres
+
+script:
+  - ./manage.py create_simpl_user
+  - export DJANGO_SETTINGS_MODULE=config.settings.test
+  - py.test
+  
