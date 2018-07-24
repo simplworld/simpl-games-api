@@ -1,6 +1,8 @@
 # Simpl Games Framework API Project
 
-This project uses Python 3.6.x and Django 1.11.x
+[![Build Status](https://travis-ci.com/simplworld/simpl-games-api.svg?token=cyqpBgqLC1o8qUptfcpE&branch=master)](https://travis-ci.com/simplworld/simpl-games-api)
+
+This project requires PostgreSql 9+ and uses Python 3.6.x and Django 1.11.x
 
 ## Getting Started
 
