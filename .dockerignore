@@ -8,7 +8,7 @@
 ./.version
 ./.bumpversion.cfg
 ./staticfiles/
-tags
+tags*
 .env*
 .version
 Dockerfile*
