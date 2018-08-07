@@ -100,6 +100,7 @@ def command():
     # Create a Role
     role_player_1, created = models.Role.objects.get_or_create(
         name='Player 1',
+        slug='P1',
         game=game,
     )
     click.echo(
@@ -113,6 +114,7 @@ def command():
     # Create a Role
     role_player_2, created = models.Role.objects.get_or_create(
         name='Player 2',
+        slug='P2',
         game=game,
     )
     click.echo(
