@@ -26,6 +26,7 @@ class PhaseFilter(filters.FilterSet):
             'game',
             'name',
             'game_slug',
+            'slug',
         ]
 
 

@@ -38,6 +38,7 @@ class PhaseForm(forms.ModelForm):
         model = models.Phase
         fields = [
             'name',
+            'slug',
             'game',
             'order',
         ]

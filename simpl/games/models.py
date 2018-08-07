@@ -148,6 +148,7 @@ class Phase(AbstractTimeStampedModel):
     """Phase model"""
 
     name = models.CharField(max_length=100)
+    slug = models.SlugField(blank=True)
     game = models.ForeignKey(
         'Game',
         related_name='phases'

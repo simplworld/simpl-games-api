@@ -273,6 +273,11 @@ class PhaseViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Phases per Game via slug
+            - name: slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Phases per Slug via slug
         """
         return super(PhaseViewSet, self).list(request)
 
