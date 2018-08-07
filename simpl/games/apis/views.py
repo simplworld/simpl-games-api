@@ -408,6 +408,11 @@ class RoleViewSet(CommonViewSet):
               paramType: query
               required: false
               description: Filters Roles per Game via slug
+            - name: slug
+              type: string
+              paramType: query
+              required: false
+              description: Filters Roles per Slug via slug
         """
         return super(RoleViewSet, self).list(request)
 
