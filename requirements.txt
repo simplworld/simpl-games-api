@@ -48,7 +48,8 @@ git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to t
 django-bootstrap3==8.2.1
 
 # Simpl Modules
-https://github.com/simplworld/simpl-users/archive/v0.7.1.zip
+simpl-users==0.7.5
+
 django-filter==1.0.4
 django-rest-swagger==2.1.2
 djangorestframework==3.6.4
