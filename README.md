@@ -6,28 +6,12 @@ This project requires PostgreSql 9+ and uses Python 3.6.x and Django 1.11.x
 
 ## Getting Started
 
-### To setup Vagrant box with PostgreSQL
-
-```bash
-$ git clone git@github.com:simplworld/python-vagrant-centos7.git
-$ cd python-vagrant-centos7
-$ vagrant up
-```
-
 ### Setup simpl-games-api
 
 ```bash
-$ cd python-vagrant-centos7/projects
 $ git clone git@github.com:simplworld/simpl-games-api.git
-
-$ vagrant ssh
+$ cd simpl-games-api
 $ mkvirtualenv simpl-games-api
-```
-
-### Python Setup (assumes working in vagrant)
-
-```bash
-$ cd projects/simpl-games-api
 $ add2virtualenv .
 $ pip install -r requirements.txt
 ```
