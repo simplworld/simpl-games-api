@@ -71,6 +71,7 @@ class Game(AbstractTimeStampedModel):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=250, blank=True, unique=True)
     active = models.BooleanField(default=True)
+    data = JSONField(default={}, blank=True)
 
     objects = managers.ActiveQuerySet.as_manager()
 
@@ -79,14 +80,14 @@ class Game(AbstractTimeStampedModel):
         verbose_name_plural = _('games')
         ordering = ('pk',)
 
-    def save(self, *args, **kwargs):
+    def save(self, **kwargs):
         """
         Overrides a Game's default save method to populate the slug
         field if `Game.name` is blank.
         """
         if not self.slug:
             self.slug = slugify(self.name)
-        return super().save(*args, **kwargs)
+        return super(Game, self).save(**kwargs)
 
     def __str__(self):
         return self.name
