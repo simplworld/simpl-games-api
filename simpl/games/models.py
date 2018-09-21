@@ -87,7 +87,7 @@ class Game(AbstractTimeStampedModel):
         """
         if not self.slug:
             self.slug = slugify(self.name)
-        return super(Game, self).save(**kwargs)
+        return super().save(**kwargs)
 
     def __str__(self):
         return self.name
