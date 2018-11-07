@@ -10,6 +10,8 @@ class SimplGamesConfig(AppConfig):
     name = 'simpl.games'
 
     def ready(self):
+        from .listeners import handle_task_failure  # noqa pylint: disable=unused-variable
+
         webhook_model(get_user_model(),
             on_change=events.on_user_changed,
             on_create=events.on_user_created,
