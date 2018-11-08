@@ -17,7 +17,8 @@ if not settings.configured:
 app = Celery('simpl')
 rollbar_token = os.environ.get('DJANGO_ROLLBAR_TOKEN', str())
 app_version = os.environ.get('X_IMAGE_TAG', 'X_IMAGE_TAG-goes-here')
-rollbar_env = '{}-celery'.format(app_version)
+app_env = os.environ.get('DJANGO_ENV', 'local')
+rollbar_env = '{}-{}-celery'.format(app_env, app_version)
 
 
 class CeleryConfig(AppConfig):
