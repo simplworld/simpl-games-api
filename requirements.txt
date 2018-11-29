@@ -5,7 +5,7 @@
 wheel==0.29.0
 
 # Django
-Django==1.11.11
+Django>=1.11.15,<2.0
 
 # Configuration
 django-environ==0.4.4
