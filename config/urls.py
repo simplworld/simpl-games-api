@@ -31,7 +31,6 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Our application urls
 urlpatterns += [
-    url(r'^simpl/', include('simpl.games.urls', namespace='simpl')),
     url(r'^users/', include('simpl_users.urls', namespace='users')),
 
     url(r'^apis/', include(api_router.urls, namespace='simpl_api')),
