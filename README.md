@@ -144,7 +144,6 @@ to see counts of all model objects for a game with slug 'calc'.
 - [API Docs](http://localhost:8100/)
 - [Simpl apis](http://localhost:8100/apis/)
 - [Django Admin](http://localhost:8100/admin/)
-- ~~[Simpl Frontend Admin](http://localhost:8100/simpl/) but only if you need it!~~
 
 Copyright © 2018 The Wharton School,  The University of Pennsylvania 
 
