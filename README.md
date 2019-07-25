@@ -2,17 +2,17 @@
 
 [![Build Status](https://travis-ci.com/simplworld/simpl-games-api.svg?token=cyqpBgqLC1o8qUptfcpE&branch=master)](https://travis-ci.com/simplworld/simpl-games-api)
 
-This project requires PostgreSql 9+ and uses Python 3.6.x and Django 1.11.x
+This project requires PostgreSQL 9+ and Python 3.6.x.
 
 ## Getting Started
 
 ### Setup simpl-games-api
 
+In a virtual environment:
+
 ```bash
 $ git clone git@github.com:simplworld/simpl-games-api.git
 $ cd simpl-games-api
-$ mkvirtualenv simpl-games-api
-$ add2virtualenv .
 $ pip install -r requirements.txt
 ```
 
@@ -34,7 +34,7 @@ $ ./manage.py migrate
 
 ### Create a superuser for testing
 
-Create a superuser account to access the admin:
+Create a super user account to access the admin:
 
 ```bash
 $ ./manage.py createsuperuser
@@ -145,7 +145,7 @@ to see counts of all model objects for a game with slug 'calc'.
 - [Simpl apis](http://localhost:8100/apis/)
 - [Django Admin](http://localhost:8100/admin/)
 
-Copyright © 2018 The Wharton School,  The University of Pennsylvania 
+Copyright © 2019 The Wharton School,  The University of Pennsylvania 
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
