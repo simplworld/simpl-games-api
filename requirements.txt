@@ -13,7 +13,8 @@ djangorestframework==3.10.2
 djangorestframework-bulk==0.2.1
 
 # Simpl Modules
-simpl-users==0.7.6
+#simpl-users==0.7.6
+git+https://github.com/simplworld/simpl-users@6-django-2.0
 
 # Configuration
 django-environ==0.4.4
@@ -49,7 +50,7 @@ django-redis==4.8.0
 # Celery support (needed for Thorn)
 celery<=4.2
 
-thorn==1.5.0
+thorn==1.5.2
 
 # Wharton styles
 git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to the latest

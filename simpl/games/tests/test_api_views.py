@@ -1,6 +1,6 @@
 from unittest import mock
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from faker import Faker
 from rest_framework.test import APITestCase
 from test_plus.test import TestCase
