@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField, JSONField
 from django.db import models
-from django.db.models import ForeignKey, CASCADE
 from django.template.defaultfilters import slugify
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
@@ -27,17 +26,17 @@ class Decision(AbstractTimeStampedModel):
 
     name = models.CharField(max_length=100)
     data = JSONField(default={}, blank=True)
-    period = ForeignKey(
+    period = models.ForeignKey(
         'Period',
         related_name='decisions',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
-    role = ForeignKey(
+    role = models.ForeignKey(
         'Role',
         blank=True,
         null=True,
         related_name='decisions',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
 
     class Meta(object):
@@ -111,10 +110,10 @@ class Game(AbstractTimeStampedModel):
 class Period(AbstractTimeStampedModel):
     """Period model"""
 
-    scenario = ForeignKey(
+    scenario = models.ForeignKey(
         'Scenario',
         related_name='periods',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
     order = models.IntegerField(default=0, db_index=True)
     data = JSONField(default={}, blank=True)
@@ -154,10 +153,10 @@ class Phase(AbstractTimeStampedModel):
 
     name = models.CharField(max_length=100)
     slug = models.SlugField(blank=True)
-    game = ForeignKey(
+    game = models.ForeignKey(
         'Game',
         related_name='phases',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
     order = models.PositiveSmallIntegerField(blank=True, null=True,
                                              db_index=True)
@@ -190,17 +189,17 @@ class Result(AbstractTimeStampedModel):
 
     name = models.CharField(max_length=100)
     data = JSONField(default={}, blank=True)
-    period = ForeignKey(
+    period = models.ForeignKey(
         'Period',
         related_name='results',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
-    role = ForeignKey(
+    role = models.ForeignKey(
         'Role',
         blank=True,
         null=True,
         related_name='results',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
 
     class Meta(object):
@@ -229,12 +228,12 @@ class Role(AbstractTimeStampedModel):
 
     name = models.CharField(max_length=100)
     slug = models.SlugField(blank=True)
-    game = ForeignKey(
+    game = models.ForeignKey(
         'Game',
         related_name='roles',
         blank=True,
         null=True,
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
     data = JSONField(default={}, blank=True)
 
@@ -260,18 +259,18 @@ class Run(AbstractTimeStampedModel):
 
     name = models.CharField(max_length=100)
     active = models.BooleanField(default=True)
-    game = ForeignKey(
+    game = models.ForeignKey(
         'Game',
         related_name='runs',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
     data = JSONField(default={}, blank=True)
-    phase = ForeignKey(
+    phase = models.ForeignKey(
         'Phase',
         blank=True,
         null=True,
         related_name='+',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
 
     objects = managers.ActiveQuerySet.as_manager()
@@ -300,29 +299,29 @@ class Run(AbstractTimeStampedModel):
 class RunUser(AbstractTimeStampedModel):
     """Run User model"""
 
-    user = ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='run_users',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
-    run = ForeignKey(
+    run = models.ForeignKey(
         'Run',
         related_name='run_users',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
-    world = ForeignKey(
+    world = models.ForeignKey(
         'World',
         blank=True,
         null=True,
         related_name='run_users',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
-    role = ForeignKey(
+    role = models.ForeignKey(
         'Role',
         blank=True,
         null=True,
         related_name='run_users',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
     leader = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
@@ -362,19 +361,19 @@ class Scenario(AbstractTimeStampedModel):
 
     name = models.CharField(max_length=100, db_index=True)
 
-    runuser = ForeignKey(
+    runuser = models.ForeignKey(
         'RunUser',
         blank=True,
         null=True,
         related_name='scenarios',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
-    world = ForeignKey(
+    world = models.ForeignKey(
         'World',
         blank=True,
         null=True,
         related_name='scenarios',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
 
     data = JSONField(default={}, blank=True)
@@ -412,10 +411,10 @@ class World(AbstractTimeStampedModel):
     """World model"""
 
     name = models.CharField(max_length=100)
-    run = ForeignKey(
+    run = models.ForeignKey(
         'Run',
         related_name='worlds',
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
     )
     data = JSONField(default={}, blank=True)
     external_ids = ArrayField(
