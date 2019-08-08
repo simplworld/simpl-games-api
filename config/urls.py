@@ -17,12 +17,12 @@ from simpl.games.apis.bulk_urls import bulk_router as bulk_api_router
 schema_view = get_swagger_view(title='Simpl Games API')
 
 urlpatterns = [
-    url(settings.ADMIN_URL, include(admin.site.urls)),
+    url(settings.ADMIN_URL, admin.site.urls),
 ]
 
 # User management
 urlpatterns += [
-    url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/', include('allauth.urls')),    # TODO check whether need cuser.forms.AuthenticationForm
 ]
 
 # Static Media and User Uploads
@@ -31,15 +31,31 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Our application urls
 urlpatterns += [
-    url(r'^users/', include('simpl_users.urls', namespace='users')),
-
-    url(r'^apis/', include(api_router.urls, namespace='simpl_api')),
+    url(r'^users/',
+        include(
+            ('simpl_users.urls', 'users'),
+            namespace='users'
+        )),
     url(r'^apis/',
-        include(simpl_users_api_router.urls, namespace='simpl_users_api')),
+        include(
+            ('api_router.urls', 'simpl_api'),
+            namespace='simpl_api'
+        )),
+    url(r'^apis/',
+        include(
+            ('simpl_users_api_router.urls', 'simpl_users_api'),
+            namespace='simpl_users_api'
+        )),
     url(r"^apis/hooks/",
-        include("thorn.django.rest_framework.urls", namespace="webhook")),
+        include(
+            ('thorn.django.rest_framework.urls', 'webhook'),
+            namespace='webhook'
+        )),
     url(r'^apis/bulk/',
-        include(bulk_api_router.urls, namespace='simpl_bulk_api')),
+        include(
+            ('bulk_api_router.urls', 'simpl_bulk_api'),
+            namespace='simpl_bulk_api'
+        )),
     url(r'^$', schema_view),  # Swagger
 ]
 

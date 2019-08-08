@@ -29,6 +29,8 @@ class BaseTestCase(APITestCase, TestCase):
         self.user = self.make_user()
         self.faker = Faker()
 
+    def test_nada(self):
+        self.assertIsNotNone(self.user)
 
 class BulkDecisionTestCase(BaseTestCase):
     """
@@ -36,15 +38,15 @@ class BulkDecisionTestCase(BaseTestCase):
     routed via bulk router and that expected status code is returned.
     """
 
-    # def setUp(self):
-    #     super(BulkDecisionTestCase, self).setUp()
-    #     self.url = reverse('simpl_bulk_api:decision-list')
-    #     self.period = PeriodFactory()
-    #     self.role = RoleFactory()
-    #     self.view = bulk_views.BulkDecisionViewSet()
+    def setUp(self):
+        super(BulkDecisionTestCase, self).setUp()
+        # self.url = reverse('simpl_bulk_api:decision-list') # TODO fix ModuleNotFoundError: No module named 'api_router'
+        self.period = PeriodFactory()
+        self.role = RoleFactory()
+        self.view = bulk_views.BulkDecisionViewSet()
 
     def test_nada(self):
-        pass
+        self.assertIsNotNone(self.user)
 
 #     def test_post_single(self):
 #         """

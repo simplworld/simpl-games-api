@@ -23,13 +23,13 @@ class BaseAPITestCase(APITestCase, TestCase):
 
 
 class GameTestCase(BaseAPITestCase):
+
     def setUp(self):
         super(GameTestCase, self).setUp()
-
         self.game = GameFactory()
 
     def test_nada(self):
-        pass
+        self.assertIsNotNone(self.user)
 
 #     def test_create(self):
 #         url = reverse('simpl_api:game-list')
