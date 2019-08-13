@@ -5,14 +5,29 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.views import defaults as default_views
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
 
 from simpl.games.apis.bulk_urls import bulk_router as bulk_api_router
 from simpl.games.apis.urls import router as api_router
 from simpl_users.apis.urls import router as simpl_users_api_router
 
-# TODO: Adds Swagger back in...
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Simpl Games API",
+        default_version='v0.7.11',
+        description="Simpl Games Framework API Project",
+        # terms_of_service="https://www.google.com/policies/terms/",
+        # contact=openapi.Contact(email="contact@snippets.local"),
+        # license=openapi.License(name="GNU GENERAL PUBLIC LICENSE"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 # Our application urls
 urlpatterns = [
@@ -21,7 +36,9 @@ urlpatterns = [
     path('apis/', include((simpl_users_api_router.urls, "simpl_users_api"))),
     path('apis/bulk/', include((bulk_api_router.urls, "simpl_bulk_api"))),
     path("apis/hooks/", include("thorn.django.rest_framework.urls")),
-    # path("", schema_view),  # Swagger
+    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
 ]
 
 if settings.DEBUG:
