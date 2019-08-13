@@ -9,7 +9,7 @@ Django<2.3
 
 drf-yasg==1.16.1
 django-filter==2.2.0
-djangorestframework==3.10.2
+djangorestframework<3.10
 djangorestframework-bulk==0.2.1
 
 # Simpl Modules
