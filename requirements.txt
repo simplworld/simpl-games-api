@@ -5,7 +5,7 @@
 wheel==0.33.4
 
 # Django
-Django>=1.11.18,<2.0
+Django<2.1
 
 django-filter==2.2.0
 django-rest-swagger==2.2.0
@@ -13,7 +13,7 @@ djangorestframework==3.10.2
 djangorestframework-bulk==0.2.1
 
 # Simpl Modules
-simpl-users==0.7.6
+simpl-users==0.8.0
 
 # Configuration
 django-environ==0.4.5
@@ -22,7 +22,7 @@ whitenoise==4.1.3
 
 # Forms
 django-braces==1.11.0
-django-crispy-forms==1.6.0
+django-crispy-forms==1.7.2
 
 # Models
 django-model-utils==2.4
@@ -32,7 +32,7 @@ django-model-utils==2.4
 
 # For user registration, either via email or social
 # Well-built with regular release cycles!
-django-allauth==0.24.1
+django-allauth==0.39.1
 
 # Python-PostgreSQL Database Adapter
 psycopg2==2.7.3.1
@@ -49,7 +49,7 @@ django-redis==4.8.0
 # Celery support (needed for Thorn)
 celery<=4.2
 
-thorn==1.5.2
+# thorn==1.5.2
 
 # Wharton styles
 git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to the latest
@@ -63,18 +63,18 @@ django-click==2.1.0
 unicodecsv==0.14.1
 django-fontawesome==0.2.2
 
-django-debug-toolbar==1.5
-django-extensions==1.7.3
+django-debug-toolbar==2.0
+django-extensions==2.2.1
 
 # Gunicorn
 gunicorn==19.8.1
 aiohttp<2.0
 
 # Testing related
-coverage==4.3.4
+coverage==4.5.4
 django_fakery==1.4.1
 django-test-plus==1.3.1
-django_coverage_plugin==1.3.1
+django-coverage-plugin==1.6.0
 factory_boy==2.7.0
 faker==0.7.3
 flake8==2.5.4
