@@ -6,7 +6,7 @@ from rest_framework.authentication import (
     BasicAuthentication
 )
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -662,7 +662,7 @@ class ScenarioViewSet(CommonViewSet):
         """
         return super(ScenarioViewSet, self).update(request, pk=pk)
 
-    @detail_route(methods=['post'])
+    @action(methods=['post'], detail=True)
     def rewind(self, request, pk=None):
         """
         Rewind the scenario back to its period with the specified
