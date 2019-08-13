@@ -1,14 +1,9 @@
 import logging
 
-from rest_framework import viewsets
-from rest_framework.authentication import (
-    SessionAuthentication,
-    BasicAuthentication
-)
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.viewsets import ModelViewSet
 
 from . import filters, serializers
 from .. import models
@@ -16,21 +11,14 @@ from .. import models
 logger = logging.getLogger(__name__)
 
 
-# Mixins
-
-class CommonViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, BasicAuthentication)
-    permission_classes = (IsAuthenticated,)
-
-
 # ViewSets
 
-class DecisionViewSet(CommonViewSet):
+class DecisionViewSet(ModelViewSet):
     """ Decision resource. """
 
     queryset = models.Decision.objects.all().select_related('period')
     serializer_class = serializers.DecisionSerializer
-    filter_class = filters.DecisionFilter
+    filterset_class = filters.DecisionFilter
     ordering_fields = (
         'created',
         'modified',
@@ -95,12 +83,12 @@ class DecisionViewSet(CommonViewSet):
         return super(DecisionViewSet, self).update(request, pk=pk)
 
 
-class GameViewSet(CommonViewSet):
+class GameViewSet(ModelViewSet):
     """ Game resource. """
 
     queryset = models.Game.objects.all()
     serializer_class = serializers.GameSerializer
-    filter_fields = (
+    filterset_fields = (
         'active',
         'name',
         'slug',
@@ -165,12 +153,12 @@ class GameViewSet(CommonViewSet):
         return super(GameViewSet, self).update(request, slug=slug)
 
 
-class PeriodViewSet(CommonViewSet):
+class PeriodViewSet(ModelViewSet):
     """ Period resource. """
 
     queryset = models.Period.objects.all().select_related('scenario')
     serializer_class = serializers.PeriodSerializer
-    filter_class = filters.PeriodFilter
+    filterset_class = filters.PeriodFilter
     ordering_fields = (
         'created',
         'modified',
@@ -230,12 +218,12 @@ class PeriodViewSet(CommonViewSet):
         return super(PeriodViewSet, self).update(request, pk=pk)
 
 
-class PhaseViewSet(CommonViewSet):
+class PhaseViewSet(ModelViewSet):
     """ Phase resource. """
 
     queryset = models.Phase.objects.all()
     serializer_class = serializers.PhaseSerializer
-    filter_class = filters.PhaseFilter
+    filterset_class = filters.PhaseFilter
     ordering_fields = (
         'created',
         'modified',
@@ -300,12 +288,12 @@ class PhaseViewSet(CommonViewSet):
         return super(PhaseViewSet, self).update(request, pk=pk)
 
 
-class ResultViewSet(CommonViewSet):
+class ResultViewSet(ModelViewSet):
     """ Result resource. """
 
     queryset = models.Result.objects.all().select_related('period')
     serializer_class = serializers.ResultSerializer
-    filter_class = filters.ResultFilter
+    filterset_class = filters.ResultFilter
     ordering_fields = (
         'created',
         'modified',
@@ -370,12 +358,12 @@ class ResultViewSet(CommonViewSet):
         return super(ResultViewSet, self).update(request, pk=pk)
 
 
-class RoleViewSet(CommonViewSet):
+class RoleViewSet(ModelViewSet):
     """ Role resource. """
 
     queryset = models.Role.objects.all()
     serializer_class = serializers.RoleSerializer
-    filter_class = filters.RoleFilter
+    filterset_class = filters.RoleFilter
     ordering_fields = (
         'created',
         'modified',
@@ -440,12 +428,12 @@ class RoleViewSet(CommonViewSet):
         return super(RoleViewSet, self).update(request, pk=pk)
 
 
-class RunViewSet(CommonViewSet):
+class RunViewSet(ModelViewSet):
     """ Run resource. """
 
     queryset = models.Run.objects.all()
     serializer_class = serializers.RunSerializer
-    filter_class = filters.RunFilter
+    filterset_class = filters.RunFilter
     ordering_fields = (
         'created',
         'modified',
@@ -505,14 +493,14 @@ class RunViewSet(CommonViewSet):
         return super(RunViewSet, self).update(request, pk=pk)
 
 
-class RunUserViewSet(CommonViewSet):
+class RunUserViewSet(ModelViewSet):
     """ RunUser resource. """
 
     queryset = models.RunUser.objects.all().select_related(
         'user', 'run', 'role',
     )
     serializer_class = serializers.RunUserSerializer
-    filter_class = filters.RunUserFilter
+    filterset_class = filters.RunUserFilter
     ordering_fields = (
         'created',
         'modified',
@@ -592,13 +580,13 @@ class RunUserViewSet(CommonViewSet):
         return super(RunUserViewSet, self).update(request, pk=pk)
 
 
-class ScenarioViewSet(CommonViewSet):
+class ScenarioViewSet(ModelViewSet):
     """ Scenario resource. """
 
     queryset = models.Scenario.objects.all().select_related('runuser',
                                                             'world')
     serializer_class = serializers.ScenarioSerializer
-    filter_class = filters.ScenarioFilter
+    filterset_class = filters.ScenarioFilter
     ordering_fields = (
         'created',
         'modified',
@@ -715,12 +703,12 @@ class ScenarioViewSet(CommonViewSet):
         return Response(None, status.HTTP_204_NO_CONTENT)
 
 
-class WorldViewSet(CommonViewSet):
+class WorldViewSet(ModelViewSet):
     """ World resource. """
 
     queryset = models.World.objects.all().select_related('run', )
     serializer_class = serializers.WorldSerializer
-    filter_class = filters.WorldFilter
+    filterset_class = filters.WorldFilter
     ordering_fields = (
         'created',
         'modified',
