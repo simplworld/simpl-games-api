@@ -46,7 +46,7 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'django_filters',
     'cuser',
-    'rest_framework_swagger',
+    'drf_yasg',
     'thorn.django',
 )
 
@@ -260,4 +260,5 @@ SWAGGER_SETTINGS = {
         'put',
         'delete'
     ],
+    "DEFAULT_GENERATOR_CLASS": "drf_yasg.generators.OpenAPISchemaGenerator",
 }
