@@ -31,7 +31,7 @@ schema_view = get_schema_view(
 
 # Our application urls
 urlpatterns = [
-    path('users/', include(('simpl_users.urls', 'name'))),
+    path('users/', include(('simpl_users.urls', 'users'))),
     path('apis/', include((api_router.urls, "simpl_api"))),
     path('apis/', include((simpl_users_api_router.urls, "simpl_users_api"))),
     path('apis/bulk/', include((bulk_api_router.urls, "simpl_bulk_api"))),
