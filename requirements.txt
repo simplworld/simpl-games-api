@@ -48,10 +48,6 @@ celery<=4.2
 # thorn==1.5.2
 git+https://github.com/simplworld/thorn.git@upgrade-to-django-2-dot-2  # Our fork until the main project is upgraded to Django 2.2
 
-# Wharton styles
-git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to the latest
-django-bootstrap3==8.2.1
-
 # Nicer CLI Interface
 click==7.0
 django-click==2.1.0
