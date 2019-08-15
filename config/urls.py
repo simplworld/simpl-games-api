@@ -11,6 +11,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from simpl import __version__
 from simpl.games.apis.bulk_urls import bulk_router as bulk_api_router
 from simpl.games.apis.urls import router as api_router
 from simpl_users.apis.urls import router as simpl_users_api_router
@@ -19,7 +20,7 @@ from simpl_users.apis.urls import router as simpl_users_api_router
 schema_view = get_schema_view(
     openapi.Info(
         title="Simpl Games API",
-        default_version='v0.7.11',
+        default_version='v{}'.format(__version__),
         description="Simpl Games Framework API Project",
         # terms_of_service="https://www.google.com/policies/terms/",
         # contact=openapi.Contact(email="contact@snippets.local"),
