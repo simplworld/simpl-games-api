@@ -13,7 +13,8 @@ djangorestframework~=3.9.0
 djangorestframework-bulk~=0.2.1
 
 # Simpl Modules
-simpl-users~=0.8.0
+# simpl-users~=0.8.0
+git+https://github.com/simplworld/simpl-users.git@remove-user-frontend
 
 # Configuration
 django-environ~=0.4.5
@@ -46,7 +47,7 @@ django-redis==4.8.0
 celery<=4.2
 
 # thorn==1.5.2
-git+https://github.com/simplworld/thorn.git@upgrade-to-django-2-dot-2  # Our fork until the main project is upgraded to Django 2.2
+git+https://github.com/robinhood/thorn.git
 
 # Nicer CLI Interface
 click==7.0
