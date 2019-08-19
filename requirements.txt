@@ -47,7 +47,7 @@ django-redis==4.8.0
 celery<=4.2
 
 # thorn==1.5.2
-git+https://github.com/robinhood/thorn.git
+git+https://github.com/robinhood/thorn.git@486a53e
 
 # Nicer CLI Interface
 click==7.0
