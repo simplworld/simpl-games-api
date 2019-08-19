@@ -39,9 +39,6 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration (also has a base.html which messes stuff up)
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-    'base_theme',
-    'bootstrap3',
-    'fontawesome',
     'crispy_forms',  # Form layouts
     'rest_framework',
     'django_filters',
