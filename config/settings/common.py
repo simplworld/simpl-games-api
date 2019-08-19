@@ -19,20 +19,15 @@ env = environ.Env()
 
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
+# Default Django apps:
 DJANGO_APPS = (
-    # Default Django apps:
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Useful template tags:
-    # 'django.contrib.humanize',
-
-    # Admin
-    'django.contrib.admin',
 )
 
 THIRD_PARTY_APPS = (
@@ -40,10 +35,10 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'crispy_forms',  # Form layouts
-    'rest_framework',
-    'django_filters',
     'cuser',
+    'django_filters',
     'drf_yasg',
+    'rest_framework',
     'thorn.django',
 )
 
