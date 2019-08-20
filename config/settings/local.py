@@ -8,6 +8,8 @@ Local settings
 - Add django-extensions as app
 '''
 
+import os
+
 from .common import *  # noqa
 from thorn import validators as thorn_validators
 

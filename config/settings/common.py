@@ -9,7 +9,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 from __future__ import absolute_import, unicode_literals
-import os
+
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
@@ -19,34 +19,26 @@ env = environ.Env()
 
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
+# Default Django apps:
 DJANGO_APPS = (
-    # Default Django apps:
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Useful template tags:
-    # 'django.contrib.humanize',
-
-    # Admin
-    'django.contrib.admin',
 )
 
 THIRD_PARTY_APPS = (
     'allauth',  # registration (also has a base.html which messes stuff up)
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-    'base_theme',
-    'bootstrap3',
-    'fontawesome',
     'crispy_forms',  # Form layouts
-    'rest_framework',
-    'django_filters',
     'cuser',
-    'rest_framework_swagger',
+    'django_filters',
+    'drf_yasg',
+    'rest_framework',
     'thorn.django',
 )
 
@@ -61,8 +53,8 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
-MIDDLEWARE_CLASSES = [
-    # Make sure djangosecure.middleware.SecurityMiddleware is listed first
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -233,17 +225,20 @@ INSTALLED_APPS += ('simpl.taskapp.celery.CeleryConfig',)
 BROKER_URL = env("CELERY_BROKER_URL", default='django://')
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
-ADMIN_URL = r'^admin/'
+ADMIN_URL = 'admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
-        'rest_framework.filters.DjangoFilterBackend',
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_PAGINATION_CLASS': 'simpl.core.pagination.LinkHeaderPagination',
     'PAGE_SIZE': 500,
@@ -257,5 +252,5 @@ SWAGGER_SETTINGS = {
         'put',
         'delete'
     ],
+    "DEFAULT_GENERATOR_CLASS": "drf_yasg.generators.OpenAPISchemaGenerator",
 }
-

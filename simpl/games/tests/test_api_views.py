@@ -1,6 +1,6 @@
 from unittest import mock
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from faker import Faker
 from rest_framework.test import APITestCase
 from test_plus.test import TestCase
@@ -45,7 +45,7 @@ class GameTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:game-detail', kwargs={'slug': self.game.slug})
+        url = self.reverse('simpl_api:game-detail', slug=self.game.slug)
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
@@ -141,7 +141,7 @@ class PeriodTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:period-detail', kwargs={'pk': self.period.pk})
+        url = self.reverse('simpl_api:period-detail', pk=self.period.pk)
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
@@ -236,7 +236,7 @@ class PhaseTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:phase-detail', kwargs={'pk': self.phase.pk})
+        url = self.reverse('simpl_api:phase-detail', pk=self.phase.pk)
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
@@ -330,7 +330,7 @@ class RoleTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:role-detail', kwargs={'pk': self.role.pk})
+        url = self.reverse('simpl_api:role-detail', pk=self.role.pk)
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
@@ -425,7 +425,7 @@ class RunTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:run-detail', kwargs={'pk': self.run.pk})
+        url = self.reverse('simpl_api:run-detail', pk=self.run.pk)
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
@@ -524,8 +524,7 @@ class RunUserTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:runuser-detail',
-                      kwargs={'pk': self.runuser.pk})
+        url = self.reverse('simpl_api:runuser-detail', pk=self.runuser.pk)
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
@@ -622,8 +621,7 @@ class ScenarioTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:scenario-detail',
-                      kwargs={'pk': self.scenario.pk})
+        url = self.reverse('simpl_api:scenario-detail', pk=self.scenario.pk)
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
@@ -697,8 +695,7 @@ class ScenarioTestCase(BaseAPITestCase):
     @mock.patch.object(Dispatcher, 'send')
     def test_rewind(self, mock_method):
         # URL pattern: ^scenarios/{pk}/rewind/$ Name: 'scenario-rewind'
-        url = reverse('simpl_api:scenario-rewind',
-                      kwargs={'pk': self.scenario.pk})
+        url = self.reverse('simpl_api:scenario-rewind', pk=self.scenario.pk)
 
         # add period1 and period2 to scenario
         period1 = PeriodFactory.create(scenario=self.scenario)
@@ -760,7 +757,7 @@ class WorldTestCase(BaseAPITestCase):
             self.assertNotEqual(len(response.data), 0)
 
     def test_delete(self):
-        url = reverse('simpl_api:world-detail', kwargs={'pk': self.world.pk})
+        url = self.reverse('simpl_api:world-detail', pk=self.world.pk)
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')

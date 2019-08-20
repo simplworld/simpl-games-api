@@ -1,5 +1,3 @@
-import requests
-
 from thorn.request import Request as BaseRequest
 from thorn.app import Thorn
 
