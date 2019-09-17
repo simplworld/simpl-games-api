@@ -1,4 +1,4 @@
 #!/bin/bash
-python manage.py migrate
+./wait-for-it.sh -h db -p 5432 -t 20 -- python manage.py migrate
 python manage.py collectstatic --noinput
-gunicorn -c ./config/gunicorn.conf -b 0.0.0.0:80 --keep-alive 10 -w 2 --name simpl 'config.wsgi'
+gunicorn -c /code/gunicorn.conf 'config.wsgi'

@@ -18,5 +18,6 @@ push-image:
 
 image: build-image push-image
 
-
+shell:
+	docker-compose run --rm web bash
 
