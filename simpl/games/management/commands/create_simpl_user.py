@@ -8,4 +8,5 @@ def command():
     try:
         User.objects.get(email='simpl@simpl.world')
     except User.DoesNotExist:
-        User.objects.create_superuser('simpl@simpl.world  ', 'simpl')
+        User.objects.create_superuser('simpl@simpl.world', 'simpl')
+    click.echo("Created superuser 'simpl@simpl.world' with password 'simpl'.")
