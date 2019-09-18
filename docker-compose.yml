@@ -3,8 +3,6 @@ version: '3'
 services:
   db:
     image: postgres:9.6
-    environment:
-      - POSTGRES_DB=simpl
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   web:
