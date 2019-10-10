@@ -43,11 +43,17 @@ THIRD_PARTY_APPS = (
     'bootstrap3',
     'fontawesome',
     'crispy_forms',  # Form layouts
+
     'rest_framework',
+
     'django_filters',
     'cuser',
     'rest_framework_swagger',
     'thorn.django',
+
+    'corsheaders',
+    'rest_framework.authtoken',
+    'rest_auth',
 )
 
 # Apps specific for this project go here.
@@ -63,6 +69,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # ------------------------------------------------------------------------------
 MIDDLEWARE_CLASSES = [
     # Make sure djangosecure.middleware.SecurityMiddleware is listed first
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -110,7 +117,6 @@ DATABASES = {
     'default': env.db("DATABASE_URL", default="postgres:///simpl"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-
 
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------
