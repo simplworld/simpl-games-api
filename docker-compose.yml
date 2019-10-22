@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:9.6
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  web:
+    build:
+      context: .
+    volumes:
+      - .:/code
+    ports:
+      - "8100:8000"
+    command: ["/bin/bash", "/code/start.sh"]
+    environment:
+      - DATABASE_URL=postgres://postgres@db/postgres
+      - DJANGO_SETTINGS_MODULE=config.settings.local
+      - GUNICORN_BIND=0.0.0.0:8000
+      - DEBUG=True
+    depends_on:
+      - db
+    stop_signal: SIGTERM
+
+
+volumes:
+  postgres_data:
