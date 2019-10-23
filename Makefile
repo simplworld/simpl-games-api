@@ -1,4 +1,4 @@
-.PHONY: image push-image build-image
+.PHONY: image push-image build-image shell
 
 include .version
 
@@ -19,4 +19,5 @@ push-image:
 image: build-image push-image
 
 
-
+shell:
+	docker-compose run --rm api bash
