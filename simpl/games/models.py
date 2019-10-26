@@ -38,8 +38,7 @@ class Decision(AbstractTimeStampedModel):
     )
 
     class Meta(object):
-        # Instructor decisions are not associated with a role, so cannot:
-        # unique_together = ('name', 'period', 'role')
+        unique_together = ('name', 'period', 'role')
         verbose_name = _('decision')
         verbose_name_plural = _('decisions')
         ordering = ('pk',)
