@@ -23,6 +23,7 @@ urlpatterns = [
 # User management
 urlpatterns += [
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^rest-auth/', include('rest_auth.urls')),
 ]
 
 # Static Media and User Uploads
