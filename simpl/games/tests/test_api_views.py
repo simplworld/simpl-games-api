@@ -36,7 +36,7 @@ class GameTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -49,7 +49,7 @@ class GameTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -65,7 +65,7 @@ class GameTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -78,7 +78,7 @@ class GameTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -95,7 +95,7 @@ class GameTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.put(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -132,7 +132,7 @@ class PeriodTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -145,7 +145,7 @@ class PeriodTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -161,7 +161,7 @@ class PeriodTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -174,7 +174,7 @@ class PeriodTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -191,7 +191,7 @@ class PeriodTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.put(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -227,7 +227,7 @@ class PhaseTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -240,7 +240,7 @@ class PhaseTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -256,7 +256,7 @@ class PhaseTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -269,7 +269,7 @@ class PhaseTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -286,7 +286,7 @@ class PhaseTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.put(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -321,7 +321,7 @@ class RoleTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -334,7 +334,7 @@ class RoleTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -350,7 +350,7 @@ class RoleTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -363,7 +363,7 @@ class RoleTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -380,7 +380,7 @@ class RoleTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.put(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -416,7 +416,7 @@ class RunTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -429,7 +429,7 @@ class RunTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -445,7 +445,7 @@ class RunTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -458,7 +458,7 @@ class RunTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -475,7 +475,7 @@ class RunTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.put(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -515,7 +515,7 @@ class RunUserTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -529,7 +529,7 @@ class RunUserTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -546,7 +546,7 @@ class RunUserTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -559,7 +559,7 @@ class RunUserTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -576,7 +576,7 @@ class RunUserTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.put(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -613,7 +613,7 @@ class ScenarioTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -627,7 +627,7 @@ class ScenarioTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -644,7 +644,7 @@ class ScenarioTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -657,7 +657,7 @@ class ScenarioTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -674,7 +674,7 @@ class ScenarioTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.put(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -721,7 +721,7 @@ class ScenarioTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -751,7 +751,7 @@ class WorldTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -764,7 +764,7 @@ class WorldTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.delete(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -780,7 +780,7 @@ class WorldTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -793,7 +793,7 @@ class WorldTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         self.login(self.user)
@@ -810,7 +810,7 @@ class WorldTestCase(BaseAPITestCase):
 
         # Does this api work without auth?
         response = self.client.put(url, payload, format='json')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
