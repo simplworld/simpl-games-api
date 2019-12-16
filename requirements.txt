@@ -13,7 +13,7 @@ djangorestframework==3.6.4
 djangorestframework-bulk==0.2.1
 
 # Simpl Modules
-simpl-users==0.7.6
+simpl-users==0.7.7
 
 # Configuration
 django-environ==0.4.4

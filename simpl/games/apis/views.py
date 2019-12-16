@@ -2,8 +2,9 @@ import logging
 
 from rest_framework import viewsets
 from rest_framework.authentication import (
+    BasicAuthentication,
     SessionAuthentication,
-    BasicAuthentication
+    TokenAuthentication,
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import detail_route
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 # Mixins
 
 class CommonViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    authentication_classes = (TokenAuthentication, BasicAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated,)
 
 
