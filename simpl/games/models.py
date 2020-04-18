@@ -28,13 +28,15 @@ class Decision(AbstractTimeStampedModel):
     data = JSONField(default={}, blank=True)
     period = models.ForeignKey(
         'Period',
-        related_name='decisions'
+        related_name='decisions',
+        on_delete=models.CASCADE,
     )
     role = models.ForeignKey(
         'Role',
         blank=True,
         null=True,
-        related_name='decisions'
+        related_name='decisions',
+        on_delete=models.CASCADE,
     )
 
     class Meta(object):
@@ -109,7 +111,8 @@ class Period(AbstractTimeStampedModel):
 
     scenario = models.ForeignKey(
         'Scenario',
-        related_name='periods'
+        related_name='periods',
+        on_delete=models.CASCADE,
     )
     order = models.IntegerField(default=0, db_index=True)
     data = JSONField(default={}, blank=True)
@@ -151,7 +154,8 @@ class Phase(AbstractTimeStampedModel):
     slug = models.SlugField(blank=True)
     game = models.ForeignKey(
         'Game',
-        related_name='phases'
+        related_name='phases',
+        on_delete=models.CASCADE,
     )
     order = models.PositiveSmallIntegerField(blank=True, null=True,
                                              db_index=True)
@@ -186,13 +190,15 @@ class Result(AbstractTimeStampedModel):
     data = JSONField(default={}, blank=True)
     period = models.ForeignKey(
         'Period',
-        related_name='results'
+        related_name='results',
+        on_delete=models.CASCADE,
     )
     role = models.ForeignKey(
         'Role',
         blank=True,
         null=True,
-        related_name='results'
+        related_name='results',
+        on_delete=models.CASCADE,
     )
 
     class Meta(object):
@@ -226,6 +232,7 @@ class Role(AbstractTimeStampedModel):
         related_name='roles',
         blank=True,
         null=True,
+        on_delete=models.CASCADE,
     )
     data = JSONField(default={}, blank=True)
 
@@ -253,14 +260,16 @@ class Run(AbstractTimeStampedModel):
     active = models.BooleanField(default=True)
     game = models.ForeignKey(
         'Game',
-        related_name='runs'
+        related_name='runs',
+        on_delete=models.CASCADE,
     )
     data = JSONField(default={}, blank=True)
     phase = models.ForeignKey(
         'Phase',
         blank=True,
         null=True,
-        related_name='+'
+        related_name='+',
+        on_delete=models.CASCADE,
     )
 
     objects = managers.ActiveQuerySet.as_manager()
@@ -291,23 +300,27 @@ class RunUser(AbstractTimeStampedModel):
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='run_users'
+        related_name='run_users',
+        on_delete=models.CASCADE,
     )
     run = models.ForeignKey(
         'Run',
-        related_name='run_users'
+        related_name='run_users',
+        on_delete=models.CASCADE,
     )
     world = models.ForeignKey(
         'World',
         blank=True,
         null=True,
-        related_name='run_users'
+        related_name='run_users',
+        on_delete=models.CASCADE,
     )
     role = models.ForeignKey(
         'Role',
         blank=True,
         null=True,
-        related_name='run_users'
+        related_name='run_users',
+        on_delete=models.CASCADE,
     )
     leader = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
@@ -351,13 +364,15 @@ class Scenario(AbstractTimeStampedModel):
         'RunUser',
         blank=True,
         null=True,
-        related_name='scenarios'
+        related_name='scenarios',
+        on_delete=models.CASCADE,
     )
     world = models.ForeignKey(
         'World',
         blank=True,
         null=True,
-        related_name='scenarios'
+        related_name='scenarios',
+        on_delete=models.CASCADE,
     )
 
     data = JSONField(default={}, blank=True)
@@ -397,7 +412,8 @@ class World(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
     run = models.ForeignKey(
         'Run',
-        related_name='worlds'
+        related_name='worlds',
+        on_delete=models.CASCADE,
     )
     data = JSONField(default={}, blank=True)
     external_ids = ArrayField(
