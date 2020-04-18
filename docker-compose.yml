@@ -20,6 +20,25 @@ services:
       - DEBUG=True
     depends_on:
       - db
+      - redis
+      - memcached
+    stop_signal: SIGTERM
+  memcached:
+    image: "memcached:1.6.5-alpine"
+    stop_signal: SIGKILL
+  redis:
+    image: "redis:alpine"
+    stop_signal: SIGKILL
+  celery:
+    build: .
+    command: celery -A config worker -l debug
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.local
     stop_signal: SIGTERM
 
 

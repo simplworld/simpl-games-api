@@ -25,7 +25,7 @@ class Decision(AbstractTimeStampedModel):
     """Decision model"""
 
     name = models.CharField(max_length=100)
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
     period = models.ForeignKey(
         'Period',
         related_name='decisions',
@@ -72,7 +72,7 @@ class Game(AbstractTimeStampedModel):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=250, blank=True, unique=True)
     active = models.BooleanField(default=True)
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
 
     objects = managers.ActiveQuerySet.as_manager()
 
@@ -115,7 +115,7 @@ class Period(AbstractTimeStampedModel):
         on_delete=models.CASCADE,
     )
     order = models.IntegerField(default=0, db_index=True)
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
 
     class Meta(object):
         unique_together = ('scenario', 'order')
@@ -187,7 +187,7 @@ class Result(AbstractTimeStampedModel):
     """Result model"""
 
     name = models.CharField(max_length=100)
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
     period = models.ForeignKey(
         'Period',
         related_name='results',
@@ -234,7 +234,7 @@ class Role(AbstractTimeStampedModel):
         null=True,
         on_delete=models.CASCADE,
     )
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
 
     class Meta(object):
         unique_together = ('name', 'game')
@@ -263,7 +263,7 @@ class Run(AbstractTimeStampedModel):
         related_name='runs',
         on_delete=models.CASCADE,
     )
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
     phase = models.ForeignKey(
         'Phase',
         blank=True,
@@ -324,7 +324,7 @@ class RunUser(AbstractTimeStampedModel):
     )
     leader = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
 
     objects = managers.ActiveQuerySet.as_manager()
 
@@ -375,7 +375,7 @@ class Scenario(AbstractTimeStampedModel):
         on_delete=models.CASCADE,
     )
 
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
 
     class Meta(object):
         verbose_name = _('scenario')
@@ -415,7 +415,7 @@ class World(AbstractTimeStampedModel):
         related_name='worlds',
         on_delete=models.CASCADE,
     )
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
     external_ids = ArrayField(
         ArrayField(
             models.IntegerField()

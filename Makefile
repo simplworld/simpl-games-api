@@ -23,5 +23,6 @@ shell:
 
 rebuild:
 	docker-compose rm -f web
+	docker-compose rm -f celery
 	docker-compose build web
 
