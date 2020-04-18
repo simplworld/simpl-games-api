@@ -4,12 +4,13 @@ FROM revolutionsystems/python:3.6.5-wee-optimized-lto
 
 
 ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=true
 
 COPY ./requirements.txt ./code/requirements.txt
 
 RUN apt update \
-        && apt-get -y install libjpeg62-turbo-dev zlib1g-dev gcc make \
-        && apt-mark manual libjpeg62-turbo zlib1g \
+    && apt-get -y install libjpeg62-turbo-dev zlib1g-dev gcc make \
+    && apt-mark manual libjpeg62-turbo zlib1g \
     && pip install -r /code/requirements.txt; pip install python-memcached \
     && apt-get -y remove libjpeg62-turbo-dev zlib1g-dev gcc make \
     && apt-get -y autoremove \
