@@ -37,18 +37,18 @@ THIRD_PARTY_APPS = (
 
     'django_filters',
     'cuser',
-    'rest_framework_swagger',
+    'drf_yasg',
     'thorn.django',
 
     'corsheaders',
     'rest_framework.authtoken',
-    'rest_auth',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'simpl_users',  # custom users app
     'simpl.games.apps.SimplGamesConfig',
+    'rest_auth',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -242,12 +242,15 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 500,
 }
 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'simpl_users.apis.serializers.UserSerializer'
+}
+
 SWAGGER_SETTINGS = {
-    'api_version': '0.1',
-    'enabled_methods': [
-        'get',
-        'post',
-        'put',
-        'delete'
-    ],
+    'LOGOUT_URL': '/accounts/logout/',
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic'
+        },
+    },
 }
