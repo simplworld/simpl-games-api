@@ -42,7 +42,6 @@ THIRD_PARTY_APPS = (
     'base_theme',
     'bootstrap3',
     'fontawesome',
-    'crispy_forms',  # Form layouts
 
     'rest_framework',
 
@@ -169,9 +168,6 @@ TEMPLATES = [
         },
     },
 ]
-
-# See: http://django-crispy-forms.readthedocs.org/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # STATIC FILE CONFIGURATION
 # ------------------------------------------------------------------------------

@@ -6,6 +6,8 @@ FROM revolutionsystems/python:3.6.5-wee-optimized-lto
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE=true
 
+RUN pip install -U pip
+
 COPY ./requirements.txt ./code/requirements.txt
 
 RUN apt update \
