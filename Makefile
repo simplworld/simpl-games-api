@@ -1,4 +1,4 @@
-.PHONY: image push-image build-image
+.PHONY: image push-image build-image rebuild shell
 
 include .version
 
@@ -18,5 +18,10 @@ push-image:
 
 image: build-image push-image
 
+shell:
+	docker-compose run --rm web bash
 
+rebuild:
+	docker-compose rm -f web
+	docker-compose build web
 
