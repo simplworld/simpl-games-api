@@ -1,9 +1,3 @@
-# Wheel 0.25+ needed to install certain packages on CPython 3.5+
-# like Pillow and psycopg2
-# See http://bitly.com/wheel-building-fails-CPython-35
-# Verified bug on Python 3.5.1
-wheel==0.29.0
-
 # Django
 Django>=1.11.18,<2.0
 
@@ -51,17 +45,9 @@ celery<=4.2
 
 thorn==1.5.0
 
-# Wharton styles
-git+https://github.com/jefftriplett/django-base-theme.git@432f87f  # Pinned to the latest
-django-bootstrap3==8.2.1
-
 # Nicer CLI Interface
 click==6.6
 django-click==2.0.0
-
-# for courses
-unicodecsv==0.14.1
-django-fontawesome==0.2.2
 
 django-debug-toolbar==1.5
 django-extensions==1.7.3

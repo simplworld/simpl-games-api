@@ -20,18 +20,12 @@ env = environ.Env()
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
 DJANGO_APPS = (
-    # Default Django apps:
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Useful template tags:
-    # 'django.contrib.humanize',
-
-    # Admin
     'django.contrib.admin',
 )
 
@@ -39,10 +33,6 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration (also has a base.html which messes stuff up)
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-    'base_theme',
-    'bootstrap3',
-    'fontawesome',
-
     'rest_framework',
 
     'django_filters',
@@ -262,4 +252,3 @@ SWAGGER_SETTINGS = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = False
-
