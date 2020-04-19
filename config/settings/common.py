@@ -219,10 +219,27 @@ LOGIN_URL = 'account_login'
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
-# CELERY CONFIGURATIO
-INSTALLED_APPS += ('simpl.taskapp.celery.CeleryConfig',)
-# if you are not using the django database broker (e.g. rabbitmq, redis, memcached), you can remove the next line.
-BROKER_URL = env("CELERY_BROKER_URL", default='django://')
+# Redis Configuration
+REDIS_HOST = env("REDIS_HOST", default="redis")
+
+# Celery Configuration
+CELERY_BROKER_REDIS_DB = env("CELERY_BROKER_REDIS_DB", default="1")
+CELERY_RESULT_REDIS_DB = env("CELERY_RESULT_REDIS_DB", default="1")
+
+CELERY_BROKER_URL = env(
+    "CELERY_BROKER_URL",
+    default=f"redis://{REDIS_HOST}:6379/{CELERY_BROKER_REDIS_DB}"
+)
+
+CELERY_RESULT_BACKEND = env(
+    "CELERY_RESULT_BACKEND",
+    default=f"redis://{REDIS_HOST}:6379/{CELERY_RESULT_REDIS_DB}"
+)
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
+CELERY_ALWAYS_EAGER = env.bool("CELERY_ALWAYS_EAGER", default=DEBUG)
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
