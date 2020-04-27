@@ -1,12 +1,7 @@
-from thorn import ModelEvent
 
-from .thorn import thorn_app
-
-
-class SimplEvent(ModelEvent):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs, app=thorn_app)
-
+class SimplEvent:
+    def __init__(self, event):
+        self.event = event
 
 # Decision events
 on_decision_changed = SimplEvent('{.game.slug}.decision.changed')

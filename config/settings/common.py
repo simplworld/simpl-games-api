@@ -38,7 +38,6 @@ THIRD_PARTY_APPS = (
     'django_filters',
     'cuser',
     'drf_yasg',
-    'thorn.django',
 
     'corsheaders',
     'rest_framework.authtoken',
@@ -48,6 +47,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'simpl_users',  # custom users app
     'simpl.games.apps.SimplGamesConfig',
+    'simpl.webhooks',
     'rest_auth',
 )
 

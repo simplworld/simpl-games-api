@@ -7,7 +7,7 @@ from faker import Faker
 from rest_framework import status
 from rest_framework.test import APITestCase
 from test_plus.test import TestCase
-from thorn.dispatch.base import Dispatcher
+#from thorn.dispatch.base import Dispatcher
 
 from simpl.games.apis import bulk_views
 from simpl.games.models import (

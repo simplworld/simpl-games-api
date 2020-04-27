@@ -4,7 +4,7 @@ from django.urls import reverse
 from faker import Faker
 from rest_framework.test import APITestCase
 from test_plus.test import TestCase
-from thorn.dispatch.base import Dispatcher
+#from thorn.dispatch.base import Dispatcher
 
 from simpl.games.apis import serializers
 from simpl.games.factories import (
