@@ -100,7 +100,7 @@ class GameViewSet(CommonViewSet):
 
     queryset = models.Game.objects.all()
     serializer_class = serializers.GameSerializer
-    filter_fields = (
+    filterset_fields = (
         'active',
         'name',
         'slug',

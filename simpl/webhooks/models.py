@@ -9,7 +9,7 @@ class Subscriber(models.Model):
     """
     Model to track webhook subscribers
     """
-    event = models.CharField(max_length=200, db_index=True, help_text="Events to receive")
+    event = models.CharField(max_length=200, db_index=True, help_text="Events to receive, should be namespaced with periods 'user.*', 'blackjack.*', etc.")
     url = models.URLField(max_length=255, db_index=True, help_text="URL to POST event")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="webhook_subscriptions", on_delete=models.CASCADE)
 
