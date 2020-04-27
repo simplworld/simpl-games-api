@@ -13,6 +13,15 @@ class SubscriberQuerySet(models.QuerySet):
     def connected(self):
         return self.filter(connected=True)
 
+    def by_event(self, event):
+        """
+        Currently we only support subscribing by top level events,
+        so 'user.*', '<game_slug>.*', etc.  This converts those subscriptions
+        into an ORM filter for us.
+        """
+        top_level = event.split('.')[0]
+        return self.filter(event=f"{top_level}.*")
+
 
 class SubscriberManager(models.Manager):
 
@@ -48,3 +57,6 @@ class SubscriberManager(models.Manager):
 
     def connected(self):
         return self.get_queryset().connected()
+
+    def by_event(self, event):
+        return self.get_queryset().by_event(event)
