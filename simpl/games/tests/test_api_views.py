@@ -319,9 +319,8 @@ class RoleTestCase(BaseAPITestCase):
     def test_create(self):
         url = reverse('simpl_api:role-list')
 
-        #game = GameFactory()
-        #obj = RoleFactory.build(game=game)
-        obj = RoleFactory()
+        game = GameFactory()
+        obj = RoleFactory.build(game=game)
         payload = serializers.RoleSerializer(obj).data
 
         # Does this api work without auth?
