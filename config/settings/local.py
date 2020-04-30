@@ -9,7 +9,6 @@ Local settings
 '''
 
 from .common import *  # noqa
-from thorn import validators as thorn_validators
 
 import logging
 
@@ -70,12 +69,6 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 CELERY_ALWAYS_EAGER = True
 #INSTALLED_APPS += ('kombu.transport.django',)
 ########## END CELERY
-
-# Your local stuff: Below this line define 3rd party library settings
-THORN_RECIPIENT_VALIDATORS = [
-    thorn_validators.ensure_protocol('http', 'https'),
-    thorn_validators.ensure_port(80, 443, 8080, 8000),
-]
 
 # print logging to the console
 LOGGING = {

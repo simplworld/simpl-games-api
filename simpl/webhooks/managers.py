@@ -18,6 +18,9 @@ class SubscriberQuerySet(models.QuerySet):
         Currently we only support subscribing by top level events,
         so 'user.*', '<game_slug>.*', etc.  This converts those subscriptions
         into an ORM filter for us.
+
+        At some point in the future we should probably support subscribing to
+        more granular events.
         """
         top_level = event.split('.')[0]
         return self.filter(event=f"{top_level}.*")

@@ -12,7 +12,6 @@ Production Configurations
 from __future__ import absolute_import, unicode_literals
 
 from django.utils import six
-from thorn import validators as thorn_validators
 
 
 from .common import *  # noqa
@@ -158,11 +157,3 @@ LOGGING = {
         }
     }
 }
-
-
-# Your production stuff: Below this line define 3rd party library settings
-THORN_RECIPIENT_VALIDATORS = [
-    thorn_validators.block_internal_ips(),
-    thorn_validators.ensure_protocol('http', 'https'),
-    thorn_validators.ensure_port(80, 443, 8080),
-]

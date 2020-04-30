@@ -319,7 +319,9 @@ class RoleTestCase(BaseAPITestCase):
     def test_create(self):
         url = reverse('simpl_api:role-list')
 
-        obj = RoleFactory.build()
+        #game = GameFactory()
+        #obj = RoleFactory.build(game=game)
+        obj = RoleFactory()
         payload = serializers.RoleSerializer(obj).data
 
         # Does this api work without auth?
@@ -329,6 +331,7 @@ class RoleTestCase(BaseAPITestCase):
         # Does this api work with auth?
         with self.login(self.user):
             response = self.client.post(url, payload, format='json')
+            print(response.json())
             self.assertEqual(response.status_code, 201)
             self.assertNotEqual(len(response.data), 0)
 
