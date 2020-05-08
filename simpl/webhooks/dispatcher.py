@@ -1,9 +1,9 @@
-import requests
 import uuid
 
+from django.apps import apps
 from django.conf import settings
 from django.core.cache import cache
-from .models import Subscriber
+
 from .tasks import send_webhook
 
 SIMPL_WEBHOOKS_SUBSCRIBER_CACHE_TIMEOUT = getattr(settings, "SIMPL_WEBHOOKS_SUBSCRIBER_CACHE_TIMEOUT", 300)
@@ -21,6 +21,7 @@ class Dispatcher:
 
         subscribers = cache.get(cache_key, None)
         if subscribers is None:
+            Subscriber = apps.get_model('webhooks', 'Subscriber')
             subscribers = list(Subscriber.objects.by_event(event_name))
 
             cache.set(cache_key, subscribers, SIMPL_WEBHOOKS_SUBSCRIBER_CACHE_TIMEOUT)

@@ -7,7 +7,6 @@ from faker import Faker
 from rest_framework import status
 from rest_framework.test import APITestCase
 from test_plus.test import TestCase
-#from thorn.dispatch.base import Dispatcher
 
 from simpl.games.apis import bulk_views
 from simpl.games.models import (
@@ -20,6 +19,8 @@ from simpl.games.factories import (
     DecisionFactory, ResultFactory, PeriodFactory,
     RoleFactory, ScenarioFactory, UserFactory
 )
+
+from simpl.webhooks.dispatcher import Dispatcher
 
 
 class BaseTestCase(APITestCase, TestCase):
@@ -77,84 +78,84 @@ class BulkDecisionTestCase(BaseTestCase):
             )
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-#    @mock.patch.object(Dispatcher, 'send')
-#    def test_post_bulk(self, mock_method):
-#        """
-#        Test that POST with multiple resources returns 201
-#         """
-#         payload = json.dumps([
-#             {
-#                 'name': 'hello world',
-#                 'data': {},
-#                 'period': self.period.pk,
-#                 'role': self.role.pk
-#             },
-#             {
-#                 'name': 'ciao for now',
-#                 'data': {},
-#                 'period': self.period.pk,
-#                 'role': self.role.pk
-#             }
-#         ])
-#
-#         # Does this api work without auth?
-#         response = self.client.post(
-#             self.url,
-#             data=payload,
-#             content_type='application/json',
-#         )
-#         self.assertEqual(response.status_code, 403)
-#
-#         # Does this api work with auth?
-#         with self.login(self.user):
-#             response = self.client.post(
-#                 self.url,
-#                 data=payload,
-#                 content_type='application/json',
-#             )
-#             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-#
-#         # should have fired 3 webhooks - including one for user
-#         self.assertTrue(mock_method.called)
-#         self.assertEqual(mock_method.call_count, 3)
-#
-#     @mock.patch.object(Dispatcher, 'send')
-#     def test_unfiltered_delete(self, mock_method):
-#         """
-#         DELETE is not allowed if results are not filtered by query params.
-#         """
-#         # create 2 decisions
-#         payload = json.dumps([
-#             {
-#                 'name': 'hello world',
-#                 'data': {},
-#                 'period': self.period.pk,
-#                 'role': self.role.pk
-#             },
-#             {
-#                 'name': 'ciao for now',
-#                 'data': {},
-#                 'period': self.period.pk,
-#                 'role': self.role.pk
-#             }
-#         ])
-#
-#         with self.login(self.user):
-#             response = self.client.post(
-#                 self.url,
-#                 data=payload,
-#                 content_type='application/json',
-#             )
-#             self.assertEqual(Decision.objects.count(), 2)
-#
-#             response = self.client.delete(self.url)
-#             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-#             self.assertEqual(Decision.objects.count(), 2)
-#
-#         # should have fired 3 webhooks - including one for user
-#         self.assertTrue(mock_method.called)
-#         self.assertEqual(mock_method.call_count, 3)
-#
+    @mock.patch.object(Dispatcher, 'send')
+    def test_post_bulk(self, mock_method):
+        """
+        Test that POST with multiple resources returns 201
+         """
+        payload = json.dumps([
+            {
+                'name': 'hello world',
+                'data': {},
+                'period': self.period.pk,
+                'role': self.role.pk
+            },
+            {
+                'name': 'ciao for now',
+                'data': {},
+                'period': self.period.pk,
+                'role': self.role.pk
+            }
+        ])
+
+        # Does this api work without auth?
+        response = self.client.post(
+            self.url,
+            data=payload,
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 403)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.client.post(
+                self.url,
+                data=payload,
+                content_type='application/json',
+            )
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # should have fired 3 webhooks - including one for user
+        self.assertTrue(mock_method.called)
+        self.assertEqual(mock_method.call_count, 3)
+
+    @mock.patch.object(Dispatcher, 'send')
+    def test_unfiltered_delete(self, mock_method):
+        """
+        DELETE is not allowed if results are not filtered by query params.
+        """
+        # create 2 decisions
+        payload = json.dumps([
+            {
+                'name': 'hello world',
+                'data': {},
+                'period': self.period.pk,
+                'role': self.role.pk
+            },
+            {
+                'name': 'ciao for now',
+                'data': {},
+                'period': self.period.pk,
+                'role': self.role.pk
+            }
+        ])
+
+        with self.login(self.user):
+            response = self.client.post(
+                self.url,
+                data=payload,
+                content_type='application/json',
+            )
+            self.assertEqual(Decision.objects.count(), 2)
+
+            response = self.client.delete(self.url)
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            self.assertEqual(Decision.objects.count(), 2)
+
+        # should have fired 3 webhooks - including one for user
+        self.assertTrue(mock_method.called)
+        self.assertEqual(mock_method.call_count, 3)
+
     def test_filtered_delete(self):
         """
         DELETE is allowed if results are filtered by query params.
@@ -231,85 +232,85 @@ class BulkResultTestCase(BaseTestCase):
                 content_type='application/json',
             )
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-#
-#     @mock.patch.object(Dispatcher, 'send')
-#     def test_post_bulk(self, mock_method):
-#         """
-#         Test that POST with multiple resources returns 201
-#         """
-#         payload = json.dumps([
-#             {
-#                 'name': 'hello world',
-#                 'data': {},
-#                 'period': self.period.pk,
-#                 'role': self.role.pk
-#             },
-#             {
-#                 'name': 'ciao for now',
-#                 'data': {},
-#                 'period': self.period.pk,
-#                 'role': self.role.pk
-#             }
-#         ])
-#
-#         # Does this api work without auth?
-#         response = self.client.post(
-#             self.url,
-#             data=payload,
-#             content_type='application/json',
-#         )
-#         self.assertEqual(response.status_code, 403)
-#
-#         # Does this api work with auth?
-#         with self.login(self.user):
-#             response = self.client.post(
-#                 self.url,
-#                 data=payload,
-#                 content_type='application/json',
-#             )
-#             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-#
-#         # should have fired 3 webhooks - including one for user
-#         self.assertTrue(mock_method.called)
-#         self.assertEqual(mock_method.call_count, 3)
-#
-#     @mock.patch.object(Dispatcher, 'send')
-#     def test_unfiltered_delete(self, mock_method):
-#         """
-#         DELETE is not allowed if results are not filtered by query params.
-#         """
-#         # create 2 results
-#         payload = json.dumps([
-#             {
-#                 'name': 'hello world',
-#                 'data': {},
-#                 'period': self.period.pk,
-#                 'role': self.role.pk
-#             },
-#             {
-#                 'name': 'ciao for now',
-#                 'data': {},
-#                 'period': self.period.pk,
-#                 'role': self.role.pk
-#             }
-#         ])
-#
-#         with self.login(self.user):
-#             response = self.client.post(
-#                 self.url,
-#                 data=payload,
-#                 content_type='application/json',
-#             )
-#             self.assertEqual(Result.objects.count(), 2)
-#
-#             response = self.client.post(self.url)
-#             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-#             self.assertEqual(Result.objects.count(), 2)
-#
-#         # should have fired 3 webhooks - including one for user
-#         self.assertTrue(mock_method.called)
-#         self.assertEqual(mock_method.call_count, 3)
-#
+
+    @mock.patch.object(Dispatcher, 'send')
+    def test_post_bulk(self, mock_method):
+        """
+        Test that POST with multiple resources returns 201
+        """
+        payload = json.dumps([
+            {
+                'name': 'hello world',
+                'data': {},
+                'period': self.period.pk,
+                'role': self.role.pk
+            },
+            {
+                'name': 'ciao for now',
+                'data': {},
+                'period': self.period.pk,
+                'role': self.role.pk
+            }
+        ])
+
+        # Does this api work without auth?
+        response = self.client.post(
+            self.url,
+            data=payload,
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 403)
+
+        # Does this api work with auth?
+        with self.login(self.user):
+            response = self.client.post(
+                self.url,
+                data=payload,
+                content_type='application/json',
+            )
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # should have fired 3 webhooks - including one for user
+        self.assertTrue(mock_method.called)
+        self.assertEqual(mock_method.call_count, 3)
+
+    @mock.patch.object(Dispatcher, 'send')
+    def test_unfiltered_delete(self, mock_method):
+        """
+        DELETE is not allowed if results are not filtered by query params.
+        """
+        # create 2 results
+        payload = json.dumps([
+            {
+                'name': 'hello world',
+                'data': {},
+                'period': self.period.pk,
+                'role': self.role.pk
+            },
+            {
+                'name': 'ciao for now',
+                'data': {},
+                'period': self.period.pk,
+                'role': self.role.pk
+            }
+        ])
+
+        with self.login(self.user):
+            response = self.client.post(
+                self.url,
+                data=payload,
+                content_type='application/json',
+            )
+            self.assertEqual(Result.objects.count(), 2)
+
+            response = self.client.post(self.url)
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            self.assertEqual(Result.objects.count(), 2)
+
+        # should have fired 3 webhooks - including one for user
+        self.assertTrue(mock_method.called)
+        self.assertEqual(mock_method.call_count, 3)
+
     def test_filtered_delete(self):
         """
         DELETE is allowed if results are filtered by query params.

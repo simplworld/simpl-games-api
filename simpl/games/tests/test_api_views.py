@@ -4,7 +4,6 @@ from django.urls import reverse
 from faker import Faker
 from rest_framework.test import APITestCase
 from test_plus.test import TestCase
-#from thorn.dispatch.base import Dispatcher
 
 from simpl.games.apis import serializers
 from simpl.games.factories import (
@@ -12,6 +11,8 @@ from simpl.games.factories import (
     WorldFactory, PhaseFactory, RoleFactory, RunUserFactory, UserFactory,
     DecisionFactory, ResultFactory
 )
+
+from simpl.webhooks.dispatcher import Dispatcher
 
 
 class BaseAPITestCase(APITestCase, TestCase):
@@ -699,46 +700,46 @@ class ScenarioTestCase(BaseAPITestCase):
             response = self.client.put(url, payload, format='json')
             self.assertEqual(response.status_code, 200)
 
-#    @mock.patch.object(Dispatcher, 'send')
-#    def test_rewind(self, mock_method):
-#        # URL pattern: ^scenarios/{pk}/rewind/$ Name: 'scenario-rewind'
-#        url = reverse('simpl_api:scenario-rewind',
-#                      kwargs={'pk': self.scenario.pk})
-#
-#        # add period1 and period2 to scenario
-#        period1 = PeriodFactory.create(scenario=self.scenario)
-#        period1.order = 1
-#
-#        period2 = PeriodFactory.create(scenario=self.scenario, order=2)
-#        period2.order = 2
-#
-#        # add decision to period1
-#        decision = DecisionFactory.create(period=period1)
-#
-#        # add result to period1
-#        result = ResultFactory.create(period=period1)
-#
-#        payload = {
-#            'period_order': 1,
-#            'delete_period_decisions': False,
-#            'delete_result_decisions': True
-#        }
-#
-#        # Does this api work without auth?
-#        response = self.client.post(url, payload, format='json')
-#        self.assertEqual(response.status_code, 403)
-#
-#        # Does this api work with auth?
-#        self.login(self.user)
-#
-#        # 'twould appear factory objects are not useful for testing rewind
-#        response = self.client.post(url, payload, format='json')
-#        self.assertEqual(response.status_code, 204)
-#
-#        # should have fired 8 webhooks - including one for user
-#        self.assertTrue(mock_method.called)
-#        self.assertEqual(mock_method.call_count, 8)
-#
+    @mock.patch.object(Dispatcher, 'send')
+    def test_rewind(self, mock_method):
+        # URL pattern: ^scenarios/{pk}/rewind/$ Name: 'scenario-rewind'
+        url = reverse('simpl_api:scenario-rewind',
+                      kwargs={'pk': self.scenario.pk})
+
+        # add period1 and period2 to scenario
+        period1 = PeriodFactory.create(scenario=self.scenario)
+        period1.order = 1
+
+        period2 = PeriodFactory.create(scenario=self.scenario, order=2)
+        period2.order = 2
+
+        # add decision to period1
+        decision = DecisionFactory.create(period=period1)
+
+        # add result to period1
+        result = ResultFactory.create(period=period1)
+
+        payload = {
+            'period_order': 1,
+            'delete_period_decisions': False,
+            'delete_result_decisions': True
+        }
+
+        # Does this api work without auth?
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, 403)
+
+        # Does this api work with auth?
+        self.login(self.user)
+
+        # 'twould appear factory objects are not useful for testing rewind
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, 204)
+
+        # should have fired 8 webhooks - including one for user
+        self.assertTrue(mock_method.called)
+        self.assertEqual(mock_method.call_count, 8)
+
 
 class WorldTestCase(BaseAPITestCase):
     def setUp(self):

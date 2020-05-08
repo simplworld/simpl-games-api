@@ -1,7 +1,8 @@
 import requests
+
+from django.apps import apps
 from django.utils import timezone
 from celery import shared_task
-from .models import Subscriber
 
 
 @shared_task
@@ -22,6 +23,8 @@ def send_webhook(event, url, payload, connected, erroring, subscriber_id):
     the dispatch call for this task sets a small ETA countdown on the Celery
     task to help ensure erroring tasks do not clog the Celery broker's queue.
     """
+    Subscriber = apps.get_model('webhooks', 'Subscriber')
+
     try:
         res = requests.post(
             url=url,

@@ -1,4 +1,10 @@
+import logging
+
 from django.contrib.auth import get_user_model
+
+from simpl.webhooks.dispatcher import Dispatcher
+
+logger = logging.getLogger(__name__)
 
 # Which simpl models do we care about, plus user
 SIMPL_WEBHOOK_MODELS = frozenset([
@@ -83,7 +89,16 @@ def handle_delete_signals(**kwargs):
 
 
 def handle_model_signal(instance, action):
-    print("HANDLING:" + event_namespace(instance, action))
+    event = event_namespace(instance, action)
+
+    dispatch = Dispatcher()
+    dispatch.send(event=event, data=instance.webhook_payload())
+
+    logging.debug("webhook-handle-model-signal", extra={
+        "event": event,
+        "pk": instance.id,
+        "action": action
+    })
 
 #class SimplEvent:
 #    def __init__(self, model, action, instance):

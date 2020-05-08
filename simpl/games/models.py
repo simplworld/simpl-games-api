@@ -243,6 +243,10 @@ class Role(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    def webhook_payload(self):
+        from .apis.serializers import RoleSerializer
+
+        return RoleSerializer(self).data
 
 #@python_2_unicode_compatible
 #@webhook_model(
