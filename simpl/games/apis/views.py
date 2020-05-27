@@ -662,7 +662,7 @@ class ScenarioViewSet(CommonViewSet):
         """
         return super(ScenarioViewSet, self).update(request, pk=pk)
 
-    @action(detail=True)
+    @action(detail=True, methods=['post'])
     def rewind(self, request, pk=None):
         """
         Rewind the scenario back to its period with the specified
