@@ -58,11 +58,6 @@ urlpatterns += [
             (simpl_users_api_router.urls, 'simpl_users_api'),
             namespace='simpl_users_api'
         )),
-#    url(r"^apis/hooks/",
-#        include(
-#            ('thorn.django.rest_framework.urls', 'webhook'),
-#            namespace='webhook'
-#        )),
     url(r'^apis/bulk/',
         include(
             (bulk_api_router.urls, 'simpl_bulk_api'),
