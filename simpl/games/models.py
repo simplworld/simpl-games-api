@@ -4,8 +4,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
-#from thorn import model_reverser, webhook_model
-
 from simpl.core import managers
 from simpl.core.decorators import cached_method
 from simpl.core.mixins import AbstractTimeStampedModel
@@ -13,13 +11,6 @@ from simpl.core.mixins import AbstractTimeStampedModel
 from . import events
 
 
-#@python_2_unicode_compatible
-#@webhook_model(
-#    on_change=events.on_decision_changed,
-#    on_create=events.on_decision_created,
-#    on_delete=events.on_decision_deleted,
-#    reverse=model_reverser('simpl_api:decision-detail', pk='pk'),
-#)
 class Decision(AbstractTimeStampedModel):
     """Decision model"""
 
@@ -58,13 +49,6 @@ class Decision(AbstractTimeStampedModel):
         return DecisionSerializer(self).data
 
 
-#@python_2_unicode_compatible
-#@webhook_model(
-#    on_change=events.on_game_changed,
-#    on_create=events.on_game_created,
-#    on_delete=events.on_game_deleted,
-#    reverse=model_reverser('simpl_api:game-detail', slug='slug'),
-#)
 class Game(AbstractTimeStampedModel):
     """Game model"""
 
@@ -98,13 +82,6 @@ class Game(AbstractTimeStampedModel):
         return GameSerializer(self).data
 
 
-#@python_2_unicode_compatible
-#@webhook_model(
-#    on_change=events.on_period_changed,
-#    on_create=events.on_period_created,
-#    on_delete=events.on_period_deleted,
-#    reverse=model_reverser('simpl_api:period-detail', pk='pk'),
-#)
 class Period(AbstractTimeStampedModel):
     """Period model"""
 
@@ -139,13 +116,6 @@ class Period(AbstractTimeStampedModel):
         return PeriodSerializer(self).data
 
 
-#@python_2_unicode_compatible
-#@webhook_model(
-#    on_change=events.on_phase_changed,
-#    on_create=events.on_phase_created,
-#    on_delete=events.on_phase_deleted,
-#    reverse=model_reverser('simpl_api:phase-detail', pk='pk'),
-#)
 class Phase(AbstractTimeStampedModel):
     """Phase model"""
 
@@ -174,14 +144,6 @@ class Phase(AbstractTimeStampedModel):
         return PhaseSerializer(self).data
 
 
-#@python_2_unicode_compatible
-#@webhook_model(
-#    on_change=events.on_result_changed,
-#    on_create=events.on_result_created,
-#    on_delete=events.on_result_deleted,
-#    reverse=model_reverser('simpl_api:result-detail', pk='pk'),
-#    # sender_field='game.user'
-#)
 class Result(AbstractTimeStampedModel):
     """Result model"""
 
@@ -248,13 +210,7 @@ class Role(AbstractTimeStampedModel):
 
         return RoleSerializer(self).data
 
-#@python_2_unicode_compatible
-#@webhook_model(
-#    on_change=events.on_run_changed,
-#    on_create=events.on_run_created,
-#    on_delete=events.on_run_deleted,
-#    reverse=model_reverser('simpl_api:run-detail', pk='pk'),
-#)
+
 class Run(AbstractTimeStampedModel):
     """Run model"""
 
@@ -290,13 +246,6 @@ class Run(AbstractTimeStampedModel):
         return RunSerializer(self).data
 
 
-#@python_2_unicode_compatible
-##@webhook_model(
-#    on_change=events.on_runuser_changed,
-#    on_create=events.on_runuser_created,
-#    on_delete=events.on_runuser_deleted,
-#    reverse=model_reverser('simpl_api:runuser-detail', pk='pk'),
-#)
 class RunUser(AbstractTimeStampedModel):
     """Run User model"""
 
@@ -350,13 +299,6 @@ class RunUser(AbstractTimeStampedModel):
         return RunUserSerializer(self).data
 
 
-#@python_2_unicode_compatible
-#@webhook_model(
-#    on_change=events.on_scenario_changed,
-#    on_create=events.on_scenario_created,
-#    on_delete=events.on_scenario_deleted,
-#    reverse=model_reverser('simpl_api:scenario-detail', pk='pk'),
-#)
 class Scenario(AbstractTimeStampedModel):
     """Scenario model"""
 
@@ -401,13 +343,6 @@ class Scenario(AbstractTimeStampedModel):
         return ScenarioSerializer(self).data
 
 
-#@python_2_unicode_compatible
-#@webhook_model(
-#    on_change=events.on_world_changed,
-#    on_create=events.on_world_created,
-#    on_delete=events.on_world_deleted,
-#    reverse=model_reverser('simpl_api:world-detail', pk='pk'),
-#)
 class World(AbstractTimeStampedModel):
     """World model"""
 

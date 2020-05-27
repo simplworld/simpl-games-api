@@ -36,3 +36,7 @@ class SubscriberModelTests(TestCase):
         self.assertFalse(s.connected)
         s.record_connect()
         self.assertTrue(s.connected)
+
+    def test_subscriber_str(self):
+        s = SubscriberFactory.build()
+        assert "->" in str(s)
