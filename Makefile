@@ -19,10 +19,10 @@ push-image:
 image: build-image push-image
 
 shell:
-	docker-compose run --rm web bash
+	docker-compose run --rm api bash
 
 rebuild:
-	docker-compose rm -f web
+	docker-compose rm -f api
 	docker-compose rm -f celery
-	docker-compose build web
+	docker-compose build api
 

@@ -1,8 +1,9 @@
 import logging
 from rest_framework import filters, viewsets, generics
 from rest_framework.authentication import (
+    BasicAuthentication,
     SessionAuthentication,
-    BasicAuthentication
+    TokenAuthentication,
 )
 from rest_framework.permissions import IsAuthenticated
 
@@ -32,7 +33,7 @@ class BulkCreateDestroyModelViewSet(BulkCreateModelMixin,
 
 
 class BulkCommonViewSet(BulkCreateDestroyModelViewSet):
-    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    authentication_classes = (TokenAuthentication, BasicAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated,)
 
 

@@ -67,7 +67,7 @@ class BulkDecisionTestCase(BaseTestCase):
             data=payload,
             content_type='application/json',
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -104,7 +104,7 @@ class BulkDecisionTestCase(BaseTestCase):
             data=payload,
             content_type='application/json',
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -222,7 +222,7 @@ class BulkResultTestCase(BaseTestCase):
             data=payload,
             content_type='application/json',
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -259,7 +259,7 @@ class BulkResultTestCase(BaseTestCase):
             data=payload,
             content_type='application/json',
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -374,7 +374,7 @@ class BulkPeriodTestCase(BaseTestCase):
             data=payload,
             content_type='application/json',
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
@@ -406,7 +406,7 @@ class BulkPeriodTestCase(BaseTestCase):
             data=payload,
             content_type='application/json',
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
         # Does this api work with auth?
         with self.login(self.user):
