@@ -1,6 +1,6 @@
 From gladiatr72/just-tini:latest as tini
 
-FROM revolutionsystems/python:3.6.5-wee-optimized-lto
+FROM revolutionsystems/python:3.7.7-wee-optimized-lto
 
 
 ENV PYTHONUNBUFFERED 1
