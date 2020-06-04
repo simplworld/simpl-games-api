@@ -77,7 +77,7 @@ LOGGING = {
     "loggers": {
         "django": {
             "handlers": ["console"],
-            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "level": env.str("DJANGO_LOG_LEVEL", default="INFO"),
         },
         "period": {"handlers": ["console"], "level": logging.DEBUG},
         "simpl.games.apis": {"handlers": ["console"], "level": logging.DEBUG},
