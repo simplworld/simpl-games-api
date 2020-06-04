@@ -9,7 +9,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 from __future__ import absolute_import, unicode_literals
-import os
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
@@ -34,13 +33,14 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 
     'django_filters',
     'cuser',
     'drf_yasg',
 
     'corsheaders',
-    'rest_framework.authtoken',
 )
 
 # Apps specific for this project go here.
@@ -48,7 +48,6 @@ LOCAL_APPS = (
     'simpl_users',  # custom users app
     'simpl.games.apps.SimplGamesConfig',
     'simpl.webhooks',
-    'rest_auth',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -272,6 +271,7 @@ SWAGGER_SETTINGS = {
         },
     },
 }
+
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_HEADERS = [
     'accept',
