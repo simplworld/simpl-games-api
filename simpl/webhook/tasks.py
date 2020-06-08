@@ -23,7 +23,7 @@ def send_webhook(event, url, payload, connected, erroring, subscriber_id):
     the dispatch call for this task sets a small ETA countdown on the Celery
     task to help ensure erroring tasks do not clog the Celery broker's queue.
     """
-    Subscriber = apps.get_model('webhooks', 'Subscriber')
+    Subscriber = apps.get_model('webhook', 'Subscriber')
 
     try:
         res = requests.post(

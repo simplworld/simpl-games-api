@@ -12,7 +12,7 @@ from simpl.games.factories import (
     DecisionFactory, ResultFactory
 )
 
-from simpl.webhooks.dispatcher import Dispatcher
+from simpl.webhook.dispatcher import Dispatcher
 
 
 class BaseAPITestCase(APITestCase, TestCase):

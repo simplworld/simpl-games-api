@@ -20,7 +20,7 @@ from simpl.games.factories import (
     RoleFactory, ScenarioFactory, UserFactory
 )
 
-from simpl.webhooks.dispatcher import Dispatcher
+from simpl.webhook.dispatcher import Dispatcher
 
 
 class BaseTestCase(APITestCase, TestCase):

@@ -21,7 +21,7 @@ class Dispatcher:
 
         subscribers = cache.get(cache_key, None)
         if subscribers is None:
-            Subscriber = apps.get_model('webhooks', 'Subscriber')
+            Subscriber = apps.get_model('webhook', 'Subscriber')
             subscribers = list(Subscriber.objects.by_event(event_name))
 
             cache.set(cache_key, subscribers, SIMPL_WEBHOOKS_SUBSCRIBER_CACHE_TIMEOUT)

@@ -2,7 +2,7 @@ import logging
 
 from django.contrib.auth import get_user_model
 
-from simpl.webhooks.dispatcher import Dispatcher
+from simpl.webhook.dispatcher import Dispatcher
 
 logger = logging.getLogger(__name__)
 

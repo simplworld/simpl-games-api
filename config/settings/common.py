@@ -46,7 +46,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'simpl_users',  # custom users app
     'simpl.games.apps.SimplGamesConfig',
-    'simpl.webhooks',
+    'simpl.webhook',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
