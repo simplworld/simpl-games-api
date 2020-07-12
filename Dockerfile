@@ -1,4 +1,4 @@
-From gladiatr72/just-tini:latest as tini
+FROM gladiatr72/just-tini:latest as tini
 
 FROM revolutionsystems/python:3.7.7-wee-optimized-lto
 
@@ -23,7 +23,7 @@ EXPOSE 8000
 
 ENTRYPOINT ["/tini", "--"]
 
-CMD ["gunicorn", "-c", "/code/gunicorn.conf", "config.wsgi"]
+CMD ["gunicorn", "-c", "/code/gunicorn.conf.py", "config.wsgi"]
 
 
 LABEL Description="Image for simpl-games-api" Vendor="Wharton" Version="0.7.20"
