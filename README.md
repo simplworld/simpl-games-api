@@ -56,6 +56,13 @@ Setup the `DJANGO_SETTINGS_MODULE` to use:
 $ export DJANGO_SETTINGS_MODULE=config.settings.local
 ```
 
+For local development running outside docker, use:
+
+```bash
+$ export SIMPL_WEBHOOKS_ALLOW_LOCALHOST=True
+$ export SIMPL_WEBHOOKS_ALLOW_HTTP=True
+```
+
 ### Start the web server
 
 ```bash
