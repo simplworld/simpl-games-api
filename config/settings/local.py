@@ -55,8 +55,7 @@ TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
 ########## CELERY
 # In development, all tasks will be executed locally by blocking until the task returns
-CELERY_ALWAYS_EAGER = True
-# INSTALLED_APPS += ('kombu.transport.django',)
+CELERY_TASK_ALWAYS_EAGER = True
 ########## END CELERY
 
 # print logging to the console

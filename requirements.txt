@@ -32,21 +32,21 @@ psycopg2-binary==2.8.5
 python-memcached==1.59
 
 # Unicode slugification
-django-autoslug==1.9.7
+django-autoslug==1.9.8
 
 # Time zones support
 pytz==2020.1
 
-# Celery support (needed for Thorn)
-redis==3.5.2
+# Celery support
+redis==3.5.3
 django-redis==4.12.1
 
 # Celery
-celery==4.3.0
+celery==4.4.7
 
 # Nicer CLI Interface
 #click==6.7
-django-click==2.1.0
+django-click==2.2.0
 
 # Gunicorn
 gunicorn==20.0.4
@@ -68,10 +68,10 @@ ipdb==0.13.2
 rollbar==0.15.0
 
 # Logging
-git+https://github.com/revsys/jslog4kube.git@v1.0.4
+git+https://github.com/revsys/jslog4kube.git@v1.0.6
 
-gevent==20.5.1
-django-db-geventpool==3.2.1
+gevent==20.6.2
+django-db-geventpool==3.2.2
 
 django-extensions==2.2.9
 

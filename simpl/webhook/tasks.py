@@ -1,3 +1,4 @@
+import json
 import requests
 
 from django.apps import apps
@@ -26,18 +27,17 @@ def send_webhook(event, url, payload, connected, erroring, subscriber_id):
     Subscriber = apps.get_model('webhook', 'Subscriber')
 
     try:
-        res = requests.post(
+        requests.post(
             url=url,
             headers={'Content-type': 'application/json'},
-            data=payload,
+            data=json.dumps(payload),
         ).raise_for_status()
-    except requests.exceptions.RequestException:
+    except requests.exceptions.RequestException as e:
         # Handle recording errors
         sub = Subscriber.objects.get(pk=subscriber_id)
         sub.erroring = True
         sub.last_error = timezone.now()
-        sub.last_error_status = res.status_code
-        sub.last_error_content = res.content
+        sub.last_error_content = str(e)
         sub.save()
 
         # Reraise the exception so Celery see this as a failed task
