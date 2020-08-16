@@ -6,7 +6,8 @@ from simpl.webhook.dispatcher import Dispatcher
 
 logger = logging.getLogger(__name__)
 
-# Which simpl models do we care about, plus user
+# Which simpl models do we care about, plus user which is handled
+# specifically below to accommodate the pluggable nature of user models
 SIMPL_WEBHOOK_MODELS = frozenset([
     'simpl.games.models.game',
     'simpl.games.models.decision',
