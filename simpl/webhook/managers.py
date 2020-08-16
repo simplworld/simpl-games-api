@@ -33,12 +33,12 @@ class SubscriberManager(models.Manager):
 
     def _check_url(self, url):
         """ Determine if our URL is ok """
-        allow_localhost = getattr(settings, "SIMPL_WEBHOOKS_ALLOW_LOCALHOST", False)
+        allow_localhost = getattr(settings, "SIMPL_WEBHOOK_ALLOW_LOCALHOST", False)
 
         if not allow_localhost and 'localhost' in url:
             raise ValueError("Simpl is not configured to allow localhost URLs")
 
-        allow_http = getattr(settings, "SIMPL_WEBHOOKS_ALLOW_HTTP", False)
+        allow_http = getattr(settings, "SIMPL_WEBHOOK_ALLOW_HTTP", False)
 
         if not allow_http and 'https' not in url:
             raise ValueError("Simpl is not configured to allow non-HTTPS urls")

@@ -6,7 +6,7 @@ from django.core.cache import cache
 
 from .tasks import send_webhook
 
-SIMPL_WEBHOOKS_SUBSCRIBER_CACHE_TIMEOUT = getattr(settings, "SIMPL_WEBHOOKS_SUBSCRIBER_CACHE_TIMEOUT", 300)
+SIMPL_WEBHOOK_SUBSCRIBER_CACHE_TIMEOUT = getattr(settings, "SIMPL_WEBHOOK_SUBSCRIBER_CACHE_TIMEOUT", 300)
 
 
 class Dispatcher:
@@ -24,7 +24,7 @@ class Dispatcher:
             Subscriber = apps.get_model('webhook', 'Subscriber')
             subscribers = list(Subscriber.objects.by_event(event_name))
 
-            cache.set(cache_key, subscribers, SIMPL_WEBHOOKS_SUBSCRIBER_CACHE_TIMEOUT)
+            cache.set(cache_key, subscribers, SIMPL_WEBHOOK_SUBSCRIBER_CACHE_TIMEOUT)
 
         return subscribers
 
