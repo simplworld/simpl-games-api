@@ -21,6 +21,7 @@ services:
       - DJANGO_DEBUG=1
       - GUNICORN_BIND=0.0.0.0:8000
       - DEBUG=True
+      - DJANGO_LOG_LEVEL=DEBUG
     depends_on:
       - db
       - redis
