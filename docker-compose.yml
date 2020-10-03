@@ -40,22 +40,22 @@ services:
     networks:
       - simpl
 
-#  celery:
-#    build: .
-#    command: celery -A config worker -l debug
-#    volumes:
-#      - .:/code
-#    depends_on:
-#      - db
-#      - redis
-#    environment:
-#      - DATABASE_URL=postgres://postgres@db/postgres
-#      - DJANGO_SETTINGS_MODULE=config.settings.local
-#      - DJANGO_DEBUG=1
-#      - DEBUG=True
-#    stop_signal: SIGTERM
-#    networks:
-#      - simpl
+  celery:
+    build: .
+    command: celery -A config worker -l debug
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DATABASE_URL=postgres://postgres@db/postgres
+      - DJANGO_SETTINGS_MODULE=config.settings.local
+      - DJANGO_DEBUG=1
+      - DEBUG=True
+    stop_signal: SIGTERM
+    networks:
+      - simpl
 
 networks:
   simpl:
