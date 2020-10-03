@@ -72,7 +72,7 @@ def handle_save_signals(**kwargs):
     instance = kwargs['instance']
     if not simpl_model(instance):
         return
-    action = 'updated'
+    action = 'changed'
 
     if kwargs['created']:
         action = 'created'
