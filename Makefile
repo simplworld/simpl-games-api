@@ -1,4 +1,4 @@
-.PHONY: image push-image build-image
+.PHONY: image push-image build-image rebuild shell
 
 include .version
 
@@ -18,5 +18,11 @@ push-image:
 
 image: build-image push-image
 
+shell:
+	docker-compose run --rm api bash
 
+rebuild:
+	docker-compose rm -f api
+	docker-compose rm -f celery
+	docker-compose build api
 

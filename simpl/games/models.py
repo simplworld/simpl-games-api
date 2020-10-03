@@ -2,10 +2,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import ArrayField, JSONField
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-
-from thorn import model_reverser, webhook_model
 
 from simpl.core import managers
 from simpl.core.decorators import cached_method
@@ -14,27 +11,22 @@ from simpl.core.mixins import AbstractTimeStampedModel
 from . import events
 
 
-@python_2_unicode_compatible
-@webhook_model(
-    on_change=events.on_decision_changed,
-    on_create=events.on_decision_created,
-    on_delete=events.on_decision_deleted,
-    reverse=model_reverser('simpl_api:decision-detail', pk='pk'),
-)
 class Decision(AbstractTimeStampedModel):
     """Decision model"""
 
     name = models.CharField(max_length=100)
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
     period = models.ForeignKey(
         'Period',
-        related_name='decisions'
+        related_name='decisions',
+        on_delete=models.CASCADE,
     )
     role = models.ForeignKey(
         'Role',
         blank=True,
         null=True,
-        related_name='decisions'
+        related_name='decisions',
+        on_delete=models.CASCADE,
     )
 
     class Meta(object):
@@ -57,20 +49,13 @@ class Decision(AbstractTimeStampedModel):
         return DecisionSerializer(self).data
 
 
-@python_2_unicode_compatible
-@webhook_model(
-    on_change=events.on_game_changed,
-    on_create=events.on_game_created,
-    on_delete=events.on_game_deleted,
-    reverse=model_reverser('simpl_api:game-detail', slug='slug'),
-)
 class Game(AbstractTimeStampedModel):
     """Game model"""
 
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=250, blank=True, unique=True)
     active = models.BooleanField(default=True)
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
 
     objects = managers.ActiveQuerySet.as_manager()
 
@@ -97,22 +82,16 @@ class Game(AbstractTimeStampedModel):
         return GameSerializer(self).data
 
 
-@python_2_unicode_compatible
-@webhook_model(
-    on_change=events.on_period_changed,
-    on_create=events.on_period_created,
-    on_delete=events.on_period_deleted,
-    reverse=model_reverser('simpl_api:period-detail', pk='pk'),
-)
 class Period(AbstractTimeStampedModel):
     """Period model"""
 
     scenario = models.ForeignKey(
         'Scenario',
-        related_name='periods'
+        related_name='periods',
+        on_delete=models.CASCADE,
     )
     order = models.IntegerField(default=0, db_index=True)
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
 
     class Meta(object):
         unique_together = ('scenario', 'order')
@@ -137,13 +116,6 @@ class Period(AbstractTimeStampedModel):
         return PeriodSerializer(self).data
 
 
-@python_2_unicode_compatible
-@webhook_model(
-    on_change=events.on_phase_changed,
-    on_create=events.on_phase_created,
-    on_delete=events.on_phase_deleted,
-    reverse=model_reverser('simpl_api:phase-detail', pk='pk'),
-)
 class Phase(AbstractTimeStampedModel):
     """Phase model"""
 
@@ -151,7 +123,8 @@ class Phase(AbstractTimeStampedModel):
     slug = models.SlugField(blank=True)
     game = models.ForeignKey(
         'Game',
-        related_name='phases'
+        related_name='phases',
+        on_delete=models.CASCADE,
     )
     order = models.PositiveSmallIntegerField(blank=True, null=True,
                                              db_index=True)
@@ -171,28 +144,22 @@ class Phase(AbstractTimeStampedModel):
         return PhaseSerializer(self).data
 
 
-@python_2_unicode_compatible
-@webhook_model(
-    on_change=events.on_result_changed,
-    on_create=events.on_result_created,
-    on_delete=events.on_result_deleted,
-    reverse=model_reverser('simpl_api:result-detail', pk='pk'),
-    # sender_field='game.user'
-)
 class Result(AbstractTimeStampedModel):
     """Result model"""
 
     name = models.CharField(max_length=100)
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
     period = models.ForeignKey(
         'Period',
-        related_name='results'
+        related_name='results',
+        on_delete=models.CASCADE,
     )
     role = models.ForeignKey(
         'Role',
         blank=True,
         null=True,
-        related_name='results'
+        related_name='results',
+        on_delete=models.CASCADE,
     )
 
     class Meta(object):
@@ -215,7 +182,6 @@ class Result(AbstractTimeStampedModel):
         return ResultSerializer(self).data
 
 
-@python_2_unicode_compatible
 class Role(AbstractTimeStampedModel):
     """Role model"""
 
@@ -226,8 +192,9 @@ class Role(AbstractTimeStampedModel):
         related_name='roles',
         blank=True,
         null=True,
+        on_delete=models.CASCADE,
     )
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
 
     class Meta(object):
         unique_together = ('name', 'game')
@@ -238,14 +205,12 @@ class Role(AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    def webhook_payload(self):
+        from .apis.serializers import RoleSerializer
 
-@python_2_unicode_compatible
-@webhook_model(
-    on_change=events.on_run_changed,
-    on_create=events.on_run_created,
-    on_delete=events.on_run_deleted,
-    reverse=model_reverser('simpl_api:run-detail', pk='pk'),
-)
+        return RoleSerializer(self).data
+
+
 class Run(AbstractTimeStampedModel):
     """Run model"""
 
@@ -253,14 +218,16 @@ class Run(AbstractTimeStampedModel):
     active = models.BooleanField(default=True)
     game = models.ForeignKey(
         'Game',
-        related_name='runs'
+        related_name='runs',
+        on_delete=models.CASCADE,
     )
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
     phase = models.ForeignKey(
         'Phase',
         blank=True,
         null=True,
-        related_name='+'
+        related_name='+',
+        on_delete=models.CASCADE,
     )
 
     objects = managers.ActiveQuerySet.as_manager()
@@ -279,39 +246,36 @@ class Run(AbstractTimeStampedModel):
         return RunSerializer(self).data
 
 
-@python_2_unicode_compatible
-@webhook_model(
-    on_change=events.on_runuser_changed,
-    on_create=events.on_runuser_created,
-    on_delete=events.on_runuser_deleted,
-    reverse=model_reverser('simpl_api:runuser-detail', pk='pk'),
-)
 class RunUser(AbstractTimeStampedModel):
     """Run User model"""
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='run_users'
+        related_name='run_users',
+        on_delete=models.CASCADE,
     )
     run = models.ForeignKey(
         'Run',
-        related_name='run_users'
+        related_name='run_users',
+        on_delete=models.CASCADE,
     )
     world = models.ForeignKey(
         'World',
         blank=True,
         null=True,
-        related_name='run_users'
+        related_name='run_users',
+        on_delete=models.CASCADE,
     )
     role = models.ForeignKey(
         'Role',
         blank=True,
         null=True,
-        related_name='run_users'
+        related_name='run_users',
+        on_delete=models.CASCADE,
     )
     leader = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
 
     objects = managers.ActiveQuerySet.as_manager()
 
@@ -335,13 +299,6 @@ class RunUser(AbstractTimeStampedModel):
         return RunUserSerializer(self).data
 
 
-@python_2_unicode_compatible
-@webhook_model(
-    on_change=events.on_scenario_changed,
-    on_create=events.on_scenario_created,
-    on_delete=events.on_scenario_deleted,
-    reverse=model_reverser('simpl_api:scenario-detail', pk='pk'),
-)
 class Scenario(AbstractTimeStampedModel):
     """Scenario model"""
 
@@ -351,16 +308,18 @@ class Scenario(AbstractTimeStampedModel):
         'RunUser',
         blank=True,
         null=True,
-        related_name='scenarios'
+        related_name='scenarios',
+        on_delete=models.CASCADE,
     )
     world = models.ForeignKey(
         'World',
         blank=True,
         null=True,
-        related_name='scenarios'
+        related_name='scenarios',
+        on_delete=models.CASCADE,
     )
 
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
 
     class Meta(object):
         verbose_name = _('scenario')
@@ -384,22 +343,16 @@ class Scenario(AbstractTimeStampedModel):
         return ScenarioSerializer(self).data
 
 
-@python_2_unicode_compatible
-@webhook_model(
-    on_change=events.on_world_changed,
-    on_create=events.on_world_created,
-    on_delete=events.on_world_deleted,
-    reverse=model_reverser('simpl_api:world-detail', pk='pk'),
-)
 class World(AbstractTimeStampedModel):
     """World model"""
 
     name = models.CharField(max_length=100)
     run = models.ForeignKey(
         'Run',
-        related_name='worlds'
+        related_name='worlds',
+        on_delete=models.CASCADE,
     )
-    data = JSONField(default={}, blank=True)
+    data = JSONField(default=dict, blank=True)
     external_ids = ArrayField(
         ArrayField(
             models.IntegerField()

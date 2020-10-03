@@ -11,7 +11,7 @@ BIND = os.environ.get("GUNICORN_BIND", "unix:/run/gunicorn.sock")
 
 accesslog = '-'
 bind = BIND
-log_level = 'INFO'
+log_level = 'DEBUG'
 workers = 1
 
 worker_class = 'gevent'

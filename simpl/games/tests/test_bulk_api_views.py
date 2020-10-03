@@ -1,13 +1,12 @@
 from unittest import mock
 import json
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from faker import Faker
 from rest_framework import status
 from rest_framework.test import APITestCase
 from test_plus.test import TestCase
-from thorn.dispatch.base import Dispatcher
 
 from simpl.games.apis import bulk_views
 from simpl.games.models import (
@@ -21,6 +20,8 @@ from simpl.games.factories import (
     RoleFactory, ScenarioFactory, UserFactory
 )
 
+from simpl.webhook.dispatcher import Dispatcher
+
 
 class BaseTestCase(APITestCase, TestCase):
     user_factory = UserFactory
@@ -28,6 +29,9 @@ class BaseTestCase(APITestCase, TestCase):
     def setUp(self):
         self.user = self.make_user()
         self.faker = Faker()
+
+    def test_nada(self):
+        self.assertIsNotNone(self.user)
 
 
 class BulkDecisionTestCase(BaseTestCase):
@@ -42,6 +46,9 @@ class BulkDecisionTestCase(BaseTestCase):
         self.period = PeriodFactory()
         self.role = RoleFactory()
         self.view = bulk_views.BulkDecisionViewSet()
+
+    def test_nada(self):
+        self.assertIsNotNone(self.user)
 
     def test_post_single(self):
         """
@@ -75,7 +82,7 @@ class BulkDecisionTestCase(BaseTestCase):
     def test_post_bulk(self, mock_method):
         """
         Test that POST with multiple resources returns 201
-        """
+         """
         payload = json.dumps([
             {
                 'name': 'hello world',
@@ -158,7 +165,7 @@ class BulkDecisionTestCase(BaseTestCase):
             {
                 'name': 'hello',
                 'data': {},
-                'period': self.period.pk,
+                 'period': self.period.pk,
                 'role': self.role.pk
             },
             {
@@ -181,7 +188,6 @@ class BulkDecisionTestCase(BaseTestCase):
             response = self.client.delete(filter_url)
 
             self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-            # self.assertEqual(Decision.objects.count(), 0)
             self.assertEqual(Decision.objects.count(), 1)
 
 

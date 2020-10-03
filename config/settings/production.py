@@ -12,7 +12,6 @@ Production Configurations
 from __future__ import absolute_import, unicode_literals
 
 from django.utils import six
-from thorn import validators as thorn_validators
 
 
 from .common import *  # noqa
@@ -37,7 +36,7 @@ SECURITY_MIDDLEWARE = (
 
 
 # Make sure djangosecure.middleware.SecurityMiddleware is listed first
-MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
+MIDDLEWARE = SECURITY_MIDDLEWARE + MIDDLEWARE
 
 # set this to 60 seconds and then to 518400 when you can prove it works
 SECURE_HSTS_SECONDS = 60
@@ -158,11 +157,3 @@ LOGGING = {
         }
     }
 }
-
-
-# Your production stuff: Below this line define 3rd party library settings
-THORN_RECIPIENT_VALIDATORS = [
-    thorn_validators.block_internal_ips(),
-    thorn_validators.ensure_protocol('http', 'https'),
-    thorn_validators.ensure_port(80, 443, 8080),
-]

@@ -9,7 +9,6 @@ Local settings
 """
 
 from .common import *  # noqa
-from thorn import validators as thorn_validators
 
 import logging
 
@@ -44,17 +43,7 @@ CACHES = {
     }
 }
 
-# django-debug-toolbar
-# ------------------------------------------------------------------------------
-# MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-# INSTALLED_APPS += ('debug_toolbar',)
-
 INTERNAL_IPS = ("127.0.0.1", "10.0.2.2")
-
-DEBUG_TOOLBAR_CONFIG = {
-    "DISABLE_PANELS": ["debug_toolbar.panels.redirects.RedirectsPanel"],
-    "SHOW_TEMPLATE_CONTEXT": True,
-}
 
 # django-extensions
 # ------------------------------------------------------------------------------
@@ -66,15 +55,8 @@ TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
 ########## CELERY
 # In development, all tasks will be executed locally by blocking until the task returns
-CELERY_ALWAYS_EAGER = True
-# INSTALLED_APPS += ('kombu.transport.django',)
+CELERY_TASK_ALWAYS_EAGER = True
 ########## END CELERY
-
-# Your local stuff: Below this line define 3rd party library settings
-THORN_RECIPIENT_VALIDATORS = [
-    thorn_validators.ensure_protocol("http", "https"),
-    thorn_validators.ensure_port(80, 443, 8080, 8000),
-]
 
 # print logging to the console
 LOGGING = {
@@ -94,7 +76,7 @@ LOGGING = {
     "loggers": {
         "django": {
             "handlers": ["console"],
-            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "level": env.str("DJANGO_LOG_LEVEL", default="INFO"),
         },
         "period": {"handlers": ["console"], "level": logging.DEBUG},
         "simpl.games.apis": {"handlers": ["console"], "level": logging.DEBUG},

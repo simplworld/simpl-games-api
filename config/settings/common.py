@@ -8,8 +8,6 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
-from __future__ import absolute_import, unicode_literals
-import os
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
@@ -20,18 +18,12 @@ env = environ.Env()
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
 DJANGO_APPS = (
-    # Default Django apps:
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Useful template tags:
-    # 'django.contrib.humanize',
-
-    # Admin
     'django.contrib.admin',
 )
 
@@ -39,27 +31,22 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration (also has a base.html which messes stuff up)
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-    'base_theme',
-    'bootstrap3',
-    'fontawesome',
-    'crispy_forms',  # Form layouts
-
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 
     'django_filters',
     'cuser',
-    'rest_framework_swagger',
-    'thorn.django',
+    'drf_yasg',
 
     'corsheaders',
-    'rest_framework.authtoken',
-    'rest_auth',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'simpl_users',  # custom users app
     'simpl.games.apps.SimplGamesConfig',
+    'simpl.webhook',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -67,7 +54,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     # Make sure djangosecure.middleware.SecurityMiddleware is listed first
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -170,9 +157,6 @@ TEMPLATES = [
     },
 ]
 
-# See: http://django-crispy-forms.readthedocs.org/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
-
 # STATIC FILE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
@@ -233,10 +217,27 @@ LOGIN_URL = 'account_login'
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
-# CELERY CONFIGURATIO
-INSTALLED_APPS += ('simpl.taskapp.celery.CeleryConfig',)
-# if you are not using the django database broker (e.g. rabbitmq, redis, memcached), you can remove the next line.
-BROKER_URL = env("CELERY_BROKER_URL", default='django://')
+# Redis Configuration
+REDIS_HOST = env("REDIS_HOST", default="redis")
+
+# Celery Configuration
+CELERY_BROKER_REDIS_DB = env("CELERY_BROKER_REDIS_DB", default="1")
+CELERY_RESULT_REDIS_DB = env("CELERY_RESULT_REDIS_DB", default="1")
+
+CELERY_BROKER_URL = env(
+    "CELERY_BROKER_URL",
+    default=f"redis://{REDIS_HOST}:6379/{CELERY_BROKER_REDIS_DB}"
+)
+
+CELERY_RESULT_BACKEND = env(
+    "CELERY_RESULT_BACKEND",
+    default=f"redis://{REDIS_HOST}:6379/{CELERY_RESULT_REDIS_DB}"
+)
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
+CELERY_TASK_ALWAYS_EAGER = env.bool("CELERY_TASK_ALWAYS_EAGER", default=DEBUG)
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
@@ -250,20 +251,24 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
-        'rest_framework.filters.DjangoFilterBackend',
+        # 'rest_framework.filters.DjangoFilterBackend',
+        'django_filters.rest_framework.DjangoFilterBackend',
     ),
     'DEFAULT_PAGINATION_CLASS': 'simpl.core.pagination.LinkHeaderPagination',
     'PAGE_SIZE': 500,
 }
 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'simpl_users.apis.serializers.UserSerializer'
+}
+
 SWAGGER_SETTINGS = {
-    'api_version': '0.1',
-    'enabled_methods': [
-        'get',
-        'post',
-        'put',
-        'delete'
-    ],
+    'LOGOUT_URL': '/accounts/logout/',
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic'
+        },
+    },
 }
 
 CORS_ORIGIN_ALLOW_ALL = False

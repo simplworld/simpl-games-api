@@ -12,7 +12,7 @@ def command(bind):
 
     os.environ['H'] = str(settings.ROOT_DIR)
 
-    config_path = settings.ROOT_DIR + 'gunicorn.conf'
+    config_path = settings.ROOT_DIR + 'gunicorn.conf.py'
 
     command = "gunicorn -c {config_path} --log-level=DEBUG --reload -b {bind} config.wsgi".format(
         config_path=config_path,

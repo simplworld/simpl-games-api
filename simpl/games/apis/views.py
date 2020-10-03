@@ -7,7 +7,7 @@ from rest_framework.authentication import (
     TokenAuthentication,
 )
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -31,7 +31,7 @@ class DecisionViewSet(CommonViewSet):
 
     queryset = models.Decision.objects.all().select_related('period')
     serializer_class = serializers.DecisionSerializer
-    filter_class = filters.DecisionFilter
+    filterset_class = filters.DecisionFilter
     ordering_fields = (
         'created',
         'modified',
@@ -101,7 +101,7 @@ class GameViewSet(CommonViewSet):
 
     queryset = models.Game.objects.all()
     serializer_class = serializers.GameSerializer
-    filter_fields = (
+    filterset_fields = (
         'active',
         'name',
         'slug',
@@ -171,7 +171,7 @@ class PeriodViewSet(CommonViewSet):
 
     queryset = models.Period.objects.all().select_related('scenario')
     serializer_class = serializers.PeriodSerializer
-    filter_class = filters.PeriodFilter
+    filterset_class = filters.PeriodFilter
     ordering_fields = (
         'created',
         'modified',
@@ -236,7 +236,7 @@ class PhaseViewSet(CommonViewSet):
 
     queryset = models.Phase.objects.all()
     serializer_class = serializers.PhaseSerializer
-    filter_class = filters.PhaseFilter
+    filterset_class = filters.PhaseFilter
     ordering_fields = (
         'created',
         'modified',
@@ -306,7 +306,7 @@ class ResultViewSet(CommonViewSet):
 
     queryset = models.Result.objects.all().select_related('period')
     serializer_class = serializers.ResultSerializer
-    filter_class = filters.ResultFilter
+    filterset_class = filters.ResultFilter
     ordering_fields = (
         'created',
         'modified',
@@ -376,7 +376,7 @@ class RoleViewSet(CommonViewSet):
 
     queryset = models.Role.objects.all()
     serializer_class = serializers.RoleSerializer
-    filter_class = filters.RoleFilter
+    filterset_class = filters.RoleFilter
     ordering_fields = (
         'created',
         'modified',
@@ -446,7 +446,7 @@ class RunViewSet(CommonViewSet):
 
     queryset = models.Run.objects.all()
     serializer_class = serializers.RunSerializer
-    filter_class = filters.RunFilter
+    filterset_class = filters.RunFilter
     ordering_fields = (
         'created',
         'modified',
@@ -513,7 +513,7 @@ class RunUserViewSet(CommonViewSet):
         'user', 'run', 'role',
     )
     serializer_class = serializers.RunUserSerializer
-    filter_class = filters.RunUserFilter
+    filterset_class = filters.RunUserFilter
     ordering_fields = (
         'created',
         'modified',
@@ -599,7 +599,7 @@ class ScenarioViewSet(CommonViewSet):
     queryset = models.Scenario.objects.all().select_related('runuser',
                                                             'world')
     serializer_class = serializers.ScenarioSerializer
-    filter_class = filters.ScenarioFilter
+    filterset_class = filters.ScenarioFilter
     ordering_fields = (
         'created',
         'modified',
@@ -663,7 +663,7 @@ class ScenarioViewSet(CommonViewSet):
         """
         return super(ScenarioViewSet, self).update(request, pk=pk)
 
-    @detail_route(methods=['post'])
+    @action(detail=True, methods=['post'])
     def rewind(self, request, pk=None):
         """
         Rewind the scenario back to its period with the specified
@@ -721,7 +721,7 @@ class WorldViewSet(CommonViewSet):
 
     queryset = models.World.objects.all().select_related('run', )
     serializer_class = serializers.WorldSerializer
-    filter_class = filters.WorldFilter
+    filterset_class = filters.WorldFilter
     ordering_fields = (
         'created',
         'modified',

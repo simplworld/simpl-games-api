@@ -2,9 +2,29 @@
 
 [![Build Status](https://travis-ci.com/simplworld/simpl-games-api.svg?token=cyqpBgqLC1o8qUptfcpE&branch=master)](https://travis-ci.com/simplworld/simpl-games-api)
 
-This project requires PostgreSql 9+ and uses Python 3.6.x and Django 1.11.x
+This project requires PostgreSQL 9+ and uses Python 3.7.x and Django 2.2.x
 
-## Getting Started
+## Getting Started With Docker
+
+Using docker is the easiest way to get started with Simpl.  All you need to do is clone
+this repo and run `docker-compose up` to get the API up and running on your local
+system.
+
+After you have the containers up you will need to setup a superuser and staff user
+to allow your Simpl model processes to connect and for you to use the Django admin
+to inspect the data.
+
+To help set things up you can just get a shell into the container and run `./manage.py setup_simpl`,
+here are the steps:
+
+```bash
+$ make shell
+$ ./manage.py setup_simpl
+```
+
+`make shell` is just a little helper that run `docker-compose run --rm api bash` for you.
+
+## Getting Started Without Docker
 
 ### Setup simpl-games-api
 
@@ -54,6 +74,13 @@ Setup the `DJANGO_SETTINGS_MODULE` to use:
 
 ```bash
 $ export DJANGO_SETTINGS_MODULE=config.settings.local
+```
+
+For local development running outside docker, use:
+
+```bash
+$ export SIMPL_WEBHOOK_ALLOW_LOCALHOST=True
+$ export SIMPL_WEBHOOK_ALLOW_HTTP=True
 ```
 
 ### Start the web server
@@ -122,7 +149,7 @@ Simple usage:
 manage.py check_deploy https://simpl.mine.ed/
 ```
 
-The command will prompt you for your admin user's email address (aka username), password, and game slug.  Or you can provide them on the command line like this: 
+The command will prompt you for your admin user's email address (aka username), password, and game slug.  Or you can provide them on the command line like this:
 
 ```
 manage.py check_deploy https://simpl.mine.ed/ --email='me@mine.ed' --password='sumpun' --game=sim
