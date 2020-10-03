@@ -7,7 +7,8 @@ djangorestframework==3.9.4
 djangorestframework-bulk==0.2.1
 
 simpl-users==0.8.3
-#git+https://github.com/simplworld/simpl-users@6-django-2.0
+simpl-users==0.7.8
+
 
 # Configuration
 django-environ==0.4.5
