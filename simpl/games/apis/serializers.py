@@ -5,13 +5,19 @@ from .. import models
 
 """
 Serializers for models associated with a Run define a calculated `run_active` field.
-If the model instance is not associated with a run (e.g. during a cascading delete), its value is None. 
-Otherwise, its value reflects the parent Run's active field. 
+If the model instance is not associated with a run (e.g. during a cascading delete), its value is None.
+Otherwise, its value reflects the parent Run's active field.
 """
 
 
 class DecisionSerializer(serializers.ModelSerializer):
     run_active = serializers.SerializerMethodField()
+    role = serializers.PrimaryKeyRelatedField(
+        queryset=models.Role.objects.all(),
+        required=False,
+        allow_null=True,
+        default=None,
+    )
 
     def get_run_active(self, obj):
         try:
@@ -25,23 +31,16 @@ class DecisionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Decision
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-            'run_active',
-        )
+        fields = "__all__"
+        read_only_fields = ("created", "updated", "run_active")
 
 
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
-        lookup_field = 'slug'
+        lookup_field = "slug"
         model = models.Game
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-        )
+        fields = "__all__"
+        read_only_fields = ("created", "updated")
 
 
 class PeriodSerializer(serializers.ModelSerializer):
@@ -59,26 +58,25 @@ class PeriodSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Period
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-            'run_active',
-        )
+        fields = "__all__"
+        read_only_fields = ("created", "updated", "run_active")
 
 
 class PhaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Phase
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-        )
+        fields = "__all__"
+        read_only_fields = ("created", "updated")
 
 
 class ResultSerializer(serializers.ModelSerializer):
     run_active = serializers.SerializerMethodField()
+    role = serializers.PrimaryKeyRelatedField(
+        queryset=models.Role.objects.all(),
+        required=False,
+        allow_null=True,
+        default=None,
+    )
 
     def get_run_active(self, obj):
         try:
@@ -92,32 +90,22 @@ class ResultSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Result
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-            'run_active',
-        )
+        fields = "__all__"
+        read_only_fields = ("created", "updated", "run_active")
 
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Role
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-        )
+        fields = "__all__"
+        read_only_fields = ("created", "updated")
 
 
 class RunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Run
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-        )
+        fields = "__all__"
+        read_only_fields = ("created", "updated")
 
 
 class RunUserSerializer(serializers.ModelSerializer):
@@ -129,24 +117,27 @@ class RunUserSerializer(serializers.ModelSerializer):
         except (ObjectDoesNotExist, AttributeError):
             return None
 
-    email = serializers.CharField(source='user.email', required=False,
-                                  read_only=True)
-    first_name = serializers.CharField(source='user.first_name',
-                                       required=False, read_only=True)
-    last_name = serializers.CharField(source='user.last_name', required=False,
-                                      read_only=True)
-    role_name = serializers.CharField(source='role.name', required=False,
-                                      read_only=True)
+    role = serializers.PrimaryKeyRelatedField(
+        queryset=models.Role.objects.all(),
+        required=False,
+        allow_null=True,
+        default=None,
+    )
+    email = serializers.CharField(source="user.email", required=False, read_only=True)
+    first_name = serializers.CharField(
+        source="user.first_name", required=False, read_only=True
+    )
+    last_name = serializers.CharField(
+        source="user.last_name", required=False, read_only=True
+    )
+    role_name = serializers.CharField(
+        source="role.name", required=False, read_only=True
+    )
 
     class Meta:
         model = models.RunUser
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-            'email',
-            'run_active',
-        )
+        fields = "__all__"
+        read_only_fields = ("created", "updated", "email", "run_active")
 
 
 class ScenarioSerializer(serializers.ModelSerializer):
@@ -164,12 +155,8 @@ class ScenarioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Scenario
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-            'run_active',
-        )
+        fields = "__all__"
+        read_only_fields = ("created", "updated", "run_active")
 
 
 class WorldSerializer(serializers.ModelSerializer):
@@ -183,9 +170,5 @@ class WorldSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.World
-        fields = '__all__'
-        read_only_fields = (
-            'created',
-            'updated',
-            'run_active',
-        )
+        fields = "__all__"
+        read_only_fields = ("created", "updated", "run_active")
