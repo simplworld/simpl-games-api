@@ -172,3 +172,14 @@ class WorldSerializer(serializers.ModelSerializer):
         model = models.World
         fields = "__all__"
         read_only_fields = ("created", "updated", "run_active")
+
+
+class AuthSerializer(serializers.Serializer):
+    authid = serializers.IntegerField(required=False, allow_null=True, default=None)
+    email = serializers.EmailField(required=False, allow_null=True, default=None)
+    password = serializers.CharField(max_length=200)
+
+    def validate(self, data):
+        if data["authid"] is None and data["email"] is None:
+            raise serializers.ValidationError("'authid' or 'email' must be set")
+        return data

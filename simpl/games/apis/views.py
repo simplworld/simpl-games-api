@@ -1,14 +1,18 @@
 import logging
 
+from django.contrib.auth import get_user_model
+
+from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework.authentication import (
     BasicAuthentication,
     SessionAuthentication,
     TokenAuthentication,
 )
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.serializers import ValidationError
 from rest_framework import status
 
 from . import filters, serializers
@@ -16,26 +20,62 @@ from .. import models
 
 logger = logging.getLogger(__name__)
 
+User = get_user_model()
 
 # Mixins
 
+
 class CommonViewSet(viewsets.ModelViewSet):
-    authentication_classes = (TokenAuthentication, BasicAuthentication, SessionAuthentication)
+    authentication_classes = (
+        TokenAuthentication,
+        BasicAuthentication,
+        SessionAuthentication,
+    )
     permission_classes = (IsAuthenticated,)
+
+
+# Authenticate by PK
+class AuthCheck(APIView):
+    """
+    Given either an email address or a primary key, check the authentication
+    of the credentials.  This is used by the model-service for dynamic
+    authentication
+    """
+
+    permission_classes = (AllowAny,)
+
+    def post(self, request, format=None):
+        serializer = serializers.AuthSerializer(data=request.data)
+
+        if serializer.is_valid(raise_exception=True):
+            authid = serializer.validated_data["authid"]
+            email = serializer.validated_data["email"]
+            password = serializer.validated_data["password"]
+
+            try:
+                if authid:
+                    user = User.objects.get(pk=authid)
+                else:
+                    user = User.objects.get(email__iexact=email)
+            except User.DoesNotExist:
+                raise serializers.ValidationError("User does not exist")
+
+            if not user.check_password(password):
+                raise ValidationError("Unable to log in with provided credentials.")
+            else:
+                return Response({"authid": user.pk, "email": user.email})
 
 
 # ViewSets
 
+
 class DecisionViewSet(CommonViewSet):
     """ Decision resource. """
 
-    queryset = models.Decision.objects.all().select_related('period')
+    queryset = models.Decision.objects.all().select_related("period")
     serializer_class = serializers.DecisionSerializer
     filterset_class = filters.DecisionFilter
-    ordering_fields = (
-        'created',
-        'modified',
-    )
+    ordering_fields = ("created", "modified")
 
     def create(self, request):
         """
@@ -101,16 +141,9 @@ class GameViewSet(CommonViewSet):
 
     queryset = models.Game.objects.all()
     serializer_class = serializers.GameSerializer
-    filterset_fields = (
-        'active',
-        'name',
-        'slug',
-    )
-    lookup_field = 'slug'
-    ordering_fields = (
-        'created',
-        'modified',
-    )
+    filterset_fields = ("active", "name", "slug")
+    lookup_field = "slug"
+    ordering_fields = ("created", "modified")
 
     def create(self, request):
         """
@@ -169,13 +202,10 @@ class GameViewSet(CommonViewSet):
 class PeriodViewSet(CommonViewSet):
     """ Period resource. """
 
-    queryset = models.Period.objects.all().select_related('scenario')
+    queryset = models.Period.objects.all().select_related("scenario")
     serializer_class = serializers.PeriodSerializer
     filterset_class = filters.PeriodFilter
-    ordering_fields = (
-        'created',
-        'modified',
-    )
+    ordering_fields = ("created", "modified")
 
     def create(self, request):
         """
@@ -237,10 +267,7 @@ class PhaseViewSet(CommonViewSet):
     queryset = models.Phase.objects.all()
     serializer_class = serializers.PhaseSerializer
     filterset_class = filters.PhaseFilter
-    ordering_fields = (
-        'created',
-        'modified',
-    )
+    ordering_fields = ("created", "modified")
 
     def create(self, request):
         """
@@ -304,13 +331,10 @@ class PhaseViewSet(CommonViewSet):
 class ResultViewSet(CommonViewSet):
     """ Result resource. """
 
-    queryset = models.Result.objects.all().select_related('period')
+    queryset = models.Result.objects.all().select_related("period")
     serializer_class = serializers.ResultSerializer
     filterset_class = filters.ResultFilter
-    ordering_fields = (
-        'created',
-        'modified',
-    )
+    ordering_fields = ("created", "modified")
 
     def create(self, request):
         """
@@ -377,10 +401,7 @@ class RoleViewSet(CommonViewSet):
     queryset = models.Role.objects.all()
     serializer_class = serializers.RoleSerializer
     filterset_class = filters.RoleFilter
-    ordering_fields = (
-        'created',
-        'modified',
-    )
+    ordering_fields = ("created", "modified")
 
     def create(self, request):
         """
@@ -447,10 +468,7 @@ class RunViewSet(CommonViewSet):
     queryset = models.Run.objects.all()
     serializer_class = serializers.RunSerializer
     filterset_class = filters.RunFilter
-    ordering_fields = (
-        'created',
-        'modified',
-    )
+    ordering_fields = ("created", "modified")
 
     def create(self, request):
         """
@@ -509,15 +527,10 @@ class RunViewSet(CommonViewSet):
 class RunUserViewSet(CommonViewSet):
     """ RunUser resource. """
 
-    queryset = models.RunUser.objects.all().select_related(
-        'user', 'run', 'role',
-    )
+    queryset = models.RunUser.objects.all().select_related("user", "run", "role")
     serializer_class = serializers.RunUserSerializer
     filterset_class = filters.RunUserFilter
-    ordering_fields = (
-        'created',
-        'modified',
-    )
+    ordering_fields = ("created", "modified")
 
     def create(self, request):
         """
@@ -596,14 +609,10 @@ class RunUserViewSet(CommonViewSet):
 class ScenarioViewSet(CommonViewSet):
     """ Scenario resource. """
 
-    queryset = models.Scenario.objects.all().select_related('runuser',
-                                                            'world')
+    queryset = models.Scenario.objects.all().select_related("runuser", "world")
     serializer_class = serializers.ScenarioSerializer
     filterset_class = filters.ScenarioFilter
-    ordering_fields = (
-        'created',
-        'modified',
-    )
+    ordering_fields = ("created", "modified")
 
     def create(self, request):
         """
@@ -663,7 +672,7 @@ class ScenarioViewSet(CommonViewSet):
         """
         return super(ScenarioViewSet, self).update(request, pk=pk)
 
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=["post"])
     def rewind(self, request, pk=None):
         """
         Rewind the scenario back to its period with the specified
@@ -685,24 +694,28 @@ class ScenarioViewSet(CommonViewSet):
         # logger.debug("scenarios/rewind: request.data: %s", request.data)
 
         scenario = self.get_object()
-        last_period_order = request.data.get('last_period_order', 0)
-        delete_last_period_decisions = \
-            request.data.get('delete_last_period_decisions', True)
-        delete_last_period_results = \
-            request.data.get('delete_last_period_results', True)
+        last_period_order = request.data.get("last_period_order", 0)
+        delete_last_period_decisions = request.data.get(
+            "delete_last_period_decisions", True
+        )
+        delete_last_period_results = request.data.get(
+            "delete_last_period_results", True
+        )
 
         # logger.debug("scenarios/rewind: last_period_order: %s", last_period_order)
         # logger.debug("scenarios/rewind: delete_last_period_decisions: %s", delete_last_period_decisions)
         # logger.debug("scenarios/rewind: delete_last_period_results: %s", delete_last_period_results)
 
         last_period = None
-        models.Period.objects.filter(scenario=scenario,
-                                     order__gt=last_period_order).delete()
+        models.Period.objects.filter(
+            scenario=scenario, order__gt=last_period_order
+        ).delete()
         try:
-            last_period = models.Period.objects.get(scenario=scenario,
-                                                    order=last_period_order)
+            last_period = models.Period.objects.get(
+                scenario=scenario, order=last_period_order
+            )
         except models.Period.DoesNotExist:
-            logger.error('last_period does not exist')
+            logger.error("last_period does not exist")
             raise
 
         if delete_last_period_decisions is True:
@@ -719,13 +732,10 @@ class ScenarioViewSet(CommonViewSet):
 class WorldViewSet(CommonViewSet):
     """ World resource. """
 
-    queryset = models.World.objects.all().select_related('run', )
+    queryset = models.World.objects.all().select_related("run")
     serializer_class = serializers.WorldSerializer
     filterset_class = filters.WorldFilter
-    ordering_fields = (
-        'created',
-        'modified',
-    )
+    ordering_fields = ("created", "modified")
 
     def create(self, request):
         """

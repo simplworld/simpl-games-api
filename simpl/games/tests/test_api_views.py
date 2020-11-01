@@ -31,6 +31,49 @@ class BaseAPITestCase(APITestCase, TestCase):
         self.faker = Faker()
 
 
+class AuthAPITestCase(BaseAPITestCase):
+    password = "testing12345"
+
+    def setUp(self):
+        self.user = UserFactory()
+
+    def test_authid_case(self):
+
+        self.user.set_password(self.password)
+        self.user.save()
+
+        url = reverse("authcheck")
+        data = {"authid": self.user.pk, "password": self.password}
+
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["authid"], self.user.pk)
+        self.assertEqual(response.data["email"], self.user.email)
+
+        # Check bad password
+        data["password"] = "it's not this for sure"
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 400)
+
+    def test_email_case(self):
+
+        self.user.set_password(self.password)
+        self.user.save()
+
+        url = reverse("authcheck")
+        data = {"email": self.user.email, "password": self.password}
+
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["authid"], self.user.pk)
+        self.assertEqual(response.data["email"], self.user.email)
+
+        # Check bad password
+        data["password"] = "it's not this for sure"
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 400)
+
+
 class GameTestCase(BaseAPITestCase):
     def setUp(self):
         super(GameTestCase, self).setUp()

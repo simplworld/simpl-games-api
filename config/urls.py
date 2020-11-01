@@ -12,6 +12,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from simpl.games.apis.urls import router as api_router
+from simpl.games.apis.views import AuthCheck
 from simpl_users.apis.urls import router as simpl_users_api_router
 
 from simpl.games.apis.bulk_urls import bulk_router as bulk_api_router
@@ -44,6 +45,7 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # Our application urls
 urlpatterns += [
     url(r"^users/", include(("simpl_users.apis.urls", "users"), namespace="users")),
+    url(r"^apis/authcheck/", AuthCheck.as_view(), name="authcheck"),
     url(r"^apis/", include((api_router.urls, "simpl_api"), namespace="simpl_api")),
     url(
         r"^apis/",
