@@ -221,3 +221,9 @@ class MessageSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(e)
 
         return data
+
+
+class PostMessageSerializer(serializers.Serializer):
+    room = serializers.CharField(required=True)
+    sender = serializers.CharField(required=True)
+    data = serializers.JSONField(required=True)

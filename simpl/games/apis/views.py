@@ -888,3 +888,33 @@ class MessageViewSet(CommonViewSet):
     serializer_class = serializers.MessageSerializer
     filterset_class = filters.MessageFilter
     ordering_fields = ("created", "modified")
+
+    @action(detail=False, methods=["post"])
+    def post_message(self, request):
+        """ Post a message to a room """
+        serializer = serializers.PostMessageSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        room_slug = serializer.data["room"]
+        sender_email = serializer.data["sender"]
+        data = serializer.data["data"]
+
+        # Get the room
+        try:
+            room = models.Room.objects.get(slug=room_slug)
+        except models.Room.DoesNotExist:
+            raise exceptions.ValidationError("Room does not exist")
+
+        # Make sure the user is in the room
+        try:
+            sender = room.members.get(user__email=sender_email)
+        except models.RunUser.DoesNotExist:
+            raise exceptions.ValidationError("Sender not in room")
+
+        models.Message.objects.create(
+            room=room,
+            sender=sender,
+            data=data,
+        )
+
+        return Response({"message_posted": True})

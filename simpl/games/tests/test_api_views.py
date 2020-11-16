@@ -1163,3 +1163,41 @@ class MessageTestCase(BaseAPITestCase):
             print(payload)
             print(response.content)
             self.assertEqual(response.status_code, 200)
+
+    def test_post_message(self):
+        r1 = RoomFactory()
+        ru1 = RunUserFactory()
+        r1.members.add(ru1)
+        ru2 = RunUserFactory()
+        url = reverse("simpl_api:message-post-message")
+
+        with self.login(self.user):
+            payload = {
+                "room": r1.slug,
+                "sender": ru1.user.email,
+                "data": {
+                    "room": r1.slug,
+                    "sender": ru1.user.email,
+                    "message": "Test message",
+                    "created": "2020-11-15 16:25:19.022011+00:00",
+                }
+            }
+
+            response = self.client.post(url, payload, format="json")
+            print(ru1.user.email)
+            print(response.content)
+            self.assertEqual(response.status_code, 200)
+
+            new_payload = payload.copy()
+            new_payload["room"] = "something-that-does-not-exist"
+            response = self.client.post(url, new_payload, format="json")
+            print(response.content)
+            self.assertEqual(response.status_code, 400)
+
+            new_payload = payload.copy()
+            new_payload["sender"] = ru2.user.email
+            response = self.client.post(url, new_payload, format="json")
+            print(response.content)
+            self.assertEqual(response.status_code, 400)
+
+
