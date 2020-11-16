@@ -355,6 +355,7 @@ class Room(AbstractTimeStampedModel):
     "room".
     """
 
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=200, unique=True)
     name = models.CharField(max_length=200, blank=True, null=True)
     active = models.BooleanField(default=True, db_index=True)

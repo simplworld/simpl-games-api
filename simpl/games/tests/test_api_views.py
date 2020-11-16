@@ -888,7 +888,8 @@ class RoomTestCase(BaseAPITestCase):
     def test_create(self):
         url = reverse("simpl_api:room-list")
 
-        obj = RoomFactory.build()
+        game = GameFactory()
+        obj = RoomFactory.build(game=game)
         payload = serializers.RoomSerializer(obj).data
 
         # Does this api work without auth?

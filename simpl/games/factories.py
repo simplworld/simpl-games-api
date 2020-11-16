@@ -96,6 +96,7 @@ class ResultFactory(factory.django.DjangoModelFactory):
 
 
 class RoomFactory(factory.django.DjangoModelFactory):
+    game = factory.SubFactory(GameFactory)
     slug = factory.Sequence(lambda n: f'room-{n}')
     name = factory.Sequence(lambda n: f'Room {n}')
 
