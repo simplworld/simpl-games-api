@@ -280,3 +280,23 @@ class ResultFilter(filters.FilterSet):
             'period__scenario__world__run',
             'period__scenario__runuser__run'
         ]
+
+
+class RoomFilter(filters.FilterSet):
+    class Meta:
+        model = models.Room
+        fields = [
+            'active',
+            'slug',
+            'name',
+        ]
+
+
+class MessageFilter(filters.FilterSet):
+    class Meta:
+        model = models.Message
+        fields = [
+        #    'room__slug',
+            'room',
+            'sender',
+        ]

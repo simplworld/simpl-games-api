@@ -14,5 +14,7 @@ router.register(r'runs', views.RunViewSet)
 router.register(r'runusers', views.RunUserViewSet)
 router.register(r'scenarios', views.ScenarioViewSet)
 router.register(r'worlds', views.WorldViewSet)
+router.register(r'rooms', views.RoomViewSet)
+router.register(r'messages', views.MessageViewSet)
 
 urlpatterns = router.urls

@@ -93,3 +93,30 @@ class ResultFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = models.Result
+
+
+class RoomFactory(factory.django.DjangoModelFactory):
+    slug = factory.Sequence(lambda n: f'room-{n}')
+    name = factory.Sequence(lambda n: f'Room {n}')
+
+    class Meta:
+        model = models.Room
+
+
+def _new_message():
+    return {
+        "room": "some-slug",
+        "sender": "frank@revsys.com",
+        "message": "This is a test",
+        "created": "2020-11-15 16:25:19.022011+00:00",
+    }
+
+
+class MessageFactory(factory.django.DjangoModelFactory):
+    room = factory.SubFactory(RoomFactory)
+    sender = factory.SubFactory(RunUserFactory)
+
+    data = factory.LazyFunction(_new_message)
+
+    class Meta:
+        model = models.Message

@@ -3,7 +3,7 @@ import logging
 from django.contrib.auth import get_user_model
 
 from rest_framework.views import APIView
-from rest_framework import viewsets
+from rest_framework import viewsets, exceptions
 from rest_framework.authentication import (
     BasicAuthentication,
     SessionAuthentication,
@@ -789,3 +789,102 @@ class WorldViewSet(CommonViewSet):
         Update an existing World
         """
         return super(WorldViewSet, self).update(request, pk=pk)
+
+
+class RoomViewSet(CommonViewSet):
+    """ Chat Room """
+    queryset = models.Room.objects.all()
+    serializer_class = serializers.RoomSerializer
+    filterset_class = filters.RoomFilter
+    ordering_fields = ("created", "modified")
+
+    @action(detail=False, methods=["post"])
+    def for_user(self, request):
+        """ Return list of active rooms for the user """
+        serializer = serializers.RoomsForUserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        runuser_pk = serializer.data["runuser"]
+        rooms = models.Room.objects.filter(members__pk=runuser_pk)
+
+        response_serializer = serializers.RoomSerializer(rooms, many=True)
+
+        return Response(response_serializer.data)
+
+    @action(detail=False, methods=["post"])
+    def check_user(self, request):
+        """
+        Is this user allowed in this room?  Crossbar's authorization needs to
+        check based on the authid (the user's email) and not by RunUser here.
+        """
+        serializer = serializers.RoomsCheckSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        email = serializer.data["email"]
+        room = serializer.data["room"]
+
+        try:
+            room = models.Room.objects.get(slug=room)
+        except models.Room.DoesNotExist:
+            raise exceptions.NotAcceptable(f"Room '{room}' not found")
+
+        # Check that the user is in their by email
+        if room.members.filter(user__email=email).exists():
+            return Response({"authorized": True})
+        else:
+            raise exceptions.NotAcceptable(f"User not in Room '{room}'")
+
+
+    @action(detail=False, methods=["post"])
+    def add_user(self, request):
+        """ Add user to room """
+        serializer = serializers.RoomsUserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        runuser_pk = serializer.data["runuser"]
+        room = serializer.data["room"]
+
+        try:
+            room = models.Room.objects.get(slug=room)
+        except models.Room.DoesNotExist:
+            raise exceptions.NotFound("Room does not exist")
+
+        try:
+            runuser = models.RunUser.objects.get(pk=runuser_pk)
+        except models.RunUser.DoesNotExist:
+            raise exceptions.NotFound("RunUser does not exist")
+
+        room.members.add(runuser)
+
+        return Response({"success": "User added"})
+
+    @action(detail=False, methods=["post"])
+    def remove_user(self, request):
+        """ Remove user from room """
+        serializer = serializers.RoomsUserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        runuser_pk = serializer.data["runuser"]
+        room = serializer.data["room"]
+
+        try:
+            room = models.Room.objects.get(slug=room)
+        except models.Room.DoesNotExist:
+            raise exceptions.NotFound("Room does not exist")
+
+        try:
+            runuser = models.RunUser.objects.get(pk=runuser_pk)
+        except models.RunUser.DoesNotExist:
+            raise exceptions.NotFound("RunUser does not exist")
+
+        room.members.remove(runuser)
+
+        return Response({"success": "User removed"})
+
+
+class MessageViewSet(CommonViewSet):
+    """ Chat Message """
+    queryset = models.Message.objects.all()
+    serializer_class = serializers.MessageSerializer
+    filterset_class = filters.MessageFilter
+    ordering_fields = ("created", "modified")

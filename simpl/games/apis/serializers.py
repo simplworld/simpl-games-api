@@ -1,6 +1,8 @@
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
 
+from .. import chat
+from .. import exceptions
 from .. import models
 
 """
@@ -182,4 +184,40 @@ class AuthSerializer(serializers.Serializer):
     def validate(self, data):
         if data["authid"] is None and data["email"] is None:
             raise serializers.ValidationError("'authid' or 'email' must be set")
+        return data
+
+
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Room
+        fields = "__all__"
+        read_only_fields = ("created", "updated")
+
+
+class RoomsForUserSerializer(serializers.Serializer):
+    runuser = serializers.IntegerField(required=True)
+
+
+class RoomsUserSerializer(serializers.Serializer):
+    runuser = serializers.IntegerField(required=True)
+    room = serializers.SlugField(required=True)
+
+
+class RoomsCheckSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    room = serializers.SlugField(required=True)
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Message
+        fields = "__all__"
+        read_only_fields = ("created", "updated")
+
+    def validate_data(self, data):
+        try:
+            chat.validate_message(data)
+        except exceptions.MessageValidationError as e:
+            raise serializers.ValidationError(e)
+
         return data
