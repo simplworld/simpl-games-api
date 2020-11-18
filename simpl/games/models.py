@@ -364,6 +364,7 @@ class Room(AbstractTimeStampedModel):
 
     class Meta:
         ordering = ("pk",)
+        verbose_name = "Chat Room"
 
     def __str__(self):
         return self.slug
@@ -387,6 +388,7 @@ class Message(AbstractTimeStampedModel):
 
     class Meta:
         ordering = ("pk",)
+        verbose_name = "Chat Message"
 
     def __str__(self):
         return f"{self.sender.user.email} in {self.room.slug}"
