@@ -4,33 +4,42 @@
 
 This project requires PostgreSQL 9+ and uses Python 3.7.x and Django 2.2.x
 
-## Getting Started With Docker
-
-Using docker is the easiest way to get started with Simpl.  All you need to do is clone
-this repo and run `docker-compose up` to get the API up and running on your local
-system.
-
-After you have the containers up you will need to setup a superuser and staff user
-to allow your Simpl model processes to connect and for you to use the Django admin
-to inspect the data.
-
-To help set things up you can just get a shell into the container and run `./manage.py create_simpl_user`,
-here are the steps:
-
-```bash
-$ make shell
-$ ./manage.py create_simpl_user
-```
-
-`make shell` is just a little helper that run `docker-compose run --rm api bash` for you.
-
-## Getting Started Without Docker
-
-### Setup simpl-games-api
+## Install simpl-games-api
 
 ```bash
 $ git clone git@github.com:simplworld/simpl-games-api.git
 $ cd simpl-games-api
+```
+
+## Getting Started With Docker
+
+Using docker is the easiest way to get started with Simpl.  After you clone
+the repo, run:
+
+```bash
+$ docker-compose up
+```
+
+to get the Simpl API up and running on your local system.
+
+After you have the containers up, you will need to setup a superuser and staff user.
+ - The superuser is used to inspect the data in the Simpl API's Django admin . 
+ - The staff user is used by Simpl model services to connect to the Simpl API
+
+Follow these steps to create a shell into the container and create these users:
+
+```bash
+$ make shell
+$ ./manage.py simpl_setup
+```
+
+`make shell` is just a helper that runs `docker-compose run --rm api bash` for you.
+
+## Getting Started Without Docker
+
+After you clone the repo, run:
+
+```bash
 $ mkvirtualenv simpl-games-api
 $ add2virtualenv .
 $ pip install -r requirements.txt
@@ -76,17 +85,10 @@ Setup the `DJANGO_SETTINGS_MODULE` to use:
 $ export DJANGO_SETTINGS_MODULE=config.settings.local
 ```
 
-For local development running outside docker, use:
+### Run the web server locally outside Docker:
 
 ```bash
-$ export SIMPL_WEBHOOK_ALLOW_LOCALHOST=True
-$ export SIMPL_WEBHOOK_ALLOW_HTTP=True
-```
-
-### Start the web server
-
-```bash
-$ ./manage.py runserver 0.0.0.0:8100
+$ SIMPL_WEBHOOK_ALLOW_LOCALHOST=True SIMPL_WEBHOOK_ALLOW_HTTP=True ./manage.py runserver 0.0.0.0:8100
 ```
 **NOTE**: You may need to create a directory named `staticfiles` and run `manage.py collectstatic` to have the admin media show up correctly.
 
