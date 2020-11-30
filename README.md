@@ -26,7 +26,7 @@ After you have the containers up, you will need to setup a superuser and staff u
  - The superuser is used to inspect the data in the Simpl API's Django admin . 
  - The staff user is used by Simpl model services to connect to the Simpl API
 
-You can create a shell into the Simpl API container by running:
+In a separate terminal, create a shell into the Simpl API container by running:
 
 ```bash
 $ make shell
