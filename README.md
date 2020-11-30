@@ -14,12 +14,12 @@ After you have the containers up you will need to setup a superuser and staff us
 to allow your Simpl model processes to connect and for you to use the Django admin
 to inspect the data.
 
-To help set things up you can just get a shell into the container and run `./manage.py setup_simpl`,
+To help set things up you can just get a shell into the container and run `./manage.py create_simpl_user`,
 here are the steps:
 
 ```bash
 $ make shell
-$ ./manage.py setup_simpl
+$ ./manage.py create_simpl_user
 ```
 
 `make shell` is just a little helper that run `docker-compose run --rm api bash` for you.
