@@ -793,6 +793,7 @@ class WorldViewSet(CommonViewSet):
 
 class RoomViewSet(CommonViewSet):
     """ Chat Room """
+
     queryset = models.Room.objects.all()
     serializer_class = serializers.RoomSerializer
     filterset_class = filters.RoomFilter
@@ -833,7 +834,6 @@ class RoomViewSet(CommonViewSet):
             return Response({"authorized": True})
         else:
             raise exceptions.NotAcceptable(f"User not in Room '{room}'")
-
 
     @action(detail=False, methods=["post"])
     def add_user(self, request):
@@ -884,6 +884,7 @@ class RoomViewSet(CommonViewSet):
 
 class MessageViewSet(CommonViewSet):
     """ Chat Message """
+
     queryset = models.Message.objects.all()
     serializer_class = serializers.MessageSerializer
     filterset_class = filters.MessageFilter
@@ -911,10 +912,7 @@ class MessageViewSet(CommonViewSet):
         except models.RunUser.DoesNotExist:
             raise exceptions.ValidationError("Sender not in room")
 
-        models.Message.objects.create(
-            room=room,
-            sender=sender,
-            data=data,
-        )
+        new_msg = models.Message.objects.create(room=room, sender=sender, data=data)
+        serializer = serializers.MessageSerializer(new_msg)
 
-        return Response({"message_posted": True})
+        return Response(serializer.data)
