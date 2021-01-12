@@ -7,7 +7,7 @@ This project requires PostgreSQL 9+ and uses Python 3.7.x and Django 2.2.x
 ## Install simpl-games-api
 
 ```bash
-$ git clone git@github.com:simplworld/simpl-games-api.git
+$ git clone https://github.com/simplworld/simpl-games-api.git
 $ cd simpl-games-api
 ```
 
@@ -22,9 +22,9 @@ $ docker-compose up
 
 to get the Simpl API up and running on your local system.
 
-After you have the containers up, you will need to setup a superuser and staff user.
+After you have the containers up, you will need to create a superuser and staff user.
  - The superuser is used to inspect the data in the Simpl API's Django admin . 
- - The staff user is used by Simpl model services to connect to the Simpl API
+ - The staff user is used by Simpl model services to connect to the Simpl API.
 
 In a separate terminal, create a shell into the Simpl API container by running:
 
@@ -39,6 +39,8 @@ Once you are in the container shell, create your superuser and staff user by run
 ```bash
 $ ./manage.py simpl_setup
 ```
+
+Create the staff user with email address `simpl@simpl.world` and password `simpl`.
 
 ## Getting Started Without Docker
 
@@ -80,7 +82,7 @@ For local development, run:
 $ ./manage.py create_simpl_user
 ```
 
-This creates a super user with id 'simpl@simpl.world' and password 'simpl' and ensures test users can be assigned passwords in scripts.
+This creates a super user with email address 'simpl@simpl.world' and password 'simpl' and ensures test users can be assigned passwords in scripts.
 
 ### Settings setup
 
