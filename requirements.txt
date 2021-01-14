@@ -109,4 +109,4 @@ gevent==1.2.2
 # Git versioning
 bumpversion==0.5.3
 
-django-db-geventpool
+django-db-geventpool==3.2.4
