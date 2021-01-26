@@ -54,7 +54,6 @@ services:
       - DATABASE_URL=postgres://postgres@db/postgres
       - DJANGO_SETTINGS_MODULE=config.settings.local
       - DJANGO_DEBUG=1
-      - DEBUG=True
     stop_signal: SIGTERM
     networks:
       - simpl
