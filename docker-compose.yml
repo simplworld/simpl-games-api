@@ -18,7 +18,6 @@ services:
       - "8100:8000"
     command: ["/bin/bash", "/code/start.sh"]
     environment:
-      - DATABASE_URL=postgres://postgres@db/postgres
       - DJANGO_SETTINGS_MODULE=config.settings.local
       - DJANGO_DEBUG=1
       - GUNICORN_BIND=0.0.0.0:8000

@@ -70,7 +70,7 @@ rollbar==0.15.1
 git+https://github.com/revsys/jslog4kube.git@v1.0.6
 
 gevent==20.9.0
-django-db-geventpool==3.2.3
+django-db-geventpool==3.2.2
 
 django-extensions==3.0.9
 
