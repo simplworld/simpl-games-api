@@ -108,3 +108,7 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
+
+SIMPL_WEBHOOK_ALLOW_LOCALHOST = True
+SIMPL_WEBHOOK_ALLOW_HTTP = True
+
