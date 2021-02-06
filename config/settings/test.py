@@ -2,6 +2,7 @@ from .local import *  # noqa
 
 SIMPL_WEBHOOK_ALLOW_LOCALHOST = False
 SIMPL_WEBHOOK_ALLOW_HTTP = False
+
 # Speeding up the tests
 
 AUTHENTICATION_BACKENDS = (
