@@ -1,16 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Local settings
-
-- Run in Debug mode
-- Use console backend for emails
-- Add Django Debug Toolbar
-- Add django-extensions as app
+docker-compose settings
 """
 
 from .local import *  # noqa
-
-import logging
 
 DATABASES = {
     "default": {
@@ -25,4 +18,3 @@ DATABASES = {
         "OPTIONS": {"MAX_CONNS": 50},
     }
 }
-
