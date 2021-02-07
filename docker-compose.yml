@@ -18,7 +18,7 @@ services:
       - "8100:8000"
     command: ["/bin/bash", "/code/start.sh"]
     environment:
-      - DJANGO_SETTINGS_MODULE=config.settings.local
+      - DJANGO_SETTINGS_MODULE=config.settings.compose
       - DJANGO_DEBUG=1
       - GUNICORN_BIND=0.0.0.0:8000
     depends_on:
@@ -51,7 +51,7 @@ services:
       - redis
     environment:
       - DATABASE_URL=postgres://postgres@db/postgres
-      - DJANGO_SETTINGS_MODULE=config.settings.local
+      - DJANGO_SETTINGS_MODULE=config.settings.compose
       - DJANGO_DEBUG=1
     stop_signal: SIGTERM
     networks:

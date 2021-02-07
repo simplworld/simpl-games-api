@@ -95,7 +95,7 @@ $ export DJANGO_SETTINGS_MODULE=config.settings.local
 ### Run the web server locally outside Docker:
 
 ```bash
-$ SIMPL_WEBHOOK_ALLOW_LOCALHOST=True SIMPL_WEBHOOK_ALLOW_HTTP=True ./manage.py runserver 0.0.0.0:8100
+$ ./manage.py runserver 0.0.0.0:8100
 ```
 **NOTE**: You may need to create a directory named `staticfiles` and run `manage.py collectstatic` to have the admin media show up correctly.
 
