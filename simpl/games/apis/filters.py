@@ -5,83 +5,66 @@ from .. import models
 
 
 class RoleFilter(filters.FilterSet):
-    game_slug = filters.CharFilter(field_name='game__slug')
+    game_slug = filters.CharFilter(field_name="game__slug")
 
     class Meta:
         model = models.Role
-        fields = [
-            'game',
-            'name',
-            'game_slug',
-            'slug',
-        ]
+        fields = ["game", "name", "game_slug", "slug"]
 
 
 class PhaseFilter(filters.FilterSet):
-    game_slug = filters.CharFilter(field_name='game__slug')
+    game_slug = filters.CharFilter(field_name="game__slug")
 
     class Meta:
         model = models.Phase
-        fields = [
-            'game',
-            'name',
-            'game_slug',
-            'slug',
-        ]
+        fields = ["game", "name", "game_slug", "slug"]
 
 
 class RunFilter(filters.FilterSet):
-    game_slug = filters.CharFilter(field_name='game__slug')
+    game_slug = filters.CharFilter(field_name="game__slug")
 
     class Meta:
         model = models.Run
-        fields = [
-            'game',
-            'name',
-            'game_slug',
-            'active',
-        ]
+        fields = ["game", "name", "game_slug", "active"]
 
 
 class RunUserFilter(filters.FilterSet):
-    game_slug = filters.CharFilter(field_name='run__game__slug')
-    run_active = filters.BooleanFilter(field_name='run__active')
+    game_slug = filters.CharFilter(field_name="run__game__slug")
+    run_active = filters.BooleanFilter(field_name="run__active")
 
     class Meta:
         model = models.RunUser
         fields = [
-            'active',
-            'leader',
-            'role',
-            'run',
-            'user',
-            'world',
-            'game_slug',
-            'run_active',
+            "active",
+            "leader",
+            "role",
+            "run",
+            "user",
+            "world",
+            "game_slug",
+            "run_active",
         ]
 
 
 class WorldFilter(filters.FilterSet):
-    game_slug = filters.CharFilter(field_name='run__game__slug')
-    run_active = filters.BooleanFilter(field_name='run__active')
+    game_slug = filters.CharFilter(field_name="run__game__slug")
+    run_active = filters.BooleanFilter(field_name="run__active")
 
     class Meta:
         model = models.World
-        fields = [
-            'run',
-            'name',
-            'game_slug',
-            'run_active',
-        ]
+        fields = ["run", "name", "game_slug", "run_active"]
 
 
 class ScenarioFilter(filters.FilterSet):
-    game_slug = filters.CharFilter(field_name='game_slug-filter',
-                                   method='filter_runuser_and_worlds_in_game')
-    run_active = filters.BooleanFilter(field_name='run_active-filter',
-                                       method='filter_runuser_and_worlds_in_run_active')
-    run = filters.NumberFilter(field_name='run-filter',
-                               method='filter_runuser_and_worlds_in_run')
+    game_slug = filters.CharFilter(
+        field_name="game_slug-filter", method="filter_runuser_and_worlds_in_game"
+    )
+    run_active = filters.BooleanFilter(
+        field_name="run_active-filter", method="filter_runuser_and_worlds_in_run_active"
+    )
+    run = filters.NumberFilter(
+        field_name="run-filter", method="filter_runuser_and_worlds_in_run"
+    )
 
     def filter_runuser_and_worlds_in_game(self, queryset, name, value):
         """
@@ -89,8 +72,7 @@ class ScenarioFilter(filters.FilterSet):
         in the given game slug
         """
         return queryset.filter(
-            Q(world__run__game__slug=value) |
-            Q(runuser__run__game__slug=value)
+            Q(world__run__game__slug=value) | Q(runuser__run__game__slug=value)
         )
 
     def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
@@ -99,8 +81,7 @@ class ScenarioFilter(filters.FilterSet):
         in runs with active value
         """
         return queryset.filter(
-            Q(world__run__active=value) |
-            Q(runuser__run__active=value)
+            Q(world__run__active=value) | Q(runuser__run__active=value)
         )
 
     def filter_runuser_and_worlds_in_run(self, queryset, name, value):
@@ -108,32 +89,32 @@ class ScenarioFilter(filters.FilterSet):
         We need to retrieve Scenarios which are attached to worlds or runusers
         in the given run
         """
-        return queryset.filter(
-            Q(world__run=value) |
-            Q(runuser__run=value)
-        )
+        return queryset.filter(Q(world__run=value) | Q(runuser__run=value))
 
     class Meta:
         model = models.Scenario
         fields = [
-            'runuser',
-            'world',
-            'name',
-            'game_slug',
-            'run_active',
-            'run',
-            'world__run',
-            'runuser__run',
+            "runuser",
+            "world",
+            "name",
+            "game_slug",
+            "run_active",
+            "run",
+            "world__run",
+            "runuser__run",
         ]
 
 
 class PeriodFilter(filters.FilterSet):
-    game_slug = filters.CharFilter(field_name='game_slug-filter',
-                                   method='filter_runuser_and_worlds_in_game')
-    run_active = filters.BooleanFilter(field_name='run_active-filter',
-                                       method='filter_runuser_and_worlds_in_run_active')
-    run = filters.NumberFilter(field_name='run-filter',
-                               method='filter_runuser_and_worlds_in_run')
+    game_slug = filters.CharFilter(
+        field_name="game_slug-filter", method="filter_runuser_and_worlds_in_game"
+    )
+    run_active = filters.BooleanFilter(
+        field_name="run_active-filter", method="filter_runuser_and_worlds_in_run_active"
+    )
+    run = filters.NumberFilter(
+        field_name="run-filter", method="filter_runuser_and_worlds_in_run"
+    )
 
     def filter_runuser_and_worlds_in_game(self, queryset, name, value):
         """
@@ -141,8 +122,8 @@ class PeriodFilter(filters.FilterSet):
         or runusers in the given game slug
         """
         return queryset.filter(
-            Q(scenario__world__run__game__slug=value) |
-            Q(scenario__runuser__run__game__slug=value)
+            Q(scenario__world__run__game__slug=value)
+            | Q(scenario__runuser__run__game__slug=value)
         )
 
     def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
@@ -151,8 +132,8 @@ class PeriodFilter(filters.FilterSet):
         or runusers in runs with active value
         """
         return queryset.filter(
-            Q(scenario__world__run__active=value) |
-            Q(scenario__runuser__run__active=value)
+            Q(scenario__world__run__active=value)
+            | Q(scenario__runuser__run__active=value)
         )
 
     def filter_runuser_and_worlds_in_run(self, queryset, name, value):
@@ -161,30 +142,32 @@ class PeriodFilter(filters.FilterSet):
         in the given run
         """
         return queryset.filter(
-            Q(scenario__world__run=value) |
-            Q(scenario__runuser__run=value)
+            Q(scenario__world__run=value) | Q(scenario__runuser__run=value)
         )
 
     class Meta:
         model = models.Period
         fields = [
-            'scenario',
-            'order',
-            'game_slug',
-            'run_active',
-            'run',
-            'scenario__world__run',
-            'scenario__runuser__run'
+            "scenario",
+            "order",
+            "game_slug",
+            "run_active",
+            "run",
+            "scenario__world__run",
+            "scenario__runuser__run",
         ]
 
 
 class DecisionFilter(filters.FilterSet):
-    game_slug = filters.CharFilter(field_name='game_slug-filter',
-                                   method='filter_runuser_and_worlds_in_game')
-    run_active = filters.BooleanFilter(field_name='run_active-filter',
-                                       method='filter_runuser_and_worlds_in_run_active')
-    run = filters.NumberFilter(field_name='run-filter',
-                               method='filter_runuser_and_worlds_in_run')
+    game_slug = filters.CharFilter(
+        field_name="game_slug-filter", method="filter_runuser_and_worlds_in_game"
+    )
+    run_active = filters.BooleanFilter(
+        field_name="run_active-filter", method="filter_runuser_and_worlds_in_run_active"
+    )
+    run = filters.NumberFilter(
+        field_name="run-filter", method="filter_runuser_and_worlds_in_run"
+    )
 
     def filter_runuser_and_worlds_in_game(self, queryset, name, value):
         """
@@ -192,8 +175,8 @@ class DecisionFilter(filters.FilterSet):
         attached to worlds or runusers in the given game slug
         """
         return queryset.filter(
-            Q(period__scenario__world__run__game__slug=value) |
-            Q(period__scenario__runuser__run__game__slug=value)
+            Q(period__scenario__world__run__game__slug=value)
+            | Q(period__scenario__runuser__run__game__slug=value)
         )
 
     def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
@@ -202,8 +185,8 @@ class DecisionFilter(filters.FilterSet):
         attached to worlds or runusers in runs with active value
         """
         return queryset.filter(
-            Q(period__scenario__world__run__active=value) |
-            Q(period__scenario__runuser__run__active=value)
+            Q(period__scenario__world__run__active=value)
+            | Q(period__scenario__runuser__run__active=value)
         )
 
     def filter_runuser_and_worlds_in_run(self, queryset, name, value):
@@ -212,31 +195,34 @@ class DecisionFilter(filters.FilterSet):
         attached to worlds or runusers in the given run
         """
         return queryset.filter(
-            Q(period__scenario__world__run=value) |
-            Q(period__scenario__runuser__run=value)
+            Q(period__scenario__world__run=value)
+            | Q(period__scenario__runuser__run=value)
         )
 
     class Meta:
         model = models.Decision
         fields = [
-            'name',
-            'period',
-            'role',
-            'game_slug',
-            'run_active',
-            'run',
-            'period__scenario__world__run',
-            'period__scenario__runuser__run'
+            "name",
+            "period",
+            "role",
+            "game_slug",
+            "run_active",
+            "run",
+            "period__scenario__world__run",
+            "period__scenario__runuser__run",
         ]
 
 
 class ResultFilter(filters.FilterSet):
-    game_slug = filters.CharFilter(field_name='game_slug-filter',
-                                   method='filter_runuser_and_worlds_in_game')
-    run_active = filters.BooleanFilter(field_name='run_active-filter',
-                                       method='filter_runuser_and_worlds_in_run_active')
-    run = filters.NumberFilter(field_name='run-filter',
-                               method='filter_runuser_and_worlds_in_run')
+    game_slug = filters.CharFilter(
+        field_name="game_slug-filter", method="filter_runuser_and_worlds_in_game"
+    )
+    run_active = filters.BooleanFilter(
+        field_name="run_active-filter", method="filter_runuser_and_worlds_in_run_active"
+    )
+    run = filters.NumberFilter(
+        field_name="run-filter", method="filter_runuser_and_worlds_in_run"
+    )
 
     def filter_runuser_and_worlds_in_game(self, queryset, name, value):
         """
@@ -244,8 +230,8 @@ class ResultFilter(filters.FilterSet):
         attached to worlds or runusers in the given game slug
         """
         return queryset.filter(
-            Q(period__scenario__world__run__game__slug=value) |
-            Q(period__scenario__runuser__run__game__slug=value)
+            Q(period__scenario__world__run__game__slug=value)
+            | Q(period__scenario__runuser__run__game__slug=value)
         )
 
     def filter_runuser_and_worlds_in_run_active(self, queryset, name, value):
@@ -254,8 +240,8 @@ class ResultFilter(filters.FilterSet):
         attached to worlds or runusers in runs with active value
         """
         return queryset.filter(
-            Q(period__scenario__world__run__active=value) |
-            Q(period__scenario__runuser__run__active=value)
+            Q(period__scenario__world__run__active=value)
+            | Q(period__scenario__runuser__run__active=value)
         )
 
     def filter_runuser_and_worlds_in_run(self, queryset, name, value):
@@ -264,19 +250,32 @@ class ResultFilter(filters.FilterSet):
         attached to worlds or runusers in the given run
         """
         return queryset.filter(
-            Q(period__scenario__world__run=value) |
-            Q(period__scenario__runuser__run=value)
+            Q(period__scenario__world__run=value)
+            | Q(period__scenario__runuser__run=value)
         )
 
     class Meta:
         model = models.Result
         fields = [
-            'name',
-            'period',
-            'role',
-            'game_slug',
-            'run_active',
-            'run',
-            'period__scenario__world__run',
-            'period__scenario__runuser__run'
+            "name",
+            "period",
+            "role",
+            "game_slug",
+            "run_active",
+            "run",
+            "period__scenario__world__run",
+            "period__scenario__runuser__run",
         ]
+
+
+class RoomFilter(filters.FilterSet):
+    class Meta:
+        model = models.Room
+        fields = ["active", "slug", "name"]
+
+
+class MessageFilter(filters.FilterSet):
+    class Meta:
+        model = models.Message
+        fields = ["room__slug", "room", "sender"]
+

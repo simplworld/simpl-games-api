@@ -17,23 +17,21 @@ class Decision(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
     data = JSONField(default=dict, blank=True)
     period = models.ForeignKey(
-        'Period',
-        related_name='decisions',
-        on_delete=models.CASCADE,
+        "Period", related_name="decisions", on_delete=models.CASCADE
     )
     role = models.ForeignKey(
-        'Role',
+        "Role",
         blank=True,
         null=True,
-        related_name='decisions',
+        related_name="decisions",
         on_delete=models.CASCADE,
     )
 
     class Meta(object):
-        unique_together = ('name', 'period', 'role')
-        verbose_name = _('decision')
-        verbose_name_plural = _('decisions')
-        ordering = ('pk',)
+        unique_together = ("name", "period", "role")
+        verbose_name = _("decision")
+        verbose_name_plural = _("decisions")
+        ordering = ("pk",)
 
     def __str__(self):
         return self.name
@@ -60,9 +58,9 @@ class Game(AbstractTimeStampedModel):
     objects = managers.ActiveQuerySet.as_manager()
 
     class Meta(object):
-        verbose_name = _('game')
-        verbose_name_plural = _('games')
-        ordering = ('pk',)
+        verbose_name = _("game")
+        verbose_name_plural = _("games")
+        ordering = ("pk",)
 
     def save(self, **kwargs):
         """
@@ -86,24 +84,19 @@ class Period(AbstractTimeStampedModel):
     """Period model"""
 
     scenario = models.ForeignKey(
-        'Scenario',
-        related_name='periods',
-        on_delete=models.CASCADE,
+        "Scenario", related_name="periods", on_delete=models.CASCADE
     )
     order = models.IntegerField(default=0, db_index=True)
     data = JSONField(default=dict, blank=True)
 
     class Meta(object):
-        unique_together = ('scenario', 'order')
-        verbose_name = _('period')
-        verbose_name_plural = _('periods')
-        ordering = ('pk',)
+        unique_together = ("scenario", "order")
+        verbose_name = _("period")
+        verbose_name_plural = _("periods")
+        ordering = ("pk",)
 
     def __str__(self):
-        return '{0}: {1}'.format(
-            self.scenario.name,
-            self.order
-        )
+        return "{0}: {1}".format(self.scenario.name, self.order)
 
     @property
     @cached_method("periods:{.pk}:game")
@@ -121,19 +114,14 @@ class Phase(AbstractTimeStampedModel):
 
     name = models.CharField(max_length=100)
     slug = models.SlugField(blank=True)
-    game = models.ForeignKey(
-        'Game',
-        related_name='phases',
-        on_delete=models.CASCADE,
-    )
-    order = models.PositiveSmallIntegerField(blank=True, null=True,
-                                             db_index=True)
+    game = models.ForeignKey("Game", related_name="phases", on_delete=models.CASCADE)
+    order = models.PositiveSmallIntegerField(blank=True, null=True, db_index=True)
 
     class Meta(object):
-        unique_together = ('name', 'game')
-        verbose_name = _('phase')
-        verbose_name_plural = _('phases')
-        ordering = ('pk',)
+        unique_together = ("name", "game")
+        verbose_name = _("phase")
+        verbose_name_plural = _("phases")
+        ordering = ("pk",)
 
     def __str__(self):
         return self.name
@@ -150,23 +138,17 @@ class Result(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
     data = JSONField(default=dict, blank=True)
     period = models.ForeignKey(
-        'Period',
-        related_name='results',
-        on_delete=models.CASCADE,
+        "Period", related_name="results", on_delete=models.CASCADE
     )
     role = models.ForeignKey(
-        'Role',
-        blank=True,
-        null=True,
-        related_name='results',
-        on_delete=models.CASCADE,
+        "Role", blank=True, null=True, related_name="results", on_delete=models.CASCADE
     )
 
     class Meta(object):
-        unique_together = ('name', 'period', 'role')
-        verbose_name = _('result')
-        verbose_name_plural = _('results')
-        ordering = ('pk',)
+        unique_together = ("name", "period", "role")
+        verbose_name = _("result")
+        verbose_name_plural = _("results")
+        ordering = ("pk",)
 
     def __str__(self):
         return self.name
@@ -188,19 +170,15 @@ class Role(AbstractTimeStampedModel):
     name = models.CharField(max_length=100)
     slug = models.SlugField(blank=True)
     game = models.ForeignKey(
-        'Game',
-        related_name='roles',
-        blank=True,
-        null=True,
-        on_delete=models.CASCADE,
+        "Game", related_name="roles", blank=True, null=True, on_delete=models.CASCADE
     )
     data = JSONField(default=dict, blank=True)
 
     class Meta(object):
-        unique_together = ('name', 'game')
-        verbose_name = _('role')
-        verbose_name_plural = _('roles')
-        ordering = ('created',)
+        unique_together = ("name", "game")
+        verbose_name = _("role")
+        verbose_name_plural = _("roles")
+        ordering = ("created",)
 
     def __str__(self):
         return self.name
@@ -216,26 +194,18 @@ class Run(AbstractTimeStampedModel):
 
     name = models.CharField(max_length=100)
     active = models.BooleanField(default=True)
-    game = models.ForeignKey(
-        'Game',
-        related_name='runs',
-        on_delete=models.CASCADE,
-    )
+    game = models.ForeignKey("Game", related_name="runs", on_delete=models.CASCADE)
     data = JSONField(default=dict, blank=True)
     phase = models.ForeignKey(
-        'Phase',
-        blank=True,
-        null=True,
-        related_name='+',
-        on_delete=models.CASCADE,
+        "Phase", blank=True, null=True, related_name="+", on_delete=models.CASCADE
     )
 
     objects = managers.ActiveQuerySet.as_manager()
 
     class Meta(object):
-        verbose_name = _('run')
-        verbose_name_plural = _('runs')
-        ordering = ('pk',)
+        verbose_name = _("run")
+        verbose_name_plural = _("runs")
+        ordering = ("pk",)
 
     def __str__(self):
         return self.name
@@ -250,27 +220,21 @@ class RunUser(AbstractTimeStampedModel):
     """Run User model"""
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name='run_users',
-        on_delete=models.CASCADE,
+        settings.AUTH_USER_MODEL, related_name="run_users", on_delete=models.CASCADE
     )
-    run = models.ForeignKey(
-        'Run',
-        related_name='run_users',
-        on_delete=models.CASCADE,
-    )
+    run = models.ForeignKey("Run", related_name="run_users", on_delete=models.CASCADE)
     world = models.ForeignKey(
-        'World',
+        "World",
         blank=True,
         null=True,
-        related_name='run_users',
+        related_name="run_users",
         on_delete=models.CASCADE,
     )
     role = models.ForeignKey(
-        'Role',
+        "Role",
         blank=True,
         null=True,
-        related_name='run_users',
+        related_name="run_users",
         on_delete=models.CASCADE,
     )
     leader = models.BooleanField(default=False)
@@ -280,10 +244,10 @@ class RunUser(AbstractTimeStampedModel):
     objects = managers.ActiveQuerySet.as_manager()
 
     class Meta(object):
-        unique_together = ('user', 'run')
-        verbose_name = _('run user')
-        verbose_name_plural = _('run users')
-        ordering = ('pk',)
+        unique_together = ("user", "run")
+        verbose_name = _("run user")
+        verbose_name_plural = _("run users")
+        ordering = ("pk",)
 
     def __str__(self):
         return self.user.__str__()
@@ -305,26 +269,26 @@ class Scenario(AbstractTimeStampedModel):
     name = models.CharField(max_length=100, db_index=True)
 
     runuser = models.ForeignKey(
-        'RunUser',
+        "RunUser",
         blank=True,
         null=True,
-        related_name='scenarios',
+        related_name="scenarios",
         on_delete=models.CASCADE,
     )
     world = models.ForeignKey(
-        'World',
+        "World",
         blank=True,
         null=True,
-        related_name='scenarios',
+        related_name="scenarios",
         on_delete=models.CASCADE,
     )
 
     data = JSONField(default=dict, blank=True)
 
     class Meta(object):
-        verbose_name = _('scenario')
-        verbose_name_plural = _('scenarios')
-        ordering = ('pk',)
+        verbose_name = _("scenario")
+        verbose_name_plural = _("scenarios")
+        ordering = ("pk",)
 
     def __str__(self):
         return self.name
@@ -347,25 +311,15 @@ class World(AbstractTimeStampedModel):
     """World model"""
 
     name = models.CharField(max_length=100)
-    run = models.ForeignKey(
-        'Run',
-        related_name='worlds',
-        on_delete=models.CASCADE,
-    )
+    run = models.ForeignKey("Run", related_name="worlds", on_delete=models.CASCADE)
     data = JSONField(default=dict, blank=True)
-    external_ids = ArrayField(
-        ArrayField(
-            models.IntegerField()
-        ),
-        blank=True,
-        null=True
-    )
+    external_ids = ArrayField(ArrayField(models.IntegerField()), blank=True, null=True)
 
     class Meta(object):
-        unique_together = ('name', 'run')
-        verbose_name = _('world')
-        verbose_name_plural = _('worlds')
-        ordering = ('pk',)
+        unique_together = ("name", "run")
+        verbose_name = _("world")
+        verbose_name_plural = _("worlds")
+        ordering = ("pk",)
 
     def __str__(self):
         return self.name
@@ -379,3 +333,62 @@ class World(AbstractTimeStampedModel):
         from .apis.serializers import WorldSerializer
 
         return WorldSerializer(self).data
+
+
+########################################################################
+# Chat related models, which do not follow the same structure of the
+# rest of Simpl's scopes.
+#
+# Because we need to support VERY flexible chat situations having
+# ForeignKeys to Runs, Worlds, etc. doesn't much much sense.  We need
+# to be able to support "chats" between individual users, users to
+# leader(s), users in a role in a world, users in a world, users in a
+# a run, and anything else a Simpl developer can dream up.  We do
+# this by manually assigning RunUsers to Rooms.
+#
+########################################################################
+
+
+class Room(AbstractTimeStampedModel):
+    """
+    Room represents Chat Rooms to gather chat messages into a logical
+    "room".
+    """
+
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    slug = models.SlugField(max_length=200, unique=True)
+    name = models.CharField(max_length=200, blank=True, null=True)
+    active = models.BooleanField(default=True, db_index=True)
+    members = models.ManyToManyField(RunUser, related_name="rooms", blank=True, null=True)
+    data = JSONField(default=dict, blank=True)
+
+    class Meta:
+        ordering = ("pk",)
+        verbose_name = "Chat Room"
+
+    def __str__(self):
+        return self.slug
+
+    def save(self, *args, **kwargs):
+        if self.name is None:
+            self.name = self.slug
+        return super().save(*args, **kwargs)
+
+
+class Message(AbstractTimeStampedModel):
+    """
+    Message represents a single Chat message.  This is extensible model to
+    allow for very simplistic message types (basic text message) to VERY
+    rich message types.
+    """
+
+    room = models.ForeignKey(Room, related_name="messages", on_delete=models.CASCADE)
+    sender = models.ForeignKey(RunUser, related_name="sent_messages", on_delete=models.CASCADE)
+    data = JSONField(default=dict, blank=True)
+
+    class Meta:
+        ordering = ("pk",)
+        verbose_name = "Chat Message"
+
+    def __str__(self):
+        return f"{self.sender.user.email} in {self.room.slug}"

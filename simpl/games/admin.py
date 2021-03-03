@@ -128,3 +128,22 @@ class WorldAdmin(TimeStampedAdmin):
     raw_id_fields = [
         'run',
     ]
+
+
+@admin.register(models.Room)
+class RoomAdmin(TimeStampedAdmin):
+    list_display = (
+        'game',
+        'name',
+        'slug',
+        'active'
+    )
+
+
+@admin.register(models.Message)
+class MessageAdmin(TimeStampedAdmin):
+    list_display = (
+        'room',
+        'sender',
+        'created',
+    )
