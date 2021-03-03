@@ -146,7 +146,6 @@ class ScenarioSerializer(serializers.ModelSerializer):
     # run_active = serializers.SerializerMethodField()
 
     def get_run_active(self, obj):
-        return True
         try:
             scenario = obj
             if scenario.world is not None:
