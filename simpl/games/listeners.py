@@ -1,6 +1,6 @@
 import rollbar
 
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_delete
 from django.dispatch import receiver
 
 from celery.signals import task_failure
@@ -20,6 +20,16 @@ def dispatch_save_hooks(**kwargs):
     import.
     """
     handle_save_signals(**kwargs)
+
+
+@receiver(pre_delete)
+def dispatch_pre_delete_hooks(**kwargs):
+    """
+    Cache game slug to create event namespace in events.py
+    """
+    instance = kwargs.get("instance", None)
+    if instance and hasattr(instance, 'game'):
+        instance.game
 
 
 @receiver(post_delete)
