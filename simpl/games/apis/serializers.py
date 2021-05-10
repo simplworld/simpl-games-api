@@ -143,7 +143,7 @@ class RunUserSerializer(serializers.ModelSerializer):
 
 
 class ScenarioSerializer(serializers.ModelSerializer):
-    # run_active = serializers.SerializerMethodField()
+    run_active = serializers.SerializerMethodField()
 
     def get_run_active(self, obj):
         try:

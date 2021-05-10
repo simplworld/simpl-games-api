@@ -28,7 +28,7 @@ def dispatch_pre_delete_hooks(**kwargs):
     Cache game slug to create event namespace in events.py
     """
     instance = kwargs.get("instance", None)
-    if instance:
+    if instance and hasattr(instance, 'game'):
         instance.game
 
 
