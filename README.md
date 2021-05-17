@@ -48,7 +48,6 @@ After you clone the repo, run:
 
 ```bash
 $ mkvirtualenv simpl-games-api
-$ add2virtualenv .
 $ pip install -r requirements.txt
 ```
 
