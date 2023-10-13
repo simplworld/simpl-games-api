@@ -12,10 +12,10 @@ from .common import *  # noqa
 
 import logging
 
-DATABASES['default']['ENGINE'] = "django_db_geventpool.backends.postgresql_psycopg2"
-DATABASES['default']['ATOMIC_REQUESTS'] = False
-DATABASES['default']['CONN_MAX_AGE'] = 0
-DATABASES['default']['OPTIONS'] = {"MAX_CONNS": 50}
+DATABASES["default"]["ENGINE"] = "django_db_geventpool.backends.postgresql_psycopg2"
+DATABASES["default"]["ATOMIC_REQUESTS"] = False
+DATABASES["default"]["CONN_MAX_AGE"] = 0
+DATABASES["default"]["OPTIONS"] = {"MAX_CONNS": 50}
 
 # DEBUG
 # ------------------------------------------------------------------------------

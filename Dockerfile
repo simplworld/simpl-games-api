@@ -1,10 +1,12 @@
 FROM gladiatr72/just-tini:latest as tini
 
-FROM revolutionsystems/python:3.7.7-wee-optimized-lto
+FROM revolutionsystems/python:3.8-wee-optimized-lto
 
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE=true
+
+RUN apt update -y && apt upgrade -y && apt install -y ca-certificates
 
 RUN pip install -U pip
 

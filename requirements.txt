@@ -49,7 +49,7 @@ celery==4.4.7
 django-click==2.2.0
 
 # Gunicorn
-gunicorn==20.0.4
+gunicorn==21.2.0
 aiohttp<2.0
 
 # Testing related
@@ -69,8 +69,8 @@ rollbar==0.15.1
 # Logging
 git+https://github.com/revsys/jslog4kube.git@v1.0.6
 
-gevent==20.9.0
-django-db-geventpool==3.2.2
+gevent==23.9.1
+django-db-geventpool==3.2.4
 
 django-extensions==3.0.9
 
