@@ -1,14 +1,13 @@
-FROM gladiatr72/just-tini:latest as tini
+FROM gladiatr72/just-tini:latest AS tini
 
 FROM revolutionsystems/python:3.8-wee-optimized-lto
 
-
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=true
 
 RUN apt update -y && apt upgrade -y && apt install -y ca-certificates
 
-RUN pip install -U pip
+RUN pip install -U "pip<24.1"
 
 COPY ./requirements.txt ./code/requirements.txt
 
@@ -19,7 +18,7 @@ COPY --from=tini /tini /tini
 ADD . /code/
 WORKDIR /code
 
-ENV PYTHONPATH /code:$PYTHONPATH
+ENV PYTHONPATH=/code
 
 EXPOSE 8000
 
